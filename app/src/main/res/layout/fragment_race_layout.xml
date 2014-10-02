@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+ 
+    <View
+        android:id="@+id/build_list_divider"
+	    android:layout_width="match_parent"
+	    android:layout_height="1dp"
+	    android:background="#fff"
+	    />
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent">
+    	
+         <!-- cacheColorHint: don't perform blending optimization when scrolling, stops listview from going black -->
+	     <ListView
+	        android:id="@+id/build_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:paddingLeft="@dimen/screen_edge_padding"
+        	android:paddingRight="@dimen/screen_edge_padding"
+        	android:cacheColorHint="#0000"
+	         />
+	    
+<!-- 	     <RelativeLayout -->
+<!-- 	    	style="@style/GenericProgressBackground" -->
+<!-- 	    	android:id="@+id/loading_panel" -->
+<!-- 	    	android:visibility="gone"> -->
+<!-- 	    	<ProgressBar -->
+<!-- 	        	style="@style/GenericProgressIndicator" -->
+<!-- 	        	android:background="#0000"/> -->
+<!-- 		 </RelativeLayout>     -->
+        
+    </RelativeLayout>
+
+     
+</LinearLayout>

@@ -1,0 +1,595 @@
+[
+    {
+	"mName": "YoDa's Reaper FE into Widow Mine Drop",
+	"mSource": "<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-yodas-reaper-fe-into-widow-mine-drop/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 56, "mUnit": "supply_depot" },
+	    { "mTime": 98, "mUnit": "barracks" },
+	    { "mTime": 108, "mUnit": "refinery" },
+	    { "mTime": 167, "mUnit": "orbital_command" },
+	    { "mTime": 170, "mUnit": "reaper" },
+	    { "mTime": 178, "mUnit": "supply_depot" },
+	    { "mTime": 206, "mUnit": "reaper" },
+	    { "mTime": 240, "mUnit": "command_center" },
+	    { "mTime": 261, "mUnit": "factory" },
+	    { "mTime": 270, "mUnit": "refinery" },
+	    { "mTime": 272, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 285, "mUnit": "supply_depot" },
+	    { "mTime": 323, "mUnit": "starport" },
+	    { "mTime": 325, "mUnit": "note", "mText": "Move Factory onto Reactor" },
+	    { "mTime": 336, "mUnit": "widow_mine", "mCount": 2 },
+	    { "mTime": 365, "mUnit": "widow_mine", "mCount": 2 },
+	    { "mTime": 379, "mUnit": "medivac" },
+	    { "mTime": 382, "mUnit": "supply_depot" },
+	    { "mTime": 405, "mUnit": "supply_depot" }
+	],
+	"mNotes": "<html>
+<h2>General Overview</h2>
+<p>This 1rax FE gives you a good economy, scouting intel with two reapers, and the ability to harass your opponent quite a bit once your widow mines and medivac pop.</p>
+<h2>Build Order</h2>
+<p>
+ - 10 Supply Depot<br />
+ - 12 Barracks (then skip 1 SCV)<br />
+ - 12 Refinery (resume SCV production)<br />
+ - 15 Orbital Command<br />
+ - 15 Reaper (1)<br />
+ - 16 Supply Depot<br />
+ - 17 Reaper (2)<br />
+ - 20 2nd Command Center<br />
+<br /> ---- Above is standard Reaper FE<br />
+ - 21 @100% 2nd Reaper, start Reactor on Barracks, Factory and 2nd Refinery<br />
+ - 23 Supply Depot<br />
+ - @100% Factory, swap Factory onto Reactor, and start Starport (begin Widow Mine production x4)<br />
+ - @100% Starport, start Medivac<br />
+ - @100% Medivac (~7:10), load up your Medivac with the 4 Widow Mines and drop your opponent<br />
+</p>
+<h2>Scouting</h2>
+<p>This build is a reasonably safe build to do vs anything your opponent can do, but just be smart with your two reapers.  Use them for scouting to poke at the front, determine what your opponent can or cannot be doing, and maybe pick off a marine or SCV or two.  Remember, with the reaper's new passive healing ability, as long as your reapers don't die, they'll gain back their lost hitpoints very soon and you can keep going back for more scouting/harass.</p>
+<h2>Transitions</h2>
+<p>This build is very good from a transition point of view because it can go into Marine/Tank or Mech very easily. You can't go Bio/Hellbat if you haven't invested any time into getting the early game bio upgrades.</p>
+<p>When going Marine/Tank, start your tank production soon, using the widow mines and reapers to stay safe and apply pressure while back at home you catch up on infrastructure.  As your medivac is moving out, swap your Barracks onto the Factory's reactor to start double marine production, add on a techlab onto your Factory to start tank production, and throw down two more Barracks and a third gas geyser as soon as you can afford it to complete your 2 base infrastructure.</p>
+<p>When going Mech, again you must rely on the widow mines and reapers to stay safe and apply pressure, but this time back at home you must be playing greedy.  Because you no longer need to spend mins/gas/time on Siege mode tech, you can instead dump your money into a 3rd base while your medivac is moving out.  Once you've started 3 bases, getting 2 more factories, all your gas geysers, and a decent tank count is your obvious next move.  YoDa likes to also make a techlab on his Starport to get Ravens, but this is a stylistic choice that you don't have to make.</p>
+<h2>Pros and Cons</h2>
+<p>This build is great because it gives you a good economy and gives you lots of map control with the early game reapers/widow mines that you get to use.  However, it is somewhat vulnerable to banshee play, so be sure to position your widow mines defensively vs an opponent's banshee play.  Also, with poor medivac control, you can very easily lose your medivac and all the widow mines if you fly directly into a viking or marine pack.  Be sure to prioritize keeping the medivac alive above all else.  Lastly, it's not as economical as a 1rax FE build, but it still gets a pretty reasonably fast expand, so it's not too far behind a 1rax FE build in terms of economy at all.</p>
+<h2>Favorable Maps</h2>
+<p>This build is strongest on smaller maps with room to drop, as well as maps with a main's mineral line close-by-air but long-by-ground from the natural's mineral line.</p>
+<p>
+ - Star Station<br />
+ - Daybreak<br />
+ - Newkirk Precinct<br />
+ - Akilon Wastes<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"http://en.esl.tv/video/38ecd30872cebe73/\">YoDa beating MVP on Daybreak with this build and a Mech followup at the IEM World Championship 2013</p>
+
+<p><a href=\"http://drop.sc/309988\">YoDa's Reaper FE into Widow Mine Drop Tutorial Replay vs a Very Easy AI</p>
+
+<p>Credit to Reddit user <a href=\"http://www.reddit.com/user/Fluffyjr\">Fluffyjr</a> for writing up the first draft of this build over <a href=\"http://www.reddit.com/r/AllThingsTerran/comments/1a0mt6/iem_hots_my_terran_build_order_notes/\">here</a>.</p>
+</html>"
+    },
+    {
+	"mName": "Flash's Reaper FE into Reaper/Hellion",
+	"mSource": "<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvz/tvz-flashs-reaper-fe-into-reaperhellion/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "ZERG",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 56, "mUnit": "supply_depot" },
+	    { "mTime": 94, "mUnit": "barracks" },
+	    { "mTime": 103, "mUnit": "refinery" },
+	    { "mTime": 160, "mUnit": "note", "mText": "Send out an SCV" },
+	    { "mTime": 161, "mUnit": "orbital_command" },
+	    { "mTime": 164, "mUnit": "reaper" },
+	    { "mTime": 182, "mUnit": "supply_depot" },
+	    { "mTime": 193, "mUnit": "reaper" },
+	    { "mTime": 212, "mUnit": "bunker", "mText": "Build Bunker outside enemy base" },
+	    { "mTime": 240, "mUnit": "reaper" },
+	    { "mTime": 269, "mUnit": "command_center" },
+	    { "mTime": 284, "mUnit": "factory" },
+	    { "mTime": 300, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 319, "mUnit": "supply_depot" },
+	    { "mTime": 347, "mUnit": "command_center" },
+	    { "mTime": 360, "mUnit": "note", "mText": "Move Factory onto Reactor" },
+	    { "mTime": 366, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 371, "mUnit": "tech_lab", "mTarget": "barracks" },
+	    { "mTime": 381, "mUnit": "orbital_command" },
+	    { "mTime": 398, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 410, "mUnit": "stim_pack" },
+	    { "mTime": 419, "mUnit": "marine" },
+	    { "mTime": 427, "mUnit": "hellion", "mCount": 2 }
+	],
+	"mNotes": "<html>
+<h2>General Overview</h2>
+<p>This Reaper FE gives you reapers to harass your opponent very early, and then sets up your economy for the midgame while going for a reaper/hellion timing to take advantage of an opponent still trying to macro out of the initial damage.</p>
+<h2>Build Order</h2>
+<p>
+ - 10 Supply Depot<br />
+ - 11 Barracks (then skip 1 SCV)<br />
+ - 11 Refinery (resume SCV production)<br />
+ - 14 Orbital Command<br />
+ - 14 Reaper (constant Reaper production)<br />
+ - 16 Supply Depot<br />
+ - 17 Attempt Bunker pressure with scouting SCV at opponent's natural expand<br />
+ - 22 2nd Command Center<br />
+ - @150 Gas, start Reactor on Barracks, and Factory<br />
+ - @400 Mins, start 3rd Command Center in-base<br />
+ - @100% Factory, swap Factory onto Reactor (constant Hellion production), start Techlab on Barracks, and get 2nd Refinery<br />
+ - @100% Techlab, start Stim<br />
+ - Commit to push with your first 2 hellions (7:00ish if opponent has slow lings) or 6 hellions (8:00ish if opponent has ling speed) and your initial 3 reapers.<br />
+</p>
+<h2>Scouting</h2>
+<p>Because you can open with this build regardless of what your opponent is doing, you only need to SCV scout in order to confirm that your opponent is going hatch first, and then to start a bunker at their natural in order to begin your pressure.  The rest of your scouting will come from your reapers and then later reaper+hellions poking the front and forcing your opponent to reveal what units they have in order to defend your attacks.  Note: ling speed will finish around 3 minutes after your opponent takes a gas geyser.  Thus, if your initial SCV/reapers see your opponent taking gas, be sure to send your reapers back just before those 3 minutes are up and wait some hellions before attempting to engage speedlings in the open field.</p>
+<h2>Transitions</h2>
+<p>This build transitions well into both Marine/Tank or Bio/Widow Mine because it sets up the basic infrastructure needed for either of those and gets stim.</p>
+<p>For either transition, start getting your barracks as soon as possible and start two engibays so that your midgame army will have some staying power on the field.  Only producing enough hellions to stay safe and apply light pressure; as soon as you feel reasonable safe, start producing tanks or widow mines from your factory to transition into the later game.  Lift up your third base and take your third once you've rolled out with several tanks or widow mines.</p>
+<h2>Pros and Cons</h2>
+<p>This build is a super aggressive build that takes advantage of the reapers' healing ability to do constant damage vs a zerg who does not rush for ling speed and a lot of speedlings/roaches for defense.  However, while doing this ridiculous pressure, you also have enough minerals to start your 3rd Command Center at home very quickly and start transitioning into the midgame at a normal time.  Thus, even with the ridiculous pressure you get to put on, this build is not all-in by any stretch of the imagination.</p>
+<p>However, this build is very weak to early roaches or fast speedlings.  Because you're committing to early reaper play and your hellion production does not start until after the 6 minute mark, you are left quite vulnerable to a mass speedling timing or an early roach rush rallied to your main.  That being said, pulling your army up behind your main walloff might buy you enough time to get enough units to deal with these early attacks.</p>
+<h2>Favorable Maps</h2>
+<p>This build is strongest on maps with lots of cliffs so your reapers have more ways to stay alive, as well as maps with a large natural walloff so it is harder to defend your later reaper/hellion timing with simply a spine crawler or two.</p>
+<p>
+ - Bel'Shir Vestige<br />
+ - Akilon Wastes<br />
+ - Neo Planet S<br />
+ - Daybreak<br />
+</p>
+<h2>Replays</h2>
+<p><a href=\"http://tv.majorleaguegaming.com/videos/100008-flash-vs-ret-game-3-round-of-16-mlg-dallas-2013\">Flash beating Ret with this build and a Bio/Widow Mine follow up at MLG Dallas 2013</a></p>
+<p><a href=\"http://tv.majorleaguegaming.com/videos/99980-leenock-vs-innovation-game-1-round-of-16-mlg-dallas-2013\">Innovation beating Leenock with this build at MLG Dallas 2013</a></p>
+<p><a href=\"http://drop.sc/310882\">Flash's Reaper FE into Reaper/Hellion Tutorial Replay vs a Very Easy AI</a></p>
+</html>"
+    },
+    {
+	"mName": "8-8-8 Proxy Reaper",
+	"mSource": "<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvz/tvz-8-8-8-proxy-reaper/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "ZERG",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 33, "mUnit": "note", "mText": "Send out SCV to proxy location" },
+	    { "mTime": 40, "mUnit": "supply_depot" },
+	    { "mTime": 40, "mUnit": "note", "mText": "Halt SCV production" },
+	    { "mTime": 82, "mUnit": "barracks", "mText": "Build a proxy Barracks" },
+	    { "mTime": 90, "mUnit": "refinery" },
+	    { "mTime": 103, "mUnit": "note", "mText": "Resume SCV production" },
+	    { "mTime": 150, "mUnit": "reaper" },
+	    { "mTime": 178, "mUnit": "reaper" },
+	    { "mTime": 201, "mUnit": "orbital_command" },
+	    { "mTime": 226, "mUnit": "barracks" },
+	    { "mTime": 236, "mUnit": "reaper" },
+	    { "mTime": 254, "mUnit": "supply_depot" },
+	    { "mTime": 298, "mUnit": "reaper" }
+	],
+	"mNotes": "<html>
+<h2>General Overview</h2>
+
+<p>This all-in gets the fastest possible reaper with which to do damage vs your opponent.  It then follows up with another barracks so that you can make enough reapers to overwhelm your opponent and outright win the game.</p>
+<h2>Orbital First Build Order</h2>
+<p>
+ - 8 Supply Depot (Send SCV out to proxy, and stop SCV production)<br />
+ - 8 Barracks<br />
+ - 8 Refinery (Resume SCV production)<br />
+ - 12 Reaper<br />
+ - 15 Reaper (2)<br />
+ - 15 Orbital Command<br />
+ - 15 Barracks (2)<br />
+ - 17 Reaper (2)<br />
+ - 17 Supply Depot<br />
+ - @100% Supply Depot, start 2 Reapers<br />
+ - Benchmark: When you just start these 2 Reapers(@5:00ish), you should already have 3 Reapers and 16 SCVs.<br />
+</p>
+<h2>2nd Barracks First Build Order</h2>
+<p>
+ - 8 Supply Depot (Send SCV out to proxy, and stop SCV production)<br />
+ - 8 Barracks<br />
+ - 8 Refinery (Resume SCV production)<br />
+ - 12 Reaper<br />
+ - 14 Barracks (2)<br />
+ - 15 Reaper (2)<br />
+ - 16 Orbital Command<br />
+ - 17 Reaper (2)<br />
+ - 17 Supply Depot<br />
+ - Benchmark: When you start your 17 Supply Depot (@4:20ish), you should already have 2 Reapers, 14 SCVs, and 2 more Reapers on the way.<br />
+</p>
+<h2>Scouting</h2>
+
+<p>You will be doing this build no matter what, so there is no SCV scouting.  The rest of your scouting will come from your reapers seeing what your opponent has.  However, an interesting SCV timing to note: you will reach a very nice proxy location with your SCV on most 2 person maps if you send it out exactly as you get 50 minerals for the first time at 8 supply.</p>
+<h2>Transitions</h2>
+
+<p>There is no defined transition from this build; it is basically all-in after all.  However, if your opponent goes for roaches then you might want to add-on techlabs and get marauders.  Besides that, you should have enough reapers to trade evenly vs anything your opponent has as long as you stutter step appropriately.</p>
+<h2>Tips</h2>
+
+<p> - Do NOT lose any of your first three reapers.  They are the most important part of this build – applying the early pressure, forcing drones to be pulled, and most importantly stopping queens/roaches from being made.  If you lose them, you will most likely lose.</p>
+<p> - Do not stop for hatcheries or buildings of any kind.  Go straight for the workers and force some to be pulled off the line.  If your opponent has their full economy up they will simply outproduce you.</p>
+<p> - The only micro you have to do is stutter step vs lings and drones, and pull back the weakest reaper back vs queens.</p>
+<p> - 4 reapers will kill a queen without you losing a single one of them as long as you pull the targeted reaper back in time.</p>
+<p> - In order to hit the exact build order supplies above, you will have to cut some SCVs for several seconds.  I highly recommend watching the tutorial replays (and using the Take Command button with a friend to see how you match up to it).</p>
+
+<h2>Favorable Maps</h2>
+
+<p>This build is an all-in that only works on 2 person maps.  Because you are proxying your initial barracks, it is also much better on smaller maps.</p>
+<p>
+ - Akilon Wastes<br />
+ - Newkirk Precinct<br />
+ - Bel’Shir Vestige<br />
+ - Daybreak<br />
+ - Neo Planet S<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"http://www.twitch.tv/demuslim/b/376782756?t=40m\">Demuslim using the 2nd Barracks First version of this build on ladder</a></p>
+
+<p><a href=\"http://drop.sc/310126\">8-8-8 Proxy Reaper Orbital First Tutorial Replay vs a Very Easy AI</a></p>
+
+<p><a href=\"http://drop.sc/310125\">8-8-8 Proxy Reaper 2nd Barracks First Tutorial Replay vs a Very Easy AI</a></p>
+<p><b>Note:</b> Attached recording is for the <b>Orbital First</b> variant</p>
+</html>"
+    },
+    {
+	"mName": "Reactored Rax FE into Marine/Widow Mine Drop",
+	"mSource": "<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvp/tvp-reactored-rax-fe-into-marinewidow-mine-drop/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 54, "mUnit": "supply_depot" },
+	    { "mTime": 98, "mUnit": "barracks" },
+	    { "mTime": 142, "mUnit": "refinery" },
+	    { "mTime": 164, "mUnit": "marine" },
+	    { "mTime": 177, "mUnit": "orbital_command" },
+	    { "mTime": 184, "mUnit": "marine" },
+	    { "mTime": 199, "mUnit": "supply_depot" },
+	    { "mTime": 215, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 241, "mUnit": "command_center" },
+	    { "mTime": 259, "mUnit": "factory" },
+	    { "mTime": 272, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 281, "mUnit": "supply_depot" },
+	    { "mTime": 295, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 314, "mUnit": "supply_depot" },
+	    { "mTime": 319, "mUnit": "widow_mine" },
+	    { "mTime": 325, "mUnit": "starport" },
+	    { "mTime": 336, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 356, "mUnit": "widow_mine" },
+	    { "mTime": 365, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 382, "mUnit": "medivac" },
+	    { "mTime": 385, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 408, "mUnit": "supply_depot" },
+	    { "mTime": 416, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 424, "mUnit": "supply_depot" }
+	],
+	"mNotes": "<html>
+<h2>General Overview</h2>
+
+<p>This Reactored Rax FE gives you enough marines to stay safe vs early toss pressure, while kickstarting your midgame economy, and then transitioning into a fast marine/widow mine drop to bring the pressure back on your opponent.</p>
+<h2>Build Order</h2>
+<p>
+ - 10 Supply Depot<br />
+ - 12 Barracks<br />
+ - 15 Refinery<br />
+ - 16 Marine<br />
+ - 17 Orbital Command<br />
+ - 17 Supply Depot<br />
+ - 18 Marine (2)<br />
+ - 20 @100% 2nd Marine, start Reactor on Barracks<br />
+ - 20 @400 Mins, start 2nd Command Center<br />
+ - 20 @100 Gas, start Factory<br />
+ - @100% Reactor, start constant Marine production (build bunker here if you have not scouted your opponent expanding)<br />
+ - @100% Factory, start Starport and Widow Mines (x2)<br />
+ - @100% Starport, start Medivac<br />
+ - Drop @100% Medivac (7:10) with 2 Widow Mines and 4 Marines<br />
+</p>
+
+<h2>Scouting</h2>
+
+<p>This build is a reasonably safe build to do vs anything your opponent can do early on because it gives you a reactored rax to pump out marines two at a time.  Also, if you are feeling unsafe, you have the minerals after your reactor finishes to place down a bunker at your natural. If your opponent is doing a later all-in, then instead of being aggressive with your marines/widow mines, you can place them further back and defend your bunker/main as well as constantly produce widow mines to keep replenishing your defenses.  Scouting your opponent's natural expansion timing with an SCV is huge (if your opponent does not have an expansion by 6 minutes, expect the all-in); otherwise, the midgame scouting will come from seeing how your opponent defends the widow mine drop.</p>
+<h2>Transitions</h2>
+
+<p>This build is transitions rather smoothly into standard bio play, mech play easily enough.  If you are feeling particularly safe, you can avoid taking your 2nd gas for quite some time, throwing down a 3rd command center just before your medivac pops instead of getting your midgame infrastructure.</p>
+
+<p>If you want to transition into bio play, then get your 2nd gas, 2 more rax, an engibay, a techlab on your factory, and a reactor on your starport.  This way, you can swap off your initial barracks onto the factory's techlab and start stim, start getting +1 attack from your engibay, and get enough bio units to support a midgame timing.</p>
+
+<p>If you want to transition into mech play, then get all 4 gas geysers, a techlab onto your factory, 2 more factories, and an armory.  Once you have three bases secured, you can finally push, with 5 factories pumping out tanks/hellbats as reinforcements.</p>
+<h2>Pros and Cons</h2>
+
+<p>This build is good because it gives you a good economy, but also enough marines to defend early game stalker/mothership core harass.  Then, the marine/widow mine drop gives you complete map control AND keeps your opponent in the dark as to what followup you are doing (mech/bio/3CC).  Not to mention that if your opponent is not careful, this build can get widow mines in your opponent's mineral lines and land some huge hits on probes.</p>
+
+<p>However, this build is more vulnerable to later all-ins such as voidray or blink +mothership core all-ins than more standard bio play, so be sure to position your widow mines defensively and add on more bunkers vs an opponent that you have scouted isn't expanding.  Also, with poor medivac control, you can very easily lose your medivac and all the widow mines if you fly directly into stalkers or a planetary nexus.  Be sure to prioritize keeping the medivac alive above all else.  Lastly, it's not as economical as a 1rax FE build, but it still gets a pretty reasonably fast expand, so it's not too far behind a 1rax FE build in terms of economy at all.</p>
+<h2>Tips</h2>
+
+<p> - Early game Stalker/Mothership Core pressure may be hard to deal with, but just hold on until you get out a Widow Mine and then you can defend your base.</p>
+<p> - Once you have pinned your opponent on an aggressive build (for instance, by scouting a Stargate/proxy Pylon/lack of Nexus), do NOT move out - instead be sure to posture your widow mines in an appropriately defensive position.</p>
+<p> - Oracles flat out destroy marines, so if you are fighting an opponent going for Stargate, position your Widow Mines by the mineral line and even consider getting out one turret per base.</p>
+<p> - When committing to an attack, boost in and drop one Widow Mine at your opponent's main-to-natural ramp in order to trap his army on one half of his base.</p>
+<p> - Once you have his ramp locked down, you will have several seconds of complete control of the half of his base where his army is not located.  Use these seconds to kill workers and/or position a mine in a crucial location.</p>
+<p> - Above all else, the strength of this build is non-stop harass/pressure.  Do NOT lose your medivac or your entire map control will disappear.</p>
+
+<h2>Favorable Maps</h2>
+
+<p>This build is strongest on smaller maps with room to drop, as well as on maps with a safe natural so that your opponent is more likely to expand instead of try to all-in you.</p>
+<p>
+ - Star Station<br />
+ - Daybreak<br />
+ - Newkirk Precinct<br />
+ - Whirlwind<br />
+</p>
+
+<h2>Replays</h2>
+
+<p><a href=\"http://en.esl.tv/video/6e6ac2675bd72733/\">YoDa performing this build 4 out of 5 games vs Parting at the IEM World Championship 2013</a></p>
+
+<p><a href=\"http://tv.majorleaguegaming.com/videos/100019-mc-vs-mvp-game-2-round-of-16-mlg-dallas-2013\">MVP defending MC's all-in with this build at MLG Dallas 2013</a></p>
+
+<p><a href=\"http://drop.sc/310041\">Reactored Rax FE into Marine/Widow Mine Drop Tutorial Replay vs a Very Easy AI</a></p>
+
+</html>"
+    },
+{"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":57,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":116,"mCount":1},{"mUnit":"marine","mTime":164,"mCount":1},{"mUnit":"orbital_command","mTime":173,"mCount":1},{"mUnit":"supply_depot","mTime":177,"mCount":1},{"mUnit":"marine","mTime":186,"mCount":1},{"mUnit":"factory","mTime":203,"mCount":1},{"mUnit":"mule","mTime":210,"mCount":1},{"mUnit":"refinery","mTime":225,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":229,"mCount":1},{"mUnit":"supply_depot","mTime":250,"mCount":1},{"mUnit":"armory","mTime":271,"mCount":1},{"mText":"Swap Factory and Barracks","mUnit":"note","mTime":281,"mCount":1},{"mUnit":"hellion","mTime":289,"mCount":2},{"mUnit":"mule","mTime":299,"mCount":1},{"mUnit":"starport","mTime":304,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":310,"mCount":1},{"mUnit":"supply_depot","mTime":317,"mCount":1},{"mUnit":"hellbat","mTime":342,"mCount":2},{"mUnit":"supply_depot","mTime":352,"mCount":1},{"mUnit":"supply_depot","mTime":361,"mCount":1},{"mText":"Swap Starport and Barracks","mUnit":"note","mTime":365,"mCount":1},{"mUnit":"medivac","mTime":375,"mCount":2},{"mUnit":"hellion","mTime":381,"mCount":2},{"mUnit":"hellbat","mTime":383,"mCount":2},{"mUnit":"mule","mTime":389,"mCount":1},{"mUnit":"hellbat","mTime":418,"mCount":2},{"mText":"Load Hellbats into Medivacs","mUnit":"note","mTime":418,"mCount":1}],"mName":"4 Hellbat Drop","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-4-hellbat-drop/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"TERRAN",
+"mCreated":"2013-04-23 00:00:00",
+"mModified":"2013-04-23 00:00:00",
+"mNotes": "<html>
+<h2>General Overview</h2>
+
+<p>This build gets out a very fast Starport and Armory for a strong, early-game Hellbat drop.</p>
+<h2>Build Order</h2>
+
+10 – Supply Depot<br />
+12 – Barracks<br />
+13 – Refinery<br />
+17 – Marine (1)<br />
+17 – Orbital Command<br />
+17 – Supply Depot<br />
+18 – Marine (2)<br />
+18 – Factory<br />
+19 – Refinery (2)<br />
+20 – @100% 2nd Marine, start Reactor on Barracks<br />
+@100 Gas, start Armory<br />
+@100% Reactor, swap Factory onto Reactor (start 2 Hellions)<br />
+@150 Gas, start Starport and Reactor on Barracks<br />
+@100% Armory, start constant Hellbat production<br />
+@100% Starport, swap Starport onto Barracks’ Reactor (start 2 Medivacs)<br />
+Double drop 4 Hellbats when your first Medivacs finish (@7:00ish)<br />
+<b>Benchmark:</b> When your first Medivacs pop (@7:00ish), you should have 26 SCVs, 2 Marines, 2 Hellions, 4 Hellbats, and 2 Medivacs<br />
+
+<h2>Scouting</h2>
+
+<p>This build keeps you safe in the early game from most Reaper or Hellion shenanigans.  Just be sure to keep your 2 Marines patrolling the obvious jump-up locations vs Reapers and keep your 2 Hellions in-base so they don’t get roasted in the open field by your opponent’s more numerous Hellion numbers.  Up until Banshees are out, there is nothing that is any particular threat to this build; thus SCV scouting is unnecessary.  However, even if your opponent is opening Banshee, at home, starting a reactive Engineering Bay (for turrets) and 2 vikings as soon as your 2 Medivacs are out will keep you quite safe.</p>
+<h2>Transitions</h2>
+
+<p>This build transitions quite smoothly into Marine/Tank or Mech play.  While your drop is moving out (and assuming you don’t need to produce reactive turrets or vikings to defend a drop/banshee from your opponent), build a Command Center as soon as possible to start any transition.</p>
+
+<p>For a Marine/Tank transition, start a Tech lab on your Factory for Siege Tank production as Siege Tanks will keep your safe from most early mid-game timings.  Then take your third gas geyser, start 2 more Barracks, and add on a Engineering Bay for upgrades.  Focus on spending your gas on tanks and upgrades (NOT on medivacs) up until you have a healthy marine count.</p>
+
+<p>For a Mech transition, continue Hellbat production from your Reactored Factory as you take all four gas geysers.  Adding on 2 more Factories with Tech labs, start +1 Mech attack, and working on Viking production will start your transition into Mech.  Alternatively, you can instantly stop Hellbat production, and throw down a 3rd Command Center very quickly before getting all your gas geysers and Factories.  This transition will yield a late-game focused, turtling Mech style that is much more well suited for maps with easy-to-defend third bases.</p>
+<h2>Pros and Cons</h2>
+
+<p>This build hits your opponent with lots of pressure early on to kick start an aggressive game.  With the double drop, you can outright kill certain builds that are short on defense in the early game.  Finally, this build is quite versatile when it comes to transitions, for opening with a 1-1-1 grants you the freedom to go into Marine/Tank or Mech play quite easily.</p>
+
+<p>Although it is a solid build, this build sacrifices all early-game map control to Reaper or Hellion openers.  Also, if your opponent defends the build with a 1rax FE, then you will behind going into the midgame economically.</p>
+<h2>Favorable Maps</h2>
+
+<p>This build is very strong on maps with fewer cliff ranges that Reapers can jump up and down, encouraging non-Reaper builds and 1rax FEs.</p>
+
+ - Akilon Wastes<br />
+ - Bel’Shir Vestige<br />
+ - Newkirk Precinct<br />
+ - Whirlwhind<br />
+
+<h2>Replays</h2>
+
+<p><a href=\"http://drop.sc/323051\">Lucifron beating Center with a less safe variation of this build at the Acer Team Story Cup</a></p>
+
+<p><a href=\"http://drop.sc/316170\">4 Hellbat Drop Tutorial Replay vs a Very Easy AI</a></p>
+
+<p><a href=\"http://www.youtube.com/watch?v=q-EEXUHdXOI\">Nathanias’ YouTube Tutorial</a></p>
+</html>"},
+{"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":57,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":108,"mCount":1},{"mUnit":"orbital_command","mTime":166,"mCount":1},{"mUnit":"reaper","mTime":168,"mCount":1},{"mUnit":"mule","mTime":204,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":215,"mCount":1},{"mUnit":"command_center","mTime":218,"mCount":1},{"mUnit":"supply_depot","mTime":230,"mCount":1},{"mUnit":"barracks","mTime":250,"mCount":1},{"mUnit":"bunker","mTime":266,"mCount":1},{"mUnit":"marine","mTime":270,"mCount":2},{"mUnit":"marine","mTime":291,"mCount":2},{"mUnit":"mule","mTime":297,"mCount":1},{"mTarget":"barracks","mUnit":"tech_lab","mTime":318,"mCount":1},{"mUnit":"orbital_command","mTime":323,"mCount":1},{"mUnit":"marine","mTime":325,"mCount":2},{"mUnit":"supply_depot","mTime":336,"mCount":1},{"mUnit":"stim_pack","mTime":348,"mCount":1},{"mUnit":"marine","mTime":349,"mCount":3},{"mUnit":"mule","mTime":359,"mCount":1},
+{"mUnit":"mule","mTime":359,"mCount":1},{"mUnit":"marine","mTime":364,"mCount":3},{"mUnit":"supply_depot","mTime":376,"mCount":1},{"mUnit":"engineering_bay","mTime":381,"mCount":1},{"mUnit":"refinery","mTime":385,"mCount":1},{"mUnit":"mule","mTime":387,"mCount":1},{"mUnit":"mule","mTime":387,"mCount":1},{"mUnit":"marine","mTime":393,"mCount":1},{"mUnit":"factory","mTime":403,"mCount":1},{"mUnit":"supply_depot","mTime":428,"mCount":1},{"mUnit":"supply_depot","mTime":431,"mCount":1},{"mUnit":"refinery","mTime":433,"mCount":1},{"mUnit":"marine","mTime":436,"mCount":3},{"mUnit":"supply_depot","mTime":444,"mCount":1},{"mUnit":"mule","mTime":448,"mCount":1},{"mUnit":"mule","mTime":448,"mCount":1},{"mUnit":"marine","mTime":450,"mCount":6},{"mUnit":"infantry_weapons_level1","mTime":462,"mCount":1},{"mUnit":"starport","mTime":465,"mCount":1},{"mTarget":"factory","mUnit":"reactor","mTime":472,"mCount":1},{"mUnit":"refinery","mTime":475,"mCount":1},{"mUnit":"mule","mTime":478,"mCount":1},{"mUnit":"supply_depot","mTime":
+480,"mCount":1},{"mUnit":"marine","mTime":484,"mCount":3},{"mUnit":"refinery","mTime":492,"mCount":1},{"mUnit":"combat_shield","mTime":513,"mCount":1},{"mUnit":"barracks","mTime":521,"mCount":1},{"mText":"Swap Starport with Factory","mUnit":"note","mTime":523,"mCount":1},{"mUnit":"medivac","mTime":529,"mCount":2},{"mUnit":"marine","mTime":531,"mCount":3},{"mUnit":"marauder","mTime":533,"mCount":1},{"mUnit":"supply_depot","mTime":537,"mCount":2},{"mUnit":"mule","mTime":540,"mCount":1},{"mUnit":"supply_depot","mTime":550,"mCount":1},{"mUnit":"marauder","mTime":557,"mCount":1},{"mUnit":"marine","mTime":558,"mCount":2},{"mUnit":"medivac","mTime":564,"mCount":2},{"mUnit":"barracks","mTime":569,"mCount":1},{"mUnit":"barracks","mTime":573,"mCount":1},{"mUnit":"mule","mTime":585,"mCount":1},{"mUnit":"mule","mTime":585,"mCount":1},{"mUnit":"marine","mTime":589,"mCount":2},{"mUnit":"supply_depot","mTime":596,"mCount":1},{"mTarget":"barracks","mUnit":"tech_lab","mTime":599,"mCount":1},{"mUnit":"medivac","mTime":603,"mCount":2},{"mUnit":"infantry_armor_level1","mTime":612,"mCount":1},{"mUnit":"marine","mTime":624,"mCount":1},{"mUnit":"marauder","mTime":625,"mCount":2},{"mUnit":"concussion_shells","mTime":627,"mCount":1},{"mUnit":"mule","mTime":631,"mCount":1},{"mUnit":"mule","mTime":631,"mCount":1}],"mName":"Bomber\u0027s Reaper FE","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvp/tvp-bombers-reaper-fe/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"PROTOSS",
+"mCreated":"2013-04-23 00:00:00",
+"mModified":"2013-04-23 00:00:00",
+"mNotes": "<html>
+<h2>General Overview</h2>
+
+<p>This Reaper FE is optimized to get out one Reaper for scouting as well as a ridiculously fast Command Center.  Thus, you get out a fast scout and a followup bio army with just as much strength as a gasless 1rax FE.</p>
+<h2>Build Order</h2>
+
+    10 – Supply Depot<br />
+    12 – Barracks<br />
+    12 – Refinery<br />
+    15 – Reaper<br />
+    16 – Orbital Command<br />
+    17 – After first 100 Gas is mined, stop mining all gas<br />
+    17 – @100% Reaper, start Reactor on Barracks<br />
+    17 – @400 Mins, start 2nd Command Center<br />
+    18 – Supply Depot<br />
+    19 – 2nd Barracks<br />
+    20 – Bunker, and put 3 SCVs back in the Refinery<br />
+    @100% 2nd Barracks, start Tech lab<br />
+    @100% Tech lab, start Stimpack Research<br />
+    @100 Gas, start Factory, Engineering Bay, and 2nd Refinery<br />
+    @100% Engineering Bay, start +1 Infantry Attack and 3rd Refinery<br />
+    @100% Factory, start Starport, Reactor on Factory, and 4th Refinery<br />
+    <b>Benchmark:</b> When you start your Starport (@7:50ish), you should be at 35 SCVs and around 60 supply.<br />
+    @100% Starport, swap off onto Factory’s Reactor, start 3 more Barracks, and start double Medivac production<br />
+    @100% Stimpack, start Combat Shields Research and begin Marauder production<br />
+    @100% 3rd Barracks, start Tech lab<br />
+    @100% 4th/5th Barracks, start Tech lab and Reactor<br />
+    @100% +1 Infantry Attack, start +1 Infantry Armor<br />
+    @100% 2 Medivacs (@9:45ish), push out with 2 Medivacs, 2 Marauders, around 28 Marines, Stimpack, Combat Shields, and +1 Attack.<br />
+
+<h2>Scouting</h2>
+
+<p>This build has a fragile beginning (you only have 1 Reaper for quite some time), so scouting is crucial.  Do NOT lose your Reaper.  Instead, use it to spot how many gas geysers your opponent has taken, when they get an expansion (or note if they do not get one), and how many units they are defending with.  You must keep the Reaper active on the map to spot for any early aggression and also to prevent your opponent’s first Stalker or Zealot/Stalker from getting to your base and doing damage.</p>
+
+<p>If your opponent has not expanded by around 5:40, then prepare for a 1 base push.  Also, if you do not know whether your opponent has gone air or not, it is a good idea to plant one turret per mineral line to defend any Oracle shenanigans.</p>
+<h2>Transitions</h2>
+
+<p>This build can only transition into bio play, for you have committed all your resources and time into getting the Infantry upgrades and Medivac tech out.  Going forward, getting a 3rd Command Center, 3 more Barracks (for a total of 8), and a Ghost academy/2nd Starport out will lead you into the strong, lategame infrastructure.</p>
+
+<p>Note: It is viable to replace the 4th and 5th Barracks in this build with a 3rd Command Center instead.  However, with the strength of Medivac boost, most Terrans (including Bomber, the creator of this build) have been getting more Barracks earlier to go into lots of aggression during the midgame.  Going for a 3rd Command Center first will yield a faster late game army, but you sacrifice a lot of potential midgame aggression, simply by not having those extra reinforcements.</p>
+<h2>Pros and Cons</h2>
+
+<p>This build is good because it gives you an economy on par with a gasless 1rax FE, and also a fast Reaper to scout what your opponent is doing.  Also, getting such a fast Reactor gives you enough marines to defend early game Stalker/Mothership Core harass.  Finally, this build takes no detours and goes directly into Bio+Medivac play, so your Stim+Medivac aggression happens much sooner than if you go for early Widow Mines.</p>
+
+<p>However, this build is quite vulnerable to early Protoss pokes, especially if you lose your Reaper.  Another problem with this build is that with such a low Marine count in the early game, fast Oracles can do a lot of damage if your scouting/turret timing is not perfect.</p>
+<h2>Tips</h2>
+
+ - The gas timing of this build is quite important – be sure to mine exactly 100 Gas so that you have enough for the Reaper and Reactor and no more.  Getting your natural Command Center up so quickly is one of the key strengths of this build.<br />
+ - Early game Stalker/Mothership Core pressure can be game ending if you lose your initial Reaper.  Keep that Reaper alive and active on the map to prevent a quick loss.<br />
+ - Once you have pinned your opponent on an aggressive build (for instance, by scouting a Stargate/proxy Pylon/lack of Nexus), add a 2nd Bunker at the front, and consider getting a turret in each mineral line.<br />
+ - Oracles flat out destroy un-upgraded Marines, so if you are fighting an opponent going for a Stargate, you have to get out one turret per mineral line.<br />
+ - The gas timings of this build are somewhat more delayed than a gasless 1rax FE.  Therefore, be sure to cut all Marauder production until after your Starport has completed.<br />
+ - When you move out with your Medivacs, be sure to boost in and out of where your opponent is expecting.  Forcing out the Mothership Core’s energy can be the difference between an quick win and a potential loss.<br />
+
+<h2>Favorable Maps</h2>
+
+<p>This build is strongest on larger maps with cliffs that a Reaper can jump up.  Also it works well on any maps with a safe natural so that your opponent is more likely to expand instead of try to all-in you.</p>
+
+ - Star Station<br />
+ - Neo Planet S<br />
+ - Korhal City<br />
+ - Newkirk Precinct<br />
+ - Whirlwind<br />
+
+<h2>Replays</h2>
+
+<p><a href=\"http://www.gomtv.net/2013wcs1/vod/72024/?set=4\">Bomber beating Creator with this build in the 2013 WCS KR Season 1 (if you do have a GSL subscription)</a></p>
+
+<p><a href=\"http://www.maxilamba.com/flash.html?video=http://store28.media28.justin.tv/archives/2013-4-4/live_user_wcs_gsl_1365070694.flv\">Bomber beating Creator with this build in the 2013 WCS KR Season 1 (if you do NOT have a GSL subscription)</a></p>
+
+<p><a href=\"http://drop.sc/318004\">Bomber’s Reaper FE Tutorial Replay vs a Very Easy AI</a></p>
+
+<p>For more info, check out <a href=\"http://terrancraft.wordpress.com/2013/04/05/bombers-reaper-opening-for-tvp/\">MrMaxilicious’ write-up</a> of this build too</p>
+</html>"},
+{"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":56,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":140,"mCount":1},{"mUnit":"marine","mTime":163,"mCount":1},{"mUnit":"orbital_command","mTime":172,"mCount":1},{"mUnit":"supply_depot","mTime":176,"mCount":1},{"mUnit":"marine","mTime":184,"mCount":1},{"mUnit":"mule","mTime":209,"mCount":1},{"mUnit":"marine","mTime":212,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":220,"mCount":1},{"mUnit":"command_center","mTime":237,"mCount":1},{"mUnit":"factory","mTime":253,"mCount":1},{"mUnit":"marine","mTime":278,"mCount":2},{"mUnit":"supply_depot","mTime":281,"mCount":1},{"mUnit":"marine","mTime":299,"mCount":2},{"mUnit":"mule","mTime":302,"mCount":1},{"mUnit":"starport","mTime":316,"mCount":1},{"mUnit":"orbital_command","mTime":339,"mCount":1},{"mText":"Swap Factory and Barracks","mUnit":"note","mTime":340,"mCount":1},{"mUnit":"hellion","mTime":349,"mCount":2},{"mUnit":"supply_depot","mTime":354,"mCount":1},{"mUnit":"medivac","mTime":367,"mCount":1},{"mUnit":"supply_depot","mTime":374,"mCount":1},{"mUnit":"mule","mTime":376,"mCount":1},{"mUnit":"mule","mTime":377,"mCount":1},{"mUnit":"hellion","mTime":380,"mCount":2},{"mUnit":"hellion","mTime":387,"mCount":1},{"mUnit":"mule","mTime":396,"mCount":1},{"mUnit":"supply_depot","mTime":404,"mCount":1}],"mName":"Innovation\u0027s Marine Hellion Expand","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvt/innovations-marinehellion-expand/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"TERRAN",
+"mCreated":"2013-04-23 00:00:00",
+"mModified":"2013-04-23 00:00:00",
+"mNotes": "<html>
+<h2>General Overview</h2>
+<p>This build uses standard Hellions to secure a natural expansion and simultaneously apply pressure to a Terran opponent.</p>
+<h2>Build Order</h2>
+10 – Supply Depot<br />
+12 – Barracks<br />
+15 – Refinery<br />
+16 – Marine (up to 2)<br />
+17 – Orbital Command<br />
+17 – Supply Depot<br />
+20 – @100% 2nd Marine, start Reactor on Barracks<br />
+20 – @400 Mins, start 2nd Command Center<br />
+21 – @100 Gas, start Factory<br />
+@100% Reactor, start constant Marine production<br />
+@100% 3rd/4th Marines, start 3rd Supply Depot<br />
+    (normally Supply Depots are not written in our builds, but this one is particularly troublesome unless you do not SCV scout)<br />
+@100 Gas, start Starport and swap off Reactor onto Factory (constant Hellion production – up to 6)<br />
+@100% Starport, start Medivac<br />
+<b>Benchmark:</b> When your first Medivac pops (@6:50ish), you should have 29 SCVs, 6 Marines, 4 Hellions, and 1 Medivac<br />
+<h2>Scouting</h2>
+<p>Scouting with this build until you get your first Hellions out is very light.  If you are looking to spot when your opponent takes gas, a 12 SCV scout is a nice timing to get your SCV inside the opponent’s base on most maps.</p>
+<p>Checking his gas timing is important so you can see if there is a possibility of Reaper harass.  However, even if you do not get into your opponent’s base, you can still tell a Reaper is coming by leaving your scout right next to your opponent’s Barracks and spotting whether it dies to a Marine or a Reaper.  Your first 2 Marines positioned in your main at a Reaper jump-up spot, followed up by the Reactor for extra Marine production should crush any aggressive Reaper play if you react with and position your initial Marines well. With the Reactored Hellion follow-up you can seize map control and see spot if there are any other pushes coming.</p>
+<p>When your second Orbital Command finishes, scan your opponent’s main to see how many Refineries they have built.  Against 1-base timings, make sure you have good vision around your base to prevent elevators and also be prepared to defend at your front with a Bunker.  Also, a turret in your mineral lines will shut down any mine drops into cloak banshee openers.  Lastly, if your opponent is going for Hellbat drops, then producing more than 6 Hellions and starting a Viking can be really helpful for your defense–normal Hellions do quite well against Hellbats, and Vikings do quite well at deterring Medivacs.</p>
+<h2>Execution</h2>
+<p>If your opponent invested in Reapers (2+) before expanding into bio play, then this is your cue to do heavy damage.  If he played greedy and didn’t build a bunker at his natural, you can go in with your 4 Hellions, 6 Marines and your first Medivac and kill his un-upgraded Marines.  If there is a Bunker at the natural, then just elevator your Marines and then Hellions into your opponent’s main and kill as many units as you can.</p>
+<p>Against Mech play you might have to play a bit more conservative with your aggression because in Hellion vs Hellion fights, the player who was positioned correctly before the fight usually has the advantage. Instead of committing to an attack or elevator, pulling your army back and placing down a quick 3rd Command Center is a much safer way to play.</p>
+<p>Against standard Bio play, you can attempt to do the Marine/Hellion timing at his front with your first 4 Hellions, 6 Marines, and a Medivac.  Or, if your opponent is too well defended at the front, perform a 4 hellion drop and harass his SCVs instead.  Getting your 2nd Barracks and starting Stimpack before taking your 3rd Command Center is crucial to staying safe against 10 minute Bio timings and drop play.  Alternatively, going Mech and producing Widow Mines/Siege Tanks as you take your third base is a strong way to stay safe as well.</p>
+<h2>Transitions</h2>
+<p>Because of the varied infrastructure this build opens with, this build transitions quite strongly into either Marine/Tank or Mech play.  As stated in the Execution section above, the follow-up you can do after you get your initial Marine/Hellion/Medivac army is completely dependent on your own preference and the play style of your opponent.</p>
+<p>When going with a Bio transition, against Mech and 3CC builds you can get away with starting your 3rd CC right away and following-up with 2 Barracks with Tech labs (to start Stimpack/Combat Shields), 3 Refineries, and 2 Engineering bays.  Against more traditional Bio play it is necessary to start a Tech lab on your initial Barracks for a quicker Stimpack.  Then, after taking a 2nd Refinery, you can build a 2nd Barracks onto the naked Reactor and start Siege Tank production to take yourself into the midgame. This is followed up by a 3rd Command Center (between 8:00-8:30), 1 more Barracks, both Refineries at your natural expansion, and 2 Engineering bays.  Not having Stimpack completed in time for the inevitable 10ish minute drop play can be a game changer because with the new Medivacs boosting around your main and natural, it is very easy to get caught out of position and take a lot of damage for free.</p>
+<p>Another possible follow-up is going for Mech play. This is easily achieved by keeping the Factory onto the Reactor for more hellions, getting all 4 Refineries while starting more Factories, and starting your 3rd Command Center very quickly.  Building some Vikings for drop defense will definitely come in handy as well.</p>
+<p>Game 2 between Innovation and Flash (the Neo Planet S game linked below in the Replay section) is excellent to study if you want to learn possible transitions for this build because Flash does a Mech follow-up while Innovation goes for a Bio variation.</p>
+<h2>Pros and Cons</h2>
+<p>This build defends most early pressure quite easily, while getting a quick expansion and going into the midgame.  Also, once your first Medivac is out, you hit your opponent with lots of pressure early on to kick start an aggressive game.  Finally, this build is quite versatile when it comes to transitions, for opening with a 1-1-1 grants you the freedom to go into Marine/Tank or Mech play quite easily.</p>
+<p>However, this build upgrades in favor of tech, as you will often be behind in the Stimpack research or Engibay/Armory upgrades.  Also, if your opponent defends this build with a 1rax FE without taking any damage, then you will have a tough time trying to deal with midgame bio timings and drops.</p>
+<h2>Favorable Maps</h2>
+<p>This build is very strong on maps with fewer cliff ranges that Reapers can jump up and down, encouraging non-Reaper builds and 1rax FEs.  Also it is stronger on maps with large mains so that there are more potential elevator locations.</p>
+ - Akilon Wastes<br />
+ - Neo Planet S<br />
+ - Newkirk Precinct<br />
+ - Whirlwind<br />
+ - Bel’Shir Vestige<br />
+ - Daybreak<br />
+<h2>Replays</h2>
+<p><a href=\"http://www.youtube.com/watch?v=pMMRamkXjtE\">Innovation and Flash both performing this build at MLG Dallas 2013</a></p>
+<p><a href=\"http://www.youtube.com/watch?v=yqD5zjFQQv4\">Innovation again performing this build against Flash at MLG Dallas 2013</a> – one of the best games of the tournament</p>
+<p><a href=\"http://drop.sc/323794\">Innovation’s Marine/Hellion Expand Tutorial Replay vs a Very Easy AI</a></p>
+<p>Thanks to <a href=\"http://www.reddit.com/user/FrietMayo\">Friet Mayo</a> for helping write-up this build</p>
+</html>"},
+{"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":56,"mCount":1},{"mUnit":"barracks","mTime":97,"mCount":1},{"mUnit":"refinery","mTime":114,"mCount":1},{"mUnit":"marine","mTime":163,"mCount":1},{"mText":"Send SCV to proxy location","mUnit":"note","mTime":171,"mCount":1},{"mUnit":"orbital_command","mTime":173,"mCount":1},{"mUnit":"supply_depot","mTime":176,"mCount":1},{"mUnit":"marine","mTime":185,"mCount":1},{"mUnit":"factory","mTime":203,"mCount":1},{"mUnit":"refinery","mTime":212,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":225,"mCount":1},{"mUnit":"supply_depot","mTime":251,"mCount":1},{"mUnit":"armory","mTime":268,"mCount":1},{"mUnit":"marine","mTime":276,"mCount":2},{"mUnit":"starport","mTime":290,"mCount":1},{"mUnit":"marine","mTime":302,"mCount":2},{"mTarget":"factory","mUnit":"tech_lab","mTime":307,"mCount":1},{"mUnit":"supply_depot","mTime":326,"mCount":1},{"mUnit":"thor","mTime":350,"mCount":1},{"mUnit":"supply_depot","mTime":359,"mCount":1},{"mUnit":
+"medivac","mTime":370,"mCount":1},{"mUnit":"marine","mTime":379,"mCount":2},{"mUnit":"supply_depot","mTime":390,"mCount":1},{"mUnit":"marine","mTime":412,"mCount":2},{"mUnit":"thor","mTime":427,"mCount":1},{"mUnit":"marine","mTime":450,"mCount":2},{"mUnit":"marine","mTime":474,"mCount":2},{"mUnit":"thor","mTime":490,"mCount":1}],"mName":"Proxy Thor Drop","mSource":"<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-proxy-thor-drop/\">GosuBuilds</a>","mVsFaction":"TERRAN",
+"mCreated":"2013-05-09 00:00:00",
+"mModified":"2013-05-09 00:00:00",
+"mNotes":"<html>
+<h2>General Overview</h2>
+<p>This build rushes for Thors and Medivacs as fast as possible and then goes for a hilarious all-in with Thor Drops.  There is no transition with this build – you pull all your SCVs and crush your opponent as soon as possible.</p>
+<h2>Build Order</h2>
+<p>
+    10 - Supply Depot<br />
+    12 – Barracks<br />
+    13 – Refinery<br />
+    16 – 1st Marine<br />
+    17 – Orbital Command (pause SCV production)<br />
+    17 – 2nd Marine and Supply Depot<br />
+    17 – @100 Gas, start Factory at proxy location (resume SCV production)<br />
+    18 – @100% 2nd Marine, start Reactor on Barracks and 2nd Refinery<br />
+    21 – @100% Factory, start Armory<br />
+    @100 Gas, start Starport<br />
+    @25 Gas, start Tech lab on Factory<br />
+    @100% Armory, start 1st Thor<br />
+    @100% Starport, start Medivac<br />
+    <b>Benchmark:</b> When your 1st Thor finishes (@6:45ish), you should have 24 SCVs, 8 Marines, 1 Thor, and 1 Medivac<br />
+    @100% 1st Thor, start 2nd Thor and pull 10ish SCVs and all of your Marines<br />
+    <b>Engage</b> your opponent directly when your 2nd Thor finishes (@8:00ish) with 2 Thors, 1 Medivac, 10 SCVs, and 12 Marines<br />
+</p>
+<h2>Scouting</h2>
+<p>Don’t bother scouting – you’re going to do the same build no matter what, and it only wastes mining time to pull the scouting worker from the mineral line.</p>
+<h2>Transitions</h2>
+<p>There are no transitions from this all-in.  Keep rallying Marines and your next Thor and hope it is enough to win the game.</p>
+<h2>Tips</h2>
+<p>
+- When your Medivac pops, load up your Thor and drop your opponent, trying to kill production or SCVs.<br />
+- With your initial Thor drop, avoid fighting your opponent’s army at all costs – only directly engage your opponent once your Marines and SCVs are in the fight as well.<br />
+- Make sure to pull around 10 SCVs and attack with all of your Marines when you start your 2nd Thor so that your 2 Thors, 12 Marines, and 10 SCVs all get to your opponent’s base at the same time.<br />
+- During the fight, surround your Thor(s) with SCVs and repair.<br />
+- Use your Marines for a bit of extra DPS as they sit behind your Thor(s), but the true power of this all-in comes from the fact that Thors being repaired take close to no damage from early game Terran units.<br />
+</p>
+<h2>Pros and Cons</h2>
+<p>This build rolls over most 1rax FE builds.  Also, it’s a hilarious all-in that straight up kills unprepared opponents or opponents who don’t have good repair micro.  Also, a huge pro is that this build IS A THOR DROP.</p>
+<p>However, this build is very weak against Reapers because you only have 2 Marines to defend against Reapers in the early game.  That being said, if you can ward off the reapers without losing too many SCVs, you might still win because Thors are obviously incredibly strong against Reapers in direct fights.  This build is also very bad against Banshees, but it’s possible to win the base trade because Thors destroy Banshees in an actual fight.</p>
+<h2>Favorable Maps</h2>
+<p>This build only works on maps with only 2 spawn positions, so you can proxy your factory in the correct place without having to scout.  Also, it is much stronger on smaller maps so that your SCVs are pulled off the line for a shorter time before you hit your opponent.</p>
+<p>
+ - Akilon Wastes<br />
+ - Daybreak<br />
+ - Neo Planet S<br />
+ - Newkirk Precinct<br />
+ - Bel’Shir Vestige<br />
+</p>
+<h2>Replays</h2>
+<p><a href=\"http://www.twitch.tv/wcs_europe/b/395112838?t=6m40s\">Lucifron beating Happy with this build twice in the WCS EU Finals</a></p>
+<p><a href=\"http://drop.sc/327211\">Proxy Thor Drop Tutorial Replay vs Very Easy AI opponent</a></p>
+</html>"},
+{"mCreated":"2013-06-28 22:46:55","mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":56,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":115,"mCount":1},{"mUnit":"marine","mTime":164,"mCount":1},{"mUnit":"orbital_command","mTime":174,"mCount":1},{"mUnit":"supply_depot","mTime":178,"mCount":1},{"mUnit":"marine","mTime":182,"mCount":1},{"mUnit":"factory","mTime":202,"mCount":1},{"mUnit":"mule","mTime":211,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":214,"mCount":1},{"mUnit":"refinery","mTime":238,"mCount":1},{"mUnit":"supply_depot","mTime":248,"mCount":1},{"mUnit":"starport","mTime":279,"mCount":1},{"mText":"Swap Factory with Barracks","mUnit":"note","mTime":286,"mCount":1},{"mUnit":"hellion","mTime":291,"mCount":2},{"mUnit":"supply_depot","mTime":298,"mCount":1},{"mUnit":"mule","mTime":300,"mCount":1},{"mUnit":"hellion","mTime":322,"mCount":2},{"mUnit":"medivac","mTime":333,"mCount":1},{"mTarget":"barracks","mUnit":"tech_lab",
+"mTime":339,"mCount":1},{"mUnit":"supply_depot","mTime":353,"mCount":1},{"mUnit":"supply_depot","mTime":364,"mCount":1},{"mText":"Swap Factory with Barracks","mUnit":"note","mTime":366,"mCount":1},{"mUnit":"siege_tank","mTime":376,"mCount":1},{"mUnit":"marine","mTime":380,"mCount":2},{"mUnit":"supply_depot","mTime":389,"mCount":1},{"mUnit":"mule","mTime":392,"mCount":1},{"mTarget":"starport","mUnit":"tech_lab","mTime":395,"mCount":1},{"mUnit":"marine","mTime":399,"mCount":2},{"mUnit":"raven","mTime":421,"mCount":1},{"mUnit":"marine","mTime":424,"mCount":2},{"mUnit":"siege_tank","mTime":434,"mCount":1},{"mUnit":"supply_depot","mTime":439,"mCount":1},{"mUnit":"marine","mTime":451,"mCount":2},{"mUnit":"siege_tank","mTime":463,"mCount":1},{"mUnit":"marine","mTime":475,"mCount":2},{"mUnit":"mule","mTime":480,"mCount":1},{"mUnit":"supply_depot","mTime":483,"mCount":1},{"mUnit":"marine","mTime":493,"mCount":2},{"mUnit":"banshee","mTime":504,"mCount":1},{"mUnit":"marine","mTime":505,"mCount":2}],
+"mModified":"2013-06-28 22:46:55","mName":"MKP\u0027s 1/1/1 All-in","mNotes":"\u003ch2\u003eGeneral Overview\u003c/h2\u003e\n\n\u003cp\u003eThis is a highly aggressive, two gas, 1 base build which focuses on early harass to damage your opponent while simultaneously building up strength for a follow-up all-in.  While this build does have the potential to fall back into a macro game, transitioning into the midgame is difficult if early damage is not inflicted on the opponent.\u003c/p\u003e\n\u003ch2\u003eBuild Order\u003c/h2\u003e\n\n\u003cp\u003e    10 – Supply Depot\u003cbr /\u003e\n    12 – Barracks\u003cbr /\u003e\n    13 – Refinery\u003cbr /\u003e\n    16 – Marine (up to 2)\u003cbr /\u003e\n    16 – Orbital Command\u003cbr /\u003e\n    17 – Supply Depot\u003cbr /\u003e\n    @100 Gas, start Factory\u003cbr /\u003e\n    @75 Mins, start 2nd Refinery\u003cbr /\u003e\n    @50 Gas, start Reactor on Barracks\u003cbr /\u003e\n    @100 Gas, start Starport\u003cbr /\u003e\n    @100% Reactor, swap off Factory onto Barracks’ Reactor for 
+double Hellion production\u003cbr /\u003e\n    @100% Starport, start Medivac and Tech lab on Barracks\u003cbr /\u003e\n    @100% Medivac, drop your opponent’s main with all 4 Hellions, and swap Factory’s and Barracks’ add-ons\u003cbr /\u003e\n    \u003cb\u003eBenchmark:\u003c/b\u003e When your Medivac finishes (@6:15ish), you should have 25 SCVs, 2 Marines, 4 Hellions, and 1 Medivac\u003cbr /\u003e\n    @100% swap, Start constant Marine and Siege Tank production, and start a Tech lab on Starport (stop making SCVs at this point)\u003cbr /\u003e\n    @100% Tech lab on Starport, start Raven\u003cbr /\u003e\n    \u003cb\u003eBenchmark:\u003c/b\u003e When your 2nd Tank finishes (@8:00ish), push out with 2 SCVs, 2 Siege Tanks, 1 Raven, 1 Medivac, and around 12 Marines\u003cbr /\u003e\u003c/p\u003e\n\n\u003ch2\u003eScouting\u003c/h2\u003e\n\n\u003cp\u003eThis build gives you a few opportunities for scouting. Your first bit of information comes from getting your scouting SCV into his base between 12 and 16 food. If 
+you manage to scout, check for how many gas geysers your opponent has.  If your opponent does not have gas, they will most likely be doing a non-aggressive (fast expand) build.  This presents one of the better scenarios for your early game hellion drop to work–especially if he does not anticipate the hellion drop.  If your opponent has one gas geyser, it likely means that your opponent will be going for reapers, have a marine/hellion defense, or have a marine/widow mine defense.  With your hellions, prepare to micro and keep him on his toes.  If your opponent attempts to hellion expand, he will pull ahead economically assuming his defense prevents your hellions from inflicting any damage.  You probably will not see a second gas unless you scan later (around 5:30).  However, you need all the resources you can get for this all-in, so it would be more prudent to use all of your Orbital Command energy on mules.\u003c/p\u003e\n\n\u003cp\u003eOnce you have your first hellions out, you should have full map control 
+by scouting the front and clearing any Xel’Naga Towers on the map.  Running in to spot your opponent’s natural is also a smart move, but be sure to pull back if there are any units defending.  Your hellions are there to increase the effectiveness of your later all-in, not to end the game early on.\u003c/p\u003e\n\n\u003cp\u003eLastly, when you hellion drop in his main, you should finally be able to see everything your opponent has gone for.  If your opponent has gone for cloaked banshees, it will not be a problem because he will need it to defend his workers.  Later, once you have a raven, banshees will no longer be an issue.  If your opponent has gone for hellions of his own, be careful when out on the map, and always favor retreating if your hellions are in danger.  If your opponent has gone for widow mines, be sure to avoid obvious spots where he could have placed them.\u003c/p\u003e\n\u003ch2\u003eIdeal Game\u003c/h2\u003e\n\n\u003cp\u003eYour hellion drop should inflict some kind of damage to your 
+opponent and keep him occupied with defensive measures.  However, even while doing damage with them, it is important to keep them alive.  With ideal hellion harass, your later all-in will overwhelm your opponent or trade in your favor.\u003c/p\u003e\n\n\u003cp\u003eIf your opponent is prepared for the all-in engagement, he will most likely have either a bunker, tanks, or both to defend.  Your hellions from earlier can help clear SCVs repairing the bunker.  Assuming you need to siege and push slowly because he has tanks, consider dropping your hellions again to divert some forces and his attention.  However, remember that every unit is precious, so do not overcommit with this drop.\u003c/p\u003e\n\u003ch2\u003eTransitioning\u003c/h2\u003e\n\n\u003cp\u003eIn the situation where you cannot straight up win the game with your all-in but still have him contained, consider expanding and transitioning into Marine/Tank play or Mech.  Simply throw down an expansion, take more gas, and ramp up your production from 
+there.\u003c/p\u003e\n\n\u003cp\u003eIf the all-in fails and your opponent is ahead economically, then you will have most likely lost the game.  However, expanding and defending this base with tanks can still be an option.\u003c/p\u003e\n\u003ch2\u003eTips\u003c/h2\u003e\n\n    \u003cp\u003e\n- With your first two Hellions, clear the watch towers and take map control.\u003cbr /\u003e\n    - During your Hellion drop, be sure to constantly pump Marines from your Reactored Barracks and produce Siege Tanks.  The strength of this build is the follow-up all-in, not the initial hellion drop.\u003cbr /\u003e\n    - Do NOT lose your hellions when dropping them.  Use the Medivac boost to get your Hellions out of there if they are ever in danger.\u003cbr /\u003e\n    - When moving out, be sure to bring 2 SCVs to repair.\n    - Slowly siege your opponent unless you are sure you can crush through the front.\u003cbr /\u003e\n    - Remember to use Seeker Missile or Auto Turrets from your Raven to push the fight in your 
+favor.\u003cbr /\u003e\u003c/p\u003e\n\n\u003ch2\u003ePros and Cons\u003c/h2\u003e\n\n\u003cp\u003eThis build is a 1-2 punch of sorts–first hitting with a hellion drop and then following up with a marine tank all-in.  It is often too much for expanding opponent’s to handle and quickly ends the game.  The hellion drop can also be deadly harass if your opponent does not scout it or defend appropriate.\u003c/p\u003e\n\n\u003cp\u003eHowever, because this build was created by MarineKing himself, it is quite micro intensive, and thus is hard to pull off as a lower league player.  Also, as an all-in, there’s no determined way to transition out of it if it appears you cannot bust up the ramp.\u003c/p\u003e\n\u003ch2\u003eFavorable Maps\u003c/h2\u003e\n\n\u003cp\u003eThis build is strong on relatively small maps.  However, maps with large main bases allow for sneakier hellion drops as well.  Nevertheless, sometimes your opponent will not expect an all in such as this on a larger four spawn map.\u003c/p\u003e\n\n    \u003cp\u003e- Akilon Wastes\u003cbr /\u003e\n    - Newkirk Precinct\u003cbr /\u003e\n    - Bel’Shir Vestige\u003cbr /\u003e\n    - Neo Planet S\u003cbr /\u003e\u003c/p\u003e\n\n\u003ch2\u003eReplays\u003c/h2\u003e\n\n\u003cp\u003e\u003ca href\u003d\"http://www.youtube.com/watch?v\u003dpalct801q0M\"\u003eMKP using this build vs Jjakji at MLG Dallas 2013\u003c/a\u003e\u003c/p\u003e\n\n\u003cp\u003e\u003ca href\u003d\"http://drop.sc/312057\"\u003eMKP’s 1/1/1 All-in Tutorial Replay vs a Very Easy AI\u003c/a\u003e\u003c/p\u003e\n\n\u003cp\u003eHuge thanks to Modest for writing up this build!\u003c/p\u003e","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-mkps-111-all-in/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"TERRAN"}
+]

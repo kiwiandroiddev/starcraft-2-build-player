@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonLayout1" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="28dp"
+                android:text="@string/dlg_item_label"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin"
+                android:text="@string/dlg_amount_label"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+<!--             <TextView -->
+<!--                 android:id="@+id/TextView02" -->
+<!--                 android:layout_width="wrap_content" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_alignParentLeft="true" -->
+<!--                 android:layout_below="@+id/TextView01" -->
+<!--                 android:layout_marginTop="@dimen/dlg_build_item_vertical_margin" -->
+<!--                 android:text="Supply" -->
+<!--                 android:textAppearance="?android:attr/textAppearanceSmall" /> -->
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/TextView01"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin"
+                android:text="@string/dlg_target_label"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/TextView03"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin"
+                android:text="@string/dlg_custom_text_label"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/TextView05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/TextView04"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin"
+                android:text="@string/dlg_custom_speech_label"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin"
+                android:text="@string/dlg_time_label"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/dlg_amount"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView2"
+                android:layout_alignBottom="@+id/textView2"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="1"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            <EditText
+                android:id="@+id/dlg_custom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/TextView04"
+                android:layout_alignBottom="@+id/TextView04"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:gravity="center_vertical|right"
+                android:inputType="textCapSentences|textAutoComplete"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:selectAllOnFocus="true"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            <ImageButton
+                android:id="@+id/dlg_target_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignBottom="@+id/TextView03"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="-24dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/gameitem_barracks_small" />
+
+<!--             <EditText -->
+<!--                 android:id="@+id/dlg_supply" -->
+<!--                 android:layout_width="64dp" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_alignBaseline="@+id/TextView02" -->
+<!--                 android:layout_alignBottom="@+id/TextView02" -->
+<!--                 android:layout_alignParentRight="true" -->
+<!--                 android:ems="10" -->
+<!--                 android:gravity="center_vertical|right" -->
+<!--                 android:inputType="number" -->
+<!--                 android:selectAllOnFocus="true" -->
+<!--                 android:text="9" -->
+<!--                 android:textAppearance="?android:attr/textAppearanceSmallInverse" /> -->
+
+            <ImageButton
+                android:id="@+id/dlg_unit_button"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignBottom="@+id/textView1"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="-24dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/gameitem_scv_small" />
+
+            <EditText
+                android:id="@+id/dlg_minutes"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/TextView01"
+                android:layout_alignBottom="@+id/TextView01"
+                android:layout_toLeftOf="@+id/textView3"
+                android:ems="10"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            <EditText
+                android:id="@+id/dlg_seconds"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/TextView01"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="49"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            <EditText
+                android:id="@+id/dlg_custom_speech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/TextView05"
+                android:layout_alignBottom="@+id/TextView05"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:gravity="center_vertical|right"
+                android:inputType="textCapSentences|textAutoComplete"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:selectAllOnFocus="true"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+            <!-- spacer to prevent bottom edittext being cut off -->
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_below="@+id/TextView05"
+                android:layout_marginTop="@dimen/dlg_build_item_vertical_margin" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/dlg_seconds"
+                android:layout_alignBottom="@+id/dlg_seconds"
+                android:layout_toLeftOf="@+id/dlg_seconds"
+                android:text=":"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Button
+                android:id="@+id/dlg_clear_target_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignBottom="@+id/dlg_target_button"
+                android:layout_toLeftOf="@+id/dlg_target_button"
+                android:text="@string/dlg_clear_label" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/ok" />
+    </LinearLayout>
+
+</RelativeLayout>

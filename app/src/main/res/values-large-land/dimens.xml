@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_edge_padding">72dp</dimen>
+    <dimen name="notes_format_tools_bar_width">280dp</dimen>
+</resources>

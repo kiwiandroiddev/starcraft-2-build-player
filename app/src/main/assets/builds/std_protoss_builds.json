@@ -1,0 +1,698 @@
+[
+    {
+	"mName": "4 Warpgate Rush",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/4_Warpgate_Rush\">Liquipedia</a>",
+	"mFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 45, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 75, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 93, "mUnit": "gateway", "mCount": 1 },
+	    { "mTime": 102, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 102, "mUnit": "note", "mText": "Save chrono boosts for warp gate research" },
+	    { "mTime": 122, "mUnit": "assimilator", "mCount": 1 },
+	    { "mTime": 148, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 164, "mUnit": "cybernetics_core", "mCount": 1 },
+	    { "mTime": 180, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 214, "mUnit": "warp_gate", "mCount": 1 },
+	    { "mTime": 214, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 218, "mUnit": "stalker", "mCount": 1 },
+	    { "mTime": 259, "mUnit": "gateway", "mCount": 3 },
+	    { "mTime": 271, "mUnit": "stalker", "mCount": 1 }
+	],
+	"mNotes": "<html><h1>Introduction</h1><p>The <b>4 Warpgate Rush</b> is a very common aggressive opening in PvP and to a lesser extent in PvZ and PvT. Four Warpgates can provide a constant stream of units that breaks up the opponent's ramp and allow you to warp units into the opponent's main base. It is a semi all-in as - even though the performing player can transition out of it - constant unit production out of 4 Warpgates allows little-to-no resources for teching or expanding.</p>
+<p>Although recent changes to the metagame (especially in PvP: see References) have all but rendered this strategy obsolete, it can still be a successful strategy against lower-level opponents whose timings are not exact enough to defend. Equally, this is still the dominant PvP strategy on maps where Force Fields cannot be used to deflect or delay the rush (eg. Tal'Darim Altar).</p>
+<h1>Overview</h1>
+<p>A substantial amount of damage has to be done when using this build else the opponent will likely have a large economic or technological advantage. The build also relies on the use of a proxy Pylon to quickly and continually reinforce the initial push, so if you are unable to get a proxy Pylon in place then it is likely that your rush will fail. </p>
+<p>This build is very strong in PvP and can also be viable in the other match-ups, especially if the opponent is expanding/teching and is not expecting the attack. For that reason, Protoss players sometimes fake a 3 Gate expand by laying down a Nexus for the opponent to scout, cancelling the Nexus after dealing with the opponent's scout, dropping down an additional Gateway, and proceeding with a (surprise) 4 Gate attack. </p>
+<h1>Build Order</h1>
+<p>Below is a standard one Gas variation of the build. Other slight variations are possible and are sometimes better depending on several variables, but this is the standard build in PvP. </p>
+ - 9 Pylon<br />
+ - 12 Gateway + Probe Scout [1][2]<br />
+ - 14 Assimilator<br />
+ - 16 Pylon<br />
+ - @100% Gateway: Cybernetics Core, Zealot[3]<br />
+ - @100% Zealot: 21 Stalker<br />
+ - @100% Cybernetics Core: Warpgate Research<br />
+ - @50% Warpgate Research: 3 Gateways (4 total)<br />
+ - @90% Warpgate Research: Proxy Pylon <br /><br />
+
+[1] Use 2 chrono boosts on Probes, save the rest (4) for Warpgate Research.<br />
+[2] See SC2planner build order (4 Warpgate Rush)<br />
+[3] This Zealot cannot be skipped, especially in PvP. You need a Zealot and Stalker to protect your Probe that proxies a Pylon.<br />
+<h2>Notes</h2>
+<p> - After Chrono Boosting the initial Probe production twice, the rest should be spent on Warpgate research. This should be 4 Chrono Boosts in total. The final Chrono Boost will finish exactly as Warp Tech completes.</p>
+<p> - Start all 3 additional Gateways at ~50% Warpgate Research. If constantly Chrono Boosted, the Gateways and Warpgate Research should finish at the same time. They must be finished on time or it is likely your rush will fail against a competent opponent.</p>
+<p> - Although it is preferable to hide your attack, hiding a 4 Gate is usually a formality. This is as your Nexus' energy should signal to any observant opponent that you are doing a 4 Warpgate push.</p>
+<h1>Execution</h1>
+
+The execution of this build greatly varies between the races.
+<h3>PvP</h3>
+
+<p> - In PvP, target firing Stalkers with your Stalkers is extremely important at all times because whoever retains the most Stalkers has a significant micro advantage in battle. However, using a higher number of Zealots than your opponent can be useful when trying to break up a ramp that your opponent is holding because you can force their ranged units to retreat.
+</p>
+<p> - If your opponent is planning on holding their ramp with Sentries, you must build your Pylon close enough to their cliff (but not right next to their cliff) that you can warp Zealots on the high ground. Don't build your Pylon close enough to the cliff that it can be easily sniped.
+</p>
+<p> - In PvP, your Zealot and Stalker should protect the Probe that builds the proxy Pylon, which should be built as close to the doorstep of their base as possible. Some builds, such as the 3 Stalker Rush, rely on sniping the Probe before a proxy Pylon can be build; be careful of such builds and consider sending two Probes for building Pylons if you scout your opponent using one.
+</p>
+<p> - It is also important to note that on some maps, such as Bel'Shir Beach and Tal'Darim Altar, the 4 Gate is the dominant strategy because it is impossible to use Force Fields to prevent units being warped into the main base. 
+</p>
+<h3>PvZ</h3>
+
+<p> - When using a one gas 4 Gate, prioritize Stalkers if you scouted Roaches or a heavy investment in Spine Crawlers. Prioritize Zealots to deal with high Zergling counts.
+</p>
+<p> - Utilising a two gas 4 Gate allows you to use more Sentries in your composition at the cost of Stalkers. The advantage of this is that it will allow you to block Zerg reinforcements by Force Fielding their main ramp; it also allows you to use Forcefields to trap Roaches against Zealots so that they cannot kite.
+</p>
+<p> - Aim to do significant economic damage by killing Drones, Queens or the natural expansion. Accept losses to destroy a Hatchery, a units worth in Drones, or a tech building but do not overcommit in the event that the Zerg has heavily defended their main base.
+</p>
+<p> - No matter which variation that you use, be careful of Zerglings sniping your pylon or counter-attacking into your main-base. It is often a good idea to fully wall-off your main base with an additional Pylon when you move out to place down proxy Pylons. 
+</p>
+
+<h3>PvT</h3>
+
+<p> - This strategy has gradually become useless vs. Terran opponents. Modern build orders all account for the possiblity of a 4 Gate with either Bunkers or proper tech-timings. However, a 4 Gate can still be used occasionally as a surprise strategy.
+</p>
+<p> - In general, Zealots and Stalkers will be the primary units used. However, if your opponent is relying heavily on Bunkers to defend, warping in a Sentry so that you can use a Force Field to prevent the Bunker being repaired can be useful.
+</p>
+<p> - If the opponent is building Marauders then try to focus them down first; this is as the Concussive Shell upgrade prevents your Stalkers from cost-effectively kiting against Marines. 
+</p>
+
+<h1>Maps</h1>
+
+<p>Since Warpgate tech allows you to create units at any point of the map, rush distances are generally not an important factor for this build. The only case where this does not apply is when the opponent is rushing as well and there is a possibility that their units will reach your base before the 4 Gates have come into play.
+</p>
+<p>Instead, this build more relies on how safe your opponent is playing and how well they prepared they are for your attack.
+</p>
+<h3>Strong</h3>
+
+    Tal'Darim Altar<br />
+    Bel'Shir Beach<br />
+
+<h3>Weak</h3>
+    On ramps that can be walled-off (PvT) or blocked with a single Forcefield (PvP), you will have problems winning with this strategy against a competent opponent. 
+</html>
+"
+    },
+{
+	"mName": "2 Gate Fast Obs",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/2_Gate_Fast_Obs_(vs._Terran)\">Liquidpedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 49, "mUnit": "pylon" },
+	    { "mTime": 75, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 100, "mUnit": "gateway" },
+	    { "mTime": 102, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 116, "mUnit": "assimilator" },
+	    { "mTime": 136, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 142, "mUnit": "pylon" },
+	    { "mTime": 167, "mUnit": "cybernetics_core" },
+	    { "mTime": 182, "mUnit": "assimilator" },
+	    { "mTime": 193, "mUnit": "zealot" },
+	    { "mTime": 215, "mUnit": "pylon" },
+	    { "mTime": 219, "mUnit": "warp_gate" },
+	    { "mTime": 225, "mUnit": "sentry" },
+	    { "mTime": 226, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 226, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 248, "mUnit": "stalker" },
+	    { "mTime": 276, "mUnit": "robotics_facility" },
+	    { "mTime": 294, "mUnit": "gateway" },
+	    { "mTime": 307, "mUnit": "pylon" },
+	    { "mTime": 320, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 344, "mUnit": "observer" },
+	    { "mTime": 347, "mUnit": "chrono_boost", "mTarget": "robotics_facility" },
+	    { "mTime": 365, "mUnit": "nexus" },
+	    { "mTime": 366, "mUnit": "pylon" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>Possibly the safest opening available in the PvT match-up. The idea behind this opening is to quickly get out an Observer before laying down a Nexus at your natural expansion. The Observer can then be used to scout what the opponent is doing, allowing you to react accordingly.</p>
+
+<h1>Basic Build Order</h1>
+
+ - 9 Pylon[1]<br />
+ - 13 Gateway<br />
+ - 14 Assimilator<br />
+ - 16 Pylon<br />
+ - @100% Gateway: Cybernetics Core, Zealot<br />
+ - 21-22 Assimilator (2)<br />
+ - 21-22 Pylon<br />
+ - @100% Cybernetics Core: Warpgate Research[2], Sentry.<br />
+ - @100% Sentry: Stalker<br />
+ - @200 Minerals, 100 Gas: Robotics Facility<br />
+ - @150 Minerals: Gateway (2)<br />
+ - @100% Robotics Facility: Observer[3]<br />
+ - @400 Minerals: Nexus<br />
+ - @100 Minerals: Pylon[4]<br />
+ - When the first Observer finishes, either build a second Observer or an Immortal. Build the Immortal if you suspect Barracks pressure and the Observer if you suspect Cloaked Banshee play.<br />
+<br />
+[1] Chrono boost Probes 3 times after this finishes.<br />
+[2] Chrono boost twice.<br />
+[3] Chrono boost out the Observer and rally it to the edge of your opponent's base. Pay attention to it once it gets to their base as you don't want to lose it to Missile Turrets before it can get any useful information.<br />
+[4] Place this in your main base, but also in a position that allows you to warp-in units at your natural expansion.<br />
+
+<h1>Scouting</h1>
+
+<p>You can scout either after the first Pylon or after the first Gateway. This is completely down to personal preference.</p>
+<p>If you scout that a Marauder is being built by the Terran player (or you scout a tech-lab attached to a Barracks) then it is possible to get an Immortal before the first Observer. This will make this opening safer against the early Barracks pressure that Marauders usually signify.</p>
+<p>Assuming you build the first Observer as described, your first Observer should reach the enemy base before your Nexus finishes. If you see no sign of a Terran expansion then you should cut Probes ~30 and begin building up units ready for their all-in. If you do see an Expansion being planned then you can continue on with whatever tech-path you desire. Colossi are a good option as you already have a Robotics Facility.</p>
+<h1>Counters</h1>
+
+<h2>Counter To</h2>
+<p>2 Rax Pressure-Builds: You should have more than enough units to prevent the opponent from being able to pressure you at this timing.</p>
+<p>3 Rax Stim-Timing All-In: By being able to scout the opponent's build with the fast Observer, you should be more than ready to defend your base against any attempt at an all-in.</p>
+<p>Cloaked Banshee Openings: You will have two Observers out by the time a Cloaked Banshee opening hits. This should mean that you won't take any damage from their opening.</p>
+<h2>Countered By</h2>
+<p>1 Rax Gasless Expansion: The opponent will get ahead of you economically if they go for a fast-expansion against this opening. A good transition if you scout the opponent fast-expanding is to go for a 3 Immortal Timing-Attack.</p>
+<h1>Maps</h1>
+
+<h2>Pro Features</h2>
+<p>Short Rush Distances or Spawning Close-By-Air: Short rush distances make Barracks pressure more likely and spawning close-by-air makes Cloaked Banshees more likely, both of which this build is good against.</p>
+
+<p>An example of the former would be Cloud Kingdom, an example of the latter would be close-by-air spawns on Shakuras Plateau.</p>
+
+<h2>Con Features</h2>
+<p>Long Rush Distances: Increases the chance that the Terran will go for a gasless fast-expansion, which is a soft-counter to this opening.</p>
+
+<p>For example, Daybreak, Metropolis and Tal'Darim Altar.</p>
+"
+    },
+    {
+	"mName": "MC's 1 Gate FE",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/MC%27s_1_Gate_FE_(vs._Terran)\">Liquipedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 58, "mUnit": "pylon" },
+	    { "mTime": 77, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 103, "mUnit": "gateway" },
+	    { "mTime": 108, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 122, "mUnit": "assimilator" },
+	    { "mTime": 137, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 143, "mUnit": "pylon" },
+	    { "mTime": 172, "mUnit": "cybernetics_core" },
+	    { "mTime": 189, "mUnit": "zealot" },
+	    { "mTime": 206, "mUnit": "pylon" },
+	    { "mTime": 222, "mUnit": "warp_gate" },
+	    { "mTime": 230, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 251, "mUnit": "stalker" },
+	    { "mTime": 252, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 291, "mUnit": "nexus" },
+	    { "mTime": 309, "mUnit": "gateway" },
+	    { "mTime": 316, "mUnit": "gateway" },
+	    { "mTime": 328, "mUnit": "assimilator" },
+	    { "mTime": 336, "mUnit": "stalker" },
+	    { "mTime": 345, "mUnit": "pylon" },
+	    { "mTime": 385, "mUnit": "robotics_facility" }
+	],             
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>This build is the safest 1 Gateway Fast Expand and can thus be performed on any map. Specifically, this build shines on maps where aggressive strategies such as the 1/1/1 and 2 Rax Reactor/Tech-Lab push are often used by Terran players, meaning that it is best used on smaller maps or maps with only 2 spawn locations. On maps where gasless expansions are commonly used by Terran players, it may be wise to consider a more economic 1 Gate Fast Expand.</p>
+
+<h1>Basic Build Order</h1>
+
+ - 9 Pylon (Chronoboost Probes 3 Times When Complete)<br />
+ - 13 Gateway<br />
+ - 14 Assimilator<br />
+ - 15 Pylon<br />
+ - 17 Cybernetics Core<br />
+ - 18 Zealot<br />
+ - 22 Warpgate Research<br />
+ - 22 Stalker (Chronoboost)<br />
+ - 24 Pylon<br />
+ - 26 Stalker (Chronoboost)<br />
+ - Cut Probes at 30 Supply<br />
+ - 30 Nexus<br />
+ - Scouting Poke<br />
+
+<h1>Scouting</h1>
+
+<p>The follow-up depends heavily on the scouting information obtained up until this point. There are three main scenarios that can occur:</p>
+
+<h2>Scenario 1: You See A Marauder</h2>
+ - 1 Rax Tech-Lab Fast-Expand<br />
+ - 2 Rax Tech-Lab/Naked Fast-Expand<br />
+ - 3 Rax All-In (Unlikely)<br />
+ - Marauder/Hellion All-In (Unlikely)<br />
+ - Another All-In (Unlikely)<br />
+<p>In this case, it is unlikely that Cloaked Banshees will be on the field any time soon. This means that the Robotics Facility can be delayed in favour of earlier units and Gateways. The continuation of the build is as follows:</p>
+
+ - 30 Gateway<br />
+ - 30 Gateway<br />
+ - 30 Gas<br />
+ - 30 Stalker (Chrono)<br />
+ - 32 Pylon<br />
+ - Resume Probe Production<br />
+ - ~34 Robotics Facility<br />
+
+<h2>Scenario 2: You See 3+ Marines With No Bunker OR An Already Finished Reactor</h2>
+ - 2 Rax Reactor/Tech-Lab Push<br />
+ - 1 Rax Reactor Fast Expand<br />
+ - Something Else (Unlikely)<br />
+<p>In this case, the biggest threat is a 2 Rax push. This means that an earlier Stalker needs to be boosted out along with faster Gateways. Taking a 2nd gas is not as important. The continuation of the build is as follows:</p>
+
+ - 30 Stalker (Chrono)<br />
+ - 32 Gateway<br />
+ - 32 Gateway<br />
+ - 32 Pylon<br />
+ - 32 Stalker (Chrono)<br />
+ - 34 Gas<br />
+ - Resume Probe Production<br />
+ - ~35 Robotics Facility<br />
+
+<h2>Scenario 3: You See 3+ Marines with a Bunker Finished OR A Building Reactor</h2>
+<p>In this case there are a lot of options, but the most likely is some sort of tech-based all-in such as a 1/1/1. This means that detection will be required quickly to defend against the possibility of Cloaked Banshees, but it also means that there is no imminent danger and so you can therefore tech-up much faster. The continuation of the build is as follows:</p>
+
+ - 30 Gateway<br />
+ - 30 Gateway<br />
+ - 30 Robotics Facility<br />
+ - 30 Gas<br />
+ - Resume Probe Production<br />
+ - 31 Pylon<br />
+ - @100% Robotics Facility, 2x Observer<br />
+
+<h1>Execution</h1>
+
+<p><b>Why such a fast robo?</b> This is the fastest Robotics Facility in any 1 Gate FE into 3 Gate Robo build. The reason for the fast Robotics Facility is safety. For example, your 2nd Observer will be popping out at around the same time any Cloaked Banshee play could reach your base. However, more importantly, the faster your first Observer gets to your opponent's base then the faster you can scout what they're up to. This scouting information is invaluable as it tells you whether you should cut probes to defend an all-in or chrono boost Probes to gain an economic advantage versus a standard build.</p>
+
+<p><b>Why a Stalker as your 3rd unit?</b> A 2nd Stalker early allows for early game map control. The Zealot/Stalker/Stalker combination will beat any unit combination the Terran can muster at the timing when the 2nd Stalker comes out. The best army the Terran can have at this point is Marine/Marauder/Marauder, so if the Terran overextends with a 1 Rax Tech-Lab or 2 Rax Tech-Lab pressure then you will crush it. The 2 Stalkers can also easily kite Marines if your opponent is doing some type of Marine all-in or if they're overextending with their Marines. Finally, the 2nd Stalker just allows for much easier defense against any bio pressures.</p>
+
+<p><b>Why no early game Sentry?</b> The reasons for this are 2 fold. First, an early Sentry from a 1 Gate 1 Gas FE is quite useless versus any early bio pressure. Secondly, if you skip an early Sentry then you can get a Robotics Facility out much earlier than most 1 Gate FE builds, adding to the safety of the build as explained above.</p>
+
+<p><b>Why always 3 Gate Robo and not 1 Gate Robo sometimes?</b> Even assuming you somehow scout a Factory in your opponent's base, it is not safe to go 1 Gate Robo. Popular builds including Reactor Hellion openings and the 3 Hellion/7 Marine/1 Medivac drop will devastate anyone who attempts to skimp on early Gateways.</p>
+
+<h1>References</h1>
+
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=294136\">PvT: MC's 1 Gate FE by NrGmonk.</a></p>
+<p><b>Note:</b> Build Player recording is the Vs. 2 Rax Opening variation</p>
+"
+    },
+    {
+	"mName": "Gate Nexus YufFE - Variant A",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Gate_Nexus_YufFE_%28vs._Zerg%29\">Liquipedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 45, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 91, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 102, "mUnit": "gateway", "mCount": 1 },
+	    { "mTime": 139, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 167, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 167, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 181, "mUnit": "nexus", "mCount": 1 },
+	    { "mTime": 181, "mUnit": "note", "mText": "Send out probe to scout" },
+	    { "mTime": 205, "mUnit": "forge", "mCount": 1 },
+	    { "mTime": 217, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 229, "mUnit": "assimilator", "mCount": 1 },
+	    { "mTime": 237, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 237, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 252, "mUnit": "photon_cannon", "mCount": 1 },
+	    { "mTime": 272, "mUnit": "cybernetics_core", "mCount": 1 }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This build is intended for PvZ. It is an opening designed to set the Protoss up on solid economic footing, similar to the Forge Fast Expansion (vs. Zerg), it does not include nor require a particular follow-up, but allows a transition into any PvZ style.
+</p>
+<p>The YufFE heavily depends on scouting and reacting to the actions of your opponent. Scouting timings in PvZ with this build have been thoroughly analyzed, but they are still some map dependencies. Scouting early (after Pylon or Gateway) is no longer necessary to be safe against a 6/7 pool, especially on 4 player maps.
+</p>
+<p>This article will highlight the differences between the very common FFE and the YufFE. In general however, it provides the same advantages and faces the same dangers, so an understanding of the FFE will help understand this build.
+</p><h1>Goal</h1>
+<p>The goal of the YufFE is to get an economic advantage or at least keep up with a Zerg droning heavily. While FFE is a solid opening, it relies on cutting Probes at 17 supply. This is not necessary here. Further, this build may be viable on maps where it is not possible to FFE.
+</p>
+<p>The second goal is to react to any Zerg threat and build countermeasures in time. This can only be accomplished with appropriate scouting information, obtained as often as possible. This opening allows stronger reactive play than forge FE, since forge or cannon that early isn't necessary against many Zerg openers. 
+</p>
+<h1>Build Order</h1>
+<p>Note: the build depends on proper building placement.</p>
+<p>On some maps, it is possible to Gate expand with a comparable wall like FFE, building your first Pylon below the ramp. It will still be possible to defend a 6 pool, by buying some time with complete wall, or by just microing some probes and your first zealot. Your first Gateway has to be powered by two pylons for that reason. Good micro is important to pull this off, so if you are in the lower leagues try to play safe.</p>
+<h3>\"YufFE\"</h3>
+<p>
+    - 9 Pylon [1]<br />
+    - 13 Gateway<br /> 
+    - 15-16 Pylon<br />
+    - 17 Zealot<br />
+    - 19 Nexus [2]<br />
+    - 22 Assimilator<br />
+    - 22 Forge<br />
+    - 24 Pylon<br /><br />
+
+    [1] Use 3 Chronoboosts on Probes<br />
+    [2] send Probe to scout<br />
+</p>
+<p>To defend a 6 Pool it is possible to scout for Zerglings between 2:50 and 3:05. You train a Zealot at 17 supply around that time. If you do not scout a 6-10 Pool, you can cancel this Zealot and get a quicker 18 Nexus, building the Zealot at 19 supply with chronoboost. This way, you can tech faster and skip the 24 Pylon.</p>
+<h2>Variant A - Forge First</h2>
+<p>This is the basic and safest version, created to work against Zerg's Gas Pool opening (fast Speedlings, possible Roach rushes, Banelings and so on). If scouting indicates a one base play (like 7RR), build a Forge after the Nexus. Especially in lower leagues, players may lack adequate micro skill to defend an early Nexus against an early attack. It is easier to defend a Nexus with Cannons instead of units. The cannon should be up around 5:00 minute mark against most Zerg openings, to keep Speedlings away from your eco line. The concept is similar to defending a FFE. Build timings provided by sc2planner.</p>
+<h3>\"Build A\"</h3>
+<p>
+    - 9 Pylon at Choke <br />
+    - 13 Gateway <br />
+    - 15-16 Pylon at 2:19 [1] <br />
+    - 17 Zealot at 2:47<br /> 
+    - 19 Nexus at 3:00<br /> 
+    - 21 Forge at 3:25<br /> 
+    - 22 Pylon at 3:37<br /> 
+    - 23 Assimilator at 3:49 <br />
+    - 23 Zealot at 3:57 [2] <br />
+    - 26 Cannon at 4:12 <br />
+    - 27 Cybernetics Core at 4:32 <br /><br />
+
+    [1] send Probe to scout now or after Nexus<br />
+    [2] you might want to attack with 2 Zealots<br />
+</p>
+<p>See <a href=\"http://www.sc2planner.com/#PaaaoCaafaaoDfaaaoCafgoAdfaaoEaoCaoBfgaoGcaoFa\">SC2planner build order (YufFE Forge First)</a>. This version is economically even to the more known FFE. Only <a href=\"http://wiki.teamliquid.net/starcraft2/Nexus_first_(vs._Terran)\">\"Nexus first\"</a> (with a Forge afterwards) can gain more income, but might be punished/denied/delayed by 6-10 pools on most maps.</p>
+<p>If you want to tech even faster or Zerg builds a third Hatch in under 5 minutes (gasless), check out Variant B.</p>
+
+<p>Please refer to the <a href=\"http://wiki.teamliquid.net/starcraft2/Gate_Nexus_YufFE_%28vs._Zerg%29\">Liquidpedia article</a> for more information about this build.</p>
+"
+	},
+	{
+	"mName": "Gate Nexus YufFE - Variant B",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Gate_Nexus_YufFE_%28vs._Zerg%29\">Liquipedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 50, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 79, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 108, "mUnit": "gateway", "mCount": 1 },
+	    { "mTime": 108, "mUnit": "note", "mText": "Send out probe to scout" },
+	    { "mTime": 112, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 138, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 188, "mUnit": "nexus", "mCount": 1 },
+	    { "mTime": 202, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 202, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 228, "mUnit": "assimilator", "mCount": 1 },
+	    { "mTime": 247, "mUnit": "cybernetics_core", "mCount": 1 },
+	    { "mTime": 247, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 255, "mUnit": "note", "mText": "Save chrono boosts for warp gate research" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This build is intended for PvZ. It is an opening designed to set the Protoss up on solid economic footing, similar to the Forge Fast Expansion (vs. Zerg), it does not include nor require a particular follow-up, but allows a transition into any PvZ style.
+</p>
+<p>The YufFE heavily depends on scouting and reacting to the actions of your opponent. Scouting timings in PvZ with this build have been thoroughly analyzed, but they are still some map dependencies. Scouting early (after Pylon or Gateway) is no longer necessary to be safe against a 6/7 pool, especially on 4 player maps.
+</p>
+<p>This article will highlight the differences between the very common FFE and the YufFE. In general however, it provides the same advantages and faces the same dangers, so an understanding of the FFE will help understand this build.
+</p><h1>Goal</h1>
+<p>The goal of the YufFE is to get an economic advantage or at least keep up with a Zerg droning heavily. While FFE is a solid opening, it relies on cutting Probes at 17 supply. This is not necessary here. Further, this build may be viable on maps where it is not possible to FFE.
+</p>
+<p>The second goal is to react to any Zerg threat and build countermeasures in time. This can only be accomplished with appropriate scouting information, obtained as often as possible. This opening allows stronger reactive play than forge FE, since forge or cannon that early isn't necessary against many Zerg openers. 
+</p>
+<h1>Build Order</h1>
+<p>Note: the build depends on proper building placement.</p>
+<p>On some maps, it is possible to Gate expand with a comparable wall like FFE, building your first Pylon below the ramp. It will still be possible to defend a 6 pool, by buying some time with complete wall, or by just microing some probes and your first zealot. Your first Gateway has to be powered by two pylons for that reason. Good micro is important to pull this off, so if you are in the lower leagues try to play safe.</p>
+<h3>\"YufFE\"</h3>
+<p>
+    - 9 Pylon [1]<br />
+    - 13 Gateway<br /> 
+    - 15-16 Pylon<br />
+    - 17 Zealot<br />
+    - 19 Nexus [2]<br />
+    - 22 Assimilator<br />
+    - 22 Forge<br />
+    - 24 Pylon<br /><br />
+
+    [1] Use 3 Chronoboosts on Probes<br />
+    [2] send Probe to scout<br />
+</p>
+<p>To defend a 6 Pool it is possible to scout for Zerglings between 2:50 and 3:05. You train a Zealot at 17 supply around that time. If you do not scout a 6-10 Pool, you can cancel this Zealot and get a quicker 18 Nexus, building the Zealot at 19 supply with chronoboost. This way, you can tech faster and skip the 24 Pylon.</p>
+<h2>Variant B - Core First</h2>
+<p>If your opponent is playing Hatchery First or the Stephano Opening 15 pool 16 hatch (late gas ~ later 3:20) for Zerg, you can easily build a fast Assimilator and a Cybernetics Core. It is even possible to skip the Forge for a very long time, if Zerg takes a late gas. Zerg cannot attack early with Speedlings or Roaches without gas. If you spend some Chrono Boost on units, you are even safe against Speedlings later on without a Forge.</p>
+<p>This build is a little more aggressive, since you can skip Photon Cannons entirely (not advised for lower leagues!) and go straight into 6Gate or double Stargate, but anything is possible as followup.</p>
+<h2>\"Build B\"</h2>
+
+    - 9 Pylon <br />
+    - 13 Gateway <br />
+    - 15/16 Pylon [1] <br />
+    - 17/18 Nexus <br />
+    - 18 Assimilator <br />
+    - 19 Zealot <br />
+    - 22 Cybernetics Core <br />
+    - 23 Zealot <br />
+    - 26 Stalker[2] <br /><br />
+
+    [1] send Probe to scout<br />
+    [2] you might want to attack with 2 Zealots<br />
+
+<p>Use your Chrono Boost on tech and units if you want to play aggressively.</p>
+<p>As the replays posted below show, it is possible to stay economically ahead with both openings. You have to be willing to stay flexible, as enemy Cheese will need the correct response.</p>
+<p>Another build that evolved out of yufFE is <a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=315275\">Adonminus' adaptation.</a></p>
+
+<p>Please refer to the <a href=\"http://wiki.teamliquid.net/starcraft2/Gate_Nexus_YufFE_%28vs._Zerg%29\">Liquidpedia article</a> for more information about this build.</p>
+<p><a href=\"http://sc2planner.com/#PaaaoCafaaoDfdaaoCaaaoAafgaoBfoFfdfcf\">Sc2 Planner link for Variant B</a></p>
+"
+    },
+    {
+	"mName": "Naniwa's Blink Observer Build",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Naniwa%27s_Blink_Observer_Build_(vs._Protoss)\">Liquidpedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 49, "mUnit": "pylon" },
+	    { "mTime": 76, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 95, "mUnit": "gateway" },
+	    { "mTime": 104, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 119, "mUnit": "assimilator" },
+	    { "mTime": 135, "mUnit": "pylon" },
+	    { "mTime": 161, "mUnit": "cybernetics_core" },
+	    { "mTime": 172, "mUnit": "zealot" },
+	    { "mTime": 187, "mUnit": "assimilator" },
+	    { "mTime": 212, "mUnit": "warp_gate" },
+	    { "mTime": 215, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 216, "mUnit": "stalker" },
+	    { "mTime": 231, "mUnit": "pylon" },
+	    { "mTime": 240, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 250, "mUnit": "stalker" },
+	    { "mTime": 254, "mUnit": "sentry" },
+	    { "mTime": 257, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 268, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 281, "mUnit": "twilight_council" },
+	    { "mTime": 298, "mUnit": "gateway" },
+	    { "mTime": 306, "mUnit": "pylon" },
+	    { "mTime": 315, "mUnit": "chrono_boost", "mTarget": "cybernetics_core" },
+	    { "mTime": 326, "mUnit": "gateway" },
+	    { "mTime": 339, "mUnit": "blink" },
+	    { "mTime": 359, "mUnit": "robotics_facility" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>This build is intended to safely take a Protoss player into the mid-game in PvP. If executed correctly, it can defend against a 4 Warpgate Rush, Observers will be out quickly enough to defend against Dark Templar, and Blink Stalker All-Ins can be held with the aid of the ramp. Additionally, Blink Stalkers and Observers can be used to pressure the opponent's base (Observers will be used to provide high-ground vision, thus allowing Blink Stalkers to Blink in-and-out of the opponent's base).</p>
+
+<h1>Basic Build Order</h1>
+
+<h2>Gateways Before Twilight Council</h2>
+
+ - 9 Pylon<br />
+ - 13 Gateway<br />
+ - 14 Assimilator<br />
+ - 16 Pylon<br />
+ - 17 Cybernetics Core<br />
+ - 18 Zealot<br />
+ - 20 Assimilator<br />
+ - 22 Stalker<br />
+ - 24 Warpgate<br />
+ - 25 Pylon<br />
+ - 27 Stalker<br />
+ - 28 Gateways #2 and #3 at the same time.<br />
+ - 28 Sentry<br />
+ - 31 Twilight Council<br />
+ - 32 Pylon<br />
+ - 33 Robotics Facility<br />
+<br />
+<b>Chrono Boosts:</b><br />
+<br />
+ - Use on the Nexus when your 9 Pylon completes.<br />
+ - Use on your Nexus when your first Chrono Boost runs out.<br />
+ - Save until you can use on your Cybernetics Core when it completes.<br />
+ - Use on your Cybernetics Core when the third Chrono Boost runs out.<br />
+ - Use on your Gateway to Chrono Boost out your second Stalker.<br />
+ - Use on your Cybernetics Core.<br />
+
+<h2>Twilight Council First</h2>
+
+ - 9 Pylon<br />
+ - 13 Gateway, Scout base.<br />
+ - 14 Assimilator (1)<br />
+ - 16 Pylon at ramp<br />
+ - 17 Cybernetics Core<br />
+ - 18 Zealot<br />
+ - 20 Assimilator (2)<br />
+ - 22 Stalker<br />
+ - 22 Warpgate<br />
+ - 25 Pylon (3)<br />
+ - 27 Stalker<br />
+ - 30 Twilight Council<br />
+ - 31 Sentry<br />
+ - 33 Gateway x2<br />
+ - 33 Pylon<br />
+ - 35 Robotics Facility<br />
+<br />
+<b>Chrono Boosts:</b><br />
+<br />
+ - Use on your Nexus when your first Pylon finishes.<br />
+ - Use on your Nexus when your first Chrono Boost runs out.<br />
+ - Save until you can use on your Cybernetics Core.<br />
+ - Use on Cybernetics Core when the third Chrono Boost on the Cybernetics Core runs out.<br />
+ - Use on your Gateway to Chrono Boost out your second Stalker.<br />
+ - Use on your Cybernetics Core.<br />
+<h2>Notes</h2>
+<p>If you use the Twilight Council-first build then you may want to consider creating a wall with your Cybernetics Core and Gateways in order to be safe against a 4 Gate Rush. However, considering the drawbacks of warping-in buildings at your ramp in PvP (eg. vulnerability against Observer Immortal pushes, and decreased mobility between your main and natural), you would be advised to use the Gateway before Twilight Council build if your opponent's gas timings and Chrono Boost usage point towards a 4 Gate Rush.</p>
+<p>The purpose behind getting a Zealot and two Stalkers before a Sentry is, first and foremost, to prevent your opponent from warping-in any Pylons at the bottom of your ramp. If you suspect a 4 Gate Rush based on your opponent's gas timings and Chrono Boost usage, do not let your first three units stray far away from your natural as they will be required to deny proxy Pylons close to your ramp.</p>
+<h1>Scouting</h1>
+
+<h2>Probe Scout</h2>
+<p>When NaNiwa performs this build, he usually does not scout on 9 Pylon or on 13 Gateway. With the goal of gaining a slight economic advantage, he delays scouting until he builds his Cybernetics Core. Occasionally, he even waits until his Stalker is out before determining his opponent's starting point. While saving a Probe, this does have the downside of leaving the Protoss player susceptible to both a 4 Gate (if his opponent's Probe, Zealot and Stalker force come from a strange angle) and a Proxy 2 Gate Rush.</p>
+
+<h2>Zealot/Stalker/Stalker scout</h2>
+<p>Assuming you've seen your opponent build a second Assimilator, use more than two Chrono Boosts on Probes and not stall Probe production (all of which suggest that the opponent isn't 4 Gating), you can be aggressive with your Zealot and first two Stalkers. If your opponent did not build a Zealot before their first Stalker and isn't doing a 3 Stalker Rush, then you may want to move up your opponent's ramp. Because you Chrono Boosted out your second Stalker, you can often catch your opponent with a single Stalker and a single Sentry. If you barge up then - at the worst - they'll Force Field out your two Stalkers and allow your Zealot to scout their base. However, if you manage to get two units up their ramp then you'll be able to temporarily overpower them, which might allow you to score some cheap Probe kills. Alternatively, you can simply park one of your units below his ramp and see what shoots down at it.</p>
+
+<h2>Observer Scout</h2>
+<p>Generally, only a single Observer is initially built and it is rallied to your opponent's base escorted by a group of Blink Stalkers. The one exception to this is when your previous scouting has suggested to you that Dark Templar may be in play (the biggest tell is your opponent built a large amount of Zealots). In that case, you can either keep your first Observer at your main base for defence, or send your first Observer and Blink Stalkers to the opponent's base whilst blocking your main ramp with units and building a second Observer for defence.</p>
+
+<h1>Execution</h1>
+
+<p>The first step in correctly executing this build is ensuring that you don't lose to a 4 Gate. As stated in more depth in the Notes and Scouting sections, before sending your first Zealot and initial two Stalkers beyond your natural, carefully note his Chrono Boost usage and second Assimilator timing. If he's 4 Gating, when he tries to set a Pylon at your natural, he'll only have a single Zealot and Stalker. Your superior numbers should allow you to kill his Probe, push his units back, and even kill his Pylon if you pull some Probes of your own. Alternatively, you could simply force his units back, pull up your ramp, Chrono Boost out a second Sentry, and forcefield your ramp until your Warp Gate upgrade finishes.</p>
+<p>NaNiwa temporarily cuts Probes somewhere between 30 and 40 supply to produce more Stalkers.</p>
+<p>Your Blink upgrade and Observer should finish when you have 7-8 Stalkers. Move out with this group and a Probe to build a proxy Pylon to quickly warp-in reinforcement Stalkers.</p>
+<p>If you see your opponent expanded, bring your Sentry and Zealot from your main to your opponent's natural. Immediately decide whether 1) you want to expand and resume Probe production or 2) you want to keep building Stalkers and attempt to win outright. Generally, a quick expansion is immediately followed or preceded by a Robotics Facility. If your opponent has two Immortals, killing him with a frontal attack is likely impossible. If you can't win outright, attempt to Blink into his main with your stalkers, Force Field his ramp with your Sentry, then Blink back down and deny his expansion.</p>
+<p>Assuming you did not kill your enemy, as your expansion kicks in you should decrease Stalker production and begin building Immortals.</p>
+<p>Your next chance to pressure will be after you finish your 4th and 5th Gateways and finished Charge for your Zealots.</p>
+<p>After finishing Charge, you can choose between adding a Templar Archives for Archons or a Robotics Bay for Colossus. If you choose Archons, you must deny your opponent's third, and must prevent your opponent from building up a large Colossus count of his own. Continue building Immortals from your Robotics Facility. If you choose Colossus, you should pressure heavily with your Blink Stalkers to keep your opponent in his base while your Colossus count builds. As a general rule, if you want to play passively, build Colossus, while if you want to continuously attack, choose Archons.</p>
+
+<h1>Maps</h1>
+
+<h2>Pro features</h2>
+<p>To be a viable build, the a ramp leading into a player's main must be able to be blocked by a single Force Field. This is in order so that a 4 Gate can be delayed by Force Fields long enough for the defending player's 2nd and 3rd Gateways to come in. If the ramp is not able to be blocked by a single Force Field, a player would only be able to safely use this build if 1) he blocked his ramp with buildings in order to prevent high ground warp-ins inside his base or 2) he scouted that the 4 Gate was not coming.</p>
+<p>This build is best used on maps where a player's base is surrounded by low ground accessible to his opponent by land. This allows the Blink Observer player to easily Blink into his opponent's main. Thus, Shakuras Plateau and Antiga Shipyard are excellent maps for this build.</p>
+<h2>Con features</h2>
+<p>As said above, a ramp which is able to be blocked by a single Force Field is necessary for the Blink Observer player to defend a 4 Gate. Thus, because Tal'Darim Altar has no ramp, and because the entrance into a player's main requires two Force Fields to be blocked, this build is not viable on that map.</p>
+<p>Additionally, because using Blink to pressure an opponent's main is an important part of this build, the build is less viable on a map like Entombed Valley where the only Blink point into an opponent's main is to the left and right of the opponent's ramp.</p>
+<p><b>Note:</b> Build Player recording is for the Twilight Council First variation</p>
+"
+    },
+    {
+	"mName": "SaSe's Aggressive 2 Gate Expand",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/SaSe%27s_Aggressive_2_Gate_Expand_%28vs._Protoss%29\">Liquipedia</a>",
+	"mFaction": "PROTOSS",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 45, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 75, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 98, "mUnit": "note", "mText": "Send out probe to scout" },
+	    { "mTime": 100, "mUnit": "gateway", "mCount": 1 },
+	    { "mTime": 102, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 117, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 131, "mUnit": "assimilator", "mCount": 1 },
+	    { "mTime": 141, "mUnit": "chrono_boost", "mTarget": "nexus" },
+	    { "mTime": 145, "mUnit": "assimilator", "mCount": 1 },
+	    { "mTime": 161, "mUnit": "note", "mText": "Put two probes on gas" },
+	    { "mTime": 166, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 175, "mUnit": "note", "mText": "Put two probes on gas" },
+	    { "mTime": 186, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 208, "mUnit": "cybernetics_core", "mCount": 1 },
+	    { "mTime": 216, "mUnit": "zealot", "mCount": 1 },
+	    { "mTime": 237, "mUnit": "gateway", "mCount": 1 },
+	    { "mTime": 258, "mUnit": "warp_gate", "mCount": 1 },
+	    { "mTime": 260, "mUnit": "stalker", "mCount": 1 },
+	    { "mTime": 271, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 302, "mUnit": "stalker", "mCount": 2 },
+	    { "mTime": 302, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 302, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 309, "mUnit": "pylon", "mCount": 1 },
+	    { "mTime": 334, "mUnit": "stalker", "mCount": 1 },
+	    { "mTime": 334, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 337, "mUnit": "stalker", "mCount": 1 },
+	    { "mTime": 337, "mUnit": "chrono_boost", "mTarget": "gateway" },
+	    { "mTime": 360, "mUnit": "nexus", "mCount": 1 },
+	    { "mTime": 360, "mUnit": "note", "mText": "Put one probe on each gas" },
+	    { "mTime": 360, "mUnit": "note", "mText": "Use chrono boosts on warp gate research" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This build aims to expand off 2 Gateways whilst pressuring your opponent in a manner that will force them to play passively. This will allow you to get up your Natural Expansion uncontested, giving you a massive lead heading into the mid-game phase. You also have the option to transition into a defensive 4 Gateway opening should you scout that the opponent is going for a 4 Gate Rush. As you will have more units when their attack hits you will be able to crush their all-in and again head into the mid-game with an economic lead.
+</p> 
+<h1>Basic Build Order</h1>
+
+9 Pylon<br />
+13 Gateway<br />
+14 Pylon<br />
+16 Gas (Only Mine With 2 Probes)<br />
+17 Gas (Only Mine With 2 Probes)<br />
+18 Zealot<br />
+21 Pylon<br />
+22 Cybernetics Core<br />
+22 Zealot<br />
+25 Second Gateway<br />
+26 Stalker (Do Not Chrono The First Stalker)<br />
+26 Warpgate Research (Do Not Chrono This Either)<br />
+<br />
+<a href=\"http://www.sc2planner.com/#PaaaoCafaafadoDaoCaoBfaoBaiHagiHaoCaoFgaoDaauAjoCaafjfjoCaafjfjaaoAiH\">Build Order On SC2Planner</a><br />
+<h2>Notes</h2>
+<p> - You spend 3 Chrono Boosts on your Nexus after the first Pylon finishes.</p>
+<p> - On 13 Supply, scout the most obvious proxy locations to check for a proxy 2 Gate Zealot Rush.</p>
+<p> - 4 additional Stalkers will be built out of your 2 Gateways after the first. Spend all your Chrono Boost on them to get them out on the field ASAP.</p>
+<p> - Once you have 5 Stalkers, Chrono Boost Warpgate Research until it is finished.</p>
+<p> - Don't be overly aggressive with your first two Zealots and your first Stalker. This can result in your two Zealots being picked off by a 3 Stalker rush build and then you will lose a lot of the firepower for your push. Use your 2 Zealots and your Stalker to prevent proxy Pylons being placed near your base, but don't over-extend!</p>
+<p> - At ~6:00 you will have 400 Minerals saved up to plant down a Nexus. This is in the midst of your attack at the front so this requires a lot of multitasking to get down correctly.</p>
+<p> - Don't forget to put down a proxy Pylon in time for Warpgate Research finishing.</p>
+<p> - If for some reason you cannot break their ramp with your push (they have an Immortal out or they have enough Sentries to constantly Force Field the ramp, for example) then warp-in two Sentries as your first two units instead of 2 Stalkers. This will allow you to Force Field them into their own base whilst you secure your Nexus and throw down your chosen Tech structure.</p>
+<p> - Do not cut Probes for anything except your follow up Tech choice after you get the Nexus up. For example, if you want to go for a Robotics Facility, you will need to cut Probes for a few seconds so that you can get the Robotics Facility ASAP after the Nexus is built.</p>
+<p> - As soon as you plant down your Nexus, put 1 extra Probe on each gas so that you end up on the optimal 3 workers per geyser.</p>
+<h1>Mid-Game Follow Up</h1>
+
+<p>There are a few follow-ups that you can do with this build. Below are listed a number of different PvP openings and some suggested responses. You should be able to get any scouting information you require during your push, but if you cannot get any scouting information then it is best to play safe and go for a Robotics Facility follow-up as described in the first example.</p>
+
+<h2>4 Gate Blink All-In/Blink Obs</h2>
+<p>You want to go 5 Gate Blink Stalker with a delayed Robotics Facility for an Observer (which will allow you to Blink in and out of the opponent's base). Once you have your expansion planted down you will start your Twilight Council as soon as you have the Minerals for it. Get three more Gateways after throwing down the Twilight Council and then resume Probe production. In order to support 5 Gate Blink Stalker you need to get a third gas running at your natural, take it whenever your 3 extra Gateways finish up.</p>
+
+<h2>Immortal Openings</h2>
+<p>You need to cut Probes to get a Robotics Facility out ASAP after your Nexus is thrown down. Add 2 more Gateways and start adding in Immortals as soon as the Robotics Facility finishes. You can safely get an Observer out after the first two Immortals. Your Gateway production will be the same as your opponent's, but you have the economy available to get Immortals on top of Stalkers and so should be able to out-produce them for the win.</p>
+
+<h2>Against DT Rush</h2>
+<p>You will do damage to a DT rush build if they skip Sentries as they will not have the fire power to actually kill off your initial 7 Stalkers and 2 Zealots (2 Stalkers should be warped-in to support the pressure). They will need to warp in at least 1 DT to defend your aggression so make sure you go for their economy to do as much damage as you can with your units. Don't worry about retreating your units, just keep attacking with them so that you do the most damage possible. Behind this, cut Probes to throw down a Robotics Facility ASAP and chronoboost out an Observer - you may need to run your units away from a DT for a few seconds, but you should have enough time to get out an Observer as a single DT will not kill the Robotics Facility fast enough to prevent one finishing.</p>
+
+<h2>Against Stargate Openings</h2>
+<p>There are two different Phoenix openings, the 3 Gate Phoenix opening and the 2 Gate Phoenix Immortal Opening. The 2 Gate Immortal opening is safe against everything but gets a lot of Tech on 1 base, so you should be able to do damage if their BO is not 100% crisp. The 3 Gate Phoenix build is the weakest variation for the mid-game, but can lead into a strong all-in if they choose not to expand. Regardless of the build they go for, a 5 Gate Blink Stalker follow-up is recommended.</p>
+
+<h2>Against 4 Gate Cheese</h2>
+<p>Thank them for going for a 4 Gate because you basically have an auto-win. You will have more firepower at 5:45 than them and with your superior Stalker count they should never get a Pylon up at your ramp (or even close to your secondary ramp). Warp in 2 Sentries as soon as your Warpgates are done and then use Forcefields to defend your ramp whilst going up to 4 Gateways before expanding. Expand as soon as you can handle their army and then counter-attack. If they have tried to expand then your counter-attack will kill them, so the worst case scenario is that you will force them to make a lot of Sentries in order to defend their main base from your counter-attack. After building your expansion Nexus, get a Robotics Facility up to keep yourself safe from a DT or 4 Gate Blink follow-up. You will have a massive economic lead heading into the mid-game, so if you don't make any mistakes and play safely then you should easily win the game from this position.</p>
+
+<h1>Maps</h1>
+
+<p>This build is usable on all maps except for Tal'Darim Altar. This is as Tal'Darim Altar does not have a ramp into the main base, making it impossible to defend against a 4 Gate by using Sentries to Forcefield a ramp.</p>
+
+<h1>References</h1>
+
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=339898\">A guide for this build posted on the TeamLiquid.net forums by TechSC2.</a></p>
+	"
+    }
+]
+ 

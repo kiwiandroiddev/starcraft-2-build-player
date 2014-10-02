@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dip">
+
+<TextView
+    android:id="@+id/buildName"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="8dip"
+    android:layout_marginBottom="4dip"
+    android:layout_marginLeft="8dip"
+    android:layout_marginRight="8dip"
+    
+    android:singleLine="true"
+    android:ellipsize="marquee"
+    android:text="Build Order Title" />
+
+<TextView
+    android:id="@+id/buildVsRace"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/buildName"
+    android:layout_marginLeft="12dip"
+    android:text="vs. Terran"
+    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+<TextView
+    android:id="@+id/buildCreationDate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/buildName"
+    android:layout_marginRight="12dip"
+    android:text="5 November 2012"
+    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>
+

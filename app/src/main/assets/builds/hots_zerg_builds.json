@@ -1,0 +1,509 @@
+[
+    {
+	"mName": "Life's ZvT build order",
+	"mSource": "<a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=403678\">Team Liquid Forum</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 56, "mUnit": "overlord" },
+	    { "mTime": 64, "mUnit": "note", "mText": "Use Extractor trick" },
+	    { "mTime": 130, "mUnit": "hatchery" },
+	    { "mTime": 150, "mUnit": "extractor" },
+	    { "mTime": 169, "mUnit": "spawning_pool" },
+	    { "mTime": 198, "mUnit": "overlord" },
+	    { "mTime": 236, "mUnit": "queen", "mCount": 2 },
+	    { "mTime": 240, "mUnit": "metabolic_boost" },
+	    { "mTime": 252, "mUnit": "zergling", "mCount": 2 },
+	    { "mTime": 260, "mUnit": "overlord" },
+	    { "mTime": 288, "mUnit": "queen" },
+	    { "mTime": 297, "mUnit": "overlord" },
+	    { "mTime": 351, "mUnit": "overlord" },
+	    { "mTime": 355, "mUnit": "hatchery" },
+	    { "mTime": 376, "mUnit": "queen" },
+	    { "mTime": 378, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 382, "mUnit": "overlord" },
+	    { "mTime": 389, "mUnit": "extractor" },
+	    { "mTime": 399, "mUnit": "overlord" },
+	    { "mTime": 409, "mUnit": "extractor" },
+	    { "mTime": 411, "mUnit": "evolution_chamber", "mCount": 2 },
+	    { "mTime": 419, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 425, "mUnit": "overlord" },
+	    { "mTime": 439, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 442, "mUnit": "queen" },
+	    { "mTime": 443, "mUnit": "lair" }
+	],
+	"mNotes": "<html>
+<h2>Overview</h2>
+<p>This is Life's Zerg vs. Terran build that he used in a match against Flash in MLG. It is a economy-focused build suitable for when your Terran opponent opens with an early Command Center and does not apply any early pressure.</p>
+<p>For an explanation of this build, please watch this <a href=\"http://www.youtube.com/watch?v=tlZR2UTYKNo\">replay analysis by Lowko</a>.</p>
+    </html>"
+    },
+    {
+	"mName": "Blade's Mutalisk Build",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Blade%27s_Guide_to_Zerg_vs._Zerg\">Liquidpedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "ZERG",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 50, "mUnit": "overlord" },
+	    { "mTime": 121, "mUnit": "spawning_pool" },
+	    { "mTime": 165, "mUnit": "hatchery" },
+	    { "mTime": 166, "mUnit": "extractor" },
+	    { "mTime": 205, "mUnit": "queen" },
+	    { "mTime": 250, "mUnit": "baneling_nest" },
+	    { "mTime": 270, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 284, "mUnit": "metabolic_boost" },
+	    { "mTime": 312, "mUnit": "overlord" },
+	    { "mTime": 316, "mUnit": "overlord" },
+	    { "mTime": 326, "mUnit": "spine_crawler" },
+	    { "mTime": 345, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 385, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 400, "mUnit": "zergling", "mCount": 8 },
+	    { "mTime": 411, "mUnit": "extractor" },
+	    { "mTime": 434, "mUnit": "overlord" },
+	    { "mTime": 436, "mUnit": "lair" },
+	    { "mTime": 442, "mUnit": "extractor" },
+	    { "mTime": 453, "mUnit": "zergling", "mCount": 2 },
+	    { "mTime": 462, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 489, "mUnit": "overlord" },
+	    { "mTime": 507, "mUnit": "overlord" },
+	    { "mTime": 519, "mUnit": "spire" },
+	    { "mTime": 522, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 550, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 574, "mUnit": "hatchery" },
+	    { "mTime": 620, "mUnit": "extractor", "mCount": 2 },
+	    { "mTime": 628, "mUnit": "flyer_carapace_level1" },
+	    { "mTime": 630, "mUnit": "mutalisk", "mCount": 6 },
+	    { "mTime": 635, "mUnit": "zergling", "mCount": 12 }
+	],
+	"mNotes": "<html>
+<h1>Overview</h1>
+
+Zerg versus Zerg is played differently in Heart of the Swarm than it is in Wings of Liberty. This guide will go in-depth on Mutalisks, and how to most effectively use them since they are the primary unit in HotS ZvZ. It will go over situations such as Mutalisk vs Mutalisk and Mutalisk vs Roach/Hydralisk/Infestor.
+
+<h1>The Builds</h1>
+<h2>Mutalisk Build 15 pool version</h2>
+<p>
+ - 15 Spawning Pool<br />
+ - 16 Hatchery<br />
+ - 16 Extractor<br />
+ - 15 Overlord<br />
+ - @100 gas - Metabolic Boost<br />
+ - @50 gas - Baneling Nest<br />
+ - 25 Overlord<br />
+ - 5:30 Spine Crawler [1]<br />
+ - 5:50 2nd and 3rd Extractors<br />
+ - 6:00 Lair<br />
+ - 6:15 4th Extractor<br />
+ - @100% Lair - Spire<br />
+ - Start third Hatchery<br />
+ - @100% Spire - +1 Flyer Carapace [2] <br />
+  <br />
+[1] Optional.<br />
+[2] Flyer Attack if your opponent doesn't build Mutalisks.<br />
+</p>
+<h2>Mutalisk Build 15 hatch version</h2>
+<p>
+ - 15 Hatchery<br />
+ - 16 Spawning Pool<br />
+ - 17 Extractor<br />
+ - 16 Overlord<br />
+ - @100 gas - Metabolic Boost<br />
+ - @50 gas - Baneling Nest<br />
+ - 25 Overlord<br />
+ - 5:30 Spine Crawler [1]<br />
+ - 5:50 2nd and 3rd Extractors<br />
+ - 6:00 Lair<br />
+ - 6:15 4th Extractor<br />
+ - @100% Lair - Spire<br />
+ - Start third Hatchery<br />
+ - @100% Spire - +1 Flyer Carapace [2] <br />
+<br />
+[1] Optional.<br />
+[2] Flyer Attack if your opponent doesn't build Mutalisks.<br />
+</p>
+<h2>Detailed Explanation of the Build</h2>
+
+<p>When doing a Mutalisk build you should start the Lair fairly early. We have observed multiple games of Idra's and found that this build allows Mutalisks to come out early without falling behind economically.</p>
+
+<p>If you intend to be aggressive then it is best to get Metabolic Boost first. If you intend to be defensive then a Baneling Nest should allow you to defend against any Speedling all-in.</p>
+
+<p>The Spine Crawler is not essential but it will make defense against early aggression much easier. You may skip this if you prefer a greedy style of play.</p>
+
+<p>After you start your third base you should mass produce Zerglings. Use these to either pressure your opponent's third base or defend your own.</p>
+<h1>Mutalisk Play</h1>
+<h2>Mutalisk versus Mutalisk</h2>
+
+<p>As we mentioned earlier, Mutalisk play is the biggest difference between WoL and HotS ZvZ. Mutalisk battles are standard and you must learn this style of play. Mutalisks gained a speed and health regeneration buff whereas Infestors had their Fungal Growth nerfed. Mutalisks now dominate this match-up.</p>
+
+<p>Winning a Mutalisk war requires good multitasking and general mechanics (injecting and unit production). You should constantly produce Mutalisks while performing multi-pronged attacks.</p>
+
+<p>Attacking the natural and third with Zerglings while attacking another location with Mutalisks is enough to make some opponents fall apart. However, this is a very micro intensive unit composition. Do not engage in a Mutalisk fight unless you know you will win. Be careful at your opponent's third since they will normally have a Spore Crawler with Queen support. Unless you have a huge Mutalisk lead this isn't safe to attack.</p>
+
+<p>The best way to defend against multiple Zergling run-bys is to make a couple of Banelings at your third and natural. Also build one or two Spine Crawlers at each base.</p>
+
+<p>We do not recommended transitioning out of Mutalisks because you will be very vulnerable for a short time. In fact, you should watch for your opponent to do this then push for the kill, or at least do immense damage. Pay very close attention to your opponent's Mutalisk count, if you suddenly pull far ahead then this indicates a transition. If you don't act on this you could be in trouble.</p>
+
+<p>Taking a fourth base depends on when you have enough economy, or if you have a good lead from an earlier Mutalisk engagement.</p>
+<h2>Mutalisk versus Roach/Hydralisk/Infestor</h2>
+
+<p>This isn't as common in Heart of the Swarm, but it will happen occasionally. You have two options facing this composition.</p>
+
+<p>The first option is going heavy Mutalisk/Zergling/Baneling into Ultralisks. This is a very strong option because if your opponent attacks too late then your Ultralisks will be out. If not then you need to flank your opponent with Mutalisks. You should also make some Spine Crawlers to help with defense. Make about 16 Mutalisks before starting Hive.</p>
+
+<p>As soon as you scout no Mutalisks you should make two Evolution Chambers and start +1 Carapace and Melee upgrades. Then eventually add Infestors to your Ultralisk/Zergling/Baneling composition. If you get this composition after defending a Roach/Hydralisk/Infestor attack then, blunders notwithstanding, you will win with the better unit composition.</p>
+
+<p>The second option is go into a Roach/Hydralisk/Infestor composition yourself. Build two Evolution Chambers as before but get +1 Ranged/Carapace instead of +1 Melee/Carapace.</p>
+
+<p>It is really up you how you want to fight a player not going Mutalisks.</p>
+<h2>Defending Roach/Zergling/Baneling Attacks</h2>
+
+<p>You will commonly face this attack as it is timed to arrive before your Mutalisks. This can kill you outright if not scouted.</p>
+
+<p>Scout this by constantly sending in Speedlings - three at a time and spread out. Doing this will get you information, such as seeing lots of Zerglings, some Roaches, Spine Crawlers, Evolution Chambers, etc. Sometimes even getting inside the main base and seeing everything. There is no downside to doing this, and you have a much better chance of defending this timing than waiting until he moves out. Your Zerglings may be stopped so you should also scout with Overlords. Check the Drone count and gas timings. If you see a low Drone count and no third and forth gas then consider this attack a certainty.</p>
+
+<p>To defend you need to make lots of Spine Crawlers and spread them out so that Banelings will not kill eight at time when they detonate. Not spreading them is as bad as not making them.</p>
+
+<p>If you build enough Spine Crawlers and spread them out then you should defend successfully. Your Spire will then finish and you will be far ahead of you opponent who won't yet have a Lair. Take a third base, saturate, use Mutalisks for map control and deny your opponent's third for as long as possible; then kill him with either a Roach timing or Mutalisk/Zergling/Baneling.</p>
+
+<h1>See Also</h1>
+
+<p><a href=\"http://wiki.teamliquid.net/starcraft2/Blade%27s_Guide_to_Zerg_vs._Terran\"> - Blade's Guide to Zerg vs. Terran</a></p>
+<p><a href=\"http://wiki.teamliquid.net/starcraft2/Blade%27s_Guide_to_Zerg_vs._Protoss\"> - Blade's Guide to Zerg vs. Protoss</a></p>
+
+</html>"
+    },
+    {
+	"mName": "Fast Lair into Hydras",
+	"mSource": "<a href=\"http://www.gosubuilds.com/hots-zerg/hots-zvp/zvp-fast-lair-into-hydras/\">GosuBuilds</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "HOTS",
+    "mCreated":"2013-03-22 00:00:00",
+    "mModified":"2013-03-22 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 50, "mUnit": "overlord" },
+	    { "mTime": 114, "mUnit": "spawning_pool" },
+	    { "mTime": 158, "mUnit": "hatchery" },
+	    { "mTime": 177, "mUnit": "overlord" },
+	    { "mTime": 194, "mUnit": "queen" },
+	    { "mTime": 207, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 240, "mUnit": "hatchery" },
+	    { "mTime": 251, "mUnit": "overlord" },
+	    { "mTime": 264, "mUnit": "queen" },
+	    { "mTime": 295, "mUnit": "extractor" },
+	    { "mTime": 317, "mUnit": "overlord" },
+	    { "mTime": 345, "mUnit": "queen" },
+	    { "mTime": 376, "mUnit": "overlord" },
+	    { "mTime": 381, "mUnit": "metabolic_boost" },
+	    { "mTime": 418, "mUnit": "overlord" },
+	    { "mTime": 436, "mUnit": "lair" },
+	    { "mTime": 453, "mUnit": "extractor", "mCount": 3 },
+	    { "mTime": 459, "mUnit": "overlord" },
+	    { "mTime": 529, "mUnit": "hydralisk_den" },
+	    { "mTime": 532, "mUnit": "extractor", "mCount": 2 },
+	    { "mTime": 538, "mUnit": "overlord" },
+	    { "mTime": 556, "mUnit": "spine_crawler" },
+	    { "mTime": 561, "mUnit": "overlord" },
+	    { "mTime": 576, "mUnit": "muscular_augments" },
+	    { "mTime": 578, "mUnit": "hydralisk", "mCount": 8 }
+	],
+	"mNotes": "<html>
+<h2>General Overview</h2>
+<p>This build allows you to counter the new air style that Protoss have been utilizing in HotS. As soon as you establish an early third and an early lair, you can gear up for a brutal Hydra/Ling timing attack on your opponent's third base.</p>
+<h2>Build Order</h2>
+<p>
+ - 9 Overlord<br />
+ - 14 Spawning Pool<br />
+ - 15 Hatch<br />
+ - 16 Overlord<br />
+ - 16 Queen<br />
+ - 18 2 lings<br />
+ - 21 3rd Hatch<br />
+ - 22 Queen<br />
+ - 26 Gas<br />
+ - 40 Queen at 3rd<br />
+ - 42 Ling Speed<br />
+ - @7:00 Lair<br />
+ - @7:30 Gas x3<br />
+ - Evolution Chamber<br />
+ - @100% Lair Hydra Den and +1 Attack<br />
+ - Hydra Speed<br />
+</p>
+<h2>Execution</h2>
+
+<p>While you are droning in the beginning stages of the game, be sure that your opponent is not going for any early pressure.  The early game lings that you have should give you total vision of the map, but keep in mind that you cannot do this build if your opponent weakens your economy by forcing out too many lings before you want to make them.</p>
+
+<p>Assuming you finish your Hydra Den without dealing with too much pressure, then you should be fine.  As soon as Hydra speed finishes researching, start the Grooved Spines upgrade, and move out to start applying pressure to your opponent's third.  Keep producing Hydras and lings to see if you can take his third base.  If your opponent attempts to counters you by going colossus, keep him contained on two bases, but fall back to a spire for a muta transition.</p>
+<h2>Scouting</h2>
+
+<p>In the early stages of the game make sure you have 2 - 4 lings out on the map at all times.  Note that you can only go for such a greedy third if your opponent FFEs, so use these lings to confirm your opponent's not applying early pressure and then get map control to deny your opponent scouting your early third base.  If you scout any early pressure make sure that you stop droning and start producing lings/hydras to hold your third.  It is also very important to scout when your opponent puts his third down so you know when to best attack.  If your opponent never takes a third, instead of moving out, you can play defensively and build up your army before committing to an engage; be wary of colossus however and start a spire for a Mutalisk tech switch or for Corruptors to supplement your army.</p>
+<h2>Pros and Cons</h2>
+
+<p>This build opens up with a very quick 3rd base (around 4:30), which can be great if your opponent doesn't scout it or apply much pressure.  Getting such an early 3rd base will allow you to hit a very strong Hydra/Ling timing attack that can break your opponent.</p>
+
+<p>The downside to this build is that it can have trouble against early pressure against your third (or natural if your opponent does not FFE).  With less economy, this build is not as effective, so making too many early game lings to defend pressure will slow down the resulting push.  Also, if your opponent scouts the hydra/ling composition relatively early, he can transition into colossus and will have a small window of opportunity to attack.</p>
+<h2>Favorable Maps</h2>
+
+<p>This build works best on maps with easy-to-defend third bases so that you can take your third easily and also your opponent will want to get their third quickly (just as your hydra/ling army is attacking).</p>
+<p>
+ - Daybreak<br />
+ - Korhal City<br />
+ - Bel'Shir Vestige<br />
+ - Newkirk Precinct<br />
+ - Star Station<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"http://tv.majorleaguegaming.com/events/23-2013-winter-championship#2424/2430/1;100083\">2013 MLG winter championship Life vs. MC game 1</a></p>
+
+<p><a href=\"http://drop.sc/311460\">Fast Lair into Hydras Tutorial Replay vs a Very Easy AI</a></p>
+ 
+<p><b>Note:</b> Attached recording does not include Zerglings needed to defend against early pressure, morph these at your discretion.</p>
+</html>"
+    },
+{"mExpansion":"HOTS","mFaction":"ZERG","mItems":[{"mUnit":"overlord","mTime":47,"mCount":1},{"mText":"Send a drone to scout","mUnit":"note","mTime":75,"mCount":1},{"mUnit":"spawning_pool","mTime":115,"mCount":1},{"mUnit":"hatchery","mTime":169,"mCount":1},{"mUnit":"overlord","mTime":181,"mCount":1},{"mUnit":"queen","mTime":199,"mCount":1},{"mUnit":"zergling","mTime":203,"mCount":2},{"mUnit":"extractor","mTime":239,"mCount":1},{"mUnit":"queen","mTime":246,"mCount":1},{"mUnit":"overlord","mTime":266,"mCount":1},{"mUnit":"overlord","mTime":311,"mCount":1},{"mUnit":"extractor","mTime":340,"mCount":3},{"mUnit":"lair","mTime":344,"mCount":1},{"mUnit":"overlord","mTime":354,"mCount":1},{"mUnit":"pneumatized_carapace","mTime":387,"mCount":1},{"mUnit":"zergling","mTime":402,"mCount":2},{"mUnit":"overlord","mTime":404,"mCount":1},{"mUnit":"infestation_pit","mTime":430,"mCount":1},{"mUnit":"zergling","mTime":434,"mCount":4},{"mUnit":"overlord","mTime":451,"mCount":2},{"mUnit":"nydus_network","mTime":482,"mCount":1},{"mUnit":"enduring_locusts","mTime":483,"mCount":1},{"mUnit":"swarm_host","mTime":488,"mCount":2},{"mUnit":"overlord","mTime":506,"mCount":1},{"mText":"Move overlords, zerglings and drones to enemy base","mUnit":"note","mTime":518,"mCount":1},{"mUnit":"nydus_worm","mTime":547,"mCount":1},{"mUnit":"swarm_host","mTime":556,"mCount":6},{"mUnit":"queen","mTime":557,"mCount":2},{"mUnit":"evolution_chamber","mTime":562,"mCount":1},{"mUnit":"overlord","mTime":565,"mCount":3},{"mUnit":"swarm_host","mTime":569,"mCount":1},{"mUnit":"spore_crawler","mTime":575,"mCount":3}],
+"mName":"Velvex\u0027s 2 Base Swarm Host + Spore",
+"mCreated":"2013-04-23 00:00:00",
+"mModified":"2013-04-23 00:00:00",
+"mNotes":"<html>
+<h2>Intro</h2>
+
+<p>Heart of the Swarm has really mixed up the meta game, which is a welcome change from Wings ZvP. While my previous entries have all broken down build orders from professional players, this one was too fun to pass up. I’ve looked at variations by Psy, CatZ, and Leenock, but the one we’re breaking down today was originally published on TeamLiquid by velvex during beta. A special thanks to my friend Velidra for showing this one to me (you’ve betrayed the Protoss race and brought shame to your people).</p>
+<h2>Summary and build order</h2>
+
+<p>The goal of this build is to put on heavy pressure with Swarm Hosts around 10:30 off of 2 bases (yeah, you heard me). Use spores in front to block detection, and adapt for the kill (or power up your economy back home) depending on your opponent’s reaction.</p>
+
+<h3>Basic build order / timings:</h3>
+
+12-14 pool<br />
+16 Hatch<br />
+3:45-4:00 gas #1 <br />
+2 drones on gas<br />
+@100 gas: lair<br />
+After lair is started, take 3 more geysers and fully saturate (~6:00)<br />
+@100 gas: overlord speed Infestation pit when lair finishes (~7:15)<br />
+2 swarm hosts, enduring locusts upgrade, and nydus as soon as pit finishes (~8:00)<br />
+Send 3-4 drones, 2 swarm hosts, and 5 overlords across the map (~8:45)<br />
+Make 6 swarm hosts and 2 queens (rallied to your nydus)<br />
+Evo chamber (optional)<br />
+Drop creep with your overlords and open a nydus worm outside their base<br />
+Morph your drones into spore crawlers, and nydus in your reinforcing swarm hosts and queens<br />
+Spread creep with queens and burrow your swarm hosts<br />
+ATTACK! First wave should hit around 10:30 with 8 swarm hosts, 2 queens, and 3-4 spores<br />
+Reinforce with 2-4 more swarm hosts<br />
+Take a 3rd base and either get aggressive or drone up<br />
+
+<p>This build will not work without enough gas, be sure to fully saturate after you upgrade to lair. You may opt to take zergling speed at some point too depending on how aggressive the Protoss appears.</p>
+<h2>Execution</h2>
+
+<p>Try to keep your opponent in the dark for as long as possible. Get 4-6 lings out on the map and go probe hunting. If they spot full gas saturation and no 3rd at 6:00, they will know something is up. Some people have even suggested faking a 3rd and canceling it at the last minute. This is a tight built though, and it may disrupt your timing… especially if you accidentally let it finish.</p>
+
+<p>Set up your attack outside of their natural, but stay out of vision! The moment they spot creep, you can expect aggression. Enduring locusts upgrade is really good, you don’t have to get that close.</p>
+
+<p>When you drop your spores, keep at least two in front of your swarm hosts to kill observers and another one or two among your hosts.</p>
+
+<p>There’s nothing worse than having idle locusts (except maybe rage quitting to hallucinations). Make sure to set up a secondary rally for your locusts so after they take out the first structure you rally them to, they move on to another. The locusts will attack everything in their path, so don’t worry too much about microing waves unless you really need to target something down.</p>
+
+<p>If things go south, use your nydus to get out! Losing all of your swarm hosts could be game ending at this point.</p>
+<h2>Transition</h2>
+
+<p>Obviously, you can win more than one way, but this is what I’ve found to be most successful so far. As a general rule of thumb:</p>
+
+ - If you see robo, go spire or hive<br />
+ - If you see stargate, go hydra<br />
+
+<h3>If you see robo, go spire or hive</h3>
+
+<p>In Blade’s HotS Zerg guide, he suggests that the best transition out of swarm host (once you have 10-13) is to start adding on overseers and corruptors. They do well against colossi and can continue to snipe observers. Alternatively, you can build mutalisks which do reasonably well against colossus (depending on the stalker count), but more importantly, can harass like crazy. Swarm hosts in the natural and mutas hitting mineral lines can be enough to break some toss.</p>
+
+<p>In either case, you will need a 3rd for the gas, and maybe even a 4th at this point depending on how aggressive your opponent is acting.</p>
+
+<p>If they have a robo, one of the best reactions to swarm host play are warp prism. Kill them with your air if you can, but expect it! You may send a few swarm hosts back home through the nydus to defend. Static defense (spores and spines) isn’t a bad choice either.</p>
+
+<h3>If you see stargate, go hydra</h3>
+
+<p>This is my favorite scenario as a Zerg player as Hydras will do very well attacking an air army with locust support, and can move quickly through the nydus to defend at home if necessary. Add in lings to protect your hydras and take out probes/production facilities. Build extra spores around your swarm hosts and probably 2 more spores at each of your mineral lines. Be aggressive, this is a decent window for victory.</p>
+<p><a href=\"https://www.youtube.com/watch?feature=player_embedded&v=EZXrwNHN9ug\">Summary Video [11:46]</a></p>
+
+<h2>Resources:</h2>
+
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=398321\">2 Base Swarm Host ZvP by velvex [Guide]</a></p>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=402758#3.3\">First overview of HotS Zerg by Blade [Guide]</a></p>
+<p><a href=\"http://drop.sc/314512\">Velvex reacting to Colossus [Replay]</a></p>
+<p><a href=\"http://drop.sc/314511\">Velvex reacting to Air [Replay]</a></p>
+<p><a href=\"http://drop.sc/318972\">Viper, no nydus variation [Replay]</a></p>
+
+</html>","mSource":"\u003ca href\u003d\"http://zergology.tumblr.com/post/47350867354/zvp-2base-swarmhost\"\u003eZergology\u003c/a\u003e","mVsFaction":"PROTOSS"},
+{"mExpansion":"HOTS","mFaction":"ZERG","mItems":[{"mUnit":"overlord","mTime":49,"mCount":1},{"mText":"Send Drone to natural","mUnit":"note","mTime":118,"mCount":1},{"mUnit":"hatchery","mTime":133,"mCount":1},{"mUnit":"spawning_pool","mTime":164,"mCount":1},{"mUnit":"extractor","mTime":179,"mCount":1},{"mUnit":"overlord","mTime":190,"mCount":1},{"mUnit":"queen","mTime":234,"mCount":2},{"mUnit":"zergling","mTime":239,"mCount":4},{"mUnit":"overlord","mTime":253,"mCount":1},{"mUnit":"metabolic_boost","mTime":266,"mCount":1},{"mUnit":"baneling_nest","mTime":302,"mCount":1},{"mUnit":"overlord","mTime":307,"mCount":1}],"mName":"Standard Ling/Bane Opener","mSource":"\<a href=\"http://www.gosubuilds.com/hots-zerg/hots-zvz/zvz-standard-lingbane-opener/\">GosuBuilds</a>","mVsFaction":"ZERG",
+"mCreated":"2013-05-09 00:00:00",
+"mModified":"2013-05-09 00:00:00",
+"mNotes":"<html>
+<h2>General Overview</h2>
+<p>This build is the standard way to open in ZvZ.  Time and time again, getting 2 bases quickly, Metabolic Boost, and a Baneling Nest for safety or aggression has proven to be the most standard way to play.</p>
+<h2>Build Order</h2>
+<p>
+    9 – Overlord<br />
+    15 – Hatchery<br />
+    16 – Spawning Pool<br />
+    17 – Extractor<br />
+    16 – Overlord<br />
+    20 – @100% Spawning Pool, start 2 Queens and 4 Zerglings<br />
+    24 – Overlord<br />
+    25 – @100 Gas, start Metabolic Boost and pull 1 Drone out of Gas<br />
+    @50 Gas, start Baneling Nest<br />
+</p>
+<h2>Scouting</h2>
+<p>In the early stages of the game, all scouting comes from Overlord vision, so be sure that you send your initial 2 Overlords towards your opponent’s base so that you can see if an early pool or drones are on their way to your base.  When playing versus any very early aggression (<10 pool), use your Drones to defend until you have your own Zerglings, a Queen, and potentially a Spine Crawler.  Consider canceling the Hatchery for more minerals.  Also use your initial overlord to scout when your opponent is taking their natural Hatchery.</p>
+<p>Make sure you have 2 to 4 Zerglings out on the map at all times.  Send your initial 4 Zerglings to your opponent’s base to spot what they have at the front, and if possible get into the main with 1 Ling to see whether your opponent is mining more than 100 Gas (applying pressure) or not (merely researching Metabolic Boost).  Use the scouting intel that these pokes give you to determine whether you should get Banelings and extra Zerglings to defend or whether you should continue droning.</p>
+<p>Another thing to consider is that if your opponent chooses to attack with fast Roaches, you can base trade them with your Ling/Bane.  Thus, until your midgame tech has kicked in, you can use your units to back stab an opponent trying to move out, while simply defending at home with spines.</p>
+<h2>Pros and Cons</h2>
+<p>This build opens up with a 15 Hatch for lots of larvae and gets a reasonably timed Metabolic Boost.  Thus, you will get map control and a strong economy against most players who do not attack you early.  Also, you get a Baneling Nest so that you can apply pressure or defend an opponent in the early midgame.</p>
+<p>However, this build requires a lot of micro to beat early (<10) pools.  Also, by getting the Spawning Pool before Extractor, you will have faster Zerglings but slower Speedlings against an opponent who opened Extractor before Spawning Pool.</p>
+<h2>Favorable Maps</h2>
+<p>This build works quite well on most maps, although it works best on larger maps where your opponent is less likely to get an early Spawning Pool.</p>
+<p>
+ - Akilon Wastes<br />
+ - Korhal City<br />
+ - Daybreak<br />
+ - Newkirk Precinct<br />
+ - Bel’Shir Vestige<br />
+ - Star Station<br />
+ - Whirlwind<br />
+</p>
+<h2>Replays</h2>
+<p><a href=\"http://drop.sc/322750\">Standard Ling/Bane Opener Tutorial Replay vs a Very Easy AI</a></p>
+</html>"},
+{"mExpansion":"HOTS","mFaction":"ZERG","mItems":[{"mUnit":"overlord","mTime":48,"mCount":1},{"mUnit":"spawning_pool","mTime":120,"mCount":1},{"mText":"Send Drone to natural","mUnit":"note","mTime":148,"mCount":1},{"mUnit":"hatchery","mTime":167,"mCount":1},{"mUnit":"extractor","mTime":174,"mCount":1},{"mUnit":"overlord","mTime":184,"mCount":1},{"mUnit":"queen","mTime":195,"mCount":1},{"mUnit":"zergling","mTime":202,"mCount":2},{"mUnit":"zergling","mTime":218,"mCount":4},{"mUnit":"metabolic_boost","mTime":260,"mCount":1},{"mUnit":"overlord","mTime":279,"mCount":1},{"mUnit":"queen","mTime":282,"mCount":1},{"mUnit":"baneling_nest","mTime":301,"mCount":1}],"mName":"Safe Ling/Bane Opener","mSource":"<a href=\"http://www.gosubuilds.com/hots-zerg/hots-zvz/zvz-safe-lingbane-opener/\">GosuBuilds</a>","mVsFaction":"ZERG",
+"mCreated":"2013-05-09 00:00:00",
+"mModified":"2013-05-09 00:00:00",
+"mNotes":"<html>
+<h2>General Overview</h2>
+<p>This build is a safe version of the standard way to open in ZvZ.  This build opens with a Spawning Pool before Hatchery in order to stay safe against opponents opening with early pools.  This build is standard because it gets 2 bases quickly, Metabolic Boost, and a Baneling Nest for safety or aggression.</p>
+<h2>Build Order</h2>
+<p>
+    9 – Overlord<br />
+    14 – Spawning Pool<br />
+    16 – Hatchery<br />
+    16 – Extractor<br />
+    15 – Overlord<br />
+    17 – @100% Spawning Pool, start 1 Queen and 4 Zerglings<br />
+    22 – @100 Gas, start Metabolic Boost and pull 1 Drone out of Gas<br />
+    24 – Overlord<br />
+    @50 Gas, start Baneling Nest<br />
+</p>
+<h2>Scouting</h2>
+<p>In the early stages of the game, all scouting comes from Overlord vision, so be sure that you send your initial 2 Overlords towards your opponent’s base so that you can see if an early pool or drones are on their way to your base.  When playing versus any very early aggression (<10 pool), use your Drones to defend until you have your own Zerglings, a Queen, and potentially a Spine Crawler.  Consider canceling the Hatchery for more minerals.  Also use your initial overlord to scout when your opponent is taking their natural Hatchery.  Feel free to apply some light pressure with your first Zerglings against a Hatch first build, but do not let it mess up your macro.</p>
+<p>Make sure you have 2 to 4 Zerglings out on the map at all times.  Send your initial 4 Zerglings to your opponent’s base to spot what they have at the front, and if possible get into the main with 1 Ling to see whether your opponent is mining more than 100 Gas (applying pressure) or not (merely researching Metabolic Boost).  Use the scouting intel that these pokes give you to determine whether you should get Banelings and extra Zerglings to defend or whether you should continue droning.</p>
+<p>Another thing to consider is that if your opponent chooses to attack with fast Roaches, you can base trade them with your Ling/Bane.  Thus, until your midgame tech has kicked in, you can use your units to back stab an opponent trying to move out, while simply defending at home with spines.</p>
+<h2>Pros and Cons</h2>
+<p>This build opens up with a 15 Spawning Pool to stay relatively safe against early pools, and gets a reasonably timed Metabolic Boost.  Also, you get a Baneling Nest so that you can apply pressure or defend an opponent in the early midgame.</p>
+<p>However, this build is a lot less economical than other Hatchery first builds.  Also, by getting the Spawning Pool before Hatchery, you will have less larvae and later queens than a Hatchery first build, so you must be wary about being outproduced by Zerglings in the early midgame.</p>
+<h2>Favorable Maps</h2>
+<p>This build works best on smaller maps, so that you can defend early pools and apply pressure to Hatchery first builds.</p>
+<p>
+ - Akilon Wastes<br />
+ - Daybreak<br />
+ - Newkirk Precinct<br />
+ - Neo Planet S<br />
+</p>
+<h2>Replays</h2>
+<p><a href=\"http://drop.sc/322754\">Safe Ling/Bane Opener Tutorial Replay vs a Very Easy AI</a></p>
+</html>"},
+{"mExpansion":"HOTS","mFaction":"ZERG","mItems":[{"mUnit":"overlord","mTime":48,"mCount":1},{"mText":"Send Drone to natural","mUnit":"note","mTime":121,"mCount":1},{"mUnit":"hatchery","mTime":130,"mCount":1},{"mUnit":"extractor","mTime":160,"mCount":1},{"mUnit":"spawning_pool","mTime":168,"mCount":1},{"mUnit":"overlord","mTime":198,"mCount":1},{"mUnit":"queen","mTime":236,"mCount":2},{"mUnit":"zergling","mTime":236,"mCount":4},{"mUnit":"metabolic_boost","mTime":249,"mCount":1},{"mUnit":"overlord","mTime":272,"mCount":1},{"mUnit":"overlord","mTime":293,"mCount":1},{"mUnit":"baneling_nest","mTime":313,"mCount":1}],"mName":"Greedy Ling/Bane Opener","mSource":"<a href=\"http://www.gosubuilds.com/hots-zerg/hots-zvz/zvz-greedy-lingbane-opener/\">GosuBuilds</a>","mVsFaction":"ZERG",
+"mCreated":"2013-05-09 00:00:00",
+"mModified":"2013-05-09 00:00:00",
+"mNotes":"<html>
+<h2>General Overview</h2>
+<p>This build is a greedy version of the completely standard way to open in ZvZ.  It is greedy because it opens with 15 Hatch and then Extractor before Pool, and it is standard because it gets fast 2 bases, Metabolic Boost, and a Baneling Nest for safety or aggression.</p>
+<h2>Build Order</h2>
+<p>
+    9 – Overlord<br />
+    15 – Hatchery<br />
+    17 – Extractor<br />
+    16 – Spawning Pool<br />
+    17 – Overlord<br />
+    20 – @100% Spawning Pool, start 2 Queens and 4 Zerglings<br />
+    24 – @100 Gas, start Metabolic Boost and pull 1 Drone out of Gas<br />
+    26 – Overlord<br />
+    @50 Gas, start Baneling Nest<br />
+</p>
+<h2>Scouting</h2>
+<p>In the early stages of the game, all scouting comes from Overlord vision, so be sure that you send your initial 2 Overlords towards your opponent’s base so that you can see if an early pool or drones are on their way to your base.  When playing versus any very early aggression (<10 pool), abandon this build and put down your Spawning Pool BEFORE Extractor and even consider canceling the Hatchery.  Also use your initial overlord to scout when your opponent is taking their natural Hatchery.</p>
+<p>Make sure you have 2 to 4 Zerglings out on the map at all times.  Send your initial 4 Zerglings to your opponent’s base to spot what they have at the front, and if possible get into the main with 1 Ling to see whether your opponent is mining more than 100 Gas (applying pressure) or not (merely researching Metabolic Boost).  Use the scouting intel that these pokes give you to determine whether you should get Banelings and extra Zerglings to defend or whether you should continue droning.</p>
+<p>Another thing to consider is that if your opponent chooses to attack with fast Roaches, you can base trade them with your Ling/Bane.  Thus, until your midgame tech has kicked in, you can use your units to backstab an opponent trying to move out, while simply defending at home with spines.</p>
+<h2>Pros and Cons</h2>
+<p>This build opens up with a 15 Hatch for lots of larvae and gets a fast Extractor so that Metabolic Boost finishes very quickly.  Thus, you will get map control and a strong economy against most players who do not attack you early.  Also, you get a Baneling Nest so that you can apply pressure or defend an opponent in the early midgame.</p>
+<p>However, this build is quite greedy in the early game so is not safe against early (<10) pools.</p>
+<h2>Favorable Maps</h2>
+<p>This build works best on large maps and maps with multiple spawn locations so that your opponent will be less likely to open with an early pool.</p>
+<p>
+ - Korhal City<br />
+ - Bel’Shir Vestige<br />
+ - Star Station<br />
+ - Whirlwind<br />
+</p>
+<h2>Replays</h2>
+<p><a href=\"http://drop.sc/322746\">Greedy Ling/Bane Opener Tutorial Replay vs a Very Easy AI</a></p></html>"},
+{"mExpansion":"HOTS","mFaction":"ZERG","mItems":[{"mUnit":"overlord","mTime":48,"mCount":1},{"mUnit":"hatchery","mTime":133,"mCount":1},{"mUnit":"spawning_pool","mTime":170,"mCount":1},{"mUnit":"overlord","mTime":186,"mCount":1},{"mUnit":"queen","mTime":243,"mCount":2},{"mUnit":"zergling","mTime":245,"mCount":2},{"mUnit":"zergling","mTime":249,"mCount":2},{"mUnit":"overlord","mTime":262,"mCount":1},{"mUnit":"spine_crawler","mTime":269,"mCount":1},{"mUnit":"overlord","mTime":283,"mCount":1},{"mUnit":"overlord","mTime":290,"mCount":1},{"mUnit":"queen","mTime":320,"mCount":2},{"mUnit":"zergling","mTime":324,"mCount":2},{"mUnit":"extractor","mTime":332,"mCount":2},{"mUnit":"overlord","mTime":382,"mCount":2},{"mUnit":"roach_warren","mTime":429,"mCount":1},{"mUnit":"lair","mTime":430,"mCount":1},{"mUnit":"evolution_chamber","mTime":440,"mCount":2},{"mUnit":"extractor","mTime":459,"mCount":2},{"mUnit":"overlord","mTime":481,"mCount":1},{"mUnit":"missile_attacks_level1","mTime":486,"mCount":1},{"mUnit":"ground_carapace_level1","mTime":486,"mCount":1},{"mUnit":"overlord","mTime":510,"mCount":2},{"mUnit":"glial_reconstitution","mTime":513,"mCount":1},{"mUnit":"roach","mTime":516,"mCount":7},{"mUnit":"overlord","mTime":534,"mCount":2},{"mUnit":"roach","mTime":540,"mCount":2},{"mUnit":"roach","mTime":555,"mCount":15}],"mName":"3 Base Roach Push","mSource":"<a href=\"http://zergology.tumblr.com/post/48614180196/zvt-3-base-roach-push\">Zergology</a>","mVsFaction":"TERRAN",
+"mCreated":"2013-05-09 00:00:00",
+"mModified":"2013-05-09 00:00:00",
+"mNotes":"<html>
+<h2>Intro</h2>
+<p>Khaldor introduced this build based off a replay between an unknown GM Zerg player and Polt on the Korean ladder. I like to pretend it’s NesTea, but just pick your favorite zerg and roll with it. According to Khaldor, this push is very popular amongst GM players and pros right now.</p>
+<h2>Summary and build order</h2>
+<p>Move out of your base with ~30 +1/+1 roaches around the 10 minute mark. Continue to flood roaches if you think you can win, or drone up your 3rd behind the attack and transition into hydra/viper or muta.</p>
+<h2>Basic build order / timings:</h2>
+<p>
+    15 Hatch<br />
+    16 Pool<br />
+    2 Queens when pool completes<br />
+    4 Zerglings (more only if necessary)<br />
+    2 more Queens after first two pop<br />
+    @36 supply, 2 gas<br />
+    @100 gas, begin lair<br />
+    2 more gas after lair begins<br />
+    Double evo at natural<br />
+    Roach warren (around 7:10 in the Polt replay for reference) <br />
+    +1/+1<br />
+    Roach speed<br />
+    Stop droning when you’ve reached 16-20 on each mineral line<br />
+    ~60 supply, make 6 overlords<br />
+    Roach production<br />
+    3rd hatch<br />
+    Move out at ~10 minutes with 20-30 roaches (+1/+1 should finish before you attack)<br />
+    Continue to flood roaches or drone up your 3rd<br />
+</p>
+<h2>Execution</h2>
+<p>Because the attack doesn’t hit until after the 10 minute mark, a lot could happen from the Terran. Keep the following in mind:</p>
+<p>
+ - You won’t have ling speed, so be prepared to deal with reapers and hellions with your 4 queens during the early game.<br />
+ - Check for a 2nd base from Terran. If you don’t see one, expect earlier drop play and heavier aggression.<br />
+ - Hide your roach warren. The Zerg from Khaldor’s replay places his just outside of scan range in his main.<br />
+ - Hide your roaches. Pool them up at the top of your ramp so it’s less obvious what you’re doing.<br />
+ - Bring an overseer and watch for widow mines as you move across the map.<br />
+ - Prioritize your targets when you attack. Bust into his base and kill army, SCVs, tech labs attached to barracks (no marauders), reactors, etc.<br />
+ - Depending on the amount of damage you do with your attack, a counter-attack from Terran isn’t unlikely. Be careful not to overdone your 3rd in case you need to defend.<br />
+</p>
+<h2>Transition</h2>
+<p>If you can’t win with your push, don’t throw away your army needlessly. If you can trade effectively, go for it, but do your damage and go home. Build enough army to defend against drops and counter-attacks, but your primary focus should be squeezing out as many drones as you can afford as you transition into mid and late game. </p>
+<p>A natural tech transition is to add hydras into your composition and get up to Hive as quickly as possible to start mixing in vipers. I tend to favor this composition over mutas due to the upgrade advantage we have for range units already at this point. Continue to upgrade, defend, and take your 4th until you’re maxed, then push out with roach/hydra/viper. </p>
+<p>As roach/hydra is a little less mobile than ling/muta, consider building a Nydus to harass and keep your opponent at home. Nydus canals can also come in handy if you need to retreat in a hurry.</p>
+<p><a href=\"https://www.youtube.com/watch?feature=player_embedded&v=JeteKVxJCI4\">Build order summary + transition commentary [7:27]</a></p>
+<p>My attack is delayed by hellions, but I manage to do some decent damage and transition into a late game 3/3 roach/hydra/viper build to seal the win.</p>
+<p><a href=\"https://www.youtube.com/watch?feature=player_embedded&v=FhpKMSCtNhE\">Khaldor’s Full Tutorial [25:05]</a></p>
+<p>The zerg finds Polt vulnerable and floods roaches for the win. Build order timings in this post are taken from this VOD. Khaldor’s explanations are clear and thorough, because he’s a boss.</p>
+<h2>Resources:</h2>
+<p><a href=\"http://ggtracker.com/matches/2850237/replay\">[Replay] csViper vs. mech</a></p>
+<p><a href=\"http://www.youtube.com/watch?v=FhpKMSCtNhE&feature=youtu.be\">[Tutorial] KhaldorTV: GM Zerg vs. Polt</a></p>
+</html>"}
+]
+ 

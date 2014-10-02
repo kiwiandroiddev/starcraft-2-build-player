@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <EditText
+            android:id="@+id/edit_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="@string/edit_build_notes_hint"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:paddingLeft="@dimen/screen_edge_padding"
+            android:paddingRight="@dimen/screen_edge_padding" >
+        </EditText>
+    </ScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="@dimen/notes_format_tools_bar_width"
+        android:layout_height="40dp"
+        android:layout_gravity="top|right" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#C0000000"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/h1Button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="H1"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/h2Button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="H2"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/h3Button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="H3"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/aButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="A"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/boldButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="B"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/PButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="P"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/brButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="br"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</FrameLayout>

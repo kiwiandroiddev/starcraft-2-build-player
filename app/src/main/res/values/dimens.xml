@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_edge_padding">0dp</dimen>
+    <dimen name="inter_widget_padding">4dp</dimen>
+    <dimen name="dlg_build_item_vertical_margin">34dp</dimen>
+    <dimen name="notes_format_tools_bar_width">160dp</dimen>
+</resources>

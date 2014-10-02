@@ -1,0 +1,826 @@
+[
+    {
+	"mName": "Banshee Opening - Cloaked Banshee Rush",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Banshee_Opening\">Liquidpedia</a>",
+	"mFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 57, "mUnit": "supply_depot" },
+	    { "mTime": 95, "mUnit": "barracks" },
+	    { "mTime": 114, "mUnit": "refinery" },
+	    { "mTime": 160, "mUnit": "orbital_command" },
+	    { "mTime": 160, "mUnit": "marine" },
+	    { "mTime": 168, "mUnit": "supply_depot" },
+	    { "mTime": 185, "mUnit": "marine" },
+	    { "mTime": 195, "mUnit": "mule" },
+	    { "mTime": 203, "mUnit": "factory" },
+	    { "mTime": 214, "mUnit": "refinery" },
+	    { "mTime": 217, "mUnit": "marine" },
+	    { "mTime": 242, "mUnit": "marine" },
+	    { "mTime": 246, "mUnit": "supply_depot" },
+	    { "mTime": 263, "mUnit": "hellion" },
+	    { "mTime": 272, "mUnit": "starport" },
+	    { "mTime": 284, "mUnit": "marine" },
+	    { "mTime": 284, "mUnit": "mule" },
+	    { "mTime": 293, "mUnit": "tech_lab", "mTarget": "factory" },
+	    { "mTime": 309, "mUnit": "marine" },
+	    { "mTime": 314, "mUnit": "supply_depot" },
+	    { "mTime": 322, "mUnit": "note", "mText": "Move Starport onto Tech Lab" },
+	    { "mTime": 325, "mUnit": "banshee" },
+	    { "mTime": 339, "mUnit": "cloak" },
+	    { "mTime": 344, "mUnit": "marine" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>Using Banshees from one Starport to force the opposing player to over produce anti-air unit production and in Terran's and Protoss' case, this pins their army to their base. In Zerg's case damaging the Queens before hand with the first few Marines can cause serious damage.</p>
+
+<p>The real strength of this opening is forcing static defenses like Missile Turrets, Spore Crawlers and Photon Cannons from the opposing player, which is a huge mineral sink in the early game just to defend against one Starport.</p>
+
+<p>Cloaking Field Banshee openings are why Gas Steals are so common against Terran, as this research requires a second early gas to be effective.</p>
+
+<h1>Basic Build Order</h1>
+<h2>Cloak Banshee Rush</h2>
+<p>
+ - 10 - Supply Depot<br />
+ - 12 - Barracks<br />
+ - 13 - Refinery<br />
+ - 15 - Orbital Command Upgrade<br />
+ - 15 - Marines + Supply Depot<br />
+ - 18 - Factory<br />
+ - Next 75 Minerals - Refinery (2)<br />
+  24 - Starport<br />
+  24 - Hellion (1) > Tech Lab (1) > Switch to Starport<br />
+ - @100% Starport - Banshees<br />
+ - Next 200 Gas - Cloaking Field<br />
+</p>
+<h1>Notes</h1>
+
+<p>With no other gas spending one refinery can support full Banshee production from one Starport.</p>
+<p>Refinery (2) is optional unless going for Cloak research, a 2 Port Banshee timing or both.</p>
+<p>Start Cloak before any Banshees or research Caduceus Reactor if the opposing army scouts the Tech Lab and cancel once the scout has left.</p>
+
+<h1>Scouting
+
+<p>Purely scout the number of Marines, Stalkers or Queens and wait for the appropriate number of Banshees to attack.</p>
+
+<h1>Execution</h1>
+
+<p>If the opponent has opened with fast air units, produce a Viking for something to keep them busy, or try Marines
+Banshees kill Marines in 2-hits and off of one Barracks without a Reactor will likely kill all the initial Marines made to defend a 1 Rax FE, for example.
+Banshees kill Stalkers in a 1-1 fight so scouting the number of Stalkers first and waiting for enough Banshees is strongest.
+Queens lose to two Banshees so wait for Banshee (2) before attacking.</p>
+
+<h1>Adaption</h1>
+
+<p>One strong option is to switch to a Marine and Siege Tank push, in order to shell the natural of the opposing player. This takes advantage of their investment in anti-air defenses that will have ruined they early army budget. The Banshees then have free reign over the Sieged area once again. This is a common tactic of ForGG.</p>
+<p>Another viable option is to add on two additional Factories and continue Banshee production to transition into mech. This is common for MVP to use.</p>
+
+<h1>Reference</h1>
+
+<p>Both Empire.Happy and ForGG are known for their Cloak Banshee openings against all races, ForGG in particular likes to follow up with a strong Bio-Tank push. Check both out to see how they transition strongly from this.</p>
+<p>
+<a href=\"http://www.youtube.com/watch?v=VnHI_epqoJ4\">EG.Puma (T) vs JYP (P), Cloak Opening into double expand</a></p>
+<p>Watch this game <a href=\"http://www.youtube.com/watch?v=OU9Gp0Xz7xg\">Naniwa (P) vs Empire.Happy Game 1</a>, then this <a href=\"http://www.youtube.com/watch?v=80Us9LzUOrs\">Game 2</a>, the drastic effects of this build even have staying power in BoX matches now...?</p>
+
+<p>
+<a href=\"http://sc2planner.com/#TaaaaoEaaoFaoDaacoCjoEjfaoIaoDjajcaoEanoKafjoRajaoEwauVjaaa\">SC2 Planner build graph</a>
+</p>
+"
+    },
+    {
+	"mName": "1 Rax Reaper FE",
+	"mSource": "<a href=\"http://www.gosubuilds.com/terran-build-orders-2/terran-build-orders/tvt-1rax-reaper-fe/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 57, "mUnit": "supply_depot" },
+	    { "mTime": 95, "mUnit": "barracks" },
+	    { "mTime": 114, "mUnit": "refinery" },
+	    { "mTime": 160, "mUnit": "orbital_command" },
+	    { "mTime": 160, "mUnit": "marine" },
+	    { "mTime": 168, "mUnit": "supply_depot" },
+	    { "mTime": 185, "mUnit": "tech_lab", "mTarget": "barracks" },
+	    { "mTime": 195, "mUnit": "mule" },
+	    { "mTime": 210, "mUnit": "reaper" },
+	    { "mTime": 236, "mUnit": "command_center" },
+	    { "mTime": 244, "mUnit": "combat_shield" },
+	    { "mTime": 272, "mUnit": "supply_depot" },
+	    { "mTime": 284, "mUnit": "mule" },
+	    { "mTime": 289, "mUnit": "barracks" },
+	    { "mTime": 296, "mUnit": "barracks" },
+	    { "mTime": 336, "mUnit": "orbital_command" },
+	    { "mTime": 354, "mUnit": "stim_pack" },
+	    { "mTime": 360, "mUnit": "reactor", "mCount": 2 },
+	    { "mTime": 360, "mUnit": "engineering_bay" },
+	    { "mTime": 360, "mUnit": "refinery" },
+	    { "mTime": 371, "mUnit": "mule" },
+	    { "mTime": 373, "mUnit": "mule" },
+	    { "mTime": 399, "mUnit": "factory" },
+	    { "mTime": 404, "mUnit": "supply_depot" },
+	    { "mTime": 424, "mUnit": "infantry_weapons_level1" },
+	    { "mTime": 429, "mUnit": "supply_depot" },
+	    { "mTime": 451, "mUnit": "supply_depot" },
+	    { "mTime": 459, "mUnit": "starport" },
+	    { "mTime": 462, "mUnit": "mule" },
+	    { "mTime": 462, "mUnit": "mule" },
+	    { "mTime": 465, "mUnit": "reactor", "mTarget": "factory" },
+	    { "mTime": 477, "mUnit": "supply_depot" },
+	    { "mTime": 516, "mUnit": "medivac", "mCount": 2 }
+	],
+	"mNotes": "
+<h1>General Overview</h1>
+
+<p>This build gets a very fast Reaper to scout and possibly harass your opponent.  The followup is a very strong Combat Shields, Stim, +1 attack, 2 Medivac push.</p>
+
+<h1>Build Order</h1>
+<p>
+ - 10 - Supply Depot<br />
+ - 12 - Barracks<br />
+ - 13 - Refinery<br />
+ - 16 - Marine (this marine can be skipped in case theres no SCV scouting your main)<br />
+ - 17 - Orbital Command<br />
+ - 17 - Depot (2)<br />
+ - 17 - @100% Marine, start Techlab on Barracks<br />
+ - 18 - @100% Techlab, Make 1 reaper<br />
+ - 21 - @400 mins, make 2nd Command Center<br />
+ - 23 - @100 mins/100 gas, start combat shields<br />
+ - 24 - @100 mins, Depot (3)<br />
+ - 28 - @300 mins, start 2 more Barracks<br />
+ - 31 - @100% Command Center, Orbital your natural expand<br />
+ - 33 - @100% combat shields, start stim<br />
+ - 33 - @100% Barracks (2 and 3), start 2 reactors<br />
+@100 gas, start Engibay, Factory, and 2nd Refinery<br />
+@100% Factory, start reactor on Factory and Starport<br />
+@100 gas, start +1 attack from Engibay<br />
+@100% reactor on Factory, swap off for reactored Starport and make 2 medivac<br />
+</p>
+<h1>Why Use This Build?</h1>
+
+<p>This build is safe against a lot of builds that your opponent does and it also allows you to scout with your reaper as well as get up a very fast expo. It is safe (because early game combat shields marines in TvT are ridicuously good), and does not put you behind opponents that 1 rax FE in terms of both upgrades and tech.  Then, your 9:30 double medivac, stim, combat shields, +1 timing attack sets the stage for a strong midgame.</p>
+
+<h1>Scouting</h1>
+
+<p>With your initial scv scout, see if your opponent is fast expanding (no gas) or is teching up (gas). Try to spot whether your opponent is adding on a techlab on his barracks after his first marine for a reaper of his own.  If he is doing a gasless fast expand you can focus more on economy and not worry about bunkers.  Otherwise, stay safe until your 3rax kicks in and you have the marines necessary to defend pressure from your opponent (hellions, reapers, or banshees).</p>
+
+<h1>Transitions</h1>
+
+<p>You can only really transition into Marine Tank Medivac or MMM (if youve scouted your opponent going mech with your 10 minute attack).  Mech is not a viable followup to this build because of how much youve invested in bio upgrades and medivacs.  If youre transitioning into marine tank medivac, then be sure to throw down 2 more gas geysers at your natural, a 3rd CC, a techlab on your factory for tank production, and another Engibay+Armory to keep up with your opponent in upgrades.  You can do this in any particular order, but try and get the 3rd CC and the engibays first for more late game focused play if you feel safe, and get the 2 more gas geysers and techlab on factory first for more midgame focused play if you feel in danger of losing in the next couple of minutes.</p>
+
+<h1>Pros and Cons</h1>
+
+<p>This build gives you great scouting information with that first reaper (as well as the opportunity to kill some SCVs in case your opponent is out of position).  It also gives you a booming 2 base economy that will lead towards a strong midgame.  Your upgrades and tech are also started early, so that you get all your midgame infrastructure started ASAP.</p>
+
+<p>Unfortunately, this build is susceptible to some all-ins.  Reaper Hellion Medivac into Banshee play is more or less a hard-counter to this build (but is not necessarily that good against most other builds, so has been rather uncommon in 2012).  Early hellion elevators and tank pushes are also hard to deal with because this build gives you fewer marines than a standard 1rax FE would give you, so your defense has to be very tight.</p>
+
+<h1>Tips</h1>
+
+<p>If you can, do NOT lose your reaper.  Saving your reaper from death is a lot better than killing 1 or 2 more SCVs or getting a full scout of his base because the fear of having a reaper still lurking around that can jump in your base at any point in time is a lot worse than being down an SCV or two.</p>
+<p>Assuming you have kept the reaper alive, use it to kill SCVs at watchtowers and deny vision of your natural until your opponent has scanned you.  Keep your opponent in the dark about whether youre making more reapers or reaper hellion medivac attacking him.</p>
+<p>If your opponent does a tank all-in against you, SCVs are your friend.  Feel free to pull 15ish workers to defend all-ins  your 2nd orbital and aggressive teching will put you ahead of your opponent even if you lose that many SCVs.</p>
+<h1>Replays</h1>
+
+<p><a href=\"http://drop.sc/197555\">1rax reaper FE Tutorial Replay vs Very Easy AI opponent</a></p>
+
+<p><a href=\"http://www.youtube.com/watch?v=QON5k-0mWAA\">1rax reaper FE Youtube Tutorial</a></p>
+
+<p>Note: This recording does not specify barracks units after the reaper. </p>
+<p><a href=\"http://sc2planner.com/#TaaaaoEaaoFaoDaacjoCoEoPaflaaoAiRjaaoEjfaoFoFjaajoCajiKaoQoQoGoDfaajfcaaoIjoEiZiZaauAjoEaaiZiZaaoEiZoKiZoSfjaafoEaiZiZajaaiB\">Sc2 Planner Build Graph</a></p>
+"
+    },
+    {
+	"mName": "Proxy Thor Rush",
+	"mSource": "<a href=\"http://www.gosubuilds.com/terran-build-orders-2/terran-build-orders/tvt-proxy-thor-rush/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 58,  "mUnit": "supply_depot" },
+	    { "mTime": 88,  "mUnit": "refinery" },
+	    { "mTime": 117, "mUnit": "barracks" },
+	    { "mTime": 147, "mUnit": "note", "mText": "Send out an SCV to proxy location" },
+	    { "mTime": 189, "mUnit": "factory" },
+	    { "mTime": 192, "mUnit": "orbital_command" },
+	    { "mTime": 196, "mUnit": "marine" },
+	    { "mTime": 208, "mUnit": "supply_depot" },
+	    { "mTime": 222, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 225, "mUnit": "refinery" },
+	    { "mTime": 263, "mUnit": "armory", "mCount": 1 },
+	    { "mTime": 270, "mUnit": "supply_depot" },
+	    { "mTime": 274, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 284, "mUnit": "tech_lab", "mTarget": "factory" },
+	    { "mTime": 295, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 311, "mUnit": "supply_depot" },
+	    { "mTime": 323, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 330, "mUnit": "vehicle_plating_level1" },
+	    { "mTime": 352, "mUnit": "thor" },
+	    { "mTime": 361, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 373, "mUnit": "supply_depot" },
+	    { "mTime": 386, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 396, "mUnit": "supply_depot" },
+	    { "mTime": 412, "mUnit": "thor" },
+	    { "mTime": 421, "mUnit": "marine", "mCount": 1 },
+	    { "mTime": 440, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 455, "mUnit": "note", "mText": "Send out marines and 8 SCVs", "mVoice": "Send out all of your marines and 8 S C Veez" },
+	    { "mTime": 473, "mUnit": "thor" },
+	    { "mTime": 484, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 495, "mUnit": "note", "mText": "Send Thors to attack enemy base" },
+	    { "mTime": 503, "mUnit": "supply_depot" },
+	    { "mTime": 506, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 553, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 555, "mUnit": "thor" }
+	],
+	"mNotes": "
+<h1>General Overview</h1>
+
+<p>This build rushes for Thors as fast as possible and then goes for a hilarious all-in with +1 vehicle plating.  There is no followup - you're just pulling all your SCVs to crush your opponent asap.</p>
+
+<h1>Build Order</h1>
+
+10 - Supply Depot<br />
+12 - Refinery<br />
+13 - Barracks<br />
+17 - @100% Barracks, Orbital Command and make Factory at proxy location<br />
+17 - Marine<br />
+18 - Depot (2)<br />
+18 - @100% Marine, make Reactor on Barracks and start 2nd Refinery<br />
+21 - @100% Factory, proxy Armory<br />
+24 - Techlab on Factory<br />
+@100% Armory, start +1 Vehicle Plating and first Thor<br />
+@100% Thor (1), start Thor (2)<br />
+@80% Thor (2), pull 8ish SCVs and all your marines, and attack with your first 2 Thors<br />
+
+<h1>Why Use This Build?</h1>
+
+<p>This build is a hilarious all-in that straight up kills most expo builds that don't have bunkers or really good mass repair micro.  Plus, YOU'RE MAKING THORS!</p>
+
+<h1>Scouting</h1>
+
+<p>Don't bother scouting - you're going to do the same build no matter what.</p>
+
+<h1>Transitions</h1>
+
+<p>There are no transitions from this all-in.  Keep rallying marines and your next Thor and hope it's enough to win the game.</p>
+
+<h1>Pros and Cons</h1>
+
+<p>This build rolls over most 1rax FE builds.  It's very weak against reapers because you don't have many marines to defend against reapers in the early game.  That being said, if you can ward off the reapers without losing too many SCVs, Thors are obviously incredibly good against reapers, so you might still win.  This build is also very bad against banshees, but it's possible to win the base trade because Thors destroy banshees in an actual fight.</p>
+
+<h1>Tips</h1>
+
+<p>Make sure to repair your Thors.  The true power of this all-in comes from the fact that Thors with +1 armor take close to no damage from early game terran units.  Couple +1 armor with SCVs repairing, and you have yourself an army that does not die at all.</p>
+
+<h1>Replays</h1>
+
+<p><a href=\"http://drop.sc/197570\">Proxy Thor Rush Tutorial Replay vs Very Easy AI opponent</a></p>
+
+<p><a href=\"http://www.youtube.com/watch?v=js5tQCUkC1A\">Proxy Thor Rush Youtube Tutorial</a></p>
+"
+    },
+    {
+	"mName": "Command Center First",
+	"mSource": "<a href=\"http://www.gosubuilds.com/terran-build-orders-2/terran-vs-zerg/tvz-command-center-first/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 57, "mUnit": "supply_depot" },
+	    { "mTime": 143, "mUnit": "command_center" },
+	    { "mTime": 165, "mUnit": "barracks" },
+	    { "mTime": 179, "mUnit": "refinery" },
+	    { "mTime": 195, "mUnit": "supply_depot" },
+	    { "mTime": 243, "mUnit": "orbital_command", "mCount": 2 },
+	    { "mTime": 245, "mUnit": "marine" },
+	    { "mTime": 267, "mUnit": "factory" }
+	],
+	"mNotes": "
+<h1>General Overview</h1>
+
+<p>The command center first build is used to counter the popular hatch first build used against terrans. It will get you ahead economically, but is susceptible to cheese and early pushes.  This build is better on bigger maps like Tal'Darim Altar and Condemned Ridge because it takes so much longer for early roaches/slow lings to get across the map.</p>
+
+<h1>Build Order</h1>
+<p>
+ - 10 - Supply Depot<br />
+ - 15 - Command Center<br />
+ - 16 - Barracks<br />
+ - 17 - Refinery<br />
+ - 18 - Supply Depot<br />
+ - 19 - Orbital Command x2<br />
+ - 21 - @100 Gas, start Factory<br />
+</p>
+
+<h1>Scouting</h1>
+
+<p>You cannot afford to scout very early with an SCV in order to afford everything in the early game, so do this build on large, 4 person maps where your opponent cannot scout your 15CC before planting down a 15 hatch of their own.  Be sure to be walling off with your 2nd depot in order to avoid dying to early pools.  Scouting with this build is very minimal until you get hellions out; your build as is can defend against everything except early roaches in which case one bunker and SCVs on repair will easily keep you alive.</p>
+
+<h1>Transitions</h1>
+
+<p>After you put the factory down, the most common follow up is to make a reactor on the barracks and swap it with the factory when finished for hellion production.  4-8 hellions will give you map control and should be able to deny a little bit of creep.  Afterwards, you can add on a 3rd CC and power very hard, go for a strong 2base bio+hellion attack, or start tank production and go for mech.</p>
+
+<h1>Replays</h1>
+<p>
+<a href=\"http://drop.sc/214216\">Command Center First Tutorial vs a Very Easy AI</a>
+</p>
+<p>
+<a href=\"http://sc2planner.com/#TaaaaoEaaaaaoAaoFaoDaoEacaoCoCjoI\">SC2 Planner build graph</a>
+</p>
+"
+    },
+    {
+	"mName": "Mvp Mech Opening",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Mvp_Mech_Opening_(vs._Zerg)\">Liquidpedia</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 56, "mUnit": "supply_depot" },
+	    { "mTime": 139, "mUnit": "command_center" },
+	    { "mTime": 167, "mUnit": "barracks" },
+	    { "mTime": 184, "mUnit": "refinery" },
+	    { "mTime": 235, "mUnit": "orbital_command" },
+	    { "mTime": 235, "mUnit": "marine" },
+	    { "mTime": 247, "mUnit": "orbital_command" },
+	    { "mTime": 256, "mUnit": "refinery" },
+	    { "mTime": 260, "mUnit": "marine" },
+	    { "mTime": 275, "mUnit": "factory" },
+	    { "mTime": 296, "mUnit": "supply_depot" },
+	    { "mTime": 297, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 329, "mUnit": "supply_depot" },
+	    { "mTime": 337, "mUnit": "note", "mText": "Lift-off factory" },
+	    { "mTime": 339, "mUnit": "starport" },
+	    { "mTime": 349, "mUnit": "note", "mText": "Lift-off Barracks, then move Factory onto reactor" },
+	    { "mTime": 349, "mUnit": "tech_lab", "mTarget": "barracks" },
+	    { "mTime": 353, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 358, "mUnit": "supply_depot" },
+	    { "mTime": 384, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 402, "mUnit": "command_center" },
+	    { "mTime": 406, "mUnit": "banshee" },
+	    { "mTime": 411, "mUnit": "cloak" },
+	    { "mTime": 418, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 425, "mUnit": "supply_depot" },
+	    { "mTime": 442, "mUnit": "supply_depot" },
+	    { "mTime": 444, "mUnit": "banshee" },
+	    { "mTime": 445, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 470, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 479, "mUnit": "banshee" },
+	    { "mTime": 482, "mUnit": "refinery", "mCount": 2 },
+	    { "mTime": 493, "mUnit": "supply_depot", "mCount": 2 },
+	    { "mTime": 510, "mUnit": "armory", "mCount": 2 },
+	    { "mTime": 515, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 542, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 543, "mUnit": "banshee" },
+	    { "mTime": 557, "mUnit": "supply_depot", "mCount": 1 },
+	    { "mTime": 577, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 595, "mUnit": "vehicle_plating_level1" },
+	    { "mTime": 595, "mUnit": "vehicle_weapons_level1" },
+	    { "mTime": 596, "mUnit": "factory", "mCount": 2 },
+	    { "mTime": 605, "mUnit": "hellion", "mCount": 1 },
+	    { "mTime": 607, "mUnit": "viking" },
+	    { "mTime": 611, "mUnit": "supply_depot" },
+	    { "mTime": 632, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 643, "mUnit": "refinery", "mCount": 2 },
+	    { "mTime": 646, "mUnit": "factory", "mCount": 2 },
+	    { "mTime": 656, "mUnit": "hellion", "mCount": 2 },
+	    { "mTime": 669, "mUnit": "tech_lab", "mTarget": "factory", "mCount": 2 },
+	    { "mTime": 675, "mUnit": "command_center" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>An extremely popular opening, for it's offensive strength and the time it buys to setup either Bionic or Mech mid-game. Using Hellions for run-bys on the opponent's mineral lines, and Banshees to take down Queens and Roaches; Zerg is forced onto a two base defensive Spine Crawler and Spore Crawler defensive if they are hit too hard or caution of guard trying to take a third mining base.</p>
+
+<h2>Goal</h2>
+<p>This build relies on Banshees and Hellions to keep an eye on your opponent and to slow their economy while getting very quick upgrades and a third base. This build is very defensive, and for a good reason: when playing a Mech Style, the Mid-game does not start before you establish your third base. In other words, you will not attack your opponent before your third base is up and running, but just use your Hellions and Banshees to do small skirmishes without losing those very important units.</p>
+
+<h1>Build Order (Opening)</h1>
+
+<h2>\"CC First\" </h2>
+
+<p>
+10 - Supply Depot [1]<br />
+14 - Command Center (2) [2]<br />
+16 - Barracks<br />
+17 - Refinery (1)<br />
+19 - Orbital Command (1 & 2)<br />
+19 - Marine (1) + Bunker (1)<br />
+20 - Refinery (2)<br />
+@100 Gas - Factory<br />
+23 - Supply Depot [3]<br />
+@100% Marine (2) - Reactor on the Barracks<br />
+@100% Factory - Reactor on the Factory -> two Hellions + Starport + Tech Lab on the Barracks<br />
+@100% Starport - Tech Lab on the Starport -> one Banshee + Cloaking Field + Command Center (3)[4]<br />
+@8:00 - Refinery (3) (4)<br />
+<br />
+[1] At your ramp, then send this SCV to scout<br />
+[2] At your Natural<br />
+[3] At your Natural's choke, build all the Supply Depots there to wall off<br />
+[4] Build the third Command Center in your main<br />
+</p>
+
+<h2>\"1 Rax Expand\" </h2>
+
+<p>
+10 - Supply Depot [1]<br />
+12 - Barracks<br />
+15 - Orbital Command (1)<br />
+15 - Marine (1)<br />
+16 - Command Center (2) [2]<br />
+16 - Refinery (1) (2)<br />
+17 - Supply Depot<br />
+@100% Command Center (2) - Orbital Command (2)<br />
+@100 Gas - Factory<br />
+@50 Gas - Reactor on the Barracks<br />
+23 - Supply Depot [3]<br />
+@100% Factory - Reactor on the Factory -> two Hellions + Starport + Tech Lab on the Barracks<br />
+@100% Starport - Tech Lab on the Starport -> one Banshee + Cloaking Field + Command Center (3)[4]<br />
+@8:00 - Refinery (3) (4)<br />
+<br />
+[1] At your ramp, then send this SCV to scout<br />
+[2] At your Natural<br />
+[3] Finish the wall-off at your Main's ramp, then build all the Supply Depots at your Natural's choke to progressively wall yourself in<br />
+[4] Build the third Command Center in your main<br />
+</p>
+
+<h2>CC First, 1 Rax Expand or something else?</h2>
+<p>Your scouting SCV will tell you the following:</p>
+<p> - Is your opponent taking gas very early on, for a Speedling Expand) for instance? If yes, using this Mech build is not recommended: as mentionned before, you will rely on only two Marines before your first Hellions are out, and a very early Roach Rush or Baneling Bust could kill you right away.</p>
+<p> - Has your opponent expanded? Similarly, a lack of expand should tell you something is up, and it is recommended to diverge from this build.</p>
+<p>The choice of a CC First or a 1 Rax Expand will depend on the following elements:</p>
+<p> - The number of spawns on the map: it is safer to open with a 1 Rax Expand on a two-player map, since you cannot completely rule out a 6 Pool and a CC First build will lose 100% of the time to this cheese.</p>
+<p> - The size of the map: on certain ladder maps, your opponent may spawn close to your starting position. On those maps, 1 Rax Expand is once again a safe option.</p>
+<p> - The playstyle of your opponent: if you happen to know your opponent's style, you should obviously adapt to it and opt for a safer (1 Rax Expand) or greedier (CC First) opening.</p>
+
+<h1>Build Order (Part 2)</h1>
+
+<h2>\"Double Armory Variation\" </h2>
+<p>
+@100% Banshee (1) - Banshee (2) -> Viking (1) [1]<br />
+@100% Command Center (3) - Orbital Command (3) -> Lift to your Third base<br />
+@300 Minerals / 200 Gas - Armory (1) (2)<br />
+@100% Armory (1) (2) - Vehicle Weapons Level 1 + Vehicle Plating Level 1<br />
+@300 Minerals / 200 Gas - Factory (2) (3)<br />
+@100% Factory (2) (3) - Tech Lab on both -> Thor production<br />
+<br />
+[1] Resume Banshee production after the Viking (up to a total of 5-6 Banshees)<br />
+</p>
+
+<h2>\"Thors First Variation\" </h2>
+
+<p>
+@100% Banshee (1) - Banshee (2) [1]<br />
+@100% Command Center (3) - Orbital Command (3) -> Lift to your Third base<br />
+@300 Minerals / 200 Gas - Factory (2) (3)<br />
+@150 Minerals / 100 Gas - Armory (1)<br />
+@100% Factory (2) (3) - Tech Lab on both -> Thor production<br />
+@100% Armory (1) - Vehicle Weapons Level 1<br />
+@150 Minerals / 100 Gas - Armory (2) -> Vehicle Plating Level 1<br />
+One Viking [2]<br />
+<br />
+[1] (Cut Banshee production after the second one)<br />
+[2] Resume Banshee production after the Viking (up to a total of 5-6 Banshees)<br />
+</p>
+
+<h2>Thors or Double Armory?</h2>
+
+<p>The choice of one build or another will depend on the kind of opening you scouted from your opponent, who may do one of the following things:</p>
+
+<p> - Go for a fast three bases build, using a mix of Queens, Spine Crawlers and slow Zerglings to defend.</p>
+<p> -> In this case, you should opt for the Double Armory variation: there is little to no threat from your opponent in a near future, and you can therefore land your third base and delay the Thor production a little bit as Mutalisks will not be out in a near future.</p>
+<p> - Get a fast third base, but do not delay gas mining:</p>
+<p> -> This variation will hurt his or her Queen production, and you should be able to deal damage with your first four Hellions.</p>
+<p> -> Do not be afraid to run-by and see where the gas of your opponent is going. In the worst case scenario you will trade your Hellions for Zerglings and Drones, which is a good thing given that your opponent cannot focus on spreading the creep yet (due to his or her low number of queens). However, be wary of a possible counter-attack and make sure to have enough at your base to defend.</p>
+<p> - Defend with Spines and Queens at the Natural, without taking a third base:</p>
+<p> -> In that case, it can be a large number of different things, from Mutalisks to Infestors, or even some kind of Nydus Play.</p>
+<p> -> The safest reaction would be to use a Scan to identify the build you are facing and opt for the Thor First Variation</p>
+<p> -> If you are confident in your opponent not going for Roaches, you can opt for the Double Armory variation, but a precautionary Engineering Bay is recommended to defend against early Mutalisks.</p>
+
+<h1>Mid-game Transition</h1>
+
+<p>After establishing your Third base, you should immediately build your fifth and sixth Refineries, and add two mores Factories with Tech Labs</p>
+<p>The timing of Blue Flame Research and Siege Tech will depend on your opponent's army composition and reaction, but in general you want to start Blue Flame first shortly after building your two additional Refineries at your Third.</p>
+
+<h1>Scouting/Adaptation (Surviving the Early Game)</h1>
+
+<p>This section will describe the different types of aggression your opponent may throw at you in the early game, and how to counter those. Since all those forms of aggression require an early gas from your opponent, we assume that you opted for the Thors First version of the build.</p>
+
+<h2>Mass Zerglings</h2>
+<p>This attack is very easy to defend given that you do not lose your Hellions on the way to your opponent's base: be very careful about this.</p>
+
+<p>Should you lose your Hellions, the best reaction would be to immediately wall your Natural (if possible) or retreat to your Main in order not to lose SCVs. Once you have 4 or 6 Hellions on the field, you should be able to reclaim your Natural easily. In the meantime, use your Banshee to see what is the follow-up to this attack. Remember that your opponent sacrificed a lot of economy to perform this attack, so do not panic because you had to temporarily retreat to your Main.</p>
+
+<h2>2 Base Baneling Bust</h2>
+<p>This build can be defended without any form of scouting, but you want to be safe. Your first two Hellions will see a high number of Zerglings and a small number of drones at the Natural. From there, all you have to do is patrol actively near your ramp and kite the Zerglings/Banelings with your Hellions. After defending the cheese, you should be able to start the midgame with a better economy, a better tech and overall a nice lead over your opponent.</p>
+
+<h2>Expand into 7 Roach Rush</h2>
+<p>This build is dangerous, but you should be able to scout with your SCV that your opponent mined more than 100 gas and is not researching speed yet, which is the tell of a 7 Roach Rush after Expand. In this case, you have two possible options:</p>
+
+<p> - Do not use the Barracks to make the Tech Lab on the Starport, but build Marauders instead and build additional bunkers at your Natural.</p>
+<p> - Make a Tech Lab on the Factory rather than a Reactor, and produce Siege Tanks while researching Siege Mode.</p>
+<p>If you do not feel confident in your ability to repair Bunkers with SCVs in time, going for Siege Tanks is the best option. However, this will significantly delay your upgrades and hurt your Banshee count, which may leave your opponent free to grab a Third base and transition into a macro game.</p>
+
+<h2>Roach/Baneling Agression</h2>
+<p>This is without any doubt one of the most deadly aggression you can face when going Mech, and it will all too often kill you if you cannot scout it in time. Here are the elements that will allow you to recognize this build:</p>
+
+<p> - A low number of Drones at the Natural. Always assume that what you see at the Natural of your opponent is 50% of his or her Drone count: therefore if you see only fourteen Drones at 7:00 with your Hellions, you should know that something is up as your opponent should have way more than 28 Drones.</p>
+<p> - Both fast Zerglings and Roaches. You will not always be able to see it, but if you do you can be 100% sure this aggression is coming, as your opponent invested a significant amount of resources in gas and units before taking a third base.</p>
+<p> - A scan in the Main. You will usually be able to see the Roach Warren at the Natural, and seeing the Baneling Nest in the Main is the last piece of information you will need to make sure it is coming.</p>
+<p>From there, swap your Factory and Starport (putting the Tech Lab on the Factory), and start Siege Tech immediately: this push usually hits at 8:45, so given you scouted the push at 7:00 you will have enough time to produce two to three tanks with Siege Mode to defend. If you are late with your Siege timing, it is recommended to position your first two Banshees in the middle of the map to start damaging Roaches, and to shift-attack the morphing Banelings. If you feel safe, you can position the Banshees above the most obvious position for the Third base of your opponent in order to make sure he or she will not expand during the push.</p>
+
+<h2>2 Base Nydus</h2>
+<p>Your opponent will create a Nydus Worm outside your Natural and try to bust you using Queens, Roaches, and possibly Zerglings (see the Curious' 2 Base Nydus page for more details about this build). This is the most deadly cheese you can face when going Mech, and the attack can hit as early as 8:00. It can be hard to scout, and if you do not see it coming, you are dead.</p>
+
+<p>Identifying the build:</p>
+<p> - A single extractor at 6:30 at the Natural (three Drones will mine 114 gas per minute from an Extractor: using those numbers, you should be able to guess when your opponent took those gases).</p>
+<p> - A lack of a Third base + A small number of Queens: This is the definitive proof you need that your opponent is Teching. Sacrifice a single Hellion at the Natural and scan the Main base to confirm the Roach Warren and the early Lair. This should not be done later than 7:00 to give you enough time to prepare.</p>
+<p>Reacting to the build:</p>
+<p> - Make sure you have perfect vision in your main (the last thing you want is the Nydus Worm inside your main rather than outside your Natural)</p>
+<p> - Your best bet against this build is to rely on Marauders. Indeed, conversely to a Roach/Baneling attack, you will not have Siege Mode and Siege Tanks in time to defend.</p>
+<p> - Immediately swap the Starport with your Barracks, and produce Marauders constantly out of your Barracks.</p>
+<p> - Build a Tech Lab on your Factory and start Siege Tank production.</p>
+<p> - Build several Bunkers at your Natural. Remember that you have three Orbital Commands, and therefore you can afford to lose some SCVs to stay alive.</p>
+<p> - Build a Viking in your naked Starport to kill overlords and deny vision of your Main.</p>
+<p> - When the build hits, if you have done everything properly, you will have two Marauders, Siege Tanks in production, one Banshee, four Hellions and a Viking. With this number of units and the infrastructure behind, you should be able to deflect the push and enter the midgame in a good position.</p>
+
+<h1>How to use your units</h1>
+
+<p>This section will explain how to make the most of the different units you will build throughout the game: Hellions, Banshees, Vikings, Thors, and Tanks.</p>
+
+<h2>Hellions</h2>
+<p>In the Early Game:</p>
+<p> - Gain Intelligence/Map Control</p>
+<p> - Force Spines/Roaches/Zergling</p>
+<p>In general:</p>
+<p> - Kill Drones: You will want to periodically suicide groups of 6-8 Hellions in the Mineral lines of your opponent, and kill as many Drones as possible. This will not only force him or her to defend, but also put a dent in his or her economy.</p>
+<p> - Deny Creep Spread: You should periodically use your Hellions to clear the creep. Not only this will make it harder for your opponent to attack, but you will also be able to expand more freely.</p>
+
+<h2>Banshees</h2>
+<p>In the Early Game:</p>
+<p> - Kill Drones/Queens</p>
+<p> - Force Spore Crawlers and Queen production</p>
+<p> - Scout your opponent's base</p>
+<p>In general:</p>
+<p> - Counter Roach-based armies: One counter to Mech is large amounts of Roaches in the Mid-game, but having banshees overhead shooting uncontested really increases your survivability and may even allow you to skip Tanks completely and rely on Planetary Fortresses.</p>
+<p> - Deny bases: You want to keep all your Banshees alive and be a nuisance throughout the game (deny bases, kill Queens...). Even doing something as easy as positioning your Banshees over the most obvious position for your opponent's next base can make a difference.</p>
+<p> - Kill Infestors: You should use your Banshees to snipe idle Infestors if your opponent is going for this Tech.</p>
+<h2>Vikings</h2>
+<p>In the Early Game:</p>
+<p> - Deny vision/assert Map Control</p>
+<p> - Supply Block your opponent</p>
+<p> - Scout your opponent's base</p>
+<p>In general:</p>
+<p> - Fight the Hive Tech: This strategy will not be described in this guide, but a very common transition to Mech is a style called Sky Terran, which relies on Vikings, Ravens, and even Battlecruisers.</p>
+<h2>Thors</h2>
+<p>In the Early Game:</p>
+<p> - Defend against Mutalisks</p>
+<p>In general:</p>
+<p> - Be the bulk of your army: The goal of this playstyle is to accumulate a critical mass of 3/3 Thors, Hellions and Banshees, this is why you want to avoid losing Thors in the Mid-game.</p>
+<h2>Tanks</h2>
+<p>In the Early Game:</p>
+<p> - Defend against Roach-based aggressions</p>
+<p>In general:</p>
+<p> - Provide additional DPS against Roach-heavy armies: the best scenario is the one where you do not need to build Tanks at all (since those become useless in the Endgame), but sometimes you need Tanks to survive against Roach-heavy armies. In this case, do not build more than 5 or 6 Tanks.</p>
+
+<h1>Maps</h1>
+
+<p>In general, the smaller the map, the better the Mech, but this saying is not necessarily true for this Style, as a small map will make early attacks more threatening. However, a certain number of features are definitive Pros or Cons for playing this style.</p>
+
+<h2>Pros</h2>
+<p>Choke at the Natural (Easier to wall-in)</p>
+<p>Easily accessible Third (The earlier you can take your third, the better it is)</p>
+<p>Large number of choke points (Better to funnel enemy units)</p>
+<h2>Cons</h2>
+<p>Awkwardly placed Third</p>
+<p>Wide-open Natural (Difficult to wall-in)</p>
+<p>Wide open maps (Easy to get surrounded)</p>
+
+<h1>References</h1>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=308972\">Tang's Guide to Mech Play</a><br /></p>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=370945\">Discussion on how to defend the 2 Base Nydus</a><br /></p>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=361824\">Engine's comments on MVP's Mech Play (Korean Commentator)</a><br /></p>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=369707#2\">Discussion on How to Mech, with insightful comments</a><br /></p>
+<p><b>Note:</b> This Build Player recording is for the CC First, Double Armory variation</p>
+"
+    },
+    {
+	"mName": "1 Rax FE",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/1_Rax_FE_(vs._Protoss)\">Liquipedia</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 57, "mUnit": "supply_depot", "mCount": 1 },
+	    { "mTime": 95, "mUnit": "barracks", "mCount": 1 },
+	    { "mTime": 123, "mUnit": "supply_depot", "mCount": 1 },
+	    { "mTime": 160, "mUnit": "orbital_command", "mCount": 1 },
+	    { "mTime": 160, "mUnit": "marine", "mCount": 1 },
+	    { "mTime": 185, "mUnit": "marine", "mCount": 1 },
+	    { "mTime": 203, "mUnit": "command_center", "mCount": 1 },
+	    { "mTime": 220, "mUnit": "marine", "mCount": 1 },
+	    { "mTime": 235, "mUnit": "marine", "mCount": 1 },
+	    { "mTime": 263, "mUnit": "barracks", "mCount": 2 },
+	    { "mTime": 280, "mUnit": "refinery", "mCount": 2 }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>With a 1 Rax FE opening Terran's early game map presence is forfeit until either Stimpack finishes or Terran has enough Marines to overwhelm Stalkers at the front of the base; usually four Marines per Stalker. But, Terran is still weak to Warpgate-pressure until Stimpack or Marauders are finished.
+</p>
+<p>This build is the de-facto standard and is expected from Protoss, so unless doing something unusual like Double Expand build, Terran has to rely on making better decisions than Protoss, for example: when to expand and when to add extra army production.
+</p>
+<h1>Goal</h1>
+<p>The standard TvP opening for fast Medivacs for drop-harass. Opening with three Barracks and Stimpack with the first 100 Vespene Gas, and Factory with the next 100 Gas. Terran can get out Medivacs for dropping 16 Supply of army in the opponent's main and attack the enemy's natural with the rest.
+</p>
+<h1>Basic Build Order</h1>
+ - 10 - Supply Depot (1)<br />
+ - 13 - Barracks (1)<br />
+ - 16 - Marine (1 Only)<br />
+ - 17 - Orbital Command Upgrade<br />
+    @100% Marine (1) - Command Center (2)<br />
+    Next 100 Minerals - Supply Depot (2) + Continue Marine production<br /> 
+ - 22 - Barracks (2) (3)<br />
+ - 24 - Refineries (1) (2)<br />
+ - 26 - Orbital Command (2) Upgrade<br />
+    @100% Barracks (2) - Tech Lab (1) > @100% Stimpack<br />
+    Next 100 Gas - Factory<br />
+    @100% Factory - Starport + Refinery (3)<br />
+        Also: Reactor on Factory (Switch to Starport)<br /> 
+ - Add-Ons and start Marauder production<br /> 
+<h1>Notes</h1>
+<p> - Place Command Center (2) on the low ground as soon as the opposing scout as left the base or Marine (1) finishes and can chase it off, you can also block it inside the base; but do not let it scout Command Center (2) to keep the opponent in the dark.
+</p>
+<p> - Do not build any more Marines until Supply Depot (2) finishes.
+</p> 
+<h1>Scouting
+<p> - Protoss does not have many distinct opening that are difficult to manage, when scouting properly so the correct choices are usually the obvious ones.
+</p>
+<p> - No Expansion by 7:00, one base Tech or all-in, two or more Bunkers and an Engineering Bay in-case of Void Rays or Dark Templar. Cover your mineral line and [{Add-On]]s as these are the likely targets if Protoss is not going for a frontal push. 
+</p>
+<h1>Execution
+<p> - Fast Medivacs are used to counter Sentry Force Field pressure, but Siege Tech can be used instead if you do not plan on moving out soon.
+</p>
+<p> - Trade in all the Marines in your army before Colossus (3) is produced as large groups of Marines are considered pointless by that time.
+</p>
+<p> - Ghosts or Hellions can be used to flank High Templar and Sentry, one good EMP can push Protoss army all the way back to their main. 
+</p>
+<h1>Adaption
+<p>The build then branches off the build into two slight variations, fast Engineering Bay for Infantry Weapons Level 1 or quick Marauder production. Marauders will give Terran map control until Warpgate finishes, and then Protoss simply has better production mechanics; and Terran needs Medivacs to make up for this. Terran also needs a fast Refinery (3) to afford Medivacs and the Add-Ons.
+</p>
+<p>With fast Engineering Bay, Terran has some timing attacks against fast-Forge and Colossus builds, but has to stop once Extended Thermal Lance is complete and which to Medivac-Harass, instead so Terran can retreat. But, Terran is stuck on mainly Marine production until the economy catches up around the Starport finishing.
+</p>
+<h1>References</h1>
+- <a href=\"http://www.youtube.com/watch?v=qNJcjy5WGQY\">Day 9 Daily #321 - 1 Rax FE TvP!</a>, Day 9 examines the variations of, in order, SeleCT, Bomber and GanZi.<br />
+- <a href=\"http://blip.tv/day9tv/day-9-daily-426-p1-newbie-tuesday-10-games-worth-of-adjustments-5990893\">Day(9) Daily 423 - 10 Games of Adjustments</a> Day(9) once again examines the small changes that can be done with a 1 Rax FE in TvP and how adaptable and resourceful the build is for combating Protoss play.<br />
+- <a href=\"http://drop.sc/85047\">Arcane (P) vs EmpireHappy (T)</a> Fast Ghost Variation to counter Sentry heavy opening of Protoss<br />
+- IEM Season Seven, ForGG vs JYP, <a href=\"http://www.youtube.com/watch?v=uZzDjDhmQvo\">Game 1</a> &amp; <a href=\"http://www.youtube.com/watch?v=yaCKcWTeT7E\">Game 2</a>, JYP goes for a straight 4-Gate in Game 1 and in Game 2 changes to a fast Three base build after scouting the 1 Gate FE (vs. Terran); and JYP goes for a 7 Gate Colossus All-in. These are the two, most common, stock standard all-ins that Terran needs to learn to hold against.<br />
+"
+    },
+    {
+	"mName": "Bomber's 1 Rax FE",
+	"mSource": "<a href=\"http://www.gosubuilds.com/terran-build-orders-2/terran-vs-protoss/tvp-bombers-build/\">GosuBuilds</a>",
+	"mFaction": "TERRAN",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 58, "mUnit": "supply_depot" },
+	    { "mTime": 98, "mUnit": "barracks" },
+	    { "mTime": 163, "mUnit": "marine" },
+	    { "mTime": 175, "mUnit": "orbital_command" },
+	    { "mTime": 193, "mUnit": "command_center" },
+	    { "mTime": 203, "mUnit": "supply_depot" },
+	    { "mTime": 221, "mUnit": "marine" },
+	    { "mTime": 232, "mUnit": "bunker" },
+	    { "mTime": 245, "mUnit": "marine" },
+	    { "mTime": 248, "mUnit": "barracks" },
+	    { "mTime": 260, "mUnit": "barracks" },
+	    { "mTime": 268, "mUnit": "marine" },
+	    { "mTime": 274, "mUnit": "refinery" },
+	    { "mTime": 291, "mUnit": "marine" },
+	    { "mTime": 295, "mUnit": "orbital_command" },
+	    { "mTime": 317, "mUnit": "marine" },
+	    { "mTime": 324, "mUnit": "marine" },
+	    { "mTime": 325, "mUnit": "tech_lab", "mTarget": "barracks" },
+	    { "mTime": 344, "mUnit": "marine" },
+	    { "mTime": 352, "mUnit": "supply_depot" },
+	    { "mTime": 358, "mUnit": "marine" },
+	    { "mTime": 362, "mUnit": "refinery" },
+	    { "mTime": 369, "mUnit": "marine" },
+	    { "mTime": 372, "mUnit": "stim_pack" },
+	    { "mTime": 377, "mUnit": "bunker" },
+	    { "mTime": 388, "mUnit": "supply_depot" },
+	    { "mTime": 399, "mUnit": "marine", "mCount": 3 },
+	    { "mTime": 411, "mUnit": "factory" },
+	    { "mTime": 414, "mUnit": "engineering_bay" },
+	    { "mTime": 417, "mUnit": "refinery" },
+	    { "mTime": 419, "mUnit": "supply_depot" },
+	    { "mTime": 429, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 437, "mUnit": "marine" },
+	    { "mTime": 442, "mUnit": "supply_depot" },
+	    { "mTime": 453, "mUnit": "infantry_weapons_level1" },
+	    { "mTime": 468, "mUnit": "supply_depot" },
+	    { "mTime": 471, "mUnit": "marine" },
+	    { "mTime": 474, "mUnit": "starport" },
+	    { "mTime": 474, "mUnit": "reactor", "mTarget": "factory" },
+	    { "mTime": 478, "mUnit": "marine" },
+	    { "mTime": 481, "mUnit": "reactor", "mTarget": "barracks" },
+	    { "mTime": 482, "mUnit": "marine" },
+	    { "mTime": 486, "mUnit": "tech_lab", "mTarget": "barracks" },
+	    { "mTime": 492, "mUnit": "supply_depot" },
+	    { "mTime": 497, "mUnit": "barracks", "mCount": 2 },
+	    { "mTime": 517, "mUnit": "combat_shield" },
+	    { "mTime": 521, "mUnit": "supply_depot" },
+	    { "mTime": 525, "mUnit": "marine", "mCount": 2 },
+	    { "mTime": 532, "mUnit": "supply_depot" },
+	    { "mTime": 539, "mUnit": "medivac", "mCount": 2 }
+	],
+	"mNotes": "
+<h1>General Overview</h1>
+
+<p>This variant on the standard 1rax FE build gets faster infrastructure up for more midgame aggression in return for sacrificing early safety against 1 base and early 2 base attacks.</p>
+
+<h1>Build Order</h1>
+<p>
+10 - Supply Depot<br />
+12 - Barracks<br />
+16 - Marine (only 1)<br />
+17 - Orbital Command<br />
+17 - 2nd Command Center<br />
+17 - Supply Depot (Resume Marine Production)<br />
+20 - Bunker at Natural<br />
+22 - Barracks x2<br />
+24 - 1 Refinery<br />
+26 - Orbital Command(2)<br />
+30 - @25 Gas, start Techlab (2nd bunker at natural if you fear any pressure)<br />
+@100 Gas, start Stimpack Research, and 2nd Refinery<br />
+@100 Gas, start Factory, Engineering Bay, and 3rd Refinery<br />
+@100% Engibay, start +1 attack<br />
+@100% Factory, start Reactor on Factory and Starport for later swap off<br />
+@75 Gas, start Techlab and Reactor on Barracks (can now start Marauder production and Combat Shields/Concussive Shells)<br />
+@300 mins, start 4th and 5th Barracks<br />
+@100% Starport, swap off onto Reactor and start double Medivac production<br />
+@9:45, take map control with stim, +1 attack, combat shields, conc shells, 2 medivacs, and around 25 marine/marauder (do NOT engage toss yet)<br />
+@100% 4th and 5th Barracks, start Reactor and Techlab<br />
+@400 mins, start your 3rd Command Center<br />
+Finally, engage toss once 1 or 2 rounds of those extra barracks have kicked in with nonstop reinforcements.<br />
+</p>
+
+<h1>Scouting</h1>
+
+<p>When you send your scouting SCVs, you want to look for gasses, nexus energy, and the units he is producing out of his gateway.  If he only has 1 gas before his stalker pops, check to see whether your opponent gets his natural at around 5:15 (You can hide your SCV nearby and then run it in around 5:30 to check for an expansion later if need be).  If he has 2 gas or is not spending his chronoboost, then be wary of any sort of attack.  The common responses to standard protoss builds are:</p>
+
+<p> - Nexus First: Bunker rush with 4 Barracks instead of getting your 2nd CC OR Stop making marines at 3, get your 3rd CC, and go straight into double upgrades to get a leg up in the macro game.</p>
+
+<p> - Confirmed 1 Gate Expand: Play normally - be fearful of early 3gate followup attacks.</p>
+
+<p> - Everything Else: Get that 2nd bunker up at your natural and be very inclined to pull SCVs to repair bunkers if pressure does come.</p>
+
+<h1>Tips</h1>
+
+<p>To confirm that your opponent is not all-ining you, have an SCV (or scan) go to his natural just before the 6 minute mark.  A 4gate will hit before this timing, but 2 bunkers and repair should be able to hold a 4gate easily enough; all other scary all-ins hit much later and this scout will give you enough time to prepare an appropriate defense.</p>
+<p>You cannot afford marauders with this build until you've started your starport.  The 100 extra mins and 50 gas from making 2 marauders at a time will slow down the push by over a minute.</p>
+<p>Take map control when you initial poke out with your first two medivacs - Do NOT engage protoss.  This build sets up your infrastructure for a lot of reinforcements, but does not increase your army size until those reinforcements have actually arrived.</p>
+<p>Once the first or second wave of units from your 5rax have popped (you should be making 3 marauders and 4 marines at a time), straight up fight protoss.  Spread your army, kite zealots, pick up units trapped between forcefields and zealots with medivacs, and dodge storms as best you can.  Regardless, don't slip up on building units, and don't stop the aggression until you have to.</p>
+<p>During this aggression, you get to see what army composition your opponent has.  Get a 4th gas geyser.  Then react appropriately to collosus by making vikings (and possibly a 2nd starport) and to high templar by making ghosts.</p>
+
+<h1>Transitions</h1>
+
+<p>During the fighting, place down your 3rd CC, 2nd engibay and armory, and ghost academy or 2nd starport to counter your opponent's HTs or collosi.  Bringing the fight to your opponent forces them to reveal which tech path they've gone down while they're at their base - safely giving you time to counter it before it comes to your base.</p>
+
+<h1>Pros and Cons</h1>
+
+<p>This 1rax FE variant cuts many corners in terms of early safety compared to other 1rax FEs.  Delaying the 2nd gas means that you cannot afford any marauders at all until after your starport has been placed down.  Thus, early game, you have to rely on bunkers and SCVs to repair and tank damage much more than you would in other builds.</p>
+
+<p>However, what it lacks in the early game it more than makes up for in the mid game.  Getting such fast 5 rax up means that you can apply loads of midgame aggression against your opponent.  With proper micro, it's entirely possible to overrun the front with pure MMM even against colossi or HTs, simply because of how many units you are producing at a time.</p>
+
+<h1>Replays</h1>
+
+<p><a href=\"http://www.youtube.com/watch?v=WI1LX8W9bWI\">Relevant Day9 Daily</a></p>
+
+<p><a href=\"http://drop.sc/227423\">Bomber's TvP Build Tutorial vs a Very Easy AI</a></p>
+
+<p><a href=\"http://drop.sc/235692\">Mid-Masters Example of Bomber's Build in Action</a></p>
+
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=340714\">More Info</p>
+"
+    }
+]

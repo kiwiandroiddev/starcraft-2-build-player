@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <style type='text/css'>
+      a            { color:#33b5e5 }
+      div.title    { 
+          color:#FFFFFF; 
+          font-size:1.2em; 
+          font-weight:bold; 
+          margin-top:1em; 
+          margin-bottom:0.5em; 
+          text-align:center }
+      div.subtitle { 
+          color:#CCCCCC; 
+          font-size:0.8em; 
+          margin-bottom:1em; 
+          text-align:center }
+      div.freetext { color:#CCCCCC }
+      div.list     { color:#CCCCCC }
+    </style>
+  </head>
+  <body>
+$ 2.1.5
+  % Version 2.1.5
+  _ 2013-06-29
+    ! Major improvements to Build Editor:
+    * Drag to reorder build items, swipe away to remove
+    * Preview button added to notes editor
+    * Formatting tools added to notes editor (Insert link, headings, paragraph, line breaks, etc.) 
+    * New items are automatically inserted to correct position based on their time
+    * Out-of-order items are now highlighted red
+    * Save performance significantly improved
+    ! Also includes 2 new builds (1 Terran, 1 Protoss)
+$ 2.1.4
+  % Version 2.1.4
+  _ 2013-05-19
+    * Fixed TTS detection on Jellybean
+$ 2.1.3
+  % Version 2.1.3
+  _ 2013-05-17
+    * 6 new builds added (4 Zerg, 1 Protoss, 1 Terran)
+    * French language support added - thanks to users <b>Vianns</b>, <b>Headscrolls</b> and <b>napalm648</b> for their contributions!
+    * Creation and last modified dates added to builds
+$ 2.1.2
+  % Version 2.1.2
+  _ 2013-04-23
+    * 5 new builds added (3 Terran, 2 Protoss, 1 Zerg)
+    * Importing and exporting of builds now supported
+    * Show status bar option added
+    * Crash during playback on some user's Samsung devices should no longer occur; root cause being investigated
+    ! Are you multilingual? <a href="http://www.getlocalization.com/sc2buildplayer/">Help translate this app</a> to your language!
+$ 2.1.1
+  % Version 2.1.1
+  _ 2013-04-15
+    * Fixed a crash that was reported by some users
+$ 2.1.0
+  % Version 2.1.0
+  _ 2013-04-13
+    * Build editor added - you can now add your own build orders with all the features of standard ones and edit existing builds
+    * Extra units and upgrades added to item database
+    * Layout optimizations for tablets and large screens
+    * Free version: this update adds anonymous usage reporting - you can disable this in the settings menu if you like
+    ! This has been the biggest update so far; if you experience any issues please <a href="mailto:kiwiandroiddev@gmail.com?Subject=StarCraft%202%20Build%20Player%20v210%20Issue">let me know</a>
+$ 2.0.1
+  % Version 2.0.1
+  _ 2013-04-01
+    * Pro version: nudge device to play feature added
+    * Audio feedback for playback controls added
+    * Screen will now sleep after playback finished to save battery life
+    * "Up" navigation now much faster
+    * Layout improvements - more screen real-estate given to content
+$ 2.0.0
+  % Version 2.0.0
+  _ 2013-03-22
+    * HotS icons and resources added
+    * 12 new HotS builds added (4 Terran, 3 Zerg, 5 Protoss)
+    * Minor bug fixes
+    * More HotS builds to come. Send your suggestions to <a href="mailto:kiwiandroiddev@gmail.com?Subject=HotS%20Build%20Suggestion">kiwiandroiddev@gmail.com</a>
+$ 1.0.0
+  % Version 1.0.0
+  _ 2012-11-30
+    * Initial release
+$ END_OF_CHANGE_LOG
+  </body>
+</html>

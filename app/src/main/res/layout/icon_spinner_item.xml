@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="8dip"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    
+    <ImageView
+        android:id="@+id/icon_spinner_icon1"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="center_vertical"
+    />
+    
+	<TextView
+	    android:id="@+id/icon_spinner_text1"
+	    style="?attr/spinnerItemStyle"
+	    android:singleLine="true"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_vertical"
+	    android:paddingLeft="4dip"
+	    android:ellipsize="marquee" />
+	
+</LinearLayout>
+<!-- <RelativeLayout  -->
+<!--     android:layout_width="wrap_content" -->
+<!--     android:layout_height="wrap_content" -->
+<!--     xmlns:android="http://schemas.android.com/apk/res/android"> -->
+<!--     <ImageView -->
+<!--         android:id="@+id/icon_spinner_icon1" -->
+<!--         android:layout_width="32dip" -->
+<!--         android:layout_height="32dip" -->
+<!--         android:layout_alignParentLeft="true" -->
+<!--         android:layout_centerVertical="true" -->
+<!--     /> -->
+<!-- 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"  -->
+<!-- 	    android:id="@+id/icon_spinner_text1" -->
+<!-- 	    style="?attr/spinnerItemStyle" -->
+<!-- 	    android:singleLine="true" -->
+<!-- 	    android:layout_width="match_parent" -->
+<!-- 	    android:layout_height="wrap_content" -->
+<!-- 	    android:layout_toRightOf="@id/icon_spinner_icon1" -->
+<!-- 	    android:layout_centerVertical="true" -->
+<!-- 	    android:paddingLeft="@dimen/inter_widget_padding" -->
+<!-- 	    android:ellipsize="marquee" /> -->
+<!-- </RelativeLayout> -->
+

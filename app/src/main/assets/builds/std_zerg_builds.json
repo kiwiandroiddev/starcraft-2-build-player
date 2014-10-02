@@ -1,0 +1,535 @@
+[
+    {
+	"mName": "2 Base Nydus",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/2_Base_Nydus_(vs._Terran)\">Liquidpedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 50, "mUnit": "overlord" },
+	    { "mTime": 133, "mUnit": "hatchery" },
+	    { "mTime": 173, "mUnit": "spawning_pool" },
+	    { "mTime": 186, "mUnit": "overlord" },
+	    { "mTime": 245, "mUnit": "queen", "mCount": 2 },
+	    { "mTime": 248, "mUnit": "overlord" },
+	    { "mTime": 292, "mUnit": "queen", "mCount": 2 },
+	    { "mTime": 295, "mUnit": "overlord" },
+	    { "mTime": 297, "mUnit": "extractor", "mCount": 3 },
+	    { "mTime": 335, "mUnit": "note", "mText": "Put 8 Drones onto Gas" },
+	    { "mTime": 351, "mUnit": "overlord" },
+	    { "mTime": 357, "mUnit": "lair" },
+	    { "mTime": 373, "mUnit": "overlord" },
+	    { "mTime": 379, "mUnit": "metabolic_boost" },
+	    { "mTime": 407, "mUnit": "roach_warren" },
+	    { "mTime": 411, "mUnit": "queen" },
+	    { "mTime": 421, "mUnit": "overlord", "mCount": 2 },
+	    { "mTime": 441, "mUnit": "nydus_network" },
+	    { "mTime": 463, "mUnit": "roach", "mCount": 12 },
+	    { "mTime": 463, "mUnit": "zergling", "mCount": 8 },
+	    { "mTime": 481, "mUnit": "baneling_nest" },
+	    { "mTime": 508, "mUnit": "hatchery" },
+	    { "mTime": 510, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 510, "mUnit": "overlord", "mCount": 3 },
+	    { "mTime": 519, "mUnit": "nydus_worm" },
+	    { "mTime": 533, "mUnit": "overlord", "mCount": 2 }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This build aims at putting a Nydus Worm just outside the Natural Expansion of your opponent, and to use Queens and Roaches to kill him or at the very least kill his Natural Expansion along with a large number of SCVs.</p>
+<h2>Goal</h2>
+<p>The goal of this build is to exploit a timing at which the Terran army is usually very weak. Indeed, the most prevalent opening nowadays is to do a 1 Rax FE into an Hellion pressure, followed with Banshees. This opening is very strong, since it allows the Terran to be safe against a Zergling/Baneling attack (thanks to Hellions) and to a Roach Bust (thanks to Banshees that can see the push coming and soften the Roaches on their way to the base).</p>
+<p>However, with the help of a Nydus Network, it is possible to circumvent the Banshees and Hellions and deal a crippling blow to an unprepared opponent.</p>
+<h1>Basic Build Order</h1>
+<b>\"Curious' 2 Base Nydus\"</b><br />
+9 - Overlord<br />
+15 - Hatchery<br />
+16 - Extractor<br />
+16 - Spawning Pool<br />
+@100% Spawning Pool - Two Queens + Four Zerglings<br />
+@100gas - Metabolic Boost + Pull all Drones off gas.<br />
+@4:15 - Put one Drone back to gas<br />
+@100%Queen - One more Queen<br />
+@5:30 - Put two Drone back to gas (Total of three)<br />
+@5:45 - Extractor (2)<br />
+@100gas - Lair (Around 42 Supply)<br />
+@6:30 - Extractor (3) + Spine Crawler<br />
+@7:00 - Roach Warren + Nydus Network (Lair should have just finished)<br />
+@40 Drones - Start Roaches production + one Queen.<br />
+@100% Nydus Network - Nydus Worm outside your opponent's natural.<br />
+<h2>Notes</h2>
+<p>You will only have 40 Drones for this attack, so you want to make sure your saturation is optimal on your two bases.</p>
+<p>Adding an evolution chamber for safety is optional, but recommended if you think your opponent may be going for Cloak.</p>
+<h2>Scouting</h2>
+<p>Before executing this build, you need to confirm that you are indeed facing a 1 Rax FE into 1/1/1 Tech. In order to do so, you want to poke as often as possible with your four Zerglings at your opponent's natural, and scout for the edge of the base with an Overlord to confirm the Starport.</p>
+<h1>Execution</h1>
+
+<p>If your opponent's natural is undefended, you may want to bust the ramp to the main immediately to end the game.</p>
+<p>If you see that your opponent does not have vision on a part of his or her base, you should consider putting the Nydus in the main rather than outside the natural.</p>
+<p>Do not forget to bring an Overseer with you if your opponent opened with Cloak Banshees.</p>
+<h1>Adaptation</h1>
+
+<p>If your opponent is going for an important number of Barracks, you should abandon this build as you will probably not be able to bust the front with pure Roaches: a Roach/Baneling transition may be a good option to consider.</p>
+<p>If your opponent is lifting the natural and is able to save a large number of SCVs, you should put a soft contain with the Roaches you have, and macro while playing safe (spores and spines at your expands).</p>
+<h1>Maps</h1>
+
+<h2>Pro features</h2>
+<p>Larger maps where your opponent is more likely to feel confident and open for a Tech build</p>
+<p>Large main base where you could hide a Nydus</p>
+<h2>Con features</h2>
+<p>Tight choke at the Natural that can be easily defended with a small number of units</p>
+<p>Close spawn situation, where your opponent may not opt for a greedy opening.</p>
+
+<h1>References</h1>
+<p><a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=378188\">[G] ZvT - Get Curious: A Killer Nydus Timing</a></p>
+<p><b>Note:</b> Build Player recording is based on the variation demonstrated by <b>usNEUX</b> in his tutorial replay (see: References)</p>
+"
+    },
+    {
+	"mName": "6 Pool",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/6_Pool_(vs._Terran)\">Liquipedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "TERRAN",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 37, "mUnit": "spawning_pool", "mCount": 1 },
+	    { "mTime": 53, "mUnit": "drone", "mCount": 1 },
+	    { "mTime": 67, "mUnit": "drone", "mCount": 1 },
+	    { "mTime": 67, "mUnit": "note", "mText": "Send out one drone to scout" },
+	    { "mTime": 95, "mUnit": "note", "mText": "Send out another drone" },
+	    { "mTime": 103, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 103, "mUnit": "note", "mText": "Send out all of your drones" },
+	    { "mTime": 127, "mUnit": "note", "mText": "Send zerglings to opponent's base" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This build is without any doubt the most well-known cheese of Starcraft 2, but executing it at the highest level of play is not as intuitive as it seems. This guide will help you get the most of this build, and will explain the specificity of playing a 6 Pool versus a Terran opponent. A few techniques are pre-requisites for this cheese:</p>
+<p>
+    <b>Doubling your mineral line:</b> Only mine from close mineral patches! As you are only mining from six Drones, this is very important.<br />
+    <b>Hold-Position Micro:</b><br />
+        <b> - Defensive:</b> When fighting with your drones, do not try to run away with the damaged ones. Instead, hit the \"Hold Position\" button to lower the threat level, and one or two second after engage again.<br />
+        <b> - Offensive:</b> If you are trying to attack a unit or a building that is surrounded by your opponent's Drones/SCVs/Probes on Hold Position, wait until you have a surround on the gatherers and Hold Position yourself: if you are close enough, you will start doing damage rather than just running in circle. <br />
+    <b>Building Blocking:</b> Just run in circle where your opponent will try to complete the wall. If you are attacked too often, just move away slightly and go back in position as soon as your opponent gets ready to close the wall.<br />
+    <b>Mineral Walking:</b> Left-clicking on a Mineral patch will make your Drones ignore collisions with everything except buildings. <br />
+</p>
+<h1>Goal</h1>
+<p>The goal of this build is to end the game extremely early, usually before 5 minutes. In order to do so, you will use six Zerglings and pull all your Drones to attack your opponent before he or she can complete their first Barracks. This build is 100% all-in: either you will win right away, or you will fail to kill your opponent and might as well leave the game immediately.</p>
+<h1>Basic Build Order</h1>
+<p>
+    6 - Spawning Pool [1]<br />
+    5 - Drone<br />
+    6 - Drone<br />
+    @ 1:30 Send your first Drone to scout the closest spawn<br />
+    @ 100 Minerals - Send your second Drone to the same direction<br />
+    @ 125 Minerals - Send all your workers toward your opponent's base<br />
+    @ 100% Spawning Pool - Three pairs of Zerglings, send to opponent's base <br />
+<br />
+    [1] Aim for 37 seconds. <br />
+</p>
+<h1>Execution</h1>
+<h2>Getting in the base</h2>
+<p>Harass the SCV building the Barracks with your first scouting Drone. Your opponent will usually send one or two more SCVs to defend, which is fine: they will be the first victims of your attack</p>
+<p>Make sure the Terran is not able to close the ramp (i.e. build a second Supply Depot)!</p>
+<p>If your opponent manages to do it, make sure to attack the SCVs building it as early as possible to deny the construction.</p>
+<p> of the time, only two Zerglings will attack the Supply Depot. By microing your units properly, you should be able to get three Zerglings in position to attack the Depot, in which case you are guaranteed to break into your opponent's base. </p>
+<p> you are facing a 11/11 Barracks Build, your opponent may have won the game, but you can try the following:
+        - Attack the SCVs building the Barracks with your scouting Drone.
+        - As soon as your opponent lowers the Supply Depot to bring SCVs to help, Mineral walk all your Drones over the Supply Depot to prevent the Terran from lifting it. 
+</p>
+<h2>Fighting inside the base (the Barracks finished)</h2>
+<p>
+You have basically four possible scenarios:<br />
+ - He or she is using the SCVs to fight you, not waiting for the Marine: Kill the workers with ease and snipe the Marine once it pops out of the Barracks.<br />
+ - He or she is not using the SCVs to fight you: Kill the Barracks, then the SCVs.<br />
+ - He or she is waiting on his or her ramp, waiting for the Marine to pops out: Mineral walk your Drones to circle the Marine, and attack with your Zerglings<br />
+ - He or she is building a Bunker near the Command Center: Keep focusing the Barracks, and when the Marine is almost done, put your units in position to intercept it. Do not try to deny the Bunker construction: you must block the Marine and you will be fine. <br />
+</p>
+<h2>Fighting inside the base (the Barracks could not finish)</h2>
+<p>
+ - Kill the Barracks first!<br />
+ - Engage the SCVs and win.<br />
+</p>
+<p><a href=\"http://www.sc2planner.com/#ZoFaap23dp5dp7dkkk\">SC2 Planner Build Graph</a></p>
+"
+    },
+    {
+	"mName": "Destiny's ZvZ",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Destiny%27s_ZvZ_%28vs._Zerg%29\">Liquipedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 45, "mUnit": "overlord", "mCount": 1 },
+	    { "mTime": 103, "mUnit": "spawning_pool", "mCount": 1 },
+	    { "mTime": 137, "mUnit": "extractor", "mCount": 1 },
+	    { "mTime": 167, "mUnit": "note", "mText": "Put 3 drones on gas" },
+	    { "mTime": 167, "mUnit": "overlord", "mCount": 1 },
+	    { "mTime": 168, "mUnit": "queen", "mCount": 1 },
+	    { "mTime": 175, "mUnit": "spine_crawler", "mCount": 1 },
+	    { "mTime": 205, "mUnit": "roach_warren", "mCount": 1 },
+	    { "mTime": 218, "mUnit": "spawn_larvae", "mCount": 1 },
+	    { "mTime": 242, "mUnit": "overlord", "mCount": 1 },
+	    { "mTime": 260, "mUnit": "roach", "mCount": 2 },
+	    { "mTime": 263, "mUnit": "spawn_larvae", "mCount": 1 },
+	    { "mTime": 267, "mUnit": "roach", "mCount": 2 },
+	    { "mTime": 272, "mUnit": "roach", "mCount": 1 },
+	    { "mTime": 302, "mUnit": "overlord", "mCount": 1 },
+		{ "mTime": 303, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 307, "mUnit": "spawn_larvae", "mCount": 1 },
+		{ "mTime": 317, "mUnit": "hatchery", "mCount": 1 },
+		{ "mTime": 340, "mUnit": "metabolic_boost", "mCount": 1 },
+		{ "mTime": 349, "mUnit": "overlord", "mCount": 1 },
+		{ "mTime": 362, "mUnit": "queen", "mCount": 1 },
+		{ "mTime": 367, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 367, "mUnit": "spawn_larvae", "mCount": 1 },
+		{ "mTime": 373, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 380, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 386, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 393, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 400, "mUnit": "overlord", "mCount": 1 },
+		{ "mTime": 407, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 417, "mUnit": "spawn_larvae", "mCount": 1 },
+		{ "mTime": 417, "mUnit": "roach", "mCount": 1 },
+		{ "mTime": 422, "mUnit": "overlord", "mCount": 1 }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>
+A two base all in Roach/Speedling push, designed by Destiny and popularized through his stream and subsequent YouTube lesson.
+</p><h2>Goal</h2>
+<p>
+To have a game-ending push at around eight and a half minutes. Pros: Strong versus economic openings Cons: All-in push, must end the game or you are severely behind.
+</p>
+<h1>Basic Build Order</h1>
+
+ - 13 Spawning Pool<br />
+ - 15.5 (Drone building) Extractor<br />
+ - 16 Overlord<br />
+ - Pool 100% - 1? Spine Crawler + Queen<br />
+ - Queen 75% Roach Warren<br />
+ - 20 Overlord<br />
+ - Roach Warren 100% Roaches with all Larva (~6)<br />
+ - ~32 Overlord<br />
+ - ~34 Expand<br />
+ - 36 Metabolic Boost (Remove Drones from gas at this point)<br />
+ - 36 Roaches (~7)<br />
+ - 44 Overlord (or 2)<br />
+ - 46 Queen (or sooner if able)<br />
+ - ~50 Mass Zerglings behind Roaches<br />
+
+<h2>Notes</h2>
+
+<p>When building the Spine Crawler, place it inside your mineral line where it can cover all of your Drones and just around your Hatchery</p>
+<p>When building your second round of Roaches (~7), try to wait for a multiple of 25 amount of gas to efficiently use all of your resources</p>
+
+<h2>Scouting</h2>
+
+<p>If your opponent goes Hatchery first or 14 Pool, this build has a very good chance of succeeding. Try not to lose any Overlords as it is very problematic to be supply blocked.</p>
+
+<h1>Execution</h1>
+
+<p>At around 50 supply, you should have ~13 Roaches. Send the Roaches out to your opponents natural with the mass of Zerglings, and keep producing lings throughout the battle. All your lings should be rallied to your opponents base, where they should immediately engage. Try to micro so that your Roaches arrive first and then the lings stream in to surround your opponents Roaches/lings/Spine Crawlers. If your opponent has gone fast Mutalisks, opt for a base trade and keep streaming lings in. You are too far behind economically with ~22 Drones to catch up reasonably.</p>
+
+<h1>Maps</h1>
+
+<h2>Pro features</h2>
+
+ - Long rush distance<br />
+ - Easily protected natural expansion<br />
+ - Abyssal Caverns<br />
+ - Antiga Shipyard<br />
+ - Searing Crater<br />
+ - Shakuras Plateau<br />
+ - Tal'Darim Altar LE<br />
+ - The Shattered Temple<br />
+
+<h2>Con features</h2>
+
+ - Short rush distance<br />
+ - Open natural expansion<br />
+ - Typhon Peaks<br />
+ - Backwater Gulch<br />
+ - Xel'Naga Caverns<br />
+
+<h1>References</h1>
+
+<p><a href=\"http://www.youtube.com/watch?v=TjO7gPmUqlo\">Destiny's original youtube video teaching the build</a></p>
+<p><a href=\"http://www.sc2planner.com/#ZaaajaaaaoFaaaaoDajchoJaaoHafajallflllajlfoAaaauDjhlflllljllfj\">sc2planner.com: Visual BO (Timings and Supply)</a></p>
+
+"    
+    },
+    {
+	"mName": "Hatchery First",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Hatchery_First_(vs._Zerg)\">Liquipedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "ZERG",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 50, "mUnit": "overlord" },
+	    { "mTime": 137, "mUnit": "hatchery" },
+	    { "mTime": 145, "mUnit": "extractor" },
+	    { "mTime": 170, "mUnit": "spawning_pool" },
+	    { "mTime": 203, "mUnit": "overlord" },
+	    { "mTime": 237, "mUnit": "queen", "mCount": 2 },
+	    { "mTime": 245, "mUnit": "metabolic_boost" },
+	    { "mTime": 270, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 281, "mUnit": "overlord" },
+	    { "mTime": 310, "mUnit": "baneling_nest" },
+	    { "mTime": 310, "mUnit": "overlord" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+
+<p>Hatchery first is the most economic opening for Zerg, but delays Tech and unit production. For this reason, going Hatchery first versus a Zerg opponent is sometimes considered a risky opening, given that your opponent will be able to put pressure on you with Speedlings and sometimes Banelings. However, following this build will allow you to open with Hatchery first while being safe against a large number of openings, given you are able to scout and react properly.</p>
+
+<h1>Goal</h1>
+<p>This build is a defensive one: you will plant an Hatchery before any other building, which will force your opponent to be aggressive to even out the situation if they opened with a Spawning Pool first. Once you have fended off the agression, you will be able to enter the midgame with an economic advantage. Your opening will depend whether the other Zerg matches your Hatchery first or opens with a Spawning Pool.</p>
+
+<h1>Basic Build Order</h1>
+
+<h2>Hatchery First vs Pool First </h2>
+
+9 - Overlord<br />
+9 - Drone Scout [1]<br />
+15 - Hatchery<br />
+15 - Spawning Pool<br />
+15 - Extractor<br />
+17 - Overlord<br />
+@100% Spawning Pool - Two Queens<br />
+@100% Spawning Pool - Metabolic Boost[2]<br />
+OR Baneling Nest plus Spine Crawler[3]<br />
+23 - Overlord<br />
+5:00-5:15 - Baneling Nest [4]<br /><br />
+[1] This will make you safe against an early pool<br />
+[2] If your opponent expands<br />
+[3] If your opponent does not<br />
+[4] If your opponent expanded<br />
+
+<h2>Hatchery First vs Hatchery First </h2>
+
+9 - Overlord<br />
+9 - Drone Scout [1]<br />
+15 - Hatchery<br />
+17 - Spawning Pool<br />
+17 - Extractor<br />
+17 - Overlord<br />
+@100% Spawning Pool - Two Queens and four Zerglings [2]<br />
+@100% Spawning Pool - Metabolic Boost<br />
+21 - Baneling Nest [3]<br />
+23 - Overlord<br /><br />
+[1] This will make you safe against an early pool<br />
+[2] Use one to scout<br />
+[3] (In case of a Zergling all-in)<br />
+
+<h1>Notes</h1>
+<p>The Spine Crawler is what will make you safe against a 13/13 Baneling all-in: your opponent will have a very large number of Banelings, but hardly any zergling. In this case, you should block your ramp with two Queens and evacuate the Drones of your Natural expansion.</p>
+<p>In the case of an early Pool (before 10 supply), immediately cancel your Hatchery and place your Spawning Pool behind your mineral line. For further information about holding early Pool builds with an Hatchery first, you should read Belial's Guide to Beating 6/7/8 Pool with Hatchery First</p>
+<h1>Scouting</h1>
+
+<p>Good scouting is absolutely necessary to the success of this build, and you will have to use different methods to make sure your opponent is not going to all-in you:</p>
+
+ - Counting Drones at the Natural<br />
+ - Zergling Sacrifice<br />
+ - Overlord positioning<br />
+<h2>Counting Drones at the Natural</h2>
+<p>On the vast majority of the maps, you will be able to send your first Overlord behind the Natural's mineral line of your opponent, allowing you to see how many drones are mining there without being hit by the Queen. A low number of Drones means that an all-in is coming, and you should pre-emptively morph Banelings.</p>
+<p>Should you not be able to position this Overlord, you should sacrifice it at 30 supply, to make sure an all-in is not coming. This is a bit more costly to do, but will save your life more than once.</p>
+<h2>Zergling Sacrifice</h2>
+<p>You should regularly sacrifice a Zergling into your opponent's natural and look at what kills it.</p>
+<p> - An abnormally high count of units means that an attack will hit you soon.</p>
+<p> - A large number of Spines (two or more) could hint at fast Tech (Spire in general).</p>
+<p> - A low unit count could mean a greedy play or an hidden third, in which case you should try to attack.</p>
+<h2>Overlord Positioning</h2>
+<p>This is a key aspect of Zerg versus Zerg, and all your overlords should be able to cover the entire map. In particular:</p>
+<p> - Your first Overlord should be behind your opponent's Natural (see above).</p>
+<p> - Your second should be out of your opponent's Natural, scouting for army movements.</p>
+<p> - Your third should be at the bottom of your Natural, scouting for morphing banelings, then head toward your opponent's Third.</p>
+
+<h1>Maps</h1>
+
+<p>This opening is not map-dependent. However, a wide-open Natural is something that will make the execution of this build a bit more difficult. A notable example of this is Tal'darim Altar, where the lack of a ramp for your two queens to wall off makes defending all-ins particularly troublesome.</p>
+
+<h1>Replays & VODs</h1>
+
+<a href=\"http://drop.sc/227909\">Versus a 14/14</a><br />
+<a href=\"http://drop.sc/227910\">Versus an aggressive Hatchery First</a><br />
+<a href=\"http://drop.sc/227911\">Versus an aggressive Hatchery First</a><br />
+
+<h1>References</h1>
+
+<a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=199583%29\">Blade's Guide to Hatchery First</a><br />
+<a href=\"http://www.teamliquid.net/forum/viewmessage.php?topic_id=295586\">Belial's Guide to Beating 6/7/8 Pool with Hatchery First</a><br />
+<p>
+<b>Note:</b> Attached recording is the Vs. Hatch First variant and is based on the referenced \"Blade vs. Meijin\" replay.</p>
+"
+    },
+    {
+	"mName": "2 Base Nydus - Hydralisk Version",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/2_Base_Offensive_Nydus_(vs._Protoss)\">Liquidpedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 48, "mUnit": "overlord" },
+	    { "mTime": 128, "mUnit": "hatchery" },
+	    { "mTime": 154, "mUnit": "spawning_pool" },
+	    { "mTime": 191, "mUnit": "extractor" },
+	    { "mTime": 202, "mUnit": "overlord" },
+	    { "mTime": 221, "mUnit": "zergling", "mCount": 2 },
+	    { "mTime": 222, "mUnit": "queen" },
+	    { "mTime": 231, "mUnit": "queen" },
+	    { "mTime": 258, "mUnit": "overlord" },
+	    { "mTime": 281, "mUnit": "metabolic_boost" },
+	    { "mTime": 319, "mUnit": "overlord" },
+	    { "mTime": 322, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 338, "mUnit": "lair" },
+	    { "mTime": 341, "mUnit": "extractor" },
+	    { "mTime": 355, "mUnit": "extractor" },
+	    { "mTime": 371, "mUnit": "overlord" },
+	    { "mTime": 378, "mUnit": "overlord" },
+	    { "mTime": 393, "mUnit": "overlord" },
+	    { "mTime": 409, "mUnit": "extractor" },
+	    { "mTime": 420, "mUnit": "overlord" },
+	    { "mTime": 431, "mUnit": "hydralisk_den" },
+	    { "mTime": 432, "mUnit": "overlord" },
+	    { "mTime": 438, "mUnit": "queen" },
+	    { "mTime": 450, "mUnit": "nydus_network" },
+	    { "mTime": 474, "mUnit": "grooved_spines" },
+	    { "mTime": 477, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 477, "mUnit": "hydralisk", "mCount": 4 },
+	    { "mTime": 480, "mUnit": "overlord" },
+	    { "mTime": 484, "mUnit": "zergling", "mCount": 6 },
+	    { "mTime": 500, "mUnit": "hydralisk", "mCount": 2 },
+	    { "mTime": 504, "mUnit": "nydus_worm" },
+	    { "mTime": 511, "mUnit": "overlord" },
+	    { "mTime": 512, "mUnit": "note", "mText": "Continue reinforcing with Zerglings and Hydralisks" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>This article will discuss a two base Nydus Worm timing attack that uses Hydralisks and Zerglings. The build is designed to strike the opponent before his or her army has a sizable number of units with splash damage abilities (for instance, High Templar with Psionic Storm or Colossus). This attack can be used against openings that skip an early army in favor of fast Teching and early economic growth. Examples include Forge Fast Expand builds that are combined with Stargate openings.</p>
+<h2>Goal</h2>
+<p>Hydralisks are slow off Creep, making them bad offensively without good creep spread. This creep spread can take a considerable amount of time; Nydus Worms are an expensive, but effective, way of skipping this step in getting to the opponent's base.</p>
+<h1>Basic Build Order</h1>
+<p>Any opening other than Speedling Expand will work for this build. The reason why you cannot use the Speedling Expand opening is because you must delay Metabolic Boost until after getting Lair (or until after expanding on larger maps). In general, you should scout for Gateway openings from the Protoss, as this may mean a 3-Gate Sentry Expand build that will quickly turn into Protoss pressure once a critical mass of Sentries is reached.</p>
+<b>2 Base Nydus (Hydralisk Version)</b><br />
+<br />
+@ 100 , Lair + Extractor (2)[1]<br />
+@ 100 , Metabolic Boost + Extractor (3) + Evolution Chamber<br />
+@ 100% Lair, Hydralisk Den<br />
+@ 200 , Nydus Network<br />
+@ 100% Hydralisk Den, Grooved Spines + Missile Attack Level 1<br />
+@ 100% Nydus Network, Overseer[2]<br />
+<br />
+[1] Do not delay Lair if the opposing player opens with a Forge Fast Expand build, as Protoss players tend to go from either Stargate or Gateway pressure straight into Colossus, making the timing for a Hydralisk attack limited.<br />
+[2] Skip making an Overseer if multiple Overlords are already in position to lay down a Nydus Worm.<br />
+<h1>Execution</h1>
+<p>Once your Missile Attack Level 1 and Grooved Spines upgrades are started, immediately start the Nydus Network and start searching for an opponent's blind spot.</p>
+<p> - Bring one Queen to lay a Creep Tumor to spread in the base.</p>
+<p> - Try to attack while the Protoss army is on the low ground.</p>
+<h1>Maps</h1>
+<p> - The size of the main base and the rush distance between your base and your opponent's (the longer, the better) are the only important factors to consider for this build.</p>
+<p> - If there is a short ground distance between your base and the opponent's, pressure from the Protoss is more likely, making the late timing of this build a hazard.</p>
+"
+    },
+    {
+	"mName": "Pool First Double Expand",
+	"mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Pool_First,_Double_Expand_(vs._Protoss)\">Liquidpedia</a>",
+	"mFaction": "ZERG",
+	"mVsFaction": "PROTOSS",
+	"mExpansion": "WOL",
+    "mCreated":"2012-11-30 00:00:00",
+    "mModified":"2012-11-30 00:00:00",
+	"mItems":
+	[
+	    { "mTime": 48, "mUnit": "overlord" },
+	    { "mTime": 117, "mUnit": "spawning_pool" },
+	    { "mTime": 127, "mUnit": "extractor" },
+	    { "mTime": 154, "mUnit": "overlord" },
+	    { "mTime": 182, "mUnit": "zergling", "mCount": 4 },
+	    { "mTime": 183, "mUnit": "queen" },
+	    { "mTime": 215, "mUnit": "metabolic_boost" },
+	    { "mTime": 222, "mUnit": "hatchery" },
+	    { "mTime": 235, "mUnit": "queen" },
+	    { "mTime": 254, "mUnit": "overlord" },
+	    { "mTime": 296, "mUnit": "queen" },
+	    { "mTime": 305, "mUnit": "overlord" },
+	    { "mTime": 347, "mUnit": "overlord" },
+	    { "mTime": 401, "mUnit": "hatchery" }
+	],
+	"mNotes": "
+<h1>Overview</h1>
+<p>The standard response to the Protoss Forge Fast Expand (FFE), and the most common build in the current ZvP metagame is the Pool First, Double Expand (also known as 3 Hatch Lair). This build, popularized by Incredible Miracles Zerg Nestea, revolves around \"countering\" the Protoss Fast Expand --> Gateway pressure with an unusually fast Metabolic Boost, coinciding with the standard double expand after Spawning Pool. This build is an excellent way to catch opponents that rely on Gateway pressure out of a FFE with their pants down, because you are able to get surrounds on Zealot/Stalker pressures, deny fast third bases, and if you're lucky, can even force extra cannons from the Protoss player, who might think you are doing an all in build, since your speed is so much earlier than usual.</p>
+<h1>Goal</h1>
+<p>Currently, the standard response against Protoss fast expand builds is to take a faster than usual third base (for mining purposes). Your goal is to have 3 Hatcheries, 3-4 gases, a Roach Warren, 1-2 Evolution Chambers, 3-4 queens, and anywhere from 58-70 Drones at the 8 minute mark, while maintaining proper ling scouting for hidden Pylons, and Overlord scouting the Protoss main and natural.</p>
+<h1>Basic Build Order</h1>
+<b>3 Hatch Before Gas vs. FFE</b><br />
+9 - Overlord<br />
+15 - Spawning Pool<br />
+14 - Drone<br />
+15 - Overlord<br />
+16 - Queen (1) + Zerglings (to 4)<br />
+19 - Hatchery (2)[1]<br />
+20 - Drone to 22<br />
+22 - Hatchery (3)<br />
+Take gas at main immediately upon start of third Hatchery<br />
+First 100 gas is Metabolic Boost, 2nd 100 gas goes to Lair or +1 range upgrade depending on scouting.<br />
+<br />
+[1] This is assuming the Protoss delays/Pylon blocks your natural Hatchery with his Probe. If he does not, feel free to take your Hatchery at any time after your 15 Overlord.<br />
+<h2>Notes</h2>
+<p>Any initial scouting Zerglings must be replaced immediately if killed. If you feel that your defence is inadequate against an incoming push, make a Baneling Nest and as many Zergling/Baneling units as needed to attempt to fend off the opposing army.</p>
+<h2>Scouting</h2>
+<p>Upon scouting an early expansion, you can choose to take a third base or build a macro-Hatchery to create a ton of Drones for economy and then attack with 3 bases worth of Larvae.</p>
+<p>Before Hatchery (3) has started, you should attempt to scout for a Stargate, Dark Shrine, 6 gate, or any other timing attack as these are extremely common responses to this build.</p>
+<h1>Execution</h1>
+
+<p>Assuming you do not choose to go for a fast Roach/Zergling attack and that your opponent has expanded, you should start building your 3rd Hatchery around 5:30 in-game time. In the Moon vs HuK game referenced below, Moon opens with Speedling Expand starts his 3rd hatchery at 5:23, right before his 2nd Larvae Injection pops.</p>
+<p>This build requires the most attention and scouting after your 3rd Hatchery has completed, and while you are trying to make enough Drones to saturate it.</p>
+<p>It is important to see what Tech route the Protoss is going for after expanding, because this will decide how you will spend your gas (see the footnotes in the build above). The Adaptation section explains this in more detail.</p>
+<p>You do not always have to make a large number of Drones early in the game. Many players like to do a Roach/Zergling pressure attack on their opponent in order to kill their Sentries (or at least deplete their energy by forcing some Force Fields) when they do a 3-Gate Sentry Expand or a similar Sentry focused build. In those cases, the Zerg will often start making the 3rd Hatchery as they begin their attack, and will resume making Drones once the attack has finished.</p>
+
+<h2>Adaptation</h2>
+<p>Staying on Hatchery Tech for a long period of time requires you to spot what Tech Protoss is getting and be able to immediately respond. Protoss has a few different builds and attacks that they can prepare, so being able to scout and respond to all possibilities is key in letting you defend with the minimum number of units required to and to keep up an economic advantage.</p>
+
+<h1>Maps</h1>
+
+<h2>Pro features</h2>
+<p>The most important map feature for this build to work is a nearby 3rd base that does not have Destructible Rocks blocking it. This includes maps such as:</p>
+
+ - Metalopolis<br />
+ - Typhon Peaks<br />
+ - Shakuras Plateau<br />
+ - non-ladder versions of Tal'Darim Altar<br />
+
+<p>This allows the Zerg to take a 3rd base as fast as possible, without requiring the use of attacking units to break any rocks.</p>
+
+<h2>Con features</h2>
+<p>Maps with a far away or awkwardly placed 3rd base. This includes maps such as:</p>
+ - Scrap Station<br />
+ - Crossfire<br />
+ - Backwater Gulch<br />
+<p>Maps with Destructible Rocks blocking the closest 3rd base. This includes maps such as:</p>
+ - Shattered Temple<br />
+ - Delta Quadrant<br />
+<p>Xel'Naga Caverns doesn't fit easily into either category. The Destructible Rocks near the 3rd base does not need to be broken in order to place your hatchery, but it does need to be broken in order to defend it.</p>
+
+<h1>References</h1>
+
+<p><a href=\"http://us.media4.battle.net/cms/gallery/VIZBHQGW84X61313434615761.zip\">Sheth(Z) v KiWiKaKi(P) - North American Battle.Net Invitational 2011, Round 1 Championship Bracket</a> - Sheth goes for a fast 3rd on Metalopolis and Shakuras Plateau.</p>
+"
+    }
+]
+ 

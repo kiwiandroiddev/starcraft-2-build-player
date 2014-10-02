@@ -1,0 +1,60 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kiwiandroiddev.sc2buildassistant"
+    android:installLocation="auto" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+        
+    <application
+        android:name=".MyApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/StarCraftTheme"
+        android:allowBackup="true" >
+    
+        <!-- Used for install referral measurement-->
+		<service android:name="com.google.analytics.tracking.android.CampaignTrackingService"/>
+		<receiver android:name="com.google.analytics.tracking.android.CampaignTrackingReceiver" android:exported="true">
+		  <intent-filter>
+		    <action android:name="com.android.vending.INSTALL_REFERRER" />
+		  </intent-filter>
+		</receiver>
+        
+        <provider 
+            android:authorities="com.kiwiandroiddev.sc2buildassistant.buildorderprovider"
+            android:enabled="true"
+            android:exported="false"
+            android:name="com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider"
+            />
+        
+        <activity
+            android:name=".BuildListActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PlaybackActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".BriefActivity" />
+        <activity android:name=".EditBuildActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".EditBuildItemActivity"
+            android:theme="@style/StarCraftDialogTheme" />
+        <activity android:name=".UnitSelectorActivity"
+            android:theme="@style/StarCraftDialogTheme" />
+        <activity android:name=".PreviewNotesDialog"
+            android:theme="@style/StarCraftDialogTheme" />
+        <activity android:name=".InsertLinkDialog"
+            android:theme="@style/StarCraftDialogTheme" />
+        <activity android:name="NumberPickerPreferenceActivity" />
+        <activity android:name="com.kiwiandroiddev.sc2buildassistant.FileDialog" />
+        <activity android:name="com.google.ads.AdActivity" 
+   			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+    </application>
+    
+    
+</manifest>
+

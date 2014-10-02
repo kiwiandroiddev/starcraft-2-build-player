@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:id="@+id/brief_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/screen_edge_padding"
+        android:paddingRight="@dimen/screen_edge_padding"
+	 >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dip" >
+
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+			    <TextView
+			        android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+			        android:text="@string/brief_source_label"
+			        android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:textSize="16sp"
+	                android:paddingRight="4dip" />
+				<TextView
+	                android:id="@+id/brief_buildSubTitle"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:textSize="16sp" />
+ 
+			</LinearLayout>
+			
+			<LinearLayout
+			    android:id="@+id/brief_author_layout"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+            	<TextView
+			        android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+			        android:text="@string/brief_author_label"
+			        android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:textSize="16sp"
+	                android:paddingRight="4dip" />
+				<TextView
+	                android:id="@+id/brief_author"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:textSize="16sp" />  
+            </LinearLayout>
+                        
+            <TextView
+                android:id="@+id/brief_buildNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Spacer to stop Ad from obscuring the bottom of content -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dip" />
+            
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout 
+    	android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true" >
+		<com.google.ads.AdView android:id="@+id/ad"
+		                   android:layout_width="wrap_content"
+		                   android:layout_height="wrap_content"
+		                   android:layout_centerHorizontal="true"
+		                   ads:adSize="BANNER"
+		                   ads:adUnitId="a150b967e3b02cd"
+		                   ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"
+		                   ads:loadAdOnCreate="true"/>
+	</RelativeLayout>
+ 
+</RelativeLayout>
