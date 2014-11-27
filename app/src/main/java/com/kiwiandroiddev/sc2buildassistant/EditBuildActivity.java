@@ -3,8 +3,11 @@ package com.kiwiandroiddev.sc2buildassistant;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -16,22 +19,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 //import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
@@ -48,7 +46,7 @@ import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment.EditBuildInfoL
  * @author matt
  *
  */
-public class EditBuildActivity extends SherlockFragmentActivity implements EditBuildInfoListener {
+public class EditBuildActivity extends FragmentActivity implements EditBuildInfoListener {
 	
 	/** Writes a build object to the database in a background task */
 	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
@@ -102,8 +100,8 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
-	    private SherlockFragment mFragment;
-	    private final SherlockFragmentActivity mActivity;
+	    private Fragment mFragment;
+	    private final FragmentActivity mActivity;
 	    private final String mTag;
 	    private final Class<T> mClass;
 	    private final Build mBuild;
@@ -113,7 +111,7 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 	      * @param tag  The identifier tag for the fragment
 	      * @param clz  The fragment's Class, used to instantiate the fragment
 	      */
-	    public TabListener(SherlockFragmentActivity activity, String tag, Class<T> clz, Build build) {
+	    public TabListener(FragmentActivity activity, String tag, Class<T> clz, Build build) {
 	        mActivity = activity;
 	        mTag = tag;
 	        mClass = clz;
@@ -122,8 +120,8 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 
 	    /* The following are each of the ActionBar.TabListener callbacks */
 
-	    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-	    	SherlockFragment preInitializedFragment = (SherlockFragment) mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
+	    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+	    	Fragment preInitializedFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
 
 	        // Check if the fragment is already initialized
 	        if (mFragment == null && preInitializedFragment == null) {
@@ -131,7 +129,7 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 	            // If not, instantiate and add it to the activity
 	        	Bundle data = new Bundle();
 	    		data.putSerializable(RaceFragment.KEY_BUILD_OBJECT, mBuild);
-	            mFragment = (SherlockFragment) SherlockFragment.instantiate(mActivity, mClass.getName(), data);
+	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
 	            ft.add(android.R.id.content, mFragment, mTag);
 	        } else if (mFragment != null) {
 	        	Log.d(TAG, mTag + ": fragment already exists, reattaching");
@@ -157,17 +155,17 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 //	        }
 	    }
 
-	    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	        if (mFragment != null) {
 	            // Detach the fragment, because another one is being attached
 	            ft.detach(mFragment);
 	        }
 	    }
 
-	    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 	        // User selected the already selected tab. Usually do nothing.
 	    }
-	}
+    }
 	
 //	public static final int EDIT_BUILD_REQUEST = 128;
 	
@@ -199,7 +197,7 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 		
 		super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_edit_build);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         // Get arguments sent by BuildListActivity - these will determine
@@ -239,14 +237,14 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 //		Log.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
         
         // setup action bar for tabs
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 //        actionBar.setDisplayShowTitleEnabled(false);
 
     	mFragmentSharedBuild = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
 
     	Log.d(TAG, "onCreate() called, num tabs = " + actionBar.getTabCount());
-        Tab tab = actionBar.newTab()
+        ActionBar.Tab tab = actionBar.newTab()
                 .setText("Info")
                 .setTabListener(new TabListener<EditBuildInfoFragment>(
                         this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
@@ -274,9 +272,9 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 //        mPager.setAdapter(mPagerAdapter);
         
         // set action bar title
-        getSupportActionBar().setTitle(mCreatingNewBuild == true ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
+        getActionBar().setTitle(mCreatingNewBuild == true ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
         if (!mCreatingNewBuild)
-        	getSupportActionBar().setSubtitle(mInitialBuild.getName());
+        	getActionBar().setSubtitle(mInitialBuild.getName());
 	}
 
     @Override
@@ -296,13 +294,13 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 		outState.putBoolean(KEY_NEW_BUILD_BOOL, mCreatingNewBuild);
 		outState.putSerializable(KEY_WORKING_BUILD, mInitialBuild);
 		outState.putLong(RaceFragment.KEY_BUILD_ID, mBuildId);
-		outState.putInt(KEY_SELECTED_TAB, getSupportActionBar().getSelectedNavigationIndex());
+		outState.putInt(KEY_SELECTED_TAB, getActionBar().getSelectedNavigationIndex());
 		super.onSaveInstanceState(outState);
 	}
 	
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  
-       MenuInflater inflater = getSupportMenuInflater();
+    public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.edit_build_menu, menu);
        return true;
     }
@@ -609,7 +607,7 @@ public class EditBuildActivity extends SherlockFragmentActivity implements EditB
 	@Override
 	public void onTitleChanged(String newTitle) {
 		if (!newTitle.matches(""))
-			getSupportActionBar().setSubtitle(newTitle);
+			getActionBar().setSubtitle(newTitle);
 	}
 	
 	/** Convenience function to build and show a yes/no dialog */

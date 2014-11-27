@@ -8,10 +8,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.actionbarsherlock.app.SherlockActivity;
 //import com.google.analytics.tracking.android.EasyTracker;
 
-public class InsertLinkDialog extends SherlockActivity {
+public class InsertLinkDialog extends Activity {
 	
 	// start and end cursor positions to be passed back to calling
 	// activity unchanged (for convenience of replacing existing selection)

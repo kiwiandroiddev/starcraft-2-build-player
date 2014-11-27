@@ -1,20 +1,19 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
 /**
  * Provides a UI for editing the free-form notes of a particular build order.
@@ -27,7 +26,7 @@ import com.actionbarsherlock.view.MenuItem;
  * @author matt
  *
  */
-public class EditBuildNotesFragment extends SherlockFragment {
+public class EditBuildNotesFragment extends Fragment {
 	
 	private static final String TAG = "EditBuildNotesFragment";
 	private EditText mNotes;

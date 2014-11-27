@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * @author matt
  *
  */
-public class EditBuildItemsFragment extends SherlockFragment implements OnItemClickListener {
+public class EditBuildItemsFragment extends Fragment implements OnItemClickListener {
 	
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";

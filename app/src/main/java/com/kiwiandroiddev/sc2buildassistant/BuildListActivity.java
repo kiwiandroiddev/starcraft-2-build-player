@@ -1,17 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -22,31 +11,41 @@ import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-//import com.google.analytics.tracking.android.EasyTracker;
-//import com.google.analytics.tracking.android.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.NameNotUniqueException;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ProgressListener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+//import com.google.analytics.tracking.android.EasyTracker;
+//import com.google.analytics.tracking.android.Tracker;
 
 /**
  * Main activity and entry point of the app. Shows available build orders for each of the three factions
@@ -56,7 +55,7 @@ import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ProgressListener;
  * @author matt
  *
  */
-public class BuildListActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener {
+public class BuildListActivity extends FragmentActivity implements ActionBar.OnNavigationListener {
 
 	public static final int MY_DATA_CHECK_CODE = 0;
 	public static final int REQUEST_OPEN = 2;			// open file request code for importing builds
@@ -195,8 +194,8 @@ public class BuildListActivity extends SherlockFragmentActivity implements Actio
     }
     
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  
-       MenuInflater inflater = getSupportMenuInflater();
+    public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.build_list_menu, menu);		// add the "new build" action bar item
        inflater.inflate(R.menu.options_menu, menu);
        return true;
@@ -411,7 +410,7 @@ public class BuildListActivity extends SherlockFragmentActivity implements Actio
 	@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_EXPANSION_CHOICE, getSupportActionBar().getSelectedNavigationIndex());
+        outState.putInt(KEY_EXPANSION_CHOICE, getActionBar().getSelectedNavigationIndex());
         outState.putInt(KEY_FACTION_CHOICE, mPager.getCurrentItem());
         saveFactionSelection(mPager.getCurrentItem());
     }
@@ -445,7 +444,7 @@ public class BuildListActivity extends SherlockFragmentActivity implements Actio
         mPager.setCurrentItem(previousFactionChoice);
         
         // Set up expansion drop-down list on action bar
-        final ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getActionBar();
 
         // Enable drop-down widget in action bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);

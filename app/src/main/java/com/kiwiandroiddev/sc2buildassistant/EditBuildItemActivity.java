@@ -1,11 +1,11 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 //import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +21,7 @@ import android.widget.Toast;
  * @author matt
  *
  */
-public class EditBuildItemActivity extends SherlockFragmentActivity implements OnClickListener {
+public class EditBuildItemActivity extends FragmentActivity implements OnClickListener {
 	
 	public static final int EDIT_BUILD_ITEM_REQUEST = 0;
 	

@@ -16,10 +16,10 @@
     
 	<TextView
 	    android:id="@+id/icon_spinner_text1"
-	    style="?attr/spinnerDropDownItemStyle"
+	    style="?android:attr/spinnerDropDownItemStyle"
 	    android:singleLine="true"
 	    android:layout_width="match_parent"
-	    android:layout_height="?attr/dropdownListPreferredItemHeight"
+	    android:layout_height="wrap_content"
 	    android:layout_gravity="center_vertical"
 	    android:paddingLeft="4dip"
 	    android:ellipsize="marquee" />

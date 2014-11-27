@@ -1,7 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -9,12 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.internal.widget.IcsAdapterView;
-import com.actionbarsherlock.internal.widget.IcsAdapterView.OnItemSelectedListener;
-import com.actionbarsherlock.internal.widget.IcsSpinner;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
 
@@ -28,7 +24,7 @@ import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
  * @author matt
  *
  */
-public class EditBuildInfoFragment extends SherlockFragment {
+public class EditBuildInfoFragment extends Fragment {
 	
 	private static final String TAG = "EditBuildInfoFragment";
 	private static final String KEY_EXPANSION_SELECTION = "mExpansionSelection";
@@ -70,7 +66,7 @@ public class EditBuildInfoFragment extends SherlockFragment {
 		mAuthor = (TextView) v.findViewById(R.id.edit_author);
 		
 		// add spinner items
-		ActionBar actionBar = ((SherlockFragmentActivity)getActivity()).getSupportActionBar();
+		ActionBar actionBar = getActivity().getActionBar();
 		mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(actionBar.getThemedContext()));
 		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), false));
 		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), true));

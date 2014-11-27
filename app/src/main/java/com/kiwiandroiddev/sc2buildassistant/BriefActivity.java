@@ -3,10 +3,6 @@ package com.kiwiandroiddev.sc2buildassistant;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 //import com.google.analytics.tracking.android.EasyTracker;
 
 import android.content.Intent;
@@ -17,12 +13,16 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -31,7 +31,7 @@ import android.widget.TextView;
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends SherlockFragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 //	private static final String TAG = "BriefActivity";
 	
@@ -71,7 +71,7 @@ public class BriefActivity extends SherlockFragmentActivity implements LoaderMan
 		super.onCreate(savedInstanceState);
 //		setTheme(R.style.Theme_Sherlock);
         setContentView(R.layout.activity_brief);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        Log.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
@@ -115,8 +115,8 @@ public class BriefActivity extends SherlockFragmentActivity implements LoaderMan
     }
 	
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  
-       MenuInflater inflater = getSupportMenuInflater();
+    public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
        inflater.inflate(R.menu.options_menu, menu);
        return true;
@@ -183,10 +183,10 @@ public class BriefActivity extends SherlockFragmentActivity implements LoaderMan
 		final String race = getString(DbAdapter.getFactionName(mFaction));
 		final String expansion = getString(DbAdapter.getExpansionName(mExpansion));
 		
-		getSupportActionBar().setTitle(mBuildName);
+		getActionBar().setTitle(mBuildName);
 		
 		// ActionBar subtitle example: "Terran - Wings of Liberty"	
-		getSupportActionBar().setSubtitle(race + " - " + expansion);
+		getActionBar().setSubtitle(race + " - " + expansion);
 		
 		// set background graphic (stub)
 		View root = this.findViewById(R.id.brief_root);

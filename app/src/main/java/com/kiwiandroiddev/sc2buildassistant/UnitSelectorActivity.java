@@ -2,12 +2,12 @@ package com.kiwiandroiddev.sc2buildassistant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
 
@@ -20,7 +20,7 @@ import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
  * @author matt
  *
  */
-public class UnitSelectorActivity extends SherlockFragmentActivity {
+public class UnitSelectorActivity extends FragmentActivity {
 	
 	public final static int PICK_ITEM_REQUEST = 1;	// request code when getactivityforresult() is called
 	public final static int RESULT_NONE = 90;			// used to say that the user selected "no item" to calling activity

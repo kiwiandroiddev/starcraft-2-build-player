@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -20,6 +21,9 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -30,10 +34,6 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
@@ -52,7 +52,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
  *
  */
 // credit for timer code: http://kristjansson.us/?p=1010
-public class PlaybackActivity extends SherlockActivity implements OnSeekBarChangeListener, OnInitListener,
+public class PlaybackActivity extends Activity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 	
 	public static int MY_DATA_CHECK_CODE = 0;
@@ -110,15 +110,15 @@ public class PlaybackActivity extends SherlockActivity implements OnSeekBarChang
         setContentView(R.layout.activity_playback);
        
 //        getSupportActionBar().hide();
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setDisplayShowTitleEnabled(false);
         
         // Inflate the custom view
         mTimerTextContainer = LayoutInflater.from(this).inflate(R.layout.playback_time_text, null);
 
         // Attach to the action bar
-        getSupportActionBar().setCustomView(mTimerTextContainer);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setCustomView(mTimerTextContainer);
+        getActionBar().setDisplayShowCustomEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         
         // always show "Media Volume" control, instead of ringer volume
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -196,8 +196,8 @@ public class PlaybackActivity extends SherlockActivity implements OnSeekBarChang
 	}
 	
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  
-       MenuInflater inflater = getSupportMenuInflater();
+    public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }

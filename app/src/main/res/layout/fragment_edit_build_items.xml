@@ -43,7 +43,6 @@ dslv:use_default_controller="true" />
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="8dp"
         android:alpha="100"
-        android:background="@drawable/abs__ab_bottom_solid_dark_holo"
          >
 
         <TextView
@@ -70,7 +69,7 @@ dslv:use_default_controller="true" />
             android:layout_height="48dp"
             android:paddingLeft="8dp"
             android:paddingRight="16dp"
-			android:background="@drawable/abs__item_background_holo_dark"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_action_undo"
             android:drawablePadding="8dp"
             android:text="Undo"
