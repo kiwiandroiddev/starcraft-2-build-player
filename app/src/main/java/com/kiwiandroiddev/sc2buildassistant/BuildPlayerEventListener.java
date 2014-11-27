@@ -1,6 +1,8 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
 
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+
 /** Interface used by BuildPlayer to notify high-level code of playback events */
 public interface BuildPlayerEventListener {
 	public void onBuildThisNow(BuildItem item, int position);

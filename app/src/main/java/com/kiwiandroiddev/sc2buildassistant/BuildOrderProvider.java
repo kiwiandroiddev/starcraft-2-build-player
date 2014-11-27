@@ -12,7 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 
 /**
  * Content provider for accessing the build order table only (at this stage).

@@ -1,17 +1,18 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,9 +20,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildItemsFragment;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildNotesFragment;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment.EditBuildInfoListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +51,7 @@ import java.util.Date;
  * @author matt
  *
  */
-public class EditBuildActivity extends Activity implements EditBuildInfoListener {
+public class EditBuildActivity extends ActionBarActivity implements EditBuildInfoListener {
 	
 	/** Writes a build object to the database in a background task */
 	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
@@ -82,7 +94,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 			mDlg.hide();
 			if (result == true) {
 				// notify observers of buildprovider's build table that its contents have changed
-				BuildListActivity.notifyBuildProviderObservers(EditBuildActivity.this);	
+				BuildListActivity.notifyBuildProviderObservers(EditBuildActivity.this);
 				showMessage(R.string.edit_build_save_successful);
 				EditBuildActivity.this.finish();
 			} else {
@@ -94,7 +106,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	    private Fragment mFragment;
-	    private final Activity mActivity;
+	    private final ActionBarActivity mActivity;
 	    private final String mTag;
 	    private final Class<T> mClass;
 	    private final Build mBuild;
@@ -104,7 +116,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	      * @param tag  The identifier tag for the fragment
 	      * @param clz  The fragment's Class, used to instantiate the fragment
 	      */
-	    public TabListener(Activity activity, String tag, Class<T> clz, Build build) {
+	    public TabListener(ActionBarActivity activity, String tag, Class<T> clz, Build build) {
 	        mActivity = activity;
 	        mTag = tag;
 	        mClass = clz;
@@ -114,7 +126,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	    /* The following are each of the ActionBar.TabListener callbacks */
 
 	    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-	    	Fragment preInitializedFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
+	    	Fragment preInitializedFragment = mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
 
 	        // Check if the fragment is already initialized
 	        if (mFragment == null && preInitializedFragment == null) {
@@ -190,7 +202,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 		
 		super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_edit_build);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         // Get arguments sent by BuildListActivity - these will determine
@@ -230,7 +242,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 //		Log.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
         
         // setup action bar for tabs
-        ActionBar actionBar = getActionBar();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 //        actionBar.setDisplayShowTitleEnabled(false);
 
@@ -265,9 +277,9 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 //        mPager.setAdapter(mPagerAdapter);
         
         // set action bar title
-        getActionBar().setTitle(mCreatingNewBuild == true ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
+        getSupportActionBar().setTitle(mCreatingNewBuild == true ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
         if (!mCreatingNewBuild)
-        	getActionBar().setSubtitle(mInitialBuild.getName());
+        	getSupportActionBar().setSubtitle(mInitialBuild.getName());
 	}
 
     @Override
@@ -287,7 +299,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 		outState.putBoolean(KEY_NEW_BUILD_BOOL, mCreatingNewBuild);
 		outState.putSerializable(KEY_WORKING_BUILD, mInitialBuild);
 		outState.putLong(RaceFragment.KEY_BUILD_ID, mBuildId);
-		outState.putInt(KEY_SELECTED_TAB, getActionBar().getSelectedNavigationIndex());
+		outState.putInt(KEY_SELECTED_TAB, getSupportActionBar().getSelectedNavigationIndex());
 		super.onSaveInstanceState(outState);
 	}
 	
@@ -513,7 +525,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	
 	/** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
 	private EditBuildInfoFragment findInfoFragment() {
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		EditBuildInfoFragment f = (EditBuildInfoFragment) fm.findFragmentByTag("info");
 		Log.d("EditBuildActivity", "in findInfoFragment(), f = " + f);
 		return f;
@@ -521,7 +533,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	}
 	
 	private EditBuildNotesFragment findNotesFragment() {
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		EditBuildNotesFragment f = (EditBuildNotesFragment) fm.findFragmentByTag("notes");
 		Log.d("EditBuildActivity", "in findNotesFragment(), f = " + f);
 		return f;
@@ -530,7 +542,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	}
 	
 	private EditBuildItemsFragment findItemsFragment() {
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		EditBuildItemsFragment f = (EditBuildItemsFragment) fm.findFragmentByTag("items");
 		Log.d("EditBuildActivity", "in findItemsFragment(), f = " + f);
 		return f;
@@ -600,7 +612,7 @@ public class EditBuildActivity extends Activity implements EditBuildInfoListener
 	@Override
 	public void onTitleChanged(String newTitle) {
 		if (!newTitle.matches(""))
-			getActionBar().setSubtitle(newTitle);
+			getSupportActionBar().setSubtitle(newTitle);
 	}
 	
 	/** Convenience function to build and show a yes/no dialog */

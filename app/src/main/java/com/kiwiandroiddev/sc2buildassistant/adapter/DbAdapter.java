@@ -1,10 +1,9 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,9 +14,9 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.R.drawable;
-import com.kiwiandroiddev.sc2buildassistant.R.string;
 
 import android.content.ContentValues;
 import android.content.Context;

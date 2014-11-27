@@ -1,15 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant.test;
 
-import java.io.InputStreamReader;
-
 import junit.framework.Assert;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.kiwiandroiddev.sc2buildassistant.Build;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 
 import android.test.AndroidTestCase;
 import android.util.Log;

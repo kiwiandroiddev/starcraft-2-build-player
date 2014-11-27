@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,16 +10,14 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,11 +25,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+
 /**
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 //	private static final String TAG = "BriefActivity";
 	
@@ -71,7 +74,7 @@ public class BriefActivity extends FragmentActivity implements LoaderManager.Loa
 		super.onCreate(savedInstanceState);
 //		setTheme(R.style.Theme_Sherlock);
         setContentView(R.layout.activity_brief);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        Log.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
@@ -123,32 +126,37 @@ public class BriefActivity extends FragmentActivity implements LoaderManager.Loa
     }
 	
     /* handle "Up" button press on title bar, navigate back to build list */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // This is called when the Home (Up) button is pressed
-                // in the Action Bar.
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                // This is called when the Home (Up) button is pressed
+//                // in the Action Bar.
+//                finish();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
     	// Handle Briefing screen specific menu items
     	if (item.getItemId() == R.id.menu_play_build) {
     		// starts the build player interface
     		Intent i = new Intent(this, PlaybackActivity.class);
             i.putExtra(RaceFragment.KEY_BUILD_ID, mBuildId);
             startActivity(i);
-    	}
+    	} else if (item.getItemId() == android.R.id.home) {
+            // This is called when the Home (Up) button is pressed
+            // in the Action Bar.
+            finish();
+            return true;
+        }
     	
     	// use the same options menu as the main activity 
-    	boolean result = BuildListActivity.OnMenuItemSelected(this, featureId, item);
+    	boolean result = BuildListActivity.OnMenuItemSelected(this, item);
     	if (!result)
-    		return super.onMenuItemSelected(featureId, item);
+    		return super.onOptionsItemSelected(item);
     	else
     		return true;
     }
@@ -183,10 +191,10 @@ public class BriefActivity extends FragmentActivity implements LoaderManager.Loa
 		final String race = getString(DbAdapter.getFactionName(mFaction));
 		final String expansion = getString(DbAdapter.getExpansionName(mExpansion));
 		
-		getActionBar().setTitle(mBuildName);
+		getSupportActionBar().setTitle(mBuildName);
 		
 		// ActionBar subtitle example: "Terran - Wings of Liberty"	
-		getActionBar().setSubtitle(race + " - " + expansion);
+		getSupportActionBar().setSubtitle(race + " - " + expansion);
 		
 		// set background graphic (stub)
 		View root = this.findViewById(R.id.brief_root);

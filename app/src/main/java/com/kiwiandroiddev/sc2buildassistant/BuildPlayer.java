@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-import android.util.Log;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 /**
  * Encapsulates the low-level logic of playing back a build order. Objects

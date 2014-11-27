@@ -1,9 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +14,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 /**
  * Provides a UI for editing the free-form notes of a particular build order.

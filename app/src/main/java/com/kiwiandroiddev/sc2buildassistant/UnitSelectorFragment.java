@@ -1,12 +1,13 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.adapter.UnitIconAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

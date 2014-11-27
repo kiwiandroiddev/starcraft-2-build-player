@@ -1,10 +1,8 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.R.drawable;
-import com.kiwiandroiddev.sc2buildassistant.R.id;
-import com.kiwiandroiddev.sc2buildassistant.R.layout;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 
 import android.app.Activity;
 import android.content.Context;
@@ -74,8 +72,9 @@ public class FactionSpinnerAdapter extends BaseAdapter implements SpinnerAdapter
 	private View getView(int position, View convertView, ViewGroup parent, int viewResId) {
 		View row = convertView;
 		if (row == null) {
-			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
-			row = inflater.inflate(viewResId, parent, false);
+//			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(viewResId, parent, false);
 		}
 		
 		TextView name = (TextView)row.findViewById(R.id.icon_spinner_text1);

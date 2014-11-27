@@ -1,14 +1,15 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.UnitSelectorFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 /**
  * Manages unit selector fragments for each item type (structure, unit, ability etc.)

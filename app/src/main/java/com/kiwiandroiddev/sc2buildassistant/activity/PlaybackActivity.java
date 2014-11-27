@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,12 +14,11 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +35,17 @@ import android.widget.TextView;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.BuildPlayer;
+import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
+import com.kiwiandroiddev.sc2buildassistant.MapFormat;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -52,7 +61,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
  *
  */
 // credit for timer code: http://kristjansson.us/?p=1010
-public class PlaybackActivity extends Activity implements OnSeekBarChangeListener, OnInitListener,
+public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 	
 	public static int MY_DATA_CHECK_CODE = 0;
@@ -110,15 +119,15 @@ public class PlaybackActivity extends Activity implements OnSeekBarChangeListene
         setContentView(R.layout.activity_playback);
        
 //        getSupportActionBar().hide();
-        getActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         // Inflate the custom view
         mTimerTextContainer = LayoutInflater.from(this).inflate(R.layout.playback_time_text, null);
 
         // Attach to the action bar
-        getActionBar().setCustomView(mTimerTextContainer);
-        getActionBar().setDisplayShowCustomEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setCustomView(mTimerTextContainer);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         
         // always show "Media Volume" control, instead of ringer volume
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -203,6 +212,18 @@ public class PlaybackActivity extends Activity implements OnSeekBarChangeListene
     }
     
     /* handle "Up" button press on title bar, navigate back to briefing screen */
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                // This is called when the Home (Up) button is pressed
+//                // in the Action Bar.
+//                finish();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -210,17 +231,13 @@ public class PlaybackActivity extends Activity implements OnSeekBarChangeListene
                 // This is called when the Home (Up) button is pressed
                 // in the Action Bar.
                 finish();
-                return true;
+//                return true;
         }
-        return super.onOptionsItemSelected(item);
-    }
-    
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-    	// use the same options menu as the main activity 
-    	boolean result = BuildListActivity.OnMenuItemSelected(this, featureId, item);
+
+    	// use the same options menu as the main activity
+    	boolean result = BuildListActivity.OnMenuItemSelected(this, item);
     	if (!result)
-    		return super.onMenuItemSelected(featureId, item);
+    		return super.onOptionsItemSelected(item);
     	else
     		return true;
     }

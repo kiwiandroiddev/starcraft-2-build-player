@@ -1,10 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemAdapter;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;

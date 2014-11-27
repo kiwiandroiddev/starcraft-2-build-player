@@ -29,21 +29,21 @@
             />
         
         <activity
-            android:name=".BuildListActivity"
+            android:name=".activity.BuildListActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlaybackActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".BriefActivity" />
-        <activity android:name=".EditBuildActivity"
+        <activity android:name=".activity.PlaybackActivity" />
+        <activity android:name=".activity.SettingsActionBarActivity" />
+        <activity android:name=".activity.BriefActivity" />
+        <activity android:name=".activity.EditBuildActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".EditBuildItemActivity"
+        <activity android:name=".activity.EditBuildItemActivity"
             android:theme="@style/StarCraftDialogTheme" />
-        <activity android:name=".UnitSelectorActivity"
+        <activity android:name=".activity.UnitSelectorActivity"
             android:theme="@style/StarCraftDialogTheme" />
         <activity android:name=".PreviewNotesDialog"
             android:theme="@style/StarCraftDialogTheme" />

@@ -1,7 +1,8 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 
 import android.content.Context;
 import android.os.Bundle;

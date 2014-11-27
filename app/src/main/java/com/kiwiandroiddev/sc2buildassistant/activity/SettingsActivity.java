@@ -1,6 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
-
-import java.io.IOException;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -21,11 +19,14 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
+        import android.view.MenuItem;
+        import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 
 /**
  * Displays a UI for adjusting a number of playback settings and functions

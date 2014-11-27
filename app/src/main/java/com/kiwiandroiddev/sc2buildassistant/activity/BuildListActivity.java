@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -15,10 +15,11 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,8 +31,19 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.NameNotUniqueException;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ProgressListener;
+import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
+import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
+import com.kiwiandroiddev.sc2buildassistant.FileDialog;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.NameNotUniqueException;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ProgressListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +67,7 @@ import java.util.List;
  * @author matt
  *
  */
-public class BuildListActivity extends FragmentActivity implements ActionBar.OnNavigationListener {
+public class BuildListActivity extends ActionBarActivity implements android.support.v7.app.ActionBar.OnNavigationListener {
 
 	public static final int MY_DATA_CHECK_CODE = 0;
 	public static final int REQUEST_OPEN = 2;			// open file request code for importing builds
@@ -202,7 +214,7 @@ public class BuildListActivity extends FragmentActivity implements ActionBar.OnN
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
     	// Handle Build List screen specific menu items
     	switch (item.getItemId()) {
     	case R.id.menu_new_build:
@@ -226,18 +238,19 @@ public class BuildListActivity extends FragmentActivity implements ActionBar.OnN
     		return true;
     	}
     	
-    	boolean result = BuildListActivity.OnMenuItemSelected(this, featureId, item);
+    	boolean result = BuildListActivity.OnMenuItemSelected(this, item);
     	if (!result)
-    		return super.onMenuItemSelected(featureId, item);
+    		return super.onOptionsItemSelected(item);
     	else
     		return true;
     }
     
     // helper than can be used by all activities that show the same menu
-    public static boolean OnMenuItemSelected(Context ctx, int featureId, MenuItem item) {
+    public static boolean OnMenuItemSelected(Context ctx, MenuItem item) {
         switch(item.getItemId()) {
 	        case R.id.menu_settings:
-	        	Intent i = new Intent(ctx, SettingsActivity.class);
+//	        	Intent i = new Intent(ctx, SettingsActivity.class);
+	        	Intent i = new Intent(ctx, SettingsActionBarActivity.class);
 	            ctx.startActivity(i);
 	            return true;
 	        default:
@@ -410,7 +423,7 @@ public class BuildListActivity extends FragmentActivity implements ActionBar.OnN
 	@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_EXPANSION_CHOICE, getActionBar().getSelectedNavigationIndex());
+        outState.putInt(KEY_EXPANSION_CHOICE, getSupportActionBar().getSelectedNavigationIndex());
         outState.putInt(KEY_FACTION_CHOICE, mPager.getCurrentItem());
         saveFactionSelection(mPager.getCurrentItem());
     }
@@ -444,14 +457,14 @@ public class BuildListActivity extends FragmentActivity implements ActionBar.OnN
         mPager.setCurrentItem(previousFactionChoice);
         
         // Set up expansion drop-down list on action bar
-        final ActionBar actionBar = getActionBar();
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
         // Enable drop-down widget in action bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         // Call onNavigationItemSelected() in this class when list selection changes
-//        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(actionBar.getThemedContext()), this);
-        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(this), this);
+        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(actionBar.getThemedContext()), this);
+//        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(this), this);
 
         // Restore user's previous expansion choice (e.g. when the screen is rotated)
         actionBar.setSelectedNavigationItem(previousExpansionChoice);

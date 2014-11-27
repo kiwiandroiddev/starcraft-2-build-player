@@ -1,9 +1,10 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import java.util.ArrayList;
 
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.R.id;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,8 +44,9 @@ public class BuildItemAdapter extends ArrayAdapter<BuildItem> {
 		View row = convertView;
 
 		if (row == null) {
-			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
-			row = inflater.inflate(mLayoutResourceId, parent, false);
+//			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(mLayoutResourceId, parent, false);
 		}
 		
 		TextView name = (TextView)row.findViewById(R.id.unit_label);

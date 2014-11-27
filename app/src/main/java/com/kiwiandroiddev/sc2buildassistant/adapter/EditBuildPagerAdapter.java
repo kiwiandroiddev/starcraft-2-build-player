@@ -1,12 +1,20 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildItemsFragment;
+import com.kiwiandroiddev.sc2buildassistant.EditBuildNotesFragment;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 
 import java.util.ArrayList;
 

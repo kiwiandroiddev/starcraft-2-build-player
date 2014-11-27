@@ -1,9 +1,11 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import java.util.LinkedHashMap;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 
 import android.content.Context;
 import android.database.Cursor;

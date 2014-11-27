@@ -2,8 +2,9 @@ package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.FactionSpinnerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 /**
  * Fragment for editing the basic information of a build order
@@ -68,13 +73,13 @@ public class EditBuildInfoFragment extends Fragment {
 		mAuthor = (TextView) v.findViewById(R.id.edit_author);
 		
 		// add spinner items
-		ActionBar actionBar = getActivity().getActionBar();
-//		mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(actionBar.getThemedContext()));
-//		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), false));
-//		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), true));
-        mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(getActivity()));
-		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), false));
-		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), true));
+		android.support.v7.app.ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
+		mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(actionBar.getThemedContext()));
+		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), false));
+		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), true));
+//        mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(getActivity()));
+//		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), false));
+//		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), true));
 				
 		// get initial selections from fragment args or savedInstanceState
 		if (savedInstanceState == null) {			

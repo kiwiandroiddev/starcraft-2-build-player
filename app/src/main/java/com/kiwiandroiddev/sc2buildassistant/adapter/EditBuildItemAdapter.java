@@ -1,15 +1,15 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.R.id;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +46,9 @@ public class EditBuildItemAdapter extends ArrayAdapter<BuildItem> {
 		View row = convertView;
 
 		if (row == null) {
-			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
-			row = inflater.inflate(mLayoutResourceId, parent, false);
+//			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(mLayoutResourceId, parent, false);
 		}
 		
 		TextView main = (TextView)row.findViewById(R.id.main_label);

@@ -1,12 +1,17 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity;
 
 //import com.google.analytics.tracking.android.EasyTracker;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,7 +26,7 @@ import android.widget.Toast;
  * @author matt
  *
  */
-public class EditBuildItemActivity extends FragmentActivity implements OnClickListener {
+public class EditBuildItemActivity extends ActionBarActivity implements OnClickListener {
 	
 	public static final int EDIT_BUILD_ITEM_REQUEST = 0;
 	

@@ -6,8 +6,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.BuildListActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -62,8 +67,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	public static final String KEY_EXPANSION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Expansion";
 	public static final String KEY_FACTION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Faction";
 	public static final String KEY_ITEM_TYPE_ENUM = "com.kiwiandroiddev.sc2buildassistant.ItemType";
-	public static final String KEY_BUILD_OBJECT = "com.kiwiandroiddev.sc2buildassistant.Build";
-	public static final String KEY_BUILD_ITEM_OBJECT = "com.kiwiandroiddev.sc2buildassistant.BuildItem";
+	public static final String KEY_BUILD_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.Build";
+	public static final String KEY_BUILD_ITEM_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.BuildItem";
 	
 	private int mBgDrawable;
 	private DbAdapter.Expansion mCurrentExpansion;
