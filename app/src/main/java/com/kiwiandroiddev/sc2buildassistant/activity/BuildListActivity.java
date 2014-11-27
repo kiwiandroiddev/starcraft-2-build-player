@@ -250,7 +250,7 @@ public class BuildListActivity extends ActionBarActivity implements android.supp
         switch(item.getItemId()) {
 	        case R.id.menu_settings:
 //	        	Intent i = new Intent(ctx, SettingsActivity.class);
-	        	Intent i = new Intent(ctx, SettingsActionBarActivity.class);
+	        	Intent i = new Intent(ctx, SettingsActivity.class);
 	            ctx.startActivity(i);
 	            return true;
 	        default:

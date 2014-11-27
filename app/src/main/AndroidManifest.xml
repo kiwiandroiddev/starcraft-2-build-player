@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PlaybackActivity" />
-        <activity android:name=".activity.SettingsActionBarActivity" />
+        <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.BriefActivity" />
         <activity android:name=".activity.EditBuildActivity"
             android:windowSoftInputMode="adjustResize" />
