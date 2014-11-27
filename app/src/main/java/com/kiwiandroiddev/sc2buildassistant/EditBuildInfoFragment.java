@@ -2,13 +2,15 @@ package com.kiwiandroiddev.sc2buildassistant;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
@@ -32,9 +34,9 @@ public class EditBuildInfoFragment extends Fragment {
 	private static final String KEY_VS_FACTION_SELECTION = "mVsFactionSelection";
 	
 	private EditBuildInfoListener mCallback;
-	private IcsSpinner mExpansionSpinner;
-	private IcsSpinner mFactionSpinner;
-	private IcsSpinner mVsFactionSpinner;
+	private Spinner mExpansionSpinner;
+	private Spinner mFactionSpinner;
+	private Spinner mVsFactionSpinner;
 	private TextView mTitle;
 	private TextView mSourceTitle;
 	private TextView mSourceURL;
@@ -57,9 +59,9 @@ public class EditBuildInfoFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_edit_build_info, container, false);
         
 		// save references to views as they'll be needed later
-		mExpansionSpinner = (IcsSpinner) v.findViewById(R.id.edit_expansion_spinner);
-		mFactionSpinner = (IcsSpinner) v.findViewById(R.id.edit_faction_spinner);
-		mVsFactionSpinner = (IcsSpinner) v.findViewById(R.id.edit_vs_faction_spinner);
+		mExpansionSpinner = (Spinner) v.findViewById(R.id.edit_expansion_spinner);
+		mFactionSpinner = (Spinner) v.findViewById(R.id.edit_faction_spinner);
+		mVsFactionSpinner = (Spinner) v.findViewById(R.id.edit_vs_faction_spinner);
 		mTitle = (TextView) v.findViewById(R.id.edit_title);
 		mSourceTitle = (TextView) v.findViewById(R.id.edit_source_title);
 		mSourceURL = (TextView) v.findViewById(R.id.edit_source_url);
@@ -67,9 +69,12 @@ public class EditBuildInfoFragment extends Fragment {
 		
 		// add spinner items
 		ActionBar actionBar = getActivity().getActionBar();
-		mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(actionBar.getThemedContext()));
-		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), false));
-		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), true));
+//		mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(actionBar.getThemedContext()));
+//		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), false));
+//		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(actionBar.getThemedContext(), true));
+        mExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(getActivity()));
+		mFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), false));
+		mVsFactionSpinner.setAdapter(new FactionSpinnerAdapter(getActivity(), true));
 				
 		// get initial selections from fragment args or savedInstanceState
 		if (savedInstanceState == null) {			
@@ -89,15 +94,15 @@ public class EditBuildInfoFragment extends Fragment {
 		}
 		
 		// tell parent activity when selections change
-		mFactionSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		mFactionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(IcsAdapterView<?> parent, View view,
+			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				mCallback.onFactionSelectionChanged(DbAdapter.Faction.values()[position]);
 			}
 
 			@Override
-			public void onNothingSelected(IcsAdapterView<?> parent) {}	
+			public void onNothingSelected(AdapterView<?> parent) {}
 		});
 		mTitle.addTextChangedListener(new TextWatcher() {
 			@Override

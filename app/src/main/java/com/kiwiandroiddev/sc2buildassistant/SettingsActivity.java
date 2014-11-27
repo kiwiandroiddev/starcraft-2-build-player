@@ -2,8 +2,6 @@ package com.kiwiandroiddev.sc2buildassistant;
 
 import java.io.IOException;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.GoogleAnalytics;
 //import com.google.analytics.tracking.android.Tracker;
@@ -24,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ import android.widget.Toast;
  * @author matt
  *
  */
-public class SettingsActivity extends SherlockPreferenceActivity
+public class SettingsActivity extends PreferenceActivity
 							implements OnSharedPreferenceChangeListener
 {
 	public static final String PRO_VERSION_PACKAGE = "com.kiwiandroiddev.sc2buildassistantpro";
@@ -65,7 +64,7 @@ public class SettingsActivity extends SherlockPreferenceActivity
  		// TODO: This only seems to apply to this activity, investigate reason.
 //    	setTheme(R.style.Theme_Sherlock);	
         super.onCreate(savedInstanceState);    
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         addPreferencesFromResource(R.xml.preferences);
         

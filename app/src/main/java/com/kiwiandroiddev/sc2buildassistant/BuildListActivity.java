@@ -450,8 +450,9 @@ public class BuildListActivity extends FragmentActivity implements ActionBar.OnN
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         // Call onNavigationItemSelected() in this class when list selection changes
-        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(actionBar.getThemedContext()), this);
-        
+//        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(actionBar.getThemedContext()), this);
+        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(this), this);
+
         // Restore user's previous expansion choice (e.g. when the screen is rotated)
         actionBar.setSelectedNavigationItem(previousExpansionChoice);
 	}

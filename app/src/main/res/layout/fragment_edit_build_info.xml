@@ -24,20 +24,19 @@
             <requestFocus />
         </EditText>
 
-        <com.actionbarsherlock.internal.widget.IcsSpinner
+        <Spinner
             android:id="@+id/edit_expansion_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:paddingTop="@dimen/inter_widget_padding" >
-        </com.actionbarsherlock.internal.widget.IcsSpinner>
+            android:paddingTop="@dimen/inter_widget_padding" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp" >
 
-            <com.actionbarsherlock.internal.widget.IcsSpinner
+            <Spinner
                 android:id="@+id/edit_faction_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"
@@ -45,7 +44,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/textView1" />
 
-            <com.actionbarsherlock.internal.widget.IcsSpinner
+            <Spinner
                 android:id="@+id/edit_vs_faction_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"

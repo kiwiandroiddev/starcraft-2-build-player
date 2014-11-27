@@ -1,39 +1,32 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Debug;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-//import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment.EditBuildInfoListener;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+//import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * Activity for creating new build orders or editing existing ones. Has three fragments
@@ -46,7 +39,7 @@ import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment.EditBuildInfoL
  * @author matt
  *
  */
-public class EditBuildActivity extends FragmentActivity implements EditBuildInfoListener {
+public class EditBuildActivity extends Activity implements EditBuildInfoListener {
 	
 	/** Writes a build object to the database in a background task */
 	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
@@ -101,7 +94,7 @@ public class EditBuildActivity extends FragmentActivity implements EditBuildInfo
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	    private Fragment mFragment;
-	    private final FragmentActivity mActivity;
+	    private final Activity mActivity;
 	    private final String mTag;
 	    private final Class<T> mClass;
 	    private final Build mBuild;
@@ -111,7 +104,7 @@ public class EditBuildActivity extends FragmentActivity implements EditBuildInfo
 	      * @param tag  The identifier tag for the fragment
 	      * @param clz  The fragment's Class, used to instantiate the fragment
 	      */
-	    public TabListener(FragmentActivity activity, String tag, Class<T> clz, Build build) {
+	    public TabListener(Activity activity, String tag, Class<T> clz, Build build) {
 	        mActivity = activity;
 	        mTag = tag;
 	        mClass = clz;
@@ -520,7 +513,7 @@ public class EditBuildActivity extends FragmentActivity implements EditBuildInfo
 	
 	/** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
 	private EditBuildInfoFragment findInfoFragment() {
-		FragmentManager fm = getSupportFragmentManager();
+		FragmentManager fm = getFragmentManager();
 		EditBuildInfoFragment f = (EditBuildInfoFragment) fm.findFragmentByTag("info");
 		Log.d("EditBuildActivity", "in findInfoFragment(), f = " + f);
 		return f;
@@ -528,7 +521,7 @@ public class EditBuildActivity extends FragmentActivity implements EditBuildInfo
 	}
 	
 	private EditBuildNotesFragment findNotesFragment() {
-		FragmentManager fm = getSupportFragmentManager();
+		FragmentManager fm = getFragmentManager();
 		EditBuildNotesFragment f = (EditBuildNotesFragment) fm.findFragmentByTag("notes");
 		Log.d("EditBuildActivity", "in findNotesFragment(), f = " + f);
 		return f;
@@ -537,7 +530,7 @@ public class EditBuildActivity extends FragmentActivity implements EditBuildInfo
 	}
 	
 	private EditBuildItemsFragment findItemsFragment() {
-		FragmentManager fm = getSupportFragmentManager();
+		FragmentManager fm = getFragmentManager();
 		EditBuildItemsFragment f = (EditBuildItemsFragment) fm.findFragmentByTag("items");
 		Log.d("EditBuildActivity", "in findItemsFragment(), f = " + f);
 		return f;

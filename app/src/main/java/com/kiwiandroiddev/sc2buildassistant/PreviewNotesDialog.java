@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -8,10 +9,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 //import com.google.analytics.tracking.android.EasyTracker;
 
-public class PreviewNotesDialog extends SherlockActivity {
+public class PreviewNotesDialog extends Activity {
 	
 	public static final String KEY_NOTES_HTML = "mNotesHtml";
 	
