@@ -1,6 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,17 +19,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment;
-import com.kiwiandroiddev.sc2buildassistant.EditBuildItemsFragment;
-import com.kiwiandroiddev.sc2buildassistant.EditBuildNotesFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.EditBuildInfoFragment.EditBuildInfoListener;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;

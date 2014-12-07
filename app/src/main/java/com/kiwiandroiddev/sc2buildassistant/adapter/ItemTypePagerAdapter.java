@@ -1,8 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.UnitSelectorFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 
 import android.content.Context;

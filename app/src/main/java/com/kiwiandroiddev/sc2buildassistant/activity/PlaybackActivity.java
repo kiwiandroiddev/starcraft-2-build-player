@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -40,7 +39,7 @@ import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.MapFormat;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;

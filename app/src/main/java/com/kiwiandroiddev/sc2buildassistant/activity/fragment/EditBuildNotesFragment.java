@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog;
+import com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog;
+import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 /**

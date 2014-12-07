@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.BuildListActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;

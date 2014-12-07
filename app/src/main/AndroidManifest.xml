@@ -45,12 +45,12 @@
             android:theme="@style/StarCraftDialogTheme" />
         <activity android:name=".activity.UnitSelectorActivity"
             android:theme="@style/StarCraftDialogTheme" />
-        <activity android:name=".PreviewNotesDialog"
+        <activity android:name=".activity.dialog.PreviewNotesDialog"
             android:theme="@style/StarCraftDialogTheme" />
-        <activity android:name=".InsertLinkDialog"
+        <activity android:name=".activity.dialog.InsertLinkDialog"
             android:theme="@style/StarCraftDialogTheme" />
         <activity android:name="NumberPickerPreferenceActivity" />
-        <activity android:name="com.kiwiandroiddev.sc2buildassistant.FileDialog" />
+        <activity android:name=".activity.dialog.FileDialog" />
         <activity android:name="com.google.ads.AdActivity" 
    			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
     </application>

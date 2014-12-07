@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.activity.dialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import com.kiwiandroiddev.sc2buildassistant.R.drawable;
 import com.kiwiandroiddev.sc2buildassistant.R.id;
 import com.kiwiandroiddev.sc2buildassistant.R.layout;
 import com.kiwiandroiddev.sc2buildassistant.R.string;
+import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -70,7 +71,7 @@ public class FileDialog extends ListActivity {
 	 * Parametro de entrada da Activity: tipo de selecao: pode criar novos paths
 	 * ou nao. Padrao: nao permite.
 	 * 
-	 * @see {@link SelectionMode}
+	 * @see {@link com.kiwiandroiddev.sc2buildassistant.SelectionMode}
 	 */
 	public static final String SELECTION_MODE = "SELECTION_MODE";
 
