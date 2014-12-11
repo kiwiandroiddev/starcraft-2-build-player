@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="StarCraftTheme" parent="Theme.AppCompat" />
+    <style name="StarCraftTheme" parent="Theme.AppCompat">
+        <!--<item name="colorPrimary">#213141</item>-->
+        <item name="colorPrimary">#111111</item>
+        <!--<item name="colorPrimaryDark">@color/blue_grey_700</item>-->
+        <!--<item name="colorPrimary">@color/green_500</item>-->
+        <!--<item name="colorPrimaryDark">@color/green_700</item>-->
+        <!--<item name="android:windowBackground">@color/black</item>-->
+        <item name="android:windowBackground">@color/grey_900</item>
+    </style>
+
     <style name="StarCraftDialogTheme" parent="Theme.AppCompat.Dialog" />
 </resources>

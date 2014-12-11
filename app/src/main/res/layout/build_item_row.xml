@@ -7,7 +7,7 @@
 	<TextView android:id="@+id/unit_label"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textSize="20dip"
+	    android:textSize="20sp"
 	    android:layout_centerVertical="true"
 	    android:layout_toRightOf="@+id/unit_icon"
 	    android:paddingLeft="10dip"
@@ -16,7 +16,7 @@
 	<TextView android:id="@+id/time_label"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textSize="14dip"
+	    android:textSize="14sp"
 	    android:layout_centerVertical="true"
 	    android:layout_alignParentRight="true"
 	    android:paddingRight="5dip"
@@ -24,8 +24,8 @@
 	
     <ImageView
         android:id="@+id/unit_icon"
-        android:layout_width="62px"
-        android:layout_height="62px"
+        android:layout_width="@dimen/unit_icon_size"
+        android:layout_height="@dimen/unit_icon_size"
     />
     
 </RelativeLayout>

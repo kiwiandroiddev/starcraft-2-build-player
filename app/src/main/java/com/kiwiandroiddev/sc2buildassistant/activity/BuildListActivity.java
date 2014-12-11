@@ -459,6 +459,8 @@ public class BuildListActivity extends ActionBarActivity implements android.supp
         // Set up expansion drop-down list on action bar
         final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
+        actionBar.setDisplayShowTitleEnabled(false);
+
         // Enable drop-down widget in action bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 

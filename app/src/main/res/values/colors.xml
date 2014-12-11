@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
- <color name="orange">#ff5500</color>
- <color name="white">#ffffff</color>
- <color name="transparent">#00000000</color>
- <color name="date_color">#999999</color>
- <color name="black">#000000</color>
- <color name="gray">#999999</color>
- <color name="blue">#0066cc</color>
- <color name="gold">#e6b121</color>
- <color name="blueback">#99FFFF</color>
- <color name="articlecolor">#3399FF</color> 
- <color name="article_title">#3399FF</color> 
- <color name="cachecolor">#8ad0e8</color>
- <drawable name="ab_bg_black">#aa000000</drawable>
+    <color name="orange">#ff5500</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="date_color">#999999</color>
+    <color name="black">#000000</color>
+    <color name="gray">#999999</color>
+    <color name="blue">#0066cc</color>
+    <color name="gold">#e6b121</color>
+    <color name="blueback">#99FFFF</color>
+    <color name="articlecolor">#3399FF</color>
+    <color name="article_title">#3399FF</color>
+    <color name="cachecolor">#8ad0e8</color>
+    <color name="ab_bg_black">#aa000000</color>
+
+    <color name="blue_900">#0d47a1</color>
+    <color name="blue_800">#1565c0</color>
+    <color name="blue_grey_800">#37474f</color>
+    <color name="blue_grey_900">#263238</color>
+    <color name="blue_grey_500">#607d8b</color>
+    <color name="blue_grey_700">#455a64</color>
+    <color name="green_500">#4caf50</color>
+    <color name="green_700">#388e3c</color>
+    <color name="grey_900">#212121</color>
+    <color name="green_A700">#00c853</color>
+    <color name="blue_A400">#2979ff</color>
+    <color name="blue_A700">#2962ff</color>
 
 <!-- FAB sample -->
     <color name="black_semi_transparent">#B2000000</color>
