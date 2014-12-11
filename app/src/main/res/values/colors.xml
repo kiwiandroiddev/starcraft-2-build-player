@@ -13,4 +13,14 @@
  <color name="article_title">#3399FF</color> 
  <color name="cachecolor">#8ad0e8</color>
  <drawable name="ab_bg_black">#aa000000</drawable>
+
+<!-- FAB sample -->
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
 </resources>
