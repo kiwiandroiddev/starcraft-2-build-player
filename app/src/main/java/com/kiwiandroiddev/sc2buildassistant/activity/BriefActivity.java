@@ -10,17 +10,21 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -28,12 +32,14 @@ import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView;
 
 /**
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        ObservableScrollView.Callbacks {
 
 //	private static final String TAG = "BriefActivity";
 	
@@ -46,7 +52,20 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 	
 	private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
 	private static final ArrayList<String> sColumns;
-	
+
+    private static final int STATE_ONSCREEN = 0;
+    private static final int STATE_OFFSCREEN = 1;
+    private static final int STATE_RETURNING = 2;
+
+    private View mQuickReturnView;
+    private View mPlaceholderView;
+    private ObservableScrollView mObservableScrollView;
+    private ScrollSettleHandler mScrollSettleHandler = new ScrollSettleHandler();
+    private int mMinRawY = 0;
+    private int mState = STATE_ONSCREEN;
+    private int mQuickReturnHeight;
+    private int mMaxScrollY;
+
 	static {
 		sRaceBgMap = new HashMap<DbAdapter.Faction, Integer>();
 		sRaceBgMap.put(DbAdapter.Faction.TERRAN, R.drawable.terran_icon_blur_drawable);
@@ -59,8 +78,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		sColumns.add(DbAdapter.KEY_DESCRIPTION);
 		sColumns.add(DbAdapter.KEY_AUTHOR);
 	}
-	
-	@Override
+
+    private Toolbar mToolbar;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 //		mStartTime = SystemClock.uptimeMillis();
 		
@@ -73,7 +94,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		super.onCreate(savedInstanceState);
 //		setTheme(R.style.Theme_Sherlock);
         setContentView(R.layout.activity_brief);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        Log.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
@@ -89,15 +110,34 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(RaceFragment.KEY_EXPANSION_ENUM);
         }
 
+        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+
+        mObservableScrollView = (ObservableScrollView) findViewById(R.id.scrollView1);
+        mObservableScrollView.setCallbacks(this);
+
+        mQuickReturnView = mToolbar;
+        mPlaceholderView = findViewById(R.id.placeholder);
+
+        mObservableScrollView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        onScrollChanged(mObservableScrollView.getScrollY());
+                        mMaxScrollY = mObservableScrollView.computeVerticalScrollRange()
+                                - mObservableScrollView.getHeight();
+                        mQuickReturnHeight = mQuickReturnView.getHeight();
+                    }
+                });
+
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
         getSupportLoaderManager().initLoader(0, null, this);
-        
+
         // show build title, faction, expansion now
         displayBasicInfo();
-        
+
         trackBriefView();
-        
+
 //        Log.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - start) + " ms");
         
         // sc2brief
@@ -193,12 +233,11 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 	private void displayBasicInfo() {
 		final String race = getString(DbAdapter.getFactionName(mFaction));
 		final String expansion = getString(DbAdapter.getExpansionName(mExpansion));
-		
-		getSupportActionBar().setTitle(mBuildName);
-		
-		// ActionBar subtitle example: "Terran - Wings of Liberty"	
-		getSupportActionBar().setSubtitle(race + " - " + expansion);
-		
+
+		// Toolbar subtitle example: "Terran - Wings of Liberty"
+        mToolbar.setTitle(mBuildName);
+        mToolbar.setSubtitle(race + " - " + expansion);
+
 		// set background graphic (stub)
 		View root = this.findViewById(R.id.brief_root);
 		root.setBackgroundDrawable(getResources().getDrawable(getBackgroundDrawable(mFaction)));
@@ -264,4 +303,108 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 //    	EasyTracker.getInstance().setContext(this);
 //    	EasyTracker.getTracker().sendEvent("brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null);
 	}
+
+    //=========================================================================
+    // Quick return Toolbar implementation
+    //=========================================================================
+
+    @Override
+    public void onScrollChanged(int scrollY) {
+        scrollY = Math.min(mMaxScrollY, scrollY);
+
+        mScrollSettleHandler.onScroll(scrollY);
+
+        int rawY = mPlaceholderView.getTop() - scrollY;
+        int translationY = 0;
+
+        switch (mState) {
+            case STATE_OFFSCREEN:
+                if (rawY <= mMinRawY) {
+                    mMinRawY = rawY;
+                } else {
+                    mState = STATE_RETURNING;
+                }
+                translationY = rawY;
+                break;
+
+            case STATE_ONSCREEN:
+                if (rawY < -mQuickReturnHeight) {
+                    mState = STATE_OFFSCREEN;
+                    mMinRawY = rawY;
+                }
+                translationY = rawY;
+                break;
+
+            case STATE_RETURNING:
+                translationY = (rawY - mMinRawY) - mQuickReturnHeight;
+                if (translationY > 0) {
+                    translationY = 0;
+                    mMinRawY = rawY - mQuickReturnHeight;
+                }
+
+                if (rawY > 0) {
+                    mState = STATE_ONSCREEN;
+                    translationY = rawY;
+                }
+
+                if (translationY < -mQuickReturnHeight) {
+                    mState = STATE_OFFSCREEN;
+                    mMinRawY = rawY;
+                }
+                break;
+        }
+        mQuickReturnView.animate().cancel();
+        mQuickReturnView.setTranslationY(translationY + scrollY);
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+        mScrollSettleHandler.setSettleEnabled(false);
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent() {
+        mScrollSettleHandler.setSettleEnabled(true);
+        mScrollSettleHandler.onScroll(mObservableScrollView.getScrollY());
+    }
+
+    private class ScrollSettleHandler extends Handler {
+        private static final int SETTLE_DELAY_MILLIS = 100;
+
+        private int mSettledScrollY = Integer.MIN_VALUE;
+        private boolean mSettleEnabled;
+
+        public void onScroll(int scrollY) {
+            if (mSettledScrollY != scrollY) {
+                // Clear any pending messages and post delayed
+                removeMessages(0);
+                sendEmptyMessageDelayed(0, SETTLE_DELAY_MILLIS);
+                mSettledScrollY = scrollY;
+            }
+        }
+
+        public void setSettleEnabled(boolean settleEnabled) {
+            mSettleEnabled = settleEnabled;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            // Handle the scroll settling.
+            if (STATE_RETURNING == mState && mSettleEnabled) {
+                int mDestTranslationY;
+                if (mSettledScrollY - mQuickReturnView.getTranslationY() > mQuickReturnHeight / 2) {
+                    mState = STATE_OFFSCREEN;
+                    mDestTranslationY = Math.max(
+                            mSettledScrollY - mQuickReturnHeight,
+                            mPlaceholderView.getTop());
+                } else {
+                    mDestTranslationY = mSettledScrollY;
+                }
+
+                mMinRawY = mPlaceholderView.getTop() - mQuickReturnHeight - mDestTranslationY;
+                mQuickReturnView.animate().translationY(mDestTranslationY);
+            }
+            mSettledScrollY = Integer.MIN_VALUE; // reset
+        }
+    }
 }
