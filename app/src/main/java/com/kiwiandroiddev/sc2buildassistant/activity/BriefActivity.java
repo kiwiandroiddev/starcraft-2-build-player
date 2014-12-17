@@ -142,9 +142,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     	// Handle Briefing screen specific menu items
     	if (item.getItemId() == R.id.menu_play_build) {
     		// starts the build player interface
-    		Intent i = new Intent(this, PlaybackActivity.class);
-            i.putExtra(RaceFragment.KEY_BUILD_ID, mBuildId);
-            startActivity(i);
+            playBuild();
     	} else if (item.getItemId() == android.R.id.home) {
             // This is called when the Home (Up) button is pressed
             // in the Action Bar.
@@ -159,8 +157,14 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     	else
     		return true;
     }
-	
-	//=========================================================================
+
+    private void playBuild() {
+        Intent i = new Intent(this, PlaybackActivity.class);
+        i.putExtra(RaceFragment.KEY_BUILD_ID, mBuildId);
+        startActivity(i);
+    }
+
+    //=========================================================================
     // Android lifecycle methods
 	//=========================================================================
     

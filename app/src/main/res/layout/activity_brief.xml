@@ -76,19 +76,33 @@
 
     </ScrollView>
 
-    <com.getbase.floatingactionbutton.AddFloatingActionButton
+    <!--<com.getbase.floatingactionbutton.AddFloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--fab:fab_plusIconColor="@color/white"-->
+        <!--fab:fab_colorNormal="@color/grey_900"-->
+        <!--fab:fab_colorPressed="@color/white_pressed"-->
+        <!--fab:fab_size="normal"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginEnd="16dp"/>-->
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/activity_brief_play_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        fab:fab_plusIconColor="@color/white"
-        fab:fab_colorNormal="@color/grey_900"
-        fab:fab_colorPressed="@color/white_pressed"
-        fab:fab_size="normal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_media_play"
+        fab:fab_colorNormal="@color/grey_1000"
+        fab:fab_colorPressed="@color/white_pressed"
+        fab:fab_colorRipple="@color/green_500"
+        fab:fab_shadow="true"/>
 
     <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
         <!--android:id="@+id/multiple_actions"-->

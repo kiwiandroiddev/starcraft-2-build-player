@@ -2,7 +2,7 @@
 <resources>
     <style name="StarCraftTheme" parent="Theme.AppCompat">
         <!--<item name="colorPrimary">#213141</item>-->
-        <item name="colorPrimary">#111111</item>
+        <item name="colorPrimary">@color/grey_1000</item>
         <!--<item name="colorPrimaryDark">@color/blue_grey_700</item>-->
         <!--<item name="colorPrimary">@color/green_500</item>-->
         <!--<item name="colorPrimaryDark">@color/green_700</item>-->
