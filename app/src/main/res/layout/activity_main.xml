@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+<LinearLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
     >
 
     <android.support.v7.widget.Toolbar
@@ -25,48 +26,52 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@+id/toolbar"
         android:background="?attr/colorPrimary"
         app:pstsPaddingMiddle="true"
         app:pstsTabPaddingLeftRight="40dp"
         app:pstsDividerPadding="0dp"
+        app:pstsIndicatorHeight="4dp"
         />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ad"
-        android:layout_below="@+id/tabs"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <RelativeLayout
-        android:id="@+id/loading_panel"
-        style="@style/GenericProgressBackground"
-        android:visibility="gone">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-        <ProgressBar
-            android:id="@+id/loading_spinner"
-            style="@style/GenericProgressIndicator"
-            android:layout_centerInParent="true"
-            android:background="#0000"/>
+        <RelativeLayout
+            android:id="@+id/loading_panel"
+            style="@style/GenericProgressBackground"
+            android:visibility="gone">
 
-        <ProgressBar
-            android:id="@+id/loading_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="256dp"
-            android:layout_height="16dp"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/loading_spinner"
+                style="@style/GenericProgressIndicator"
+                android:layout_centerInParent="true"
+                android:background="#0000"/>
 
-    <com.google.ads.AdView
-        android:id="@+id/ad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="a150b967e3b02cd"
-        ads:loadAdOnCreate="true"
-        ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"/>
-</RelativeLayout>
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="256dp"
+                android:layout_height="16dp"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="a150b967e3b02cd"
+            ads:loadAdOnCreate="true"
+            ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"/>
+
+    </FrameLayout>
+</LinearLayout>

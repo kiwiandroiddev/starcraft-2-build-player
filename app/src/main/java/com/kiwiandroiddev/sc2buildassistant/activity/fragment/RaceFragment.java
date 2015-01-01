@@ -159,14 +159,16 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 
 		// set up the "Add Build..." extra list entry at the bottom
         list.addFooterView(getFooterView(), null, true);
-        
+
+        // Add an unselectable spacer to the bottom to stop ads from obscuring content
+        list.addFooterView(getAdSpacerView(), null, false);     // false = not selectable
+
 		list.setAdapter(mAdapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				if (id != -1) {
-//					Log.d(TAG, "onItemClick(), id = " + id);
 			        Intent i = new Intent(getActivity(), BriefActivity.class);
 			        i.putExtra(KEY_BUILD_ID, id);	// pass build order record ID
 			        
@@ -212,9 +214,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * @param game
 	 */
 	public void setExpansionFilter(DbAdapter.Expansion game) {
-//		Log.w(this.toString(), "setExpansionFilter(" + game +") called");
-		
 		mCurrentExpansion = game;
+
 		// mCurrentExpansion is used to build the query for a new cursor
 		getActivity().getSupportLoaderManager().restartLoader(mFaction.ordinal(), null, this);
 	}
@@ -225,16 +226,12 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-//		Log.d(TAG, "onCreateLoader() called with id " + id);
-		
         DbAdapter db = ((MyApplication) getActivity().getApplicationContext()).getDb();
         db.open();
 		
 		final String whereClause = DbAdapter.KEY_FACTION_ID + " = " + DbAdapter.getFactionID(mFaction)
     			+ " and " + DbAdapter.KEY_EXPANSION_ID + " = " + DbAdapter.getExpansionID(mCurrentExpansion);
-		
-//		showLoadingAnim();
-		
+
 		return new CursorLoader(getActivity(),
                 Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER),	// table URI
                 new String[]{ DbAdapter.KEY_BUILD_ORDER_ID, DbAdapter.KEY_NAME, DbAdapter.KEY_CREATED, DbAdapter.KEY_VS_FACTION_ID },	// columns to return
@@ -246,12 +243,10 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 		mAdapter.swapCursor(cursor);
-//		hideLoadingAnim();
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-//		Log.d(TAG, "onLoaderReset() called");
 		mAdapter.swapCursor(null);
 	}
 	
@@ -264,6 +259,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	                                ContextMenuInfo menuInfo) {
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+
 	    // disable context menu for footer ("new build item")
 	    if (info.id != -1) {
 		    MenuInflater inflater = getActivity().getMenuInflater();
@@ -290,16 +286,21 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	    }
 	 	return super.onContextItemSelected(item);
 	}
-	
+
+    /**
+     * Starts the build editor activity, passing ID of build in the database
+     */
 	private void editBuild(long rowId) {
-		// starts the build editor, passing ID of build in the database
 		Intent i = new Intent(getActivity(), EditBuildActivity.class);
         i.putExtra(RaceFragment.KEY_BUILD_ID, rowId);
         startActivity(i);
 	}
-	
+
+    /**
+     * Confirms deletion first with user as this is operation deletes user data
+     * @param rowId
+     */
 	private void deleteBuild(final long rowId) {
-		// confirm with user as this is operation deletes user data
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(R.string.dlg_confirm_delete_build_title)
     		.setMessage(R.string.dlg_confirm_delete_build_message)
@@ -380,12 +381,18 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	
 	private View getFooterView() {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View row = inflater.inflate(R.layout.add_build_row, null, false);
-		return row;
+        return inflater.inflate(R.layout.add_build_row, null, false);
 	}
-	
-	// Helpers
-	
+
+    /**
+     * Spacer to stop Ad from obscuring the bottom of content
+     * @return
+     */
+    private View getAdSpacerView() {
+		LayoutInflater inflater = getActivity().getLayoutInflater();
+        return inflater.inflate(R.layout.ad_spacer_row, null, false);
+	}
+
 	/**
 	 * Replaces special characters in a string with underscores. Useful for
 	 * sanitizing filenames
@@ -395,20 +402,4 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	public static String removeSpecialCharacters(String input) {
 		return input.replaceAll("[^\\dA-Za-z]+", "_");
 	}
-	
-//	/* makes the loading animation visible if the view exists yet. Otherwise does nothing */
-//	private void showLoadingAnim() {
-//		View v = getView();
-//		if (v != null) {
-//			v.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
-//		}
-//	}
-//	
-//	/* hides loading animation if the main view exists yet. Otherwise does nothing */
-//	private void hideLoadingAnim() {
-//		View v = getView();
-//		if (v != null) {
-//			v.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-//		}
-//	}
 }

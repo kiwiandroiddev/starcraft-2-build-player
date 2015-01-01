@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StarCraft 2 Build Player</string>
+    <string name="app_name">SC2 Build Player</string>
     <string name="save">Save</string>
     <string name="discard">Discard</string>
     <string name="menu_settings">Settings</string>
@@ -14,7 +14,6 @@
     <string name="menu_export_build">Export</string>
     <string name="menu_import_build">Import Build&#8230;</string>
     <string name="menu_preview">Preview</string>
-    <string name="title_activity_main">StarCraft 2 Build Player</string>
 	<string name="playback_stop">Stop</string>
 	<string name="playback_play">Play</string>
 	<string name="playback_pause">Pause</string>

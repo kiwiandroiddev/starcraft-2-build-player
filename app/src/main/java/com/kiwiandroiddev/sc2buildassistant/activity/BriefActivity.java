@@ -99,6 +99,8 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mQuickReturnHandler = new QuickReturnHandler(
                 mToolbar,
@@ -211,8 +213,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		final String expansion = getString(DbAdapter.getExpansionName(mExpansion));
 
 		// Toolbar subtitle example: "Terran - Wings of Liberty"
-        mToolbar.setTitle(mBuildName);
-        mToolbar.setSubtitle(race + " - " + expansion);
+        getSupportActionBar().setTitle(mBuildName);
+//        getSupportActionBar().setSubtitle(race + " - " + expansion);
+//        mToolbar.setTitle(mBuildName);
+//        mToolbar.setSubtitle(race + " - " + expansion);
 
 		// set background graphic (stub)
 		View root = this.findViewById(R.id.brief_root);

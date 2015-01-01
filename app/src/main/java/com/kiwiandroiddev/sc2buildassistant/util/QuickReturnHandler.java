@@ -24,6 +24,16 @@ public class QuickReturnHandler implements ObservableScrollView.Callbacks {
     private int mState = STATE_ONSCREEN;
     private int mQuickReturnHeight;
     private int mMaxScrollY;
+    private ViewTreeObserver.OnGlobalLayoutListener mScrollViewGlobalLayoutListener =
+            new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            onScrollChanged(mObservableScrollView.getScrollY());
+            mMaxScrollY = mObservableScrollView.computeVerticalScrollRange()
+                    - mObservableScrollView.getHeight();
+            mQuickReturnHeight = mQuickReturnView.getHeight();
+        }
+    };
 
     public QuickReturnHandler(View quickReturnView,
                               View placeholderView,
@@ -31,19 +41,23 @@ public class QuickReturnHandler implements ObservableScrollView.Callbacks {
 
         mQuickReturnView = quickReturnView;
         mPlaceholderView = placeholderView;
-        mObservableScrollView = scrollView;
+        setScrollView(scrollView);
+    }
 
+    public void setScrollView(ObservableScrollView scrollView) {
+        if (mObservableScrollView != null) {
+            mObservableScrollView.setCallbacks(null);
+            mObservableScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(mScrollViewGlobalLayoutListener);
+            mObservableScrollView = null;
+        }
+
+        mObservableScrollView = scrollView;
         mObservableScrollView.setCallbacks(this);
-        mObservableScrollView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        onScrollChanged(mObservableScrollView.getScrollY());
-                        mMaxScrollY = mObservableScrollView.computeVerticalScrollRange()
-                                - mObservableScrollView.getHeight();
-                        mQuickReturnHeight = mQuickReturnView.getHeight();
-                    }
-                });
+        mObservableScrollView.getViewTreeObserver().addOnGlobalLayoutListener(mScrollViewGlobalLayoutListener);
+    }
+
+    public ObservableScrollView getScrollView() {
+        return mObservableScrollView;
     }
 
     @Override
