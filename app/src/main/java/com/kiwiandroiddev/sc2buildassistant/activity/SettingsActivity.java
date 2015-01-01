@@ -232,8 +232,8 @@ public class SettingsActivity extends ActionBarActivity {
                             db.clear();
                             final boolean forceLoad = true;
                             try {
-                                BuildListActivity.loadStandardBuildsIntoDB(getActivity(), forceLoad);
-                                BuildListActivity.notifyBuildProviderObservers(getActivity());
+                                MainActivity.loadStandardBuildsIntoDB(getActivity(), forceLoad);
+                                MainActivity.notifyBuildProviderObservers(getActivity());
                                 Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), String.format(getString(R.string.error_loading_std_builds), e.getMessage()),

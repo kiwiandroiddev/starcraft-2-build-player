@@ -10,7 +10,7 @@ import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
-import com.kiwiandroiddev.sc2buildassistant.activity.BuildListActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
@@ -323,9 +323,9 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * @param rowId
 	 */
 	private void exportBuild(long rowId) {
-		if (!BuildListActivity.createBuildsDir(getActivity())) {
+		if (!MainActivity.createBuildsDir(getActivity())) {
 			Toast.makeText(getActivity(),
-					String.format(getString(R.string.error_couldnt_create_builds_dir), BuildListActivity.BUILDS_DIR),
+					String.format(getString(R.string.error_couldnt_create_builds_dir), MainActivity.BUILDS_DIR),
 					Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -360,7 +360,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 					}
 					
 					try {
-						BuildListActivity.writeBuild(filename, build);
+						MainActivity.writeBuild(filename, build);
 					} catch (Exception e) {
 						Toast.makeText(getActivity(), String.format(getString(R.string.dlg_couldnt_write_file),
 								filename, e.toString()), Toast.LENGTH_LONG).show();
@@ -368,7 +368,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 						return;
 					}
 					Toast.makeText(getActivity(), String.format(getString(R.string.dlg_wrote_file_to_dir),
-							filename, BuildListActivity.BUILDS_DIR), Toast.LENGTH_LONG).show();
+							filename, MainActivity.BUILDS_DIR), Toast.LENGTH_LONG).show();
 				}
 			})
 			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

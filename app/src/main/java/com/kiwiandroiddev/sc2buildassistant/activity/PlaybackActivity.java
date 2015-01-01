@@ -234,7 +234,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         }
 
     	// use the same options menu as the main activity
-    	boolean result = BuildListActivity.OnMenuItemSelected(this, item);
+    	boolean result = MainActivity.OnMenuItemSelected(this, item);
     	if (!result)
     		return super.onOptionsItemSelected(item);
     	else

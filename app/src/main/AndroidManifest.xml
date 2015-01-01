@@ -29,8 +29,10 @@
             />
         
         <activity
-            android:name=".activity.BuildListActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -110,7 +110,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(RaceFragment.KEY_EXPANSION_ENUM);
         }
 
-        mToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mObservableScrollView = (ObservableScrollView) findViewById(R.id.scrollView1);
         mObservableScrollView.setCallbacks(this);
@@ -191,7 +191,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         }
     	
     	// use the same options menu as the main activity 
-    	boolean result = BuildListActivity.OnMenuItemSelected(this, item);
+    	boolean result = MainActivity.OnMenuItemSelected(this, item);
     	if (!result)
     		return super.onOptionsItemSelected(item);
     	else

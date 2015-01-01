@@ -93,7 +93,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 			mDlg.hide();
 			if (result == true) {
 				// notify observers of buildprovider's build table that its contents have changed
-				BuildListActivity.notifyBuildProviderObservers(EditBuildActivity.this);
+				MainActivity.notifyBuildProviderObservers(EditBuildActivity.this);
 				showMessage(R.string.edit_build_save_successful);
 				EditBuildActivity.this.finish();
 			} else {
