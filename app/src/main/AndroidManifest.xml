@@ -31,7 +31,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/StarCraftTheme.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
         <activity android:name=".activity.PlaybackActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.BriefActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/StarCraftTheme.NoActionBar"
             />
         <activity android:name=".activity.EditBuildActivity"
             android:windowSoftInputMode="adjustResize" />
