@@ -26,12 +26,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -95,6 +101,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	private ProgressBar mLoadingBar;
     private Toolbar mToolbar;
     private Spinner mToolbarExpansionSpinner;
+    private AdView mAdView;
 
     private class LoadStandardBuildsTask extends AsyncTask<Boolean, Integer, Exception> {
 		private Context mContext;
@@ -165,6 +172,30 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mLoadingSpinner = (ProgressBar) findViewById(R.id.loading_spinner);
         mLoadingBar = (ProgressBar) findViewById(R.id.loading_bar);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mAdView = (AdView) findViewById(R.id.ad);
+
+        // slide ad banner in from bottom of screen when it loads rather than popping
+        if (mAdView != null) {
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onReceiveAd(Ad ad) {
+                    mAdView.startAnimation(
+                            AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
+                }
+
+                @Override
+                public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {}
+
+                @Override
+                public void onPresentScreen(Ad ad) {}
+
+                @Override
+                public void onDismissScreen(Ad ad) {}
+
+                @Override
+                public void onLeaveApplication(Ad ad) {}
+            });
+        }
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         
@@ -256,7 +287,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public static boolean OnMenuItemSelected(Context ctx, MenuItem item) {
         switch(item.getItemId()) {
 	        case R.id.menu_settings:
-//	        	Intent i = new Intent(ctx, SettingsActivity.class);
 	        	Intent i = new Intent(ctx, SettingsActivity.class);
 	            ctx.startActivity(i);
 	            return true;
@@ -268,32 +298,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     /**
      * Starcraft expansion selection changed - need to pass this on to
      * race fragments so they can re-filter their list view.
-     * 
-     * This is called indirectly when the expansion selection is initialized
-     * with a call to setSelectedNavigationItem() in onCreate()
      */
-//	@Override
-//	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-//		final DbAdapter.Expansion expansion = DbAdapter.Expansion.values()[itemPosition];
-//
-//		// pass on current expansion to any racefragments created in future
-//		mPagerAdapter.setCurrentExpansion(expansion);
-//		saveExpansionSelection(expansion.ordinal());
-//
-////		Log.w(this.toString(), "nav item selected");
-//		// TODO hacky but have not yet found a better way to find all child fragments
-//		for (int i=0; i<3; ++i) {
-//			String tag = makeFragmentName(mPager.getId(), i);
-//			Fragment f = mManager.findFragmentByTag(tag);
-////			Log.w(this.toString(), "fragment with tag " + tag + " = " + f);
-//			if (f != null) {
-//				RaceFragment rf = (RaceFragment)f;
-//				rf.setExpansionFilter(expansion);
-//			}
-//		}
-//		return true;
-//	}
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         final DbAdapter.Expansion expansion = DbAdapter.Expansion.values()[position];
@@ -499,20 +504,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mToolbarExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(getSupportActionBar().getThemedContext()));
         mToolbarExpansionSpinner.setOnItemSelectedListener(this);
         mToolbarExpansionSpinner.setSelection(previousExpansionChoice);
-
-//        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//
-//        actionBar.setDisplayShowTitleEnabled(false);
-//
-//        // Enable drop-down widget in action bar
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-//
-//        // Call onNavigationItemSelected() in this class when list selection changes
-//        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(actionBar.getThemedContext()), this);
-////        actionBar.setListNavigationCallbacks(new ExpansionSpinnerAdapter(this), this);
-//
-//        // Restore user's previous expansion choice (e.g. when the screen is rotated)
-//        actionBar.setSelectedNavigationItem(previousExpansionChoice);
 	}
 
 	/**
@@ -617,7 +608,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     	return prefs.getInt(SettingsActivity.KEY_FACTION_SELECTION, DbAdapter.Faction.TERRAN.ordinal());	
     }
-    
+
     // ========================================================================
     // Static Helper Functions
     // ========================================================================
