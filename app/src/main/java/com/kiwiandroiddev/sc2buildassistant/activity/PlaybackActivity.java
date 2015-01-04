@@ -62,9 +62,10 @@ import com.nineoldandroids.animation.ObjectAnimator;
 // credit for timer code: http://kristjansson.us/?p=1010
 public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
-	
-	public static int MY_DATA_CHECK_CODE = 0;
-	
+
+    public static int MY_DATA_CHECK_CODE = 0;
+    public static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";
+
 	// StarCraft 2 game speed reference: http://wiki.teamliquid.net/starcraft2/Game_Speed
 	public static final double SLOWER_FACTOR = 0.6;
 	public static final double SLOW_FACTOR = 0.8;
@@ -81,9 +82,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	private Queue<Integer> mPendingAlerts;		// values are indices of build items in the build
     private double[] mIndexToMultiplier = { SLOWER_FACTOR, SLOW_FACTOR, NORMAL_FACTOR, FAST_FACTOR, FASTER_FACTOR };
 	
-	// references to widgets, so we don't have to look them up by ID constantly
     private ListView mBuildListView;
-//	private Spinner mSpinner;
 	private TextView mMaxTimeText;
 	private TextView mTimerText;
 	private ImageButton mPlayPauseButton;
@@ -112,12 +111,8 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		super.onCreate(savedInstanceState);
-//        Log.w(this.toString(), "onCreate() called, savedInstanceState = " + savedInstanceState);
-//        setTheme(android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-//		setTheme(R.style.Theme_Sherlock);
         setContentView(R.layout.activity_playback);
-       
-//        getSupportActionBar().hide();
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         // Inflate the custom view
@@ -137,7 +132,6 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         
         mPendingAlerts = new LinkedList<Integer>();
         
-        // find widgets, assign them to member variables
         mPlayPauseButton = (ImageButton)findViewById(R.id.playPauseButton);
         mStopButton = (ImageButton)findViewById(R.id.stopButton);
         mTimerText = (TextView)mTimerTextContainer.findViewById(R.id.timerText);
@@ -159,8 +153,8 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         db.close();
         
         // create build player object from build passed in intent
-        if (savedInstanceState != null && savedInstanceState.getSerializable("BuildPlayer") != null) {
-        	BuildPlayer savedPlayer = (BuildPlayer)savedInstanceState.getSerializable("BuildPlayer");
+        if (savedInstanceState != null && savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT) != null) {
+        	BuildPlayer savedPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
 //        	Log.w(this.toString(), "saved buildplayer found, player = " + savedPlayer + ", numListeners = " + savedPlayer.getNumListeners());
         	mBuildPlayer = savedPlayer;
         } else {
@@ -178,6 +172,10 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         BuildItemAdapter bAdapter = new BuildItemAdapter(this,
         		R.layout.build_item_row, mBuild.getItems());
         mBuildListView = (ListView)findViewById(R.id.buildListView);
+
+        // Add spacer to list so transparent seekbar doesn't obscure last build item
+        mBuildListView.addFooterView(getFooterView(), null, false);     // false = not selectable
+
         mBuildListView.setAdapter(bAdapter);
         
         // keep screen from sleeping until the build has played through
@@ -202,26 +200,17 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         // sc2play
 //    	Debug.stopMethodTracing();
 	}
-	
+
+    private View getFooterView() {
+        return getLayoutInflater().inflate(R.layout.activity_playback_spacer_row, null, false);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
-    
-    /* handle "Up" button press on title bar, navigate back to briefing screen */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                // This is called when the Home (Up) button is pressed
-//                // in the Action Bar.
-//                finish();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -230,7 +219,6 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
                 // This is called when the Home (Up) button is pressed
                 // in the Action Bar.
                 finish();
-//                return true;
         }
 
     	// use the same options menu as the main activity
@@ -296,7 +284,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		mBuildPlayer.removeListeners();
-		outState.putSerializable("BuildPlayer", mBuildPlayer);
+		outState.putSerializable(KEY_BUILD_PLAYER_OBJECT, mBuildPlayer);
 		super.onSaveInstanceState(outState);
 //		Log.w(this.toString(), "onSaveInstanceState() called, outState = " + outState);
 	}
@@ -316,7 +304,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		// is listener invalid?
-		BuildPlayer player = (BuildPlayer)savedInstanceState.getSerializable("BuildPlayer");
+		BuildPlayer player = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
 		if (player != null) {
 			mBuildPlayer = player;
 			mBuildPlayer.removeListeners();

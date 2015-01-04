@@ -1,98 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
     >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true">
+
+            <ListView
+                android:id="@+id/buildListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:paddingLeft="@dimen/screen_edge_padding"
+                android:paddingRight="@dimen/screen_edge_padding"
+                />
+
+            <RelativeLayout
+                android:id="@+id/overlayContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0"
+                android:background="#C0000000"
+                android:padding="10dp"
+                >
+
+                <ImageView
+                    android:id="@+id/overlayIcon"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="#0000"
+                    android:scaleType="fitXY"
+                    />
+
+                <TextView
+                    android:id="@+id/overlayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/overlayIcon"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:textSize="38dp"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/screen_edge_padding"
+            android:paddingRight="@dimen/screen_edge_padding"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_grey_to_transparent" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/buttonWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:background="@color/grey_900"
         android:paddingLeft="@dimen/screen_edge_padding"
-	    android:paddingRight="@dimen/screen_edge_padding" >
+        android:paddingRight="@dimen/screen_edge_padding">
 
         <ImageButton
             android:id="@+id/stopButton"
-            android:layout_width="match_parent"
-            android:layout_height="64dip"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
             android:layout_weight="1"
-            android:src="@drawable/stop_button_drawable"
             android:onClick="stopClicked"
-            android:text="@string/playback_stop"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/stop_button_drawable"
+            android:text="@string/playback_stop"/>
 
         <ImageButton
             android:id="@+id/playPauseButton"
-            android:layout_width="match_parent"
-            android:layout_height="64dip"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
             android:layout_weight="1"
-            android:src="@drawable/play_button_drawable"
             android:onClick="playPauseClicked"
-            android:text="@string/playback_play"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/play_button_drawable"
+            android:text="@string/playback_play"/>
 
     </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonWrapper"
-        android:layout_alignParentLeft="true" 
-        android:paddingLeft="@dimen/screen_edge_padding"
-	    android:paddingRight="@dimen/screen_edge_padding" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/seekBar"
-	android:layout_alignParentLeft="true" >
-        
-	    <ListView
-	        android:id="@+id/buildListView"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:focusable="false"
-	        android:focusableInTouchMode="false"
-	        android:paddingLeft="@dimen/screen_edge_padding"
-	        android:paddingRight="@dimen/screen_edge_padding"
-	        />
-    
-		<RelativeLayout
-		android:id="@+id/overlayContainer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:alpha="0"
-	    android:background="#C0000000"    
-		android:layout_centerInParent="true"
-		android:padding="10dp"
-		>
-		
-			<ImageView
-		    android:id="@+id/overlayIcon"
-		    android:background="#0000"     
-		    android:scaleType="fitXY"
-		    android:layout_width="150dp" 
-		    android:layout_height="150dp"
-		    android:layout_centerHorizontal="true"
-	  		/>
-	
-			<TextView
-		    android:id="@+id/overlayText"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:textSize="38dp"
-		    android:layout_centerHorizontal="true"
-		    android:layout_below="@+id/overlayIcon"
-		    android:textColor="@color/white"
-		    android:gravity="center_horizontal"
-			/>
-			
-		</RelativeLayout>
-	    
-    </RelativeLayout>
-    
-	
-	
-</RelativeLayout>
+</LinearLayout>
