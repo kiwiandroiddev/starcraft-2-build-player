@@ -50,6 +50,9 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
  * Displays visual and audio alerts when build items are reached during playback.
@@ -81,17 +84,18 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	private Handler mHandler = new Handler();
 	private Queue<Integer> mPendingAlerts;		// values are indices of build items in the build
     private double[] mIndexToMultiplier = { SLOWER_FACTOR, SLOW_FACTOR, NORMAL_FACTOR, FAST_FACTOR, FASTER_FACTOR };
-	
-    private ListView mBuildListView;
+
+    private View mTimerTextContainer;
 	private TextView mMaxTimeText;
 	private TextView mTimerText;
-	private ImageButton mPlayPauseButton;
-	private ImageButton mStopButton;
-	private SeekBar mSeekBar;
-	private ImageView mOverlayIcon;
-	private View mOverlayContainer;
-	private View mTimerTextContainer;
-	private TextView mOverlayText;
+    @InjectView(R.id.buildListView) ListView mBuildListView;
+	@InjectView(R.id.playPauseButton) ImageButton mPlayPauseButton;
+	@InjectView(R.id.stopButton) ImageButton mStopButton;
+	@InjectView(R.id.seekBar) SeekBar mSeekBar;
+	@InjectView(R.id.overlayIcon) ImageView mOverlayIcon;
+	@InjectView(R.id.overlayContainer) View mOverlayContainer;
+	@InjectView(R.id.overlayText) TextView mOverlayText;
+
 	private boolean mUserIsSeeking = false;
 	private TextToSpeech mTts;
 	private boolean mTtsReady = false;
@@ -112,6 +116,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 		
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playback);
+        ButterKnife.inject(this);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         
@@ -131,17 +136,11 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         mDb = app.getDb();
         
         mPendingAlerts = new LinkedList<Integer>();
-        
-        mPlayPauseButton = (ImageButton)findViewById(R.id.playPauseButton);
-        mStopButton = (ImageButton)findViewById(R.id.stopButton);
+
         mTimerText = (TextView)mTimerTextContainer.findViewById(R.id.timerText);
         mMaxTimeText = (TextView)mTimerTextContainer.findViewById(R.id.maxTimeText);
-        mOverlayIcon = (ImageView)findViewById(R.id.overlayIcon);
-        mSeekBar = (SeekBar)findViewById(R.id.seekBar);
-        mOverlayContainer = findViewById(R.id.overlayContainer);
         mOverlayContainer.setVisibility(View.INVISIBLE);
-        mOverlayText = (TextView)findViewById(R.id.overlayText);
-        
+
         // check for text-to-speech availablility, try to init engine
         checkForTTS();
 
@@ -171,7 +170,6 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         // populate list view with build items
         BuildItemAdapter bAdapter = new BuildItemAdapter(this,
         		R.layout.build_item_row, mBuild.getItems());
-        mBuildListView = (ListView)findViewById(R.id.buildListView);
 
         // Add spacer to list so transparent seekbar doesn't obscure last build item
         mBuildListView.addFooterView(getFooterView(), null, false);     // false = not selectable

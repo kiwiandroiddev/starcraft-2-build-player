@@ -66,6 +66,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
 
@@ -94,14 +97,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	
 	private RaceFragmentPagerAdapter mPagerAdapter;
 	private FragmentManager mManager;
-	private ViewPager mPager;
-	
-	private View mLoadingLayout;
-	private ProgressBar mLoadingSpinner;
-	private ProgressBar mLoadingBar;
-    private Toolbar mToolbar;
-    private Spinner mToolbarExpansionSpinner;
-    private AdView mAdView;
+    
+	@InjectView(R.id.pager) ViewPager mPager;
+    @InjectView(R.id.loading_panel) View mLoadingLayout;
+    @InjectView(R.id.loading_spinner) ProgressBar mLoadingSpinner;
+    @InjectView(R.id.loading_bar) ProgressBar mLoadingBar;
+    @InjectView(R.id.toolbar) Toolbar mToolbar;
+    @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
+    @InjectView(R.id.ad) AdView mAdView;
 
     private class LoadStandardBuildsTask extends AsyncTask<Boolean, Integer, Exception> {
 		private Context mContext;
@@ -166,13 +169,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 		
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        // Save references to views
-        mLoadingLayout = findViewById(R.id.loading_panel);
-        mLoadingSpinner = (ProgressBar) findViewById(R.id.loading_spinner);
-        mLoadingBar = (ProgressBar) findViewById(R.id.loading_bar);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mAdView = (AdView) findViewById(R.id.ad);
+        ButterKnife.inject(this);
 
         // slide ad banner in from bottom of screen when it loads rather than popping
         if (mAdView != null) {
@@ -469,9 +466,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     // ========================================================================
     
 	private void initRaceFragmentPagerAndExpansionSpinner(Bundle savedInstanceState) {
-		/** Getting a reference to the ViewPager defined the layout file */        
-        mPager = (ViewPager) findViewById(R.id.pager);
-
         /** Getting fragment manager */
         mManager = getSupportFragmentManager();
         
@@ -498,8 +492,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // Set up expansion drop-down list on action bar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mToolbarExpansionSpinner = (Spinner) findViewById(R.id.toolbar_expansion_spinner);
 
         mToolbarExpansionSpinner.setAdapter(new ExpansionSpinnerAdapter(getSupportActionBar().getThemedContext()));
         mToolbarExpansionSpinner.setOnItemSelectedListener(this);

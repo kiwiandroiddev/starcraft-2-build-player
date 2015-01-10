@@ -1,17 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-//import com.google.analytics.tracking.android.EasyTracker;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -24,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -34,7 +26,15 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.util.QuickReturnHandler;
 import com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView;
-import com.melnykov.fab.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
+//import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * Screen for showing an explanation of the build order, including references etc.
@@ -42,17 +42,25 @@ import com.melnykov.fab.FloatingActionButton;
  */
 public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-//	private static final String TAG = "BriefActivity";
-	
+	private static final String TAG = "BriefActivity";
+    private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
+    private static final ArrayList<String> sColumns;
+
 	private long mBuildId;
 //	private long mStartTime;	// temp optimization testing
 	private DbAdapter.Faction mFaction;
 	private DbAdapter.Expansion mExpansion;
 	private String mBuildName;
-//	private String mAuthorName;
-	
-	private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
-	private static final ArrayList<String> sColumns;
+    private QuickReturnHandler mQuickReturnHandler;
+
+    @InjectView(R.id.toolbar) Toolbar mToolbar;
+    @InjectView(R.id.brief_buildSubTitle) TextView mSubtitleView;
+    @InjectView(R.id.placeholder) View mPlaceholderView;
+    @InjectView(R.id.brief_root) View mRootView;
+    @InjectView(R.id.scrollView1) ObservableScrollView mObservableScrollView;
+    @InjectView(R.id.brief_buildNotes) TextView mNotesView;
+    @InjectView(R.id.brief_author_layout) View mAuthorLayout;
+    @InjectView(R.id.brief_author) TextView mAuthorText;
 
 	static {
 		sRaceBgMap = new HashMap<DbAdapter.Faction, Integer>();
@@ -67,9 +75,6 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		sColumns.add(DbAdapter.KEY_AUTHOR);
 	}
 
-    private Toolbar mToolbar;
-    private QuickReturnHandler mQuickReturnHandler;
-
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 //		mStartTime = SystemClock.uptimeMillis();
@@ -81,9 +86,8 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     	}
 		
 		super.onCreate(savedInstanceState);
-//		setTheme(R.style.Theme_Sherlock);
         setContentView(R.layout.activity_brief);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ButterKnife.inject(this);
 
 //        Log.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
@@ -99,23 +103,14 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(RaceFragment.KEY_EXPANSION_ENUM);
         }
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mQuickReturnHandler = new QuickReturnHandler(
                 mToolbar,
-                findViewById(R.id.placeholder),
-                (ObservableScrollView) findViewById(R.id.scrollView1));
+                mPlaceholderView,
+                mObservableScrollView);
 
-        FloatingActionButton playButton = (FloatingActionButton) findViewById(R.id.activity_brief_play_action_button);
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playBuild();
-            }
-        });
-        
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
         getSupportLoaderManager().initLoader(0, null, this);
@@ -150,19 +145,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
-	
-    /* handle "Up" button press on title bar, navigate back to build list */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                // This is called when the Home (Up) button is pressed
-//                // in the Action Bar.
-//                finish();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -171,8 +154,6 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     		// starts the build player interface
             playBuild();
     	} else if (item.getItemId() == android.R.id.home) {
-            // This is called when the Home (Up) button is pressed
-            // in the Action Bar.
             finish();
             return true;
         }
@@ -185,7 +166,8 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     		return true;
     }
 
-    private void playBuild() {
+    @OnClick(R.id.activity_brief_play_action_button)
+    public void playBuild() {
         Intent i = new Intent(this, PlaybackActivity.class);
         i.putExtra(RaceFragment.KEY_BUILD_ID, mBuildId);
         startActivity(i);
@@ -228,8 +210,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 //        mToolbar.setSubtitle(race + " - " + expansion);
 
 		// set background graphic (stub)
-		View root = this.findViewById(R.id.brief_root);
-		root.setBackgroundDrawable(getResources().getDrawable(getBackgroundDrawable(mFaction)));
+		mRootView.setBackgroundDrawable(getResources().getDrawable(getBackgroundDrawable(mFaction)));
 	}
 	
 	@Override
@@ -255,26 +236,23 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		final String author = cursor.getString(authorIndex);
 		
 		// just a textview as part of the main content - not the action bar subtitle!
-		if (source != null) {
-			TextView subtitleView = (TextView)this.findViewById(R.id.brief_buildSubTitle);	
-			subtitleView.setText(Html.fromHtml(source));
+		if (source != null) {	
+			mSubtitleView.setText(Html.fromHtml(source));
+            
 			// makes links clickable
-			subtitleView.setMovementMethod(LinkMovementMethod.getInstance());
+			mSubtitleView.setMovementMethod(LinkMovementMethod.getInstance());
 		}
 		
 		if (notes != null) {
-			TextView notesView = (TextView)this.findViewById(R.id.brief_buildNotes);
-			notesView.setText(Html.fromHtml(notes));
-			notesView.setMovementMethod(LinkMovementMethod.getInstance());
+			mNotesView.setText(Html.fromHtml(notes));
+			mNotesView.setMovementMethod(LinkMovementMethod.getInstance());
 		}
-		
-		View authorLayout = this.findViewById(R.id.brief_author_layout);
+
 		if (author != null) {
-			authorLayout.setVisibility(View.VISIBLE);
-			TextView authorView = (TextView)this.findViewById(R.id.brief_author);
-			authorView.setText(author);
+			mAuthorLayout.setVisibility(View.VISIBLE);
+			mAuthorText.setText(author);
 		} else {
-			authorLayout.setVisibility(View.GONE);
+			mAuthorLayout.setVisibility(View.GONE);
 		}
 //        Log.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - mStartTime) + " ms");
 	}
