@@ -34,6 +34,7 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.util.QuickReturnHandler;
 import com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView;
+import com.melnykov.fab.FloatingActionButton;
 
 /**
  * Screen for showing an explanation of the build order, including references etc.
@@ -107,6 +108,14 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
                 findViewById(R.id.placeholder),
                 (ObservableScrollView) findViewById(R.id.scrollView1));
 
+        FloatingActionButton playButton = (FloatingActionButton) findViewById(R.id.activity_brief_play_action_button);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playBuild();
+            }
+        });
+        
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
         getSupportLoaderManager().initLoader(0, null, this);

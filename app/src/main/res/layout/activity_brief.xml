@@ -115,10 +115,15 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_media_play"
-        fab:fab_colorNormal="@color/grey_1000"
-        fab:fab_colorPressed="@color/white_pressed"
-        fab:fab_colorRipple="@color/green_500"
+        fab:fab_colorNormal="@color/material_deep_teal_500"
+        fab:fab_colorPressed="@color/teal_400"
         fab:fab_shadow="true"/>
+
+
+    <!--fab:fab_colorNormal="@color/grey_1000"-->
+    <!--fab:fab_colorPressed="@color/white_pressed"-->
+    <!--fab:fab_colorRipple="@color/green_500"-->
+
 
     <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
         <!--android:id="@+id/multiple_actions"-->

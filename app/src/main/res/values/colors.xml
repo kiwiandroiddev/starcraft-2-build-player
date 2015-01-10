@@ -27,6 +27,7 @@
     <color name="green_A700">#00c853</color>
     <color name="blue_A400">#2979ff</color>
     <color name="blue_A700">#2962ff</color>
+    <color name="teal_400">#26a69a</color>
 
 <!-- FAB sample -->
     <color name="black_semi_transparent">#B2000000</color>
