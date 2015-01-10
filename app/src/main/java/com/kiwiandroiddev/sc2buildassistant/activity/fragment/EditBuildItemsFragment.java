@@ -8,12 +8,10 @@ import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +26,10 @@ import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Provides a UI for displaying a list of ordered build items that the user can edit.
@@ -44,15 +46,16 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
 	
 	private EditBuildItemAdapter mAdapter;
-	private ListView mListView;
 	private DbAdapter.Faction mFaction;		// current faction of build order, used to limit unit selection
 	private BuildItem mDeletedItem;			// for undo support
 	private int mDeletedItemIndex;			// for undo support
-	private View mUndoBar;
-	private TextView mUndoText;
-	private DbAdapter mDb;
+    private DbAdapter mDb;
 
-	@Override
+    @InjectView(R.id.edit_items_list_view) ListView mListView;
+    @InjectView(R.id.undobar) View mUndoBar;
+	@InjectView(R.id.undobar_message) TextView mUndoText;
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -97,8 +100,8 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_edit_build_items, container, false);
-		
-		mListView = (ListView) v.findViewById(R.id.edit_items_list_view);
+        ButterKnife.inject(this, v);
+
 		mListView.setOnItemClickListener(this);
 		
         // set up the "Add item..." extra list entry at the bottom
@@ -110,17 +113,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
         dragListView.setDropListener(onDrop);
         dragListView.setRemoveListener(onRemove);
         //dragListView.setDragScrollProfile(ssProfile);
-        
-        mUndoBar = v.findViewById(R.id.undobar);
-        mUndoText = (TextView) mUndoBar.findViewById(R.id.undobar_message);
-        Button undoBtn = (Button) v.findViewById(R.id.undobar_button);
-        undoBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				EditBuildItemsFragment.this.onUndoClick();
-			}
-		});
-        
+
         // can be left open from info and notes editor fragments
         hideKeyboard();
         
@@ -129,7 +122,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, ((EditBuildItemAdapter)mAdapter).getArrayList());
+		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, mAdapter.getArrayList());
 		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFaction);
 	}
 	
@@ -147,8 +140,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	
 	private View getFooterView() {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View row = inflater.inflate(R.layout.edit_build_item_row_footer, null, false);
-		return row;
+		return inflater.inflate(R.layout.edit_build_item_row_footer, null, false);
 	}
 
 	/**
@@ -242,8 +234,9 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		// fade out overlay...
 		mUndoBar.setVisibility(View.GONE);
 	}
-	
-	private void onUndoClick() {
+
+    @OnClick(R.id.undobar_button)
+	public void onUndoClick() {
 		if (mDeletedItem != null && mDeletedItemIndex != -1) {
 			mAdapter.insert(mDeletedItem, mDeletedItemIndex);
 			mAdapter.notifyDataSetChanged();

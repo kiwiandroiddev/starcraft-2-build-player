@@ -18,6 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 /**
  * Dialog for editing a single build item. Lets the user select the unit/upgrade/ability,
  * count, time and optional text and voice messages.
@@ -46,38 +50,26 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	private boolean mHaveShownInitialSelector = false;	// has initial unit selector dialog been opened once?
 	
 	private Long mIncomingItemID;
-	private ImageButton mUnitButton;
-	private ImageButton mTargetButton;
-	private Button mClearTargetButton;
-	private EditText mMinutes;
-	private EditText mSeconds;
-	private EditText mCount;
-//	private EditText mSupply;
-	private EditText mCustomText;
-	private EditText mCustomSpeech;
-	
 	private String mMainItemID;			// required
 	private String mTargetItemID;		// can be none/null (build item might not need a target)
-		
+
+    @InjectView(R.id.dlg_unit_button) ImageButton mUnitButton;
+    @InjectView(R.id.dlg_target_button) ImageButton mTargetButton;
+    @InjectView(R.id.dlg_clear_target_button) Button mClearTargetButton;
+    @InjectView(R.id.dlg_minutes) EditText mMinutes;
+    @InjectView(R.id.dlg_seconds) EditText mSeconds;
+    @InjectView(R.id.dlg_amount) EditText mCount;
+    @InjectView(R.id.dlg_custom_text) EditText mCustomText;
+    @InjectView(R.id.dlg_custom_speech) EditText mCustomSpeech;
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.dialog_edit_build_item);
-		this.setTitle(R.string.dlg_edit_item_title);
-		
-        // populate fields
-        mUnitButton = (ImageButton) findViewById(R.id.dlg_unit_button);
-        mTargetButton = (ImageButton) findViewById(R.id.dlg_target_button);
-        mClearTargetButton = (Button) findViewById(R.id.dlg_clear_target_button);
-        mMinutes = (EditText) findViewById(R.id.dlg_minutes);
-        mSeconds = (EditText) findViewById(R.id.dlg_seconds);
-        mCount = (EditText) findViewById(R.id.dlg_amount);
-//        mSupply = (EditText) findViewById(R.id.dlg_supply);
-        mCustomText = (EditText) findViewById(R.id.dlg_custom_text);
-        mCustomSpeech = (EditText) findViewById(R.id.dlg_custom_speech);
+        ButterKnife.inject(this);
 
-        // wire image button callbacks
+		setTitle(R.string.dlg_edit_item_title);
+
         mUnitButton.setOnClickListener(this);
         mTargetButton.setOnClickListener(this);
         
@@ -124,32 +116,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
         } else {
         	mTargetButton.setImageResource(db.getSmallIcon(mTargetItemID));
         }
-        
-        mClearTargetButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mTargetButton.setImageResource(NO_ITEM_ICON);
-				mTargetItemID = null;
-				mClearTargetButton.setEnabled(false);
-			}
-		});
-        
-        // wire up OK and Cancel buttons
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				EditBuildItemActivity.this.finish();
-			}
-		});
-        Button okButton = (Button) findViewById(R.id.okButton);
-        okButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				buildResult();				
-			}
-		});
-        
+
         // Show the unit selector dialog immediately if we're creating a new item, since it's required
         if (mMainItemID == null && !mHaveShownInitialSelector) {
         	showUnitSelector(R.id.dlg_unit_button, null);
@@ -179,13 +146,26 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFaction);
 		super.onSaveInstanceState(outState);
 	}
-		
+
+    @OnClick(R.id.dlg_clear_target_button)
+    public void clearButtonClicked() {
+        mTargetButton.setImageResource(NO_ITEM_ICON);
+        mTargetItemID = null;
+        mClearTargetButton.setEnabled(false);
+    }
+
+    @OnClick(R.id.cancelButton)
+    public void cancelButtonClicked() {
+        finish();
+    }
+
 	/** 
 	 * Tries to create and return (via activity result) a BuildItem object from the input fields of the dialog.
 	 * If any required inputs are missing, or other input is invalid, the user will be
 	 * alerted and the activity will remain open.
 	 */
-	private void buildResult() {
+    @OnClick(R.id.okButton)
+	public void buildResult() {
 		BuildItem result = new BuildItem();
 		
 		try {
@@ -262,8 +242,9 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
         Intent i = new Intent(this, UnitSelectorActivity.class);
         i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
         i.putExtra(UnitSelectorActivity.KEY_CALLER_ID, callerId);
-        if (defaultTab != null)
-        	i.putExtra(UnitSelectorActivity.KEY_DEFAULT_ITEM_TYPE, defaultTab);
+        if (defaultTab != null) {
+            i.putExtra(UnitSelectorActivity.KEY_DEFAULT_ITEM_TYPE, defaultTab);
+        }
         startActivityForResult(i, UnitSelectorActivity.PICK_ITEM_REQUEST);
 	}
 	

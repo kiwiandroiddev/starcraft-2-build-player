@@ -46,7 +46,6 @@ public class EditBuildItemAdapter extends ArrayAdapter<BuildItem> {
 		View row = convertView;
 
 		if (row == null) {
-//			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(mLayoutResourceId, parent, false);
 		}

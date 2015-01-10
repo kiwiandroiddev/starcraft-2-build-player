@@ -21,6 +21,9 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.FactionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Fragment for editing the basic information of a build order
  * including title, faction, expansion level, author, etc.
@@ -39,13 +42,14 @@ public class EditBuildInfoFragment extends Fragment {
 	private static final String KEY_VS_FACTION_SELECTION = "mVsFactionSelection";
 	
 	private EditBuildInfoListener mCallback;
-	private Spinner mExpansionSpinner;
-	private Spinner mFactionSpinner;
-	private Spinner mVsFactionSpinner;
-	private TextView mTitle;
-	private TextView mSourceTitle;
-	private TextView mSourceURL;
-	private TextView mAuthor;
+
+	@InjectView(R.id.edit_expansion_spinner) Spinner mExpansionSpinner;
+	@InjectView(R.id.edit_faction_spinner) Spinner mFactionSpinner;
+	@InjectView(R.id.edit_vs_faction_spinner) Spinner mVsFactionSpinner;
+	@InjectView(R.id.edit_title) TextView mTitle;
+	@InjectView(R.id.edit_source_title) TextView mSourceTitle;
+	@InjectView(R.id.edit_source_url) TextView mSourceURL;
+	@InjectView(R.id.edit_author) TextView mAuthor;
 	
 	public interface EditBuildInfoListener {
 		public void onFactionSelectionChanged(DbAdapter.Faction selection);
@@ -62,15 +66,7 @@ public class EditBuildInfoFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		//Log.d(TAG, "EditBuildInfoFragment.onCreateView() called with savedInstanceState = " + savedInstanceState);
 		View v = inflater.inflate(R.layout.fragment_edit_build_info, container, false);
-        
-		// save references to views as they'll be needed later
-		mExpansionSpinner = (Spinner) v.findViewById(R.id.edit_expansion_spinner);
-		mFactionSpinner = (Spinner) v.findViewById(R.id.edit_faction_spinner);
-		mVsFactionSpinner = (Spinner) v.findViewById(R.id.edit_vs_faction_spinner);
-		mTitle = (TextView) v.findViewById(R.id.edit_title);
-		mSourceTitle = (TextView) v.findViewById(R.id.edit_source_title);
-		mSourceURL = (TextView) v.findViewById(R.id.edit_source_url);
-		mAuthor = (TextView) v.findViewById(R.id.edit_author);
+        ButterKnife.inject(this, v);
 		
 		// add spinner items
 		android.support.v7.app.ActionBar actionBar = ((ActionBarActivity)getActivity()).getSupportActionBar();
@@ -192,10 +188,11 @@ public class EditBuildInfoFragment extends Fragment {
 		mSourceURL.setText(build.getSourceURL());
 		mAuthor.setText(build.getAuthor());
 		
-		if (build.getVsFaction() == null)
-			mVsFactionSpinner.setSelection(0);
-		else
-			mVsFactionSpinner.setSelection(build.getVsFaction().ordinal()+1);
+		if (build.getVsFaction() == null) {
+            mVsFactionSpinner.setSelection(0);
+        } else {
+            mVsFactionSpinner.setSelection(build.getVsFaction().ordinal() + 1);
+        }
 	}
 
 	public void setFactionSelection(Faction selection) {

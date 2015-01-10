@@ -37,6 +37,9 @@ import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 //import com.google.analytics.tracking.android.EasyTracker;
 
 /**
@@ -51,8 +54,10 @@ import java.util.Date;
  *
  */
 public class EditBuildActivity extends ActionBarActivity implements EditBuildInfoListener {
-	
-	/** Writes a build object to the database in a background task */
+
+    @InjectView(android.R.id.content) View mRootView;
+
+    /** Writes a build object to the database in a background task */
 	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
 		private DbAdapter mDb;
 		private Build mBuild;
@@ -77,8 +82,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 		
 		protected void onPreExecute() {
             mDlg = new ProgressDialog(EditBuildActivity.this);
-//            mDlg.setTitle("Saving...");
-            mDlg.setMessage("Saving...");
+            mDlg.setMessage("Saving...");       // TODO: localize
             mDlg.setCancelable(false);
             mDlg.setIndeterminate(true);
             mDlg.show();
@@ -101,7 +105,6 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 			}
 		}
 	}
-
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	    private Fragment mFragment;
@@ -200,10 +203,10 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 //    	}
 		
 		super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_edit_build);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        
+
+        ButterKnife.inject(this);
+
         // Get arguments sent by BuildListActivity - these will determine
         // if we should create a new build or edit an existing one
         DbAdapter.Expansion expansion = null;
@@ -384,6 +387,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 						new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
+                                // TODO: bug? mPagerAdapter will be null...
 								mPagerAdapter.setFaction(selection);
 								mCurrentFactionSelection = selection;
 								setBackgroundImage(selection);
@@ -418,9 +422,8 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 
 	private void setBackgroundImage(Faction faction) {
 		// set background graphic
-//		View root = this.findViewById(R.id.edit_build_activity_root);
-		View root = this.findViewById(android.R.id.content);
-		root.setBackgroundDrawable(getResources().getDrawable(BriefActivity.getBackgroundDrawable(faction)));
+		mRootView.setBackgroundDrawable(
+                getResources().getDrawable(BriefActivity.getBackgroundDrawable(faction)));
 	}
 	
 	/** 
