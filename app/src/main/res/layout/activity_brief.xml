@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/brief_root"
@@ -87,7 +88,23 @@
                 android:layout_width="match_parent"
                 android:minHeight="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+                <!-- TODO  temp! -->
+                <TextView
+                    android:id="@+id/buildName"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:transitionName="buildName"
+                    tools:text="Build Order Title" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <!-- todo add custom text to toolbar then set transitionname -->
 
         </FrameLayout>
     </com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView>

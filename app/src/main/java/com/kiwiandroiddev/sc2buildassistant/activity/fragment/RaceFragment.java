@@ -17,6 +17,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.DialogInterface;
@@ -58,7 +59,7 @@ import android.widget.ListView;
  * @author matt
  *
  */
-public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener {
 	    
 	private static Map<DbAdapter.Faction, Integer> sIconByRace = new HashMap<DbAdapter.Faction, Integer>();
 	
@@ -164,34 +165,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
         list.addFooterView(getAdSpacerView(), null, false);     // false = not selectable
 
 		list.setAdapter(mAdapter);
-		list.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				if (id != -1) {
-			        Intent i = new Intent(getActivity(), BriefActivity.class);
-			        i.putExtra(KEY_BUILD_ID, id);	// pass build order record ID
-			        
-			        // speed optimization - pass these so brief activity doesn't need to
-			        // requery them from the database and can display them instantly
-			        i.putExtra(KEY_FACTION_ENUM, mFaction);
-			        i.putExtra(KEY_EXPANSION_ENUM, mCurrentExpansion);
-			        
-			        TextView nameView = (TextView) view.findViewById(R.id.buildName);
-			        i.putExtra(KEY_BUILD_NAME, nameView.getText().toString()); 
-			        
-			        //Debug.startMethodTracing("sc2brief");
-			        startActivity(i);
-				} else {
-					// starts the build editor
-		    		Intent i = new Intent(getActivity(), EditBuildActivity.class);
-		            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
-		            i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
-		            startActivity(i);
-				}
-			}
-		});
-		
+		list.setOnItemClickListener(this);
+
 		registerForContextMenu(list);
 		
 		// load list of build order names for this tab's faction and expansion
@@ -402,4 +377,39 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	public static String removeSpecialCharacters(String input) {
 		return input.replaceAll("[^\\dA-Za-z]+", "_");
 	}
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+        if (id != -1) {
+            Intent i = new Intent(getActivity(), BriefActivity.class);
+            i.putExtra(KEY_BUILD_ID, id);	// pass build order record ID
+
+            // speed optimization - pass these so brief activity doesn't need to
+            // requery them from the database and can display them instantly
+            i.putExtra(KEY_FACTION_ENUM, mFaction);
+            i.putExtra(KEY_EXPANSION_ENUM, mCurrentExpansion);
+
+            TextView nameView = (TextView) view.findViewById(R.id.buildName);
+            i.putExtra(KEY_BUILD_NAME, nameView.getText().toString());
+
+            // create the transition animation - the images in the layouts
+            // of both activities are defined with android:transitionName="robot"
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(getActivity(), nameView, "buildName");
+            // start the new activity
+            getActivity().startActivity(i, options.toBundle());
+
+            //Debug.startMethodTracing("sc2brief");
+//            startActivity(i);
+        } else {    // footer
+            // starts the build editor
+            Intent i = new Intent(getActivity(), EditBuildActivity.class);
+            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
+            i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
+            startActivity(i);
+        }
+    }
+
 }
+

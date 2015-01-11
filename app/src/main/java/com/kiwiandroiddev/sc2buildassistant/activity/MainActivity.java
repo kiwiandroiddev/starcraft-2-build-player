@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -69,6 +70,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static android.os.Build.VERSION;
+
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
 
@@ -105,56 +108,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
     @InjectView(R.id.ad) AdView mAdView;
-
-    private class LoadStandardBuildsTask extends AsyncTask<Boolean, Integer, Exception> {
-		private Context mContext;
-		
-		public LoadStandardBuildsTask(Context c) {
-			super();
-			mContext = c;
-		}
-		
-		protected void onPreExecute() {
-			((MainActivity)mContext).showLoadingAnim();
-		}
-		
-		protected Exception doInBackground(Boolean... notUsed) {
-			try {
-				MainActivity.loadStandardBuildsIntoDB(mContext, false,        // only update if necessary
-                        new ProgressListener() {
-                            @Override
-                            public void onProgressUpdate(int percent) {
-                                publishProgress(percent);
-                            }
-                        });
-			} catch (Exception e) {
-				return e;
-			}
-			return null;
-	     }
-
-	     protected void onProgressUpdate(Integer... progress) {
-	    	 ((MainActivity)mContext).setLoadProgress(progress[0]);
-	     }
-		
-	     protected void onPostExecute(Exception e) {
-		    ((MainActivity)mContext).hideLoadingAnim();
-	    	
-	    	if (e == null) {
-		 		// notify observers of buildprovider's build table that its contents have changed
-	    		MainActivity.notifyBuildProviderObservers(mContext);
-	    	} else {
-	    		Toast.makeText(mContext, String.format(mContext.getString(R.string.error_loading_std_builds), e.getMessage()),
-	    				Toast.LENGTH_LONG).show();
-	    		Log.e(TAG, "LoadStandardBuildsTask returned an exception: ", e);
-	    		
-	    		// Report this error for analysis
-//	    		EasyTracker.getInstance().setContext(mContext);
-//	    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
-//	    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
-	    	}
-	     }
-	 }
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -506,7 +459,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	 * available (in theory).
 	 */
 	private void checkForTTS() {
-		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+		if (VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
 			Intent checkIntent = new Intent();
 	        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
 	        try {
@@ -599,6 +552,56 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private int getSavedFactionSelection() {
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     	return prefs.getInt(SettingsActivity.KEY_FACTION_SELECTION, DbAdapter.Faction.TERRAN.ordinal());	
+    }
+
+    private class LoadStandardBuildsTask extends AsyncTask<Boolean, Integer, Exception> {
+        private Context mContext;
+
+        public LoadStandardBuildsTask(Context c) {
+            super();
+            mContext = c;
+        }
+
+        protected void onPreExecute() {
+            ((MainActivity)mContext).showLoadingAnim();
+        }
+
+        protected Exception doInBackground(Boolean... notUsed) {
+            try {
+                MainActivity.loadStandardBuildsIntoDB(mContext, false,        // only update if necessary
+                        new ProgressListener() {
+                            @Override
+                            public void onProgressUpdate(int percent) {
+                                publishProgress(percent);
+                            }
+                        });
+            } catch (Exception e) {
+                return e;
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            ((MainActivity)mContext).setLoadProgress(progress[0]);
+        }
+
+        protected void onPostExecute(Exception e) {
+            ((MainActivity)mContext).hideLoadingAnim();
+
+            if (e == null) {
+                // notify observers of buildprovider's build table that its contents have changed
+                MainActivity.notifyBuildProviderObservers(mContext);
+            } else {
+                Toast.makeText(mContext, String.format(mContext.getString(R.string.error_loading_std_builds), e.getMessage()),
+                        Toast.LENGTH_LONG).show();
+                Log.e(TAG, "LoadStandardBuildsTask returned an exception: ", e);
+
+                // Report this error for analysis
+//	    		EasyTracker.getInstance().setContext(mContext);
+//	    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
+//	    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
+            }
+        }
     }
 
     // ========================================================================

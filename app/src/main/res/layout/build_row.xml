@@ -19,6 +19,7 @@
     android:layout_marginRight="8dip"
     android:singleLine="true"
     android:ellipsize="marquee"
+    android:transitionName="buildName"
     tools:text="Build Order Title" />
 
 <TextView

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
@@ -62,6 +63,9 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
 
+    // TODO temp!
+    @InjectView(R.id.buildName) TextView mBuildNameText;
+
 	static {
 		sRaceBgMap = new HashMap<DbAdapter.Faction, Integer>();
 		sRaceBgMap.put(DbAdapter.Faction.TERRAN, R.drawable.terran_icon_blur_drawable);
@@ -105,6 +109,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mQuickReturnHandler = new QuickReturnHandler(
                 mToolbar,
@@ -154,7 +159,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     		// starts the build player interface
             playBuild();
     	} else if (item.getItemId() == android.R.id.home) {
-            finish();
+            finishCompat();
             return true;
         }
     	
@@ -164,6 +169,19 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     		return super.onOptionsItemSelected(item);
     	else
     		return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishCompat();
+    }
+
+    private void finishCompat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
     }
 
     @OnClick(R.id.activity_brief_play_action_button)
@@ -204,7 +222,11 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		final String expansion = getString(DbAdapter.getExpansionName(mExpansion));
 
 		// Toolbar subtitle example: "Terran - Wings of Liberty"
-        getSupportActionBar().setTitle(mBuildName);
+//        getSupportActionBar().setTitle(mBuildName);
+
+        // TODO temp
+        mBuildNameText.setText(mBuildName);
+
 //        getSupportActionBar().setSubtitle(race + " - " + expansion);
 //        mToolbar.setTitle(mBuildName);
 //        mToolbar.setSubtitle(race + " - " + expansion);

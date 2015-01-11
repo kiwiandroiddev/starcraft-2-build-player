@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StarCraftTheme" parent="Theme.AppCompat">
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/no_transition</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform
+        </item>
+
+        <!--<item name="colorPrimary">#213141</item>-->
+        <item name="colorPrimary">@color/grey_1000</item>
+        <!--<item name="colorPrimaryDark">@color/blue_grey_700</item>-->
+        <!--<item name="colorPrimary">@color/green_500</item>-->
+        <item name="colorPrimaryDark">@color/grey_1000</item>
+        <!--<item name="android:windowBackground">@color/black</item>-->
+        <item name="android:windowBackground">@color/grey_900</item>
+    </style>
+
+    <style name="StarCraftTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/slide_bottom</item>
+        <item name="android:windowExitTransition">@android:transition/no_transition</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform
+        </item>
+
+        <item name="colorPrimary">@color/grey_1000</item>
+        <item name="colorPrimaryDark">@color/grey_1000</item>
+        <item name="android:windowBackground">@color/grey_900</item>
+    </style>
+</resources>
