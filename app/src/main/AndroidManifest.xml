@@ -46,7 +46,8 @@
         <activity android:name=".activity.EditBuildActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.EditBuildItemActivity"
-            android:theme="@style/StarCraftDialogTheme" />
+                  android:theme="@style/StarCraftDialogTheme"
+            />
         <activity android:name=".activity.UnitSelectorActivity"
             android:theme="@style/StarCraftDialogTheme" />
         <activity android:name=".activity.dialog.PreviewNotesDialog"

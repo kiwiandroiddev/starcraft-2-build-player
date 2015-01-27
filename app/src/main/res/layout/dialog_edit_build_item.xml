@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/buttonLayout1" >
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
@@ -220,6 +230,7 @@
                 android:layout_height="64dp"
                 android:layout_alignBottom="@+id/dlg_target_button"
                 android:layout_toLeftOf="@+id/dlg_target_button"
+                android:textSize="12sp"
                 android:text="@string/dlg_clear_label" />
 
         </RelativeLayout>
@@ -246,4 +257,4 @@
             android:text="@android:string/ok" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

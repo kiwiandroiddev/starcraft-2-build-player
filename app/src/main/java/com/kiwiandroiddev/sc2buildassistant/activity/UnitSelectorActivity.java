@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,6 +15,10 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 
@@ -35,17 +40,23 @@ public class UnitSelectorActivity extends ActionBarActivity {
 	public static final String KEY_RESULT_ITEM_ID = "ItemID";		// key for item ID (int) selected by user using this dialog
 	
 	private DbAdapter.Faction mFactionFilter;				// only show units from this side in the selector dialog
-	private ItemTypePagerAdapter mPagerAdapter;
-	private ViewPager mPager;
-	private int mCallerID = -1;							// see KEY_CALLER_ID comment
+    private int mCallerID = -1;							// see KEY_CALLER_ID comment
+
+    private ItemTypePagerAdapter mPagerAdapter;
+
+    @InjectView(R.id.toolbar) Toolbar mToolbar;
+	@InjectView(R.id.pager) ViewPager mPager;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.dialog_item_selector);
-		this.setTitle(R.string.dlg_select_item_title);
-		
+        ButterKnife.inject(this);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(R.string.dlg_select_item_title);
+
 		ItemType defaultItemType = null;
         if (savedInstanceState == null) {
         	mFactionFilter = (Faction) getIntent().getExtras().getSerializable(RaceFragment.KEY_FACTION_ENUM);
@@ -64,17 +75,8 @@ public class UnitSelectorActivity extends ActionBarActivity {
         		defaultItemType = (ItemType) savedInstanceState.getSerializable(KEY_DEFAULT_ITEM_TYPE);
         	}
         }
-        
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				UnitSelectorActivity.this.finish();
-			}
-		});
-        
+
         // Set up view pager
-        mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ItemTypePagerAdapter(getSupportFragmentManager(), this, mFactionFilter);		// stub
         mPager.setAdapter(mPagerAdapter);
         
@@ -101,7 +103,12 @@ public class UnitSelectorActivity extends ActionBarActivity {
 		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFactionFilter);
 		super.onSaveInstanceState(outState);
 	}
-	
+
+    @OnClick(R.id.cancelButton)
+    public void cancelButtonClicked() {
+        finish();
+    }
+
 	/** 
 	 * Fragments should use this instead of setResult() to ensure that the
 	 * caller ID is returned to the calling activity
