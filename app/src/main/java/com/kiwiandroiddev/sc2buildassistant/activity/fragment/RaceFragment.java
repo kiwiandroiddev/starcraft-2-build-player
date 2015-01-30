@@ -50,6 +50,8 @@ import android.text.InputType;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import static android.os.Build.VERSION;
+
 /**
  * Fragment for displaying a list build orders for one of the 3 StarCraft factions (Terran,
  * Protoss or Zerg). Users can tap builds in the list once to open the detailed explanation
@@ -393,12 +395,16 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
             TextView nameView = (TextView) view.findViewById(R.id.buildName);
             i.putExtra(KEY_BUILD_NAME, nameView.getText().toString());
 
-            // create the transition animation - the images in the layouts
-            // of both activities are defined with android:transitionName="robot"
-            ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(getActivity(), nameView, "buildName");
-            // start the new activity
-            getActivity().startActivity(i, options.toBundle());
+            if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                // create the transition animation - the images in the layouts
+                // of both activities are defined with android:transitionName="robot"
+                ActivityOptions options = ActivityOptions
+                        .makeSceneTransitionAnimation(getActivity(), nameView, "buildName");
+                // start the new activity
+                getActivity().startActivity(i, options.toBundle());
+            } else {
+                getActivity().startActivity(i);
+            }
 
             //Debug.startMethodTracing("sc2brief");
 //            startActivity(i);
