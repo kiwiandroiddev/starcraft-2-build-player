@@ -88,8 +88,12 @@
                 android:layout_width="match_parent"
                 android:minHeight="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+                android:transitionName="buildRowBg"
+                android:transitionGroup="false"
+                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                >
 
+                <!--android:background="?attr/colorPrimary"-->
                 <!-- TODO  temp! -->
                 <TextView
                     android:id="@+id/buildName"

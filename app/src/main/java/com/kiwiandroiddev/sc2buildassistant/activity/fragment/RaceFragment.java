@@ -31,6 +31,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -399,7 +400,9 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
                 // create the transition animation - the images in the layouts
                 // of both activities are defined with android:transitionName="robot"
                 ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation(getActivity(), nameView, "buildName");
+                        .makeSceneTransitionAnimation(getActivity(),
+                                new Pair<View, String>(nameView, "buildName"),
+                                new Pair<View, String>(view, "buildRowBg"));
                 // start the new activity
                 getActivity().startActivity(i, options.toBundle());
             } else {

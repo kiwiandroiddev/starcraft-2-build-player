@@ -39,17 +39,17 @@ import android.util.Log;
  */
 public class DbAdapter {
 	
-	public static enum ItemType { UNIT, STRUCTURE, UPGRADE, ABILITY, NOTE };
+	public enum ItemType { UNIT, STRUCTURE, UPGRADE, ABILITY, NOTE };
 	private static Map<ItemType, Long> sItemTypeToIdMap = new HashMap<ItemType, Long>();
 	private static Map<Long, ItemType> sIdToItemTypeMap = new HashMap<Long, ItemType>();
 	
-	public static enum Faction { TERRAN, ZERG, PROTOSS };
+	public enum Faction { TERRAN, ZERG, PROTOSS };
 	// TODO would be better to use a proper Bidirection Map class here, but don't want the extra
 	// bloat of another library (Guava)
 	private static Map<Faction, Long> sFactionToIdMap = new HashMap<Faction, Long>();
 	private static Map<Long, Faction> sIdToFactionMap = new HashMap<Long, Faction>();
 	
-	public static enum Expansion { WOL, HOTS };
+	public enum Expansion { WOL, HOTS };
 	private static Map<Expansion, Long> sExpansionToIdMap = new HashMap<Expansion, Long>();
 	private static Map<Long, Expansion> sIdToExpansionMap = new HashMap<Long, Expansion>();
 
@@ -70,7 +70,7 @@ public class DbAdapter {
      * database operations.
      */
     public interface ProgressListener {
-    	public void onProgressUpdate(int percent);
+    	void onProgressUpdate(int percent);
     }
     
     /**

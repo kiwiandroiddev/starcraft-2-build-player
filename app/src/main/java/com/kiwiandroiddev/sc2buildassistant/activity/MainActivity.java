@@ -1,6 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -20,14 +19,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
@@ -44,11 +40,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
-import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
+import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.NameNotUniqueException;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ProgressListener;
@@ -289,16 +285,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 			ProgressListener listener) throws IOException {
         DbAdapter db = ((MyApplication) c.getApplicationContext()).getDb();
         db.open();
-    	// stub - only load builds if DB is empty
-//		int count = db.getBuildCount();
-//		if (count == 0)
-//			db.addBuilds(fetchAllBuilds(c));
         
         final int oldVersion = getStoredBuildsVersion(c);
         final int newVersion = BUILD_FILES_VERSION;
         final boolean outOfDate = oldVersion < newVersion;
-        //final boolean outOfDate = buildsOutOfDate(c);
-        
+
         if (forceLoad || outOfDate) {
         	// handle updating standard builds version
         	doUpdateBuilds(c, db, oldVersion, newVersion);
@@ -476,7 +467,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	
 	/**
 	 * Returns the standard builds included with the app in a list.
-	 * The standard builds are compiled from the JSON files in the
+	 * The standard builds are compiled from JSON files in the
 	 * assets/builds directory
 	 * 
 	 * @param c application context. Needed so this function can read from the
@@ -645,7 +636,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     	ArrayList<Build> list = new ArrayList<Build>();
     	list.add(build);
     	
-		//Gson gson = new Gson();
     	Gson gson = new GsonBuilder()
 	        .setDateFormat(DbAdapter.DATE_FORMAT.toPattern())	// use ISO-8601 date format
 	        .create();
@@ -768,7 +758,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     
     public static List<String> getStringListFromAsset(Context c, String assetName) {
     	// read asset file into string buffer
-    	String bufferString = "";
+    	String bufferString;
 		try {
 	    	InputStream input;
 			input = c.getAssets().open(assetName);

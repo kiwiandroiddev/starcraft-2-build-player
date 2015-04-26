@@ -3,46 +3,48 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dip">
+    android:layout_height="64dp"
+    android:transitionName="buildRowBg"
+    android:transitionGroup="false">
 
-<TextView
-    android:id="@+id/buildName"
-    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-    android:textColor="@android:color/primary_text_dark"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="8dip"
-    android:layout_marginBottom="4dip"
-    android:layout_marginLeft="8dip"
-    android:layout_marginRight="8dip"
-    android:singleLine="true"
-    android:ellipsize="marquee"
-    android:transitionName="buildName"
-    tools:text="Build Order Title" />
+    <TextView
+        android:id="@+id/buildName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/primary_text_dark"
+        android:transitionName="buildName"
+        tools:text="Build Order Title"/>
 
-<TextView
-    android:id="@+id/buildVsRace"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_below="@+id/buildName"
-    android:layout_marginLeft="12dip"
-    tools:text="vs. Terran"
-    android:textColor="@android:color/secondary_text_dark"
-    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+    <TextView
+        android:id="@+id/buildVsRace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buildName"
+        android:layout_marginLeft="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@android:color/secondary_text_dark"
+        tools:text="vs. Terran"/>
 
-<TextView
-    android:id="@+id/buildCreationDate"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_below="@+id/buildName"
-    android:layout_marginRight="12dip"
-    tools:text="5 November 2012"
-    android:textColor="@android:color/secondary_text_dark"
-    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+    <TextView
+        android:id="@+id/buildCreationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buildName"
+        android:layout_marginRight="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@android:color/secondary_text_dark"
+        tools:text="5 November 2012"/>
 
 </RelativeLayout>
 
