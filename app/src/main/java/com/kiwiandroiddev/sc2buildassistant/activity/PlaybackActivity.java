@@ -66,7 +66,6 @@ import butterknife.InjectView;
 public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 
-    public static int MY_DATA_CHECK_CODE = 0;
     public static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";
 
 	// StarCraft 2 game speed reference: http://wiki.teamliquid.net/starcraft2/Game_Speed
@@ -141,8 +140,8 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         mMaxTimeText = (TextView)mTimerTextContainer.findViewById(R.id.maxTimeText);
         mOverlayContainer.setVisibility(View.INVISIBLE);
 
-        // check for text-to-speech availablility, try to init engine
-        checkForTTS();
+        // Try to init TTS engine
+		initTTS();
 
         // fetch the build object from database associated with ID we were passed
         long buildId = getIntent().getExtras().getLong(RaceFragment.KEY_BUILD_ID);	// stub
@@ -220,28 +219,13 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         }
 
     	// use the same options menu as the main activity
-    	boolean result = MainActivity.OnMenuItemSelected(this, item);
-    	if (!result)
-    		return super.onOptionsItemSelected(item);
-    	else
-    		return true;
+    	if (!MainActivity.OnMenuItemSelected(this, item)) {
+			return super.onOptionsItemSelected(item);
+		} else {
+			return true;
+		}
     }
-	
-    /*
-     * Gets result of checking text to speech engine availability
-     * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
-     */
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    if (requestCode == MY_DATA_CHECK_CODE) {
-	        if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-	            // success, create the TTS instance
-	            initTTS();
-	        } else {
-	            // do nothing, user is prompted in main activity to install package
-	        }
-	    }
-	}
-	
+
 	//=========================================================================
 	// Android life cycle methods
 	//=========================================================================
@@ -523,18 +507,6 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	// Helpers
 	//=========================================================================
 
-	// TODO: reuse method with same name in BuildListActivity
-	private void checkForTTS() {
-		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-	        Intent checkIntent = new Intent();
-	        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-	        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
-		} else {
-			// don't check, just go ahead and init the engine which *should* already be available
-			initTTS();
-		}
-	}
-	
 	private void playButtonClick() {
 		MediaPlayer mp = MediaPlayer.create(this, R.raw.replay_click);
 		if (mp != null)
