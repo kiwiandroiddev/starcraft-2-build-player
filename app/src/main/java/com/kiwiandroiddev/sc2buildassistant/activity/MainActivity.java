@@ -51,6 +51,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ProgressListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +66,9 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static android.os.Build.VERSION;
 
@@ -120,26 +124,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        // slide ad banner in from bottom of screen when it loads rather than popping
+        // slide ad banner in from the bottom when it loads (rather than popping)
         if (mAdView != null) {
-            mAdView.setAdListener(new AdListener() {
+            mAdView.setAdListener(new OnReceiveAdListener() {
                 @Override
                 public void onReceiveAd(Ad ad) {
                     mAdView.startAnimation(
                             AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
                 }
-
-                @Override
-                public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {}
-
-                @Override
-                public void onPresentScreen(Ad ad) {}
-
-                @Override
-                public void onDismissScreen(Ad ad) {}
-
-                @Override
-                public void onLeaveApplication(Ad ad) {}
             });
         }
 
@@ -160,23 +152,23 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 
         // check if builds directory has been modified since we last checked
         // if so, load all builds from JSON files into DB
-        //loadStandardBuildsIntoDB(this);
         LoadStandardBuildsTask task = new LoadStandardBuildsTask(this);
         task.execute();
         
         initRaceFragmentPagerAndExpansionSpinner(savedInstanceState);
-        
+
         // Show Changelog if appropriate
         ChangeLog cl = new ChangeLog(this);
-        if (cl.firstRun())
-            cl.getLogDialog().show();
+        if (cl.firstRun()) {
+			cl.getLogDialog().show();
+		}
         
         // Check for TTS availability, prompt to install
         checkForTTS();
                 
         //Debug.stopMethodTracing();	// sc2main
     }
-    
+
 	@Override
     public void onStart() {
     	super.onStart();
@@ -298,8 +290,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         	//Log.d(TAG, "in loadStandardBuildsIntoDB(), stdBuilds = " + stdBuilds);
         	db.addOrReplaceBuilds(stdBuilds, listener);
         	
-        	if (outOfDate)
-        		updateBuildsVersion(c);
+        	if (outOfDate) {
+				updateBuildsVersion(c);
+			}
         }
 	}
     
