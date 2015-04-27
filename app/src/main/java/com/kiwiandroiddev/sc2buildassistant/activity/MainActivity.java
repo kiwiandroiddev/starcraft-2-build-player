@@ -1,9 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -12,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -32,8 +28,6 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -66,11 +60,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-
-import static android.os.Build.VERSION;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
@@ -85,7 +74,6 @@ import static android.os.Build.VERSION;
  */
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
-	public static final int MY_DATA_CHECK_CODE = 0;
 	public static final int REQUEST_OPEN = 2;			// open file request code for importing builds
 	public static final int BUILD_FILES_VERSION = 46;	// tracks changes to build JSON files in assets/
 
@@ -162,10 +150,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         if (cl.firstRun()) {
 			cl.getLogDialog().show();
 		}
-        
-        // Check for TTS availability, prompt to install
-        checkForTTS();
-                
+
         //Debug.stopMethodTracing();	// sc2main
     }
 
@@ -214,11 +199,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     		return true;
     	}
     	
-    	boolean result = MainActivity.OnMenuItemSelected(this, item);
-    	if (!result)
-    		return super.onOptionsItemSelected(item);
-    	else
-    		return true;
+    	if (!MainActivity.OnMenuItemSelected(this, item)) {
+			return super.onOptionsItemSelected(item);
+		} else {
+			return true;
+		}
     }
     
     // helper than can be used by all activities that show the same menu
@@ -349,41 +334,17 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	public void hideLoadingAnim() {
 		mLoadingLayout.setVisibility(View.GONE);
 	}
-	
-    // ========================================================================
-    // Protected methods
-    // ========================================================================
 
     /*
-     * Gets result of checking text to speech engine availability
+     * Gets the result when an open-file dialog completes
      * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    switch (requestCode) {
-	    case MY_DATA_CHECK_CODE:
-	        if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-	            // success, do nothing
-	        } else {
-	            // missing data, install it
-	            new AlertDialog.Builder(this)
-	            .setMessage(this.getString(R.string.dlg_tts_install_prompt))
-	            .setCancelable(true)
-	            .setPositiveButton(R.string.dlg_yes, new DialogInterface.OnClickListener() {
-	    			public void onClick(DialogInterface dialog, int id) {
-	    				// opens google TTS package on play store
-	    	            Intent installIntent = new Intent();
-	    	            installIntent.setAction(
-	    	                TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-	    	            startActivity(installIntent);
-	    			}})
-	            .setNegativeButton(R.string.dlg_no, null)
-	            .show();
-	        }
-	        break;
-	    case REQUEST_OPEN:		// import build file dialog returned
+		// import build file dialog returned
+	    case REQUEST_OPEN:
 	    	if (resultCode == RESULT_OK) {
                 final String filename = data.getStringExtra(FileDialog.RESULT_PATH);
-                //Log.d(this.toString(), filename);
                 importBuilds(getApplicationContext(), filename);
 	    	}
 	    	break;
@@ -397,10 +358,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         outState.putInt(KEY_FACTION_CHOICE, mPager.getCurrentItem());
         saveFactionSelection(mPager.getCurrentItem());
     }
-		
-    // ========================================================================
-    // Private methods
-    // ========================================================================
     
 	private void initRaceFragmentPagerAndExpansionSpinner(Bundle savedInstanceState) {
         /** Getting fragment manager */
@@ -435,29 +392,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mToolbarExpansionSpinner.setSelection(previousExpansionChoice);
 	}
 
-	/**
-	 * Starts the check for Text-To-Speech data using an intent. The result of the check is
-	 * handled in onActivityResult().
-	 * 
-	 * If the android version is >= 4.1, we don't do anything as TTS is guaranteed to be
-	 * available (in theory).
-	 */
-	private void checkForTTS() {
-		if (VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			Intent checkIntent = new Intent();
-	        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-	        try {
-	        	startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
-	        } catch (ActivityNotFoundException e) {
-	        	// TODO This exception has been reported on Google Play, not sure what to make of it,
-	        	// can't imagine why TextToSpeech.Engine is unavailable
-	        	final String msg = "Warning: unable to check for Text-To-Speech data";
-	        	Log.d(this.toString(), msg);
-	        	Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	        }
-		}
-	}
-	
 	/**
 	 * Returns the standard builds included with the app in a list.
 	 * The standard builds are compiled from JSON files in the
@@ -507,26 +441,22 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
      * This should be done after the standard builds on their SD card have been updated.
      */
     private static void updateBuildsVersion(Context c) {
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-    	Editor ed = prefs.edit();
-    	ed.putInt(SettingsActivity.KEY_BUILDS_VERSION, MainActivity.BUILD_FILES_VERSION);
-    	ed.commit();
+		writeIntToSharedPrefs(c, SettingsActivity.KEY_BUILDS_VERSION, MainActivity.BUILD_FILES_VERSION);
     }
     
     private void saveExpansionSelection(int index) {
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    	Editor ed = prefs.edit();
-    	ed.putInt(SettingsActivity.KEY_EXPANSION_SELECTION, index);
-    	ed.commit();
+		writeIntToSharedPrefs(this, SettingsActivity.KEY_EXPANSION_SELECTION, index);
     }
     
     private void saveFactionSelection(int index) {
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    	Editor ed = prefs.edit();
-    	ed.putInt(SettingsActivity.KEY_FACTION_SELECTION, index);
-    	ed.commit();
+		writeIntToSharedPrefs(this, SettingsActivity.KEY_FACTION_SELECTION, index);
     }
-    
+
+	private static void writeIntToSharedPrefs(Context c, String key, int value) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+		prefs.edit().putInt(key, value).apply();
+	}
+
     /** Now defaults to Heart of the Swarm */
     private int getSavedExpansionSelection() {
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
