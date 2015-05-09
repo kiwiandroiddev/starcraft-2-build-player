@@ -64,7 +64,7 @@ public class EditBuildInfoFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		//Log.d(TAG, "EditBuildInfoFragment.onCreateView() called with savedInstanceState = " + savedInstanceState);
+		//Timber.d(TAG, "EditBuildInfoFragment.onCreateView() called with savedInstanceState = " + savedInstanceState);
 		View v = inflater.inflate(R.layout.fragment_edit_build_info, container, false);
         ButterKnife.inject(this, v);
 		

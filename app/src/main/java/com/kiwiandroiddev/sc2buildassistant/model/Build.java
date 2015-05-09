@@ -1,14 +1,14 @@
 package com.kiwiandroiddev.sc2buildassistant.model;
 
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 
 
 /**

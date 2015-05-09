@@ -1,12 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import java.util.ArrayList;
-
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
-import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.R;
-
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+
+import java.util.ArrayList;
 
 /**
  * Adapter for displaying build items in a read-only list.

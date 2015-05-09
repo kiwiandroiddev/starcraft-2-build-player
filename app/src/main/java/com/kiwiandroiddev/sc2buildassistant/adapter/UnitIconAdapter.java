@@ -1,12 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import java.util.LinkedHashMap;
-
-import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.TypedValue;
@@ -15,6 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+
+import java.util.LinkedHashMap;
 
 /**
  * Manages a collection of Items (units/structures/upgrades...) and allows them to be displayed in a View

@@ -1,8 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
-import java.util.HashMap;
-
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -14,6 +11,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+
+import java.util.HashMap;
 
 /**
  * Content provider for accessing the build order table only (at this stage).
@@ -69,7 +68,7 @@ public class BuildOrderProvider extends ContentProvider {
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-//		Log.d(this.toString(), "In BuildOrderProvider, delete() called with uri " + uri);
+//		Timber.d(this.toString(), "In BuildOrderProvider, delete() called with uri " + uri);
 		
 		// Not allowing the whole table to be deleted at this stage
 		if (sUriMatcher.match(uri) == URI_BO_ROW_ID) {

@@ -1,11 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant;
 
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-
-
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 /**
  * Encapsulates the low-level logic of playing back a build order. Objects

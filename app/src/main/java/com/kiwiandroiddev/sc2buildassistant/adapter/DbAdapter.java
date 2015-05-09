@@ -1,5 +1,20 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -10,21 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
-import com.kiwiandroiddev.sc2buildassistant.R;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 // TODO: add check constraints to count, order
 
@@ -416,7 +416,7 @@ public class DbAdapter {
 		        		
 		                final long result = db.insert(TABLE_ITEM, null, initialValues);
 //		                if (result != -1) {
-//		                	Log.d(TAG, "Inserted new item " + item + " into items table");
+//		                	Timber.d(TAG, "Inserted new item " + item + " into items table");
 //		                }
 	        		} else {
 	        			// TODO Not yet implemented
@@ -458,7 +458,7 @@ public class DbAdapter {
      */
     public synchronized DbAdapter open() throws SQLException {
     	if (!isOpen) {
-//    		Log.d(TAG, "DbAdapter.open() called, getting new writable database...");
+//    		Timber.d(TAG, "DbAdapter.open() called, getting new writable database...");
 	        mDbHelper = new DatabaseHelper(mContext);
 	        mDb = mDbHelper.getWritableDatabase();
 	        
@@ -555,7 +555,7 @@ public class DbAdapter {
     		final int size = builds.size();
     		for (Build build : builds) {
     			long id = getBuildID(build.getName());
-//    			Log.d(this.toString(), "deciding whether to add/replace " + build.getName() + ", id = " + id);
+//    			Timber.d(this.toString(), "deciding whether to add/replace " + build.getName() + ", id = " + id);
     			if (id == -1) {
     				addBuild(build);
     			} else {
@@ -600,8 +600,8 @@ public class DbAdapter {
      * @param existingRowId row id of build to replace, or -1 to add a new build
      */
     public void addOrReplaceBuild(Build build, long existingRowId) throws NameNotUniqueException {
-//    	Log.d(TAG, "addBuild() called, build hash = " + build.longHashCode());
-//    	Log.d(this.toString(), "addOrReplaceBuild() called with existing row id = " + existingRowId);
+//    	Timber.d(TAG, "addBuild() called, build hash = " + build.longHashCode());
+//    	Timber.d(this.toString(), "addOrReplaceBuild() called with existing row id = " + existingRowId);
     	
     	ContentValues values = new ContentValues();
 		values.put(KEY_NAME, build.getName());
@@ -638,7 +638,7 @@ public class DbAdapter {
 				
 				// drop any existing build items and add our new ones
 				int dropped = dropBuildItems(existingRowId);
-	//			Log.d(this.toString(), "overwriting existing build data, num dropped rows = " + dropped);
+	//			Timber.d(this.toString(), "overwriting existing build data, num dropped rows = " + dropped);
 				addBuildItems(existingRowId, build.getItems());
 			}
 		} catch (RuntimeException e) {

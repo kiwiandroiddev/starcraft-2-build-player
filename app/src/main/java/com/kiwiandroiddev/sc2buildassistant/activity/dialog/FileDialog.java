@@ -1,18 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity.dialog;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
-
-import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.R.drawable;
-import com.kiwiandroiddev.sc2buildassistant.R.id;
-import com.kiwiandroiddev.sc2buildassistant.R.layout;
-import com.kiwiandroiddev.sc2buildassistant.R.string;
-import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -27,6 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Activity para escolha de arquivos/diretorios.

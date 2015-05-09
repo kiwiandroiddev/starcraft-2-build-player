@@ -8,15 +8,15 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
+import timber.log.Timber;
+
 public class BuildDBAdapterTest extends AndroidTestCase {
 
-	public static final String TAG = "BuildDBAdapterTest";
-	
 	private DbAdapter mDb;
 	
 	@Override
 	protected void setUp() {
-		Log.d(TAG, "setUp() called");
+		Timber.d("setUp() called");
 		mDb = new DbAdapter(this.getContext());
 		mDb.open();
 		mDb.clear();
@@ -24,7 +24,7 @@ public class BuildDBAdapterTest extends AndroidTestCase {
 	
 	@Override
 	protected void tearDown() {
-		Log.d(TAG, "tearDown() called");
+		Timber.d("tearDown() called");
 		mDb.close();
 		mDb = null;
 	}

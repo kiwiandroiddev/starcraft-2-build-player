@@ -1,12 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
 //import com.google.analytics.tracking.android.EasyTracker;
-import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -208,10 +209,10 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	
 	// Helpers
 	private int getIntFromEditText(EditText edit, int defaultIfNull) throws NumberFormatException {
-//		Log.d(this.toString(), "edit.getText() = " + edit.getText());
+//		Timber.d(this.toString(), "edit.getText() = " + edit.getText());
 		String text = edit.getText().toString();
 		if (text.matches("")) {
-//			Log.d(this.toString(), "  text is empty, returning " + defaultIfNull);
+//			Timber.d(this.toString(), "  text is empty, returning " + defaultIfNull);
 			return defaultIfNull;
 		}
 		
@@ -224,15 +225,15 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 		DbAdapter db = ((MyApplication) getApplicationContext()).getDb();
 		switch (v.getId()) {
 		case R.id.dlg_unit_button:
-//			Log.d(this.toString(), "unit button click");
+//			Timber.d(this.toString(), "unit button click");
 			showUnitSelector(R.id.dlg_unit_button, db.getItemType(mMainItemID));	// stub
 			break;
 		case R.id.dlg_target_button:
-//			Log.d(this.toString(), "target button click");
+//			Timber.d(this.toString(), "target button click");
 			showUnitSelector(R.id.dlg_target_button, db.getItemType(mTargetItemID));
 			break;
 //		default:
-//			Log.d(this.toString(), "Error: got unknown onClick() event in BuildItemDialog, view = " + v);
+//			Timber.d(this.toString(), "Error: got unknown onClick() event in BuildItemDialog, view = " + v);
 		}
 	}
 	
@@ -261,7 +262,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	        	int callerId = data.getExtras().getInt(UnitSelectorActivity.KEY_CALLER_ID);
 	        	long itemId = data.getExtras().getLong(UnitSelectorActivity.KEY_RESULT_ITEM_ID);
 	        	
-//	        	Log.d(this.toString(), "got RESULT_OK in BuildItemDialog.onActivityResult(), callerId = " + callerId + ", itemId = " + itemId);
+//	        	Timber.d(this.toString(), "got RESULT_OK in BuildItemDialog.onActivityResult(), callerId = " + callerId + ", itemId = " + itemId);
 	        	
 	            DbAdapter db = ((MyApplication) getApplicationContext()).getDb();
 	        	
@@ -280,7 +281,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	        	}
 	        } else {
 	        	// cancelled - do nothing
-//	        	Log.d(this.toString(), "got cancelled result in BuildItemDialog.onActivityResult()");
+//	        	Timber.d(this.toString(), "got cancelled result in BuildItemDialog.onActivityResult()");
 	        	
 	        	// if no choice was made for a new build item, quit this item editor activity
 	        	if (mMainItemID == null) {

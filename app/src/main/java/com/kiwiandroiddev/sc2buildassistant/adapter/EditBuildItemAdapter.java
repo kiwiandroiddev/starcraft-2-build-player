@@ -1,13 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
-import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.R;
-
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -16,6 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Adapter for displaying build items in an editable list (as opposed to BuildItemAdapter
@@ -66,7 +65,7 @@ public class EditBuildItemAdapter extends ArrayAdapter<BuildItem> {
 				outOfPosition = true;
 		}
 		
-//		Log.d(this.toString(), String.format("in getView(), positon=%s, convertView=%s, parent=%s, item=%s, main=%s, target=%s, item.getText()=%s",
+//		Timber.d(this.toString(), String.format("in getView(), positon=%s, convertView=%s, parent=%s, item=%s, main=%s, target=%s, item.getText()=%s",
 //				position, convertView, parent, item, main, target, item.getText()));
 		
 		// set the main label (either unit name or message text)
@@ -89,7 +88,7 @@ public class EditBuildItemAdapter extends ArrayAdapter<BuildItem> {
 		if (item.getTarget() == null || item.getTarget().matches("")) {
 			target.setVisibility(View.GONE);
 		} else {
-//			Log.d(this.toString(), "item = " + item + ", target = " + item.getTarget() + ", target label vis = " + target.getVisibility());
+//			Timber.d(this.toString(), "item = " + item + ", target = " + item.getTarget() + ", target label vis = " + target.getVisibility());
 			String s = mDb.getNameString(item.getTarget());
 			target.setText("on " + s);
 			target.setVisibility(View.VISIBLE);

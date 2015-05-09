@@ -79,7 +79,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			Build build = callerBuild;
 			
 			mFaction = build.getFaction();
-			//Log.d(this.toString(), "in EditBuildItemsFragment.onCreate(), build id = " + Integer.toHexString(System.identityHashCode(build)));
+			//Timber.d(this.toString(), "in EditBuildItemsFragment.onCreate(), build id = " + Integer.toHexString(System.identityHashCode(build)));
 			
 	        workingList = build.getItems() == null ? new ArrayList<BuildItem>() : build.getItems();
 		} else {
@@ -134,7 +134,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	}
 	
 	public ArrayList<BuildItem> getBuildItems() {
-		//Log.d(this.toString(), "getBuildItems() called, items count = " + mAdapter.getCount());
+		//Timber.d(this.toString(), "getBuildItems() called, items count = " + mAdapter.getCount());
 		return mAdapter.getArrayList();
 	}
 	
@@ -148,7 +148,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		//Log.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
+		//Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
 		
 		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
         i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
@@ -156,7 +156,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		// -1 is the footer item ID
 		if (id != -1) {
 			BuildItem item = mAdapter.getItem(position);
-			//Log.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
+			//Timber.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
 			i.putExtra(RaceFragment.KEY_BUILD_ITEM_OBJECT, item);
 	        i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, id);
 		} else {
@@ -179,7 +179,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	        		null;
 	        		
 	        	BuildItem item = (BuildItem) data.getExtras().getSerializable(RaceFragment.KEY_BUILD_ITEM_OBJECT);
-	        	//Log.d(this.toString(), "in EditBuildItemsFragment, got item = " + item);
+	        	//Timber.d(this.toString(), "in EditBuildItemsFragment, got item = " + item);
 	        	
 	        	if (id == null) {	// i.e. new build item to add	        		
 	        		// slot the new build item into the correct place based on its time
@@ -188,11 +188,11 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	        		
 	        		invalidateUndo();
 	        	} else {			// an existing one should be modified
-	        		//Log.d(this.toString(), "replacing item at index " + id  + " with " + item);
+	        		//Timber.d(this.toString(), "replacing item at index " + id  + " with " + item);
 	        		((EditBuildItemAdapter)mAdapter).replace(item, id.intValue());
 	        	}
 	        	// temp testing
-	        	//Log.d(this.toString(), "added build item, items size now = " + mAdapter.getCount());
+	        	//Timber.d(this.toString(), "added build item, items size now = " + mAdapter.getCount());
 	        }
 	    }
 	}
@@ -277,7 +277,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		@Override
 		public void drop(int from, int to) {
 			if (from != to) {
-//				Log.d(TAG, "drop() called with from: " + from + ", to: " + to);
+//				Timber.d(TAG, "drop() called with from: " + from + ", to: " + to);
 				BuildItem item = mAdapter.getItem(from);
 				mAdapter.remove(item);
 				mAdapter.insert(item, to);
@@ -291,7 +291,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener() {
 		@Override
 		public void remove(int which) {
-//			Log.d(TAG, "remove() called with which: " + which);
+//			Timber.d(TAG, "remove() called with which: " + which);
 			BuildItem item = mAdapter.getItem(which); 
 			mAdapter.remove(item);
 			

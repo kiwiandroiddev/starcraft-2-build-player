@@ -1,13 +1,13 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 //import android.util.Log;
 
 /**

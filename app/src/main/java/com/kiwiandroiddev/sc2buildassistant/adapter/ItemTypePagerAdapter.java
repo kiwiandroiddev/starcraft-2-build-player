@@ -1,14 +1,14 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 
 /**
  * Manages unit selector fragments for each item type (structure, unit, ability etc.)
@@ -37,7 +37,7 @@ public class ItemTypePagerAdapter extends FragmentPagerAdapter {
 		data.putSerializable(RaceFragment.KEY_ITEM_TYPE_ENUM, itemType);
 		tab.setArguments(data);
 		
-//		Log.d(this.toString(), "in getItem(), tab = " + tab);
+//		Timber.d(this.toString(), "in getItem(), tab = " + tab);
 		
 		return tab;
 	}

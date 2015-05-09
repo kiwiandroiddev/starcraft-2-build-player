@@ -14,15 +14,6 @@
  */
 package com.kiwiandroiddev.sc2buildassistant;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.R.raw;
-import com.kiwiandroiddev.sc2buildassistant.R.string;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,9 +22,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import timber.log.Timber;
 
 public class ChangeLog {
 
@@ -76,16 +73,16 @@ public class ChangeLog {
 
 		// get version numbers
 		this.lastVersion = sp.getString(VERSION_KEY, NO_VERSION);
-		Log.d(TAG, "lastVersion: " + lastVersion);
+		Timber.d("lastVersion: " + lastVersion);
 		try {
 			this.thisVersion = context.getPackageManager().getPackageInfo(
 					context.getPackageName(), 0).versionName;
 		} catch (NameNotFoundException e) {
 			this.thisVersion = NO_VERSION;
-			Log.e(TAG, "could not get version name from manifest!");
+			Timber.e("could not get version name from manifest!");
 			e.printStackTrace();
 		}
-		Log.d(TAG, "appVersion: " + this.thisVersion);
+		Timber.d("appVersion: " + this.thisVersion);
 	}
 
 	/**

@@ -1,12 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Queue;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.drawable.Drawable;
@@ -28,21 +21,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
-//import com.google.analytics.tracking.android.EasyTracker;
-//import com.google.analytics.tracking.android.Tracker;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.MapFormat;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
+import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.nineoldandroids.animation.Animator;
@@ -50,8 +41,17 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Queue;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+//import com.google.analytics.tracking.android.EasyTracker;
+//import com.google.analytics.tracking.android.Tracker;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -273,11 +273,11 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	
 	@Override
 	protected void onDestroy() {
-//		Log.d("destroy", "onDestroy() called");
+//		Timber.d("destroy", "onDestroy() called");
 		if (mTts != null) {
 			mTts.stop();
 			mTts.shutdown();
-//			Log.d("destroy", "TTS Destroyed");
+//			Timber.d("destroy", "TTS Destroyed");
 		}
 		super.onDestroy();
 	}

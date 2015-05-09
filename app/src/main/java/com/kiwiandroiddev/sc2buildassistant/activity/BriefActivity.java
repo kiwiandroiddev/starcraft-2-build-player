@@ -93,7 +93,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_brief);
         ButterKnife.inject(this);
 
-//        Log.d(TAG, "onCreate(), mBuildId = " + mBuildId);
+//        Timber.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
         if (savedInstanceState == null) {
         	mBuildId = getIntent().getExtras().getLong(RaceFragment.KEY_BUILD_ID);
@@ -125,7 +125,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 
         trackBriefView();
 
-//        Log.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - start) + " ms");
+//        Timber.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - start) + " ms");
         
         // sc2brief
         //Debug.stopMethodTracing();
@@ -276,7 +276,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		} else {
 			mAuthorLayout.setVisibility(View.GONE);
 		}
-//        Log.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - mStartTime) + " ms");
+//        Timber.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - mStartTime) + " ms");
 	}
 
 	@Override

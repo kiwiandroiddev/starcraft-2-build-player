@@ -1,11 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
-import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.adapter.UnitIconAdapter;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+
+import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.adapter.UnitIconAdapter;
 
 /**
  * Fragment letting the user pick an item within one item type and faction, e.g. only Zerg upgrades.
@@ -44,7 +44,7 @@ public class UnitSelectorFragment extends Fragment {
 		mFactionFilter = (Faction) dataSource.getSerializable(RaceFragment.KEY_FACTION_ENUM);
 		mItemTypeFilter = (ItemType) dataSource.getSerializable(RaceFragment.KEY_ITEM_TYPE_ENUM);
 
-//		Log.d(this.toString(), "in UnitSelectorFragment.onCreateView(), faction = " + mFactionFilter
+//		Timber.d(this.toString(), "in UnitSelectorFragment.onCreateView(), faction = " + mFactionFilter
 //				+ ", item type = " + mItemTypeFilter);
 		
 		GridView gridview = (GridView) v.findViewById(R.id.gridview);

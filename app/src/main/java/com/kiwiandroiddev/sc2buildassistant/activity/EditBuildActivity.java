@@ -12,24 +12,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
+import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
@@ -39,6 +38,7 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import timber.log.Timber;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 
@@ -132,18 +132,18 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 
 	        // Check if the fragment is already initialized
 	        if (mFragment == null && preInitializedFragment == null) {
-	        	Log.d(TAG, mTag + ": neither fragment nor preinitialized fragment set");
+	        	Timber.d(mTag + ": neither fragment nor preinitialized fragment set");
 	            // If not, instantiate and add it to the activity
 	        	Bundle data = new Bundle();
 	    		data.putSerializable(RaceFragment.KEY_BUILD_OBJECT, mBuild);
 	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
 	            ft.add(android.R.id.content, mFragment, mTag);
 	        } else if (mFragment != null) {
-	        	Log.d(TAG, mTag + ": fragment already exists, reattaching");
+	        	Timber.d(mTag + ": fragment already exists, reattaching");
 	            // If it exists, simply attach it in order to show it
 	            ft.attach(mFragment);
 	        } else if (preInitializedFragment != null) {
-	        	Log.d(TAG, mTag + ": pre-initialized fragment already exists, reattaching that");
+	        	Timber.d(mTag + ": pre-initialized fragment already exists, reattaching that");
 	            ft.attach(preInitializedFragment);
 	            mFragment = preInitializedFragment;
 	        }
@@ -239,9 +239,9 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
         setBackgroundImage(mCurrentFactionSelection);
         
 //        if (mInitialBuild.getItems() != null)
-//        	Log.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild items count = " + mInitialBuild.getItems().size());
+//        	Timber.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild items count = " + mInitialBuild.getItems().size());
 //        
-//		Log.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
+//		Timber.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
         
         // setup action bar for tabs
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -250,7 +250,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 
     	mFragmentSharedBuild = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
 
-    	Log.d(TAG, "onCreate() called, num tabs = " + actionBar.getTabCount());
+    	Timber.d("onCreate() called, num tabs = " + actionBar.getTabCount());
         ActionBar.Tab tab = actionBar.newTab()
                 .setText("Info")
                 .setTabListener(new TabListener<EditBuildInfoFragment>(
@@ -335,7 +335,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 
 	@Override
 	public void onFactionSelectionChanged(final Faction selection) {
-		Log.d("EditBuildActivity", "onFactionSelectionChanged() called with " + selection + ", current selection = " + mCurrentFactionSelection);
+		Timber.d("onFactionSelectionChanged() called with " + selection + ", current selection = " + mCurrentFactionSelection);
 		if (selection == mCurrentFactionSelection)
 			return;
 		
@@ -480,11 +480,11 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	private boolean userMadeChanges(Build assembledBuild) {
 		if (assembledBuild == null)
 			assembledBuild = assembleBuild();
-//		Log.d(this.toString(), "initial build items = " + mInitialBuild.getItems() + ", assembled build items = " + assembledBuild.getItems());
-//		Log.d(this.toString(), "authors the same = " + Build.objectsEquivalent(mInitialBuild.getAuthor(), assembledBuild.getAuthor()));
-//		Log.d(this.toString(), "initial items size = " + mInitialBuild.getItems().size() + ", assembledbuild items size = " + assembledBuild.getItems().size());
-//		Log.d(this.toString(), "items the same = " + Build.objectsEquivalent(mInitialBuild.getItems(), assembledBuild.getItems()));
-//		Log.d(this.toString(), "initialbuild = " + mInitialBuild);
+//		Timber.d(this.toString(), "initial build items = " + mInitialBuild.getItems() + ", assembled build items = " + assembledBuild.getItems());
+//		Timber.d(this.toString(), "authors the same = " + Build.objectsEquivalent(mInitialBuild.getAuthor(), assembledBuild.getAuthor()));
+//		Timber.d(this.toString(), "initial items size = " + mInitialBuild.getItems().size() + ", assembledbuild items size = " + assembledBuild.getItems().size());
+//		Timber.d(this.toString(), "items the same = " + Build.objectsEquivalent(mInitialBuild.getItems(), assembledBuild.getItems()));
+//		Timber.d(this.toString(), "initialbuild = " + mInitialBuild);
 		return (!mInitialBuild.equals(assembledBuild));	
 	}
 
@@ -529,7 +529,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	private EditBuildInfoFragment findInfoFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 		EditBuildInfoFragment f = (EditBuildInfoFragment) fm.findFragmentByTag("info");
-		Log.d("EditBuildActivity", "in findInfoFragment(), f = " + f);
+		Timber.d("in findInfoFragment(), f = " + f);
 		return f;
 //		return (EditBuildInfoFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 0));
 	}
@@ -537,7 +537,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	private EditBuildNotesFragment findNotesFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 		EditBuildNotesFragment f = (EditBuildNotesFragment) fm.findFragmentByTag("notes");
-		Log.d("EditBuildActivity", "in findNotesFragment(), f = " + f);
+		Timber.d("in findNotesFragment(), f = " + f);
 		return f;
 		
 //		return (EditBuildNotesFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 1));
@@ -546,7 +546,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	private EditBuildItemsFragment findItemsFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 		EditBuildItemsFragment f = (EditBuildItemsFragment) fm.findFragmentByTag("items");
-		Log.d("EditBuildActivity", "in findItemsFragment(), f = " + f);
+		Timber.d("in findItemsFragment(), f = " + f);
 		return f;
 //		return (EditBuildItemsFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 2));
 	}
@@ -567,7 +567,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 		EditBuildNotesFragment notesFragment = findNotesFragment();
 		EditBuildItemsFragment itemsFragment = findItemsFragment();
 		
-//		Log.d(this.toString(), String.format("info = %s, notes = %s, items = %s", infoFragment, notesFragment, itemsFragment));
+//		Timber.d(this.toString(), String.format("info = %s, notes = %s, items = %s", infoFragment, notesFragment, itemsFragment));
 		
 		if (infoFragment != null) {
 			// title will be null if view for info fragment hasn't been created yet

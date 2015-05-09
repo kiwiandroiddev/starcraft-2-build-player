@@ -60,7 +60,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import timber.log.Timber;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
@@ -273,7 +272,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         	doUpdateBuilds(c, db, oldVersion, newVersion);
         	
         	ArrayList<Build> stdBuilds = fetchStandardBuilds(c);
-        	//Log.d(TAG, "in loadStandardBuildsIntoDB(), stdBuilds = " + stdBuilds);
+        	//Timber.d(TAG, "in loadStandardBuildsIntoDB(), stdBuilds = " + stdBuilds);
         	db.addOrReplaceBuilds(stdBuilds, listener);
         	
         	if (outOfDate) {
@@ -603,7 +602,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             return;
 		}
     	
-//    	Log.d(TAG, "newBuilds = " + newBuilds);
+//    	Timber.d(TAG, "newBuilds = " + newBuilds);
     	for (Build build : newBuilds) {
     		try { db.addBuild(build); }
     		catch (NameNotUniqueException e) {
