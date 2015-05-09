@@ -51,6 +51,8 @@ import android.text.InputType;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import timber.log.Timber;
+
 import static android.os.Build.VERSION;
 
 /**
@@ -313,7 +315,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		DbAdapter db = ((MyApplication) getActivity().getApplicationContext()).getDb();
 		final Build build = db.fetchBuild(rowId);
 		if (build == null) {
-			Log.d(this.toString(), "couldn't export build with id " + rowId + " as it doesn't exist in DB");
+			Timber.d("couldn't export build with id " + rowId + " as it doesn't exist in DB");
 			return;
 		}
 		

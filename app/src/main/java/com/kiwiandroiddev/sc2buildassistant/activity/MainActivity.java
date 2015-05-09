@@ -60,6 +60,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import timber.log.Timber;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 //import com.google.analytics.tracking.android.Tracker;
