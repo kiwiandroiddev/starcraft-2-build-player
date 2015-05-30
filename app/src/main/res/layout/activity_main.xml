@@ -62,14 +62,14 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
-    <!--<com.google.ads.AdView-->
-        <!--android:id="@+id/ad"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal|bottom"-->
-        <!--ads:adSize="BANNER"-->
-        <!--ads:adUnitId="a150b967e3b02cd"-->
-        <!--ads:loadAdOnCreate="true"-->
-        <!--ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"/>-->
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="a150b967e3b02cd"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"/>
 
 </android.support.design.widget.CoordinatorLayout>
