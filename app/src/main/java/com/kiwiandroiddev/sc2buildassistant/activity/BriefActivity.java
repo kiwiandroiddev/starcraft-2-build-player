@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -43,7 +44,6 @@ import butterknife.OnClick;
  */
 public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-	private static final String TAG = "BriefActivity";
     private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
 
