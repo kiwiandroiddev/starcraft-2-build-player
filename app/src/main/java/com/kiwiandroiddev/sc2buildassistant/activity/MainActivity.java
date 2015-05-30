@@ -393,6 +393,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	}
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mPreviousFactionChoice = mPager.getCurrentItem();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 

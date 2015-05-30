@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/brief_root"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"-->
+                <!--xmlns:tools="http://schemas.android.com/tools"-->
+                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--android:id="@+id/brief_root"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
-    <com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView
-        android:id="@+id/scrollView1"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/brief_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
+
+            <TextView
+                android:id="@+id/buildName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/primary_text_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:transitionName="buildName"
+                tools:text="Build Order Title" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-	 >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -24,10 +62,6 @@
                 android:paddingLeft="@dimen/screen_edge_padding"
                 android:paddingRight="@dimen/screen_edge_padding"
                 android:layout_margin="10dip" >
-
-                <View android:id="@+id/placeholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -81,43 +115,16 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:minHeight="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                >
-
-                <!--android:background="?attr/colorPrimary"-->
-                <!-- TODO  temp! -->
-                <TextView
-                    android:id="@+id/buildName"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:transitionName="buildName"
-                    tools:text="Build Order Title" />
-
-            </android.support.v7.widget.Toolbar>
-
             <!-- todo add custom text to toolbar then set transitionname -->
 
         </FrameLayout>
-    </com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/activity_brief_play_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_media_play" />
 
@@ -136,4 +143,4 @@
 		                   <!--ads:loadAdOnCreate="true"/>-->
 	<!--</RelativeLayout>-->
  
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

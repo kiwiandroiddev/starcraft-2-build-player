@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -26,8 +25,6 @@ import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.util.QuickReturnHandler;
-import com.kiwiandroiddev.sc2buildassistant.view.ObservableScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,13 +49,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 	private DbAdapter.Faction mFaction;
 	private DbAdapter.Expansion mExpansion;
 	private String mBuildName;
-    private QuickReturnHandler mQuickReturnHandler;
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.brief_buildSubTitle) TextView mSubtitleView;
-    @InjectView(R.id.placeholder) View mPlaceholderView;
     @InjectView(R.id.brief_root) View mRootView;
-    @InjectView(R.id.scrollView1) ObservableScrollView mObservableScrollView;
     @InjectView(R.id.brief_buildNotes) TextView mNotesView;
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
@@ -110,11 +104,6 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mQuickReturnHandler = new QuickReturnHandler(
-                mToolbar,
-                mPlaceholderView,
-                mObservableScrollView);
 
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
