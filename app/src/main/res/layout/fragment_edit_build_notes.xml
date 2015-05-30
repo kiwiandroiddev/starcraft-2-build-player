@@ -8,17 +8,22 @@
         android:layout_height="match_parent"
         android:fillViewport="true" >
 
-        <EditText
-            android:id="@+id/edit_notes"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="@string/edit_build_notes_hint"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:paddingLeft="@dimen/screen_edge_padding"
-            android:paddingRight="@dimen/screen_edge_padding" >
-        </EditText>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edit_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/edit_build_notes_hint"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:paddingLeft="@dimen/screen_edge_padding"
+                android:paddingRight="@dimen/screen_edge_padding">
+                <requestFocus />
+                </EditText>
+        </android.support.design.widget.TextInputLayout>
     </ScrollView>
 
     <HorizontalScrollView

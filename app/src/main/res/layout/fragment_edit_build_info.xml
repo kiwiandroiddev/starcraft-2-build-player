@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/screen_edge_padding"
-        android:paddingRight="@dimen/screen_edge_padding" >
+        android:paddingRight="@dimen/screen_edge_padding">
 
-        <EditText
-            android:id="@+id/edit_title"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="@string/edit_build_title_hint"
-            android:inputType="textCapSentences|textNoSuggestions" >
+            android:layout_height="wrap_content">
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/edit_build_title_hint"
+                android:inputType="textCapSentences|textNoSuggestions">
+
+                <requestFocus/>
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
 
         <Spinner
             android:id="@+id/edit_expansion_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:paddingTop="@dimen/inter_widget_padding" />
+            android:paddingTop="@dimen/inter_widget_padding"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" >
+            android:layout_marginTop="4dp">
 
             <Spinner
                 android:id="@+id/edit_faction_spinner"
@@ -41,7 +46,7 @@
                 android:layout_height="64dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/textView1" />
+                android:layout_toLeftOf="@+id/textView1"/>
 
             <Spinner
                 android:id="@+id/edit_vs_faction_spinner"
@@ -49,7 +54,7 @@
                 android:layout_height="64dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/textView1" />
+                android:layout_toRightOf="@+id/textView1"/>
 
             <TextView
                 android:id="@+id/textView1"
@@ -61,38 +66,52 @@
                 android:paddingLeft="8dip"
                 android:paddingRight="8dip"
                 android:text="@string/edit_build_vs"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/edit_author"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/edit_build_author_hint"
-            android:inputType="textUri|textNoSuggestions"
-            android:selectAllOnFocus="true" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_source_url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ems="10"
-            android:hint="@string/edit_build_source_url_hint"
-            android:inputType="textUri|textNoSuggestions"
-            android:selectAllOnFocus="true" >
-        </EditText>
+            <EditText
+                android:id="@+id/edit_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="@string/edit_build_author_hint"
+                android:inputType="textUri|textNoSuggestions"
+                android:selectAllOnFocus="true"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_source_title"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ems="10"
-            android:hint="@string/edit_build_source_title_hint"
-            android:inputType="textCapSentences|textNoSuggestions" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_source_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="@string/edit_build_source_url_hint"
+                android:inputType="textUri|textNoSuggestions"
+                android:selectAllOnFocus="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_source_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="@string/edit_build_source_title_hint"
+                android:inputType="textCapSentences|textNoSuggestions"/>
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 </ScrollView>
