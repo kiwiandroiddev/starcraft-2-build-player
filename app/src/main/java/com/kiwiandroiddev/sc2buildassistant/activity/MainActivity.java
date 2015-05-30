@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -26,7 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.google.ads.Ad;
 import com.google.ads.AdView;
 import com.google.gson.Gson;
@@ -96,7 +96,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
     @InjectView(R.id.ad) AdView mAdView;
-	
+    private int mPreviousFactionChoice;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 //    	Debug.startMethodTracing("sc2main");
@@ -374,14 +375,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         /** Setting the pagerAdapter to the pager object */
         mPager.setAdapter(mPagerAdapter);
 
-        final int previousFactionChoice = savedInstanceState != null ?
+        mPreviousFactionChoice = savedInstanceState != null ?
         		savedInstanceState.getInt(KEY_FACTION_CHOICE) :
         		getSavedFactionSelection();
-        mPager.setCurrentItem(previousFactionChoice);
 
-        /** Bind sliding tabs view to pager */
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        tabs.setViewPager(mPager);
+        /** Bind tabs view to pager */
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(mPager);
 
         // Set up expansion drop-down list on action bar
         setSupportActionBar(mToolbar);
@@ -392,7 +392,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mToolbarExpansionSpinner.setSelection(previousExpansionChoice);
 	}
 
-	/**
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Workaround for a bug with TabLayout. If this is called in onCreate(), the first tab's
+        // title remains highlighted while another tab might be selected
+        mPager.setCurrentItem(mPreviousFactionChoice);
+    }
+
+    /**
 	 * Returns the standard builds included with the app in a list.
 	 * The standard builds are compiled from JSON files in the
 	 * assets/builds directory

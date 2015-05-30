@@ -49,7 +49,9 @@ import timber.log.Timber;
  * 
  * Reference for combining tabs with view pager:
  * https://developer.android.com/training/implementing-navigation/lateral.html
- * 
+ *
+ * TODO: use TabLayout from design support library
+ *
  * @author matt
  *
  */

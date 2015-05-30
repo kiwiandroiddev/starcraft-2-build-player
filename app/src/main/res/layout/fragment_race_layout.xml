@@ -11,12 +11,12 @@
 	    <!--android:layout_height="1dp"-->
 	    <!--android:background="#fff"-->
 	    <!--/>-->
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
     	android:layout_height="0dp"
         android:layout_weight="1">
-    	
+
          <!-- cacheColorHint: don't perform blending optimization when scrolling, stops listview from going black -->
 	     <ListView
 	        android:id="@+id/build_list"
@@ -26,7 +26,7 @@
         	android:paddingRight="@dimen/screen_edge_padding"
         	android:cacheColorHint="#0000"
 	         />
-        
+
     </RelativeLayout>
 
 </LinearLayout>
