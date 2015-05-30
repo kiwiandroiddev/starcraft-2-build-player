@@ -84,8 +84,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	public static final String BUILDS_DIR = "sc2_builds";
 	public static final String ASSETS_BUILDS_DIR = "builds";
 	public static final String TAG = "BuildListActivity";
-	public static final boolean DEBUG = false;
-	
+
 	private RaceFragmentPagerAdapter mPagerAdapter;
 	private FragmentManager mManager;
     
@@ -327,7 +326,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 			mLoadingSpinner.setVisibility(View.GONE);
 		if (mLoadingBar.getVisibility() == View.GONE)
 			mLoadingBar.setVisibility(View.VISIBLE);
-		
+
 		mLoadingBar.setProgress(percent);
 	}
 	

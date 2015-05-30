@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- cacheColorHint: don't perform blending optimization when scrolling, stops listview from going black -->
-<ListView
+<android.support.v7.widget.RecyclerView
     android:id="@+id/build_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

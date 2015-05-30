@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-                <!--xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"-->
-                <!--xmlns:tools="http://schemas.android.com/tools"-->
-                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                <!--android:id="@+id/brief_root"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/brief_root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/brief_root"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,25 +14,25 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:minHeight="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             >
 
             <TextView
                 android:id="@+id/buildName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/primary_text_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:ellipsize="marquee"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/primary_text_dark"
                 android:transitionName="buildName"
-                tools:text="Build Order Title" />
+                tools:text="Build Order Title"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -58,28 +50,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/screen_edge_padding"
-                android:paddingRight="@dimen/screen_edge_padding"
-                android:layout_margin="10dip" >
+                android:paddingRight="@dimen/screen_edge_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="4dp"
                         android:text="@string/brief_source_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"
-                        android:paddingRight="4dip" />
+                        android:textSize="16sp"/>
+
                     <TextView
                         android:id="@+id/brief_buildSubTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
 
                 </LinearLayout>
 
@@ -88,30 +82,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="4dp"
                         android:text="@string/brief_author_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"
-                        android:paddingRight="4dp" />
+                        android:textSize="16sp"/>
+
                     <TextView
                         android:id="@+id/brief_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/brief_buildNotes"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
                 <!-- Spacer to stop Ad from obscuring the bottom of content -->
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/ad_banner_height" />
+                    android:layout_height="@dimen/ad_banner_height"/>
 
             </LinearLayout>
 
@@ -126,21 +122,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_media_play" />
+        android:src="@drawable/ic_media_play"/>
 
     <!--<RelativeLayout -->
-    	<!--android:layout_width="fill_parent"-->
-	    <!--android:layout_height="wrap_content"-->
-	    <!--android:layout_alignParentBottom="true"-->
-	    <!--android:layout_centerHorizontal="true" >-->
-		<!--<com.google.ads.AdView android:id="@+id/ad"-->
-		                   <!--android:layout_width="wrap_content"-->
-		                   <!--android:layout_height="wrap_content"-->
-		                   <!--android:layout_centerHorizontal="true"-->
-		                   <!--ads:adSize="BANNER"-->
-		                   <!--ads:adUnitId="a150b967e3b02cd"-->
-		                   <!--ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"-->
-		                   <!--ads:loadAdOnCreate="true"/>-->
-	<!--</RelativeLayout>-->
- 
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true" >-->
+    <!--<com.google.ads.AdView android:id="@+id/ad"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--ads:adSize="BANNER"-->
+    <!--ads:adUnitId="a150b967e3b02cd"-->
+    <!--ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"-->
+    <!--ads:loadAdOnCreate="true"/>-->
+    <!--</RelativeLayout>-->
+
 </android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -13,9 +14,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -24,12 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,10 +46,13 @@ import com.kiwiandroiddev.sc2buildassistant.model.Build;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION;
@@ -63,12 +66,10 @@ import static android.os.Build.VERSION;
  * @author matt
  *
  */
-public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener {
+public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 	    
-	private static Map<DbAdapter.Faction, Integer> sIconByRace = new HashMap<DbAdapter.Faction, Integer>();
-	
-	public static final String TAG = "RaceFragment";
-	
+	private static Map<DbAdapter.Faction, Integer> sIconByRace = new HashMap<>();
+
 	// keys that this activity uses when passing data to other activities or fragments
 	public static final String KEY_BUILD_ID = "com.kiwiandroiddev.sc2buildassistant.BuildId";
 	public static final String KEY_BUILD_NAME = "com.kiwiandroiddev.sc2buildassistant.BuildName";
@@ -81,25 +82,19 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	private int mBgDrawable;
 	private DbAdapter.Expansion mCurrentExpansion;
 	private DbAdapter.Faction mFaction;
-	private SimpleCursorAdapter mAdapter;
-	
-	private static final String[] sProjectionFrom;
-	private static final int[] sProjectionTo;
-	
+	private RecyclerView mList;
+    private BuildAdapter mAdapter;
+
 	static {
 		sIconByRace.put(DbAdapter.Faction.TERRAN, R.drawable.terran_icon_drawable);
 		sIconByRace.put(DbAdapter.Faction.PROTOSS, R.drawable.protoss_icon_drawable);
 		sIconByRace.put(DbAdapter.Faction.ZERG, R.drawable.zerg_icon_drawable);
-		
-        sProjectionFrom = new String[] { DbAdapter.KEY_NAME, DbAdapter.KEY_CREATED, DbAdapter.KEY_VS_FACTION_ID };
-        sProjectionTo = new int[] { R.id.buildName, R.id.buildCreationDate, R.id.buildVsRace };
 	}
-	
+
+    @DebugLog
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-//		mDb = ((Sc2BuildAssistantApp)getActivity().getApplicationContext()).getDB();
 
 		if (savedInstanceState == null) {
 			/** Getting the arguments to the Bundle object */
@@ -116,62 +111,23 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		}
 		
 		mBgDrawable = sIconByRace.containsKey(mFaction) ? sIconByRace.get(mFaction) : R.drawable.not_found;
-		
-		// onCreate() guaranteed to be called before onCreateView() according to docs
-        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.build_row, null,
-        		sProjectionFrom, sProjectionTo, Adapter.NO_SELECTION);
-        
-        // display the build creation date in a more readable format
-        // display vs. faction
-        mAdapter.setViewBinder(new ViewBinder() {
-			@Override
-			public boolean setViewValue(View view, Cursor cursor, int column) {
-				if (column == 2) {	// creation date column
-					TextView text = (TextView) view;
-					String dateStr = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_CREATED));
-					if (dateStr != null && !dateStr.matches("")) {
-						Date date;
-						try {
-							date = DbAdapter.DATE_FORMAT.parse(dateStr);
-						} catch (ParseException e) {
-							e.printStackTrace();
-							return false;
-						}
-						DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
-						text.setText(df.format(date));
-						return true;
-					}
-				} else if (column == 3) {
-					TextView text = (TextView) view;
-					final int vsFactionId = cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_VS_FACTION_ID));
-					final String factionName = vsFactionId == 0 ? getString(R.string.race_any) :
-						getString(DbAdapter.getFactionName(vsFactionId));
-					text.setText("vs. " + factionName);
-					return true;
-				}
-				return false;
-			}
-        });
 	}
-	
+
+    @DebugLog
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// create a list view to show the builds for this race
 		// and make clicks on an item start the playback activity for that build
 		View v = inflater.inflate(R.layout.fragment_race_layout, container, false);
-		ListView list = (ListView)v.findViewById(R.id.build_list);
-		list.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
+		mList = (RecyclerView) v.findViewById(R.id.build_list);
+		mList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-		// set up the "Add Build..." extra list entry at the bottom
-        list.addFooterView(getFooterView(), null, true);
+		mList.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
 
-        // Add an unselectable spacer to the bottom to stop ads from obscuring content
-        list.addFooterView(getAdSpacerView(), null, false);     // false = not selectable
+//        // Add an unselectable spacer to the bottom to stop ads from obscuring content
+//        list.addFooterView(getAdSpacerView(), null, false);     // false = not selectable
 
-		list.setAdapter(mAdapter);
-		list.setOnItemClickListener(this);
-
-		registerForContextMenu(list);
+//		registerForContextMenu(mList);
 		
 		// load list of build order names for this tab's faction and expansion
 		// use race ID to differentiate the cursor from ones for other tabs
@@ -179,7 +135,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		
 		return v;
 	}
-	
+
+    @DebugLog
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putSerializable(KEY_FACTION_ENUM, mFaction);
@@ -203,6 +160,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * Loads a cursor to the list of build order names in the database for this tab's race
 	 * and expansion.
 	 */
+    @DebugLog
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         DbAdapter db = ((MyApplication) getActivity().getApplicationContext()).getDb();
@@ -219,17 +177,35 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
                 DbAdapter.KEY_VS_FACTION_ID + ", " + DbAdapter.KEY_NAME + " asc");				// sort order
 	}
 
+    @DebugLog
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-		mAdapter.swapCursor(cursor);
+        mAdapter = new BuildAdapter(getActivity(), cursor);
+        updateListAdapter();
 	}
 
+    @DebugLog
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-		mAdapter.swapCursor(null);
+        mAdapter = null;
+        updateListAdapter();
 	}
-	
-	/**
+
+    @DebugLog
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        updateListAdapter();
+    }
+
+    @DebugLog
+    private void updateListAdapter() {
+        if (mList != null) {
+            mList.setAdapter(mAdapter);
+        }
+    }
+
+    /**
 	 * A build order in the list view was long-pressed, create and display the
 	 * appropriate context menu
 	 */
@@ -357,11 +333,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 				}
 			}).show();
 	}
-	
-	private View getFooterView() {
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-        return inflater.inflate(R.layout.add_build_row, null, false);
-	}
 
     /**
      * Spacer to stop Ad from obscuring the bottom of content
@@ -382,43 +353,143 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		return input.replaceAll("[^\\dA-Za-z]+", "_");
 	}
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        if (id != -1) {
-            Intent i = new Intent(getActivity(), BriefActivity.class);
-            i.putExtra(KEY_BUILD_ID, id);	// pass build order record ID
-
-            // speed optimization - pass these so brief activity doesn't need to
-            // requery them from the database and can display them instantly
-            i.putExtra(KEY_FACTION_ENUM, mFaction);
-            i.putExtra(KEY_EXPANSION_ENUM, mCurrentExpansion);
-
-            TextView nameView = (TextView) view.findViewById(R.id.buildName);
-            i.putExtra(KEY_BUILD_NAME, nameView.getText().toString());
-
-            if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                // create the transition animation - the images in the layouts
-                // of both activities are defined with android:transitionName="robot"
-                ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation(getActivity(),
-                                new Pair<View, String>(nameView, "buildName"));
-                // start the new activity
-                getActivity().startActivity(i, options.toBundle());
-            } else {
-                getActivity().startActivity(i);
-            }
-
-            //Debug.startMethodTracing("sc2brief");
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position,
+//                            long id) {
+//        if (id != -1) {
+//        } else {    // footer
+//            // starts the build editor
+//            Intent i = new Intent(getActivity(), EditBuildActivity.class);
+//            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
+//            i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
 //            startActivity(i);
-        } else {    // footer
-            // starts the build editor
-            Intent i = new Intent(getActivity(), EditBuildActivity.class);
-            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
-            i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
-            startActivity(i);
+//        }
+//    }
+
+	private final static class BuildViewModel {
+        public final long buildId;
+		public final String name;
+		public final String creationDate;
+		public final String vsRace;
+
+		public BuildViewModel(long buildId, String name, String creationDate, String vsRace) {
+            this.buildId = buildId;
+            this.name = name;
+			this.creationDate = creationDate;
+			this.vsRace = vsRace;
+		}
+	}
+
+	private final class BuildViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView name;
+		public TextView vsRace;
+		public TextView creationDate;
+        public BuildViewModel viewModel;
+
+		public BuildViewHolder(View itemView) {
+			super(itemView);
+			name = (TextView) itemView.findViewById(R.id.buildName);
+			vsRace = (TextView) itemView.findViewById(R.id.buildVsRace);
+			creationDate = (TextView) itemView.findViewById(R.id.buildCreationDate);
+            itemView.setOnClickListener(this);
+		}
+
+		public void bindBuildViewModel(BuildViewModel model) {
+            viewModel = model;
+			name.setText(model.name);
+			vsRace.setText(model.vsRace);
+			creationDate.setText(model.creationDate);
+		}
+
+        @Override
+        public void onClick(View v) {
+            onBuildItemClicked(this);
         }
     }
 
+	private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
+		List<BuildViewModel> mBuildViewModelList;
+
+		public BuildAdapter(Context context, Cursor cursor) {
+			mBuildViewModelList = new ArrayList<>();
+
+            cursor.moveToFirst();
+			do {
+                long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
+
+				String buildName = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_NAME));
+
+				String dateStr = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_CREATED));
+				String formattedDateStr = "";
+				if (!TextUtils.isEmpty(dateStr)) {
+					Date date;
+					try {
+						date = DbAdapter.DATE_FORMAT.parse(dateStr);
+						DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
+						formattedDateStr = df.format(date);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				int vsFactionId = cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_VS_FACTION_ID));
+				final String factionName = vsFactionId == 0 ? context.getString(R.string.race_any) :
+						context.getString(DbAdapter.getFactionName(vsFactionId));
+				String vsRace = "vs. " + factionName;
+
+				BuildViewModel viewModel = new BuildViewModel(buildId, buildName, formattedDateStr, vsRace);
+				mBuildViewModelList.add(viewModel);
+			} while (cursor.moveToNext());
+		}
+
+		@Override
+		public BuildViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+			View view = LayoutInflater.from(parent.getContext())
+					.inflate(R.layout.build_row, parent, false);
+			return new BuildViewHolder(view);
+		}
+
+		@Override
+		public void onBindViewHolder(BuildViewHolder viewHolder, int i) {
+			viewHolder.bindBuildViewModel(mBuildViewModelList.get(i));
+		}
+
+		@Override
+		public int getItemCount() {
+			return mBuildViewModelList.size();
+		}
+
+        @Override
+        public String toString() {
+            return "BuildAdapter{" +
+                    "mBuildViewModelList=" + mBuildViewModelList +
+                    '}';
+        }
+    }
+
+    private void onBuildItemClicked(BuildViewHolder buildViewHolder) {
+        BuildViewModel model = buildViewHolder.viewModel;
+
+        Intent i = new Intent(getActivity(), BriefActivity.class);
+        i.putExtra(KEY_BUILD_ID, model.buildId);	// pass build order record ID
+
+        // speed optimization - pass these so brief activity doesn't need to
+        // requery them from the database and can display them instantly
+        i.putExtra(KEY_FACTION_ENUM, mFaction);
+        i.putExtra(KEY_EXPANSION_ENUM, mCurrentExpansion);
+        i.putExtra(KEY_BUILD_NAME, model.name);
+
+        if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            // create the transition animation - the views in the layouts
+            // of both activities are defined with android:transitionName="buildName"
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(getActivity(),
+                            buildViewHolder.name, "buildName");
+            // start the new activity
+            getActivity().startActivity(i, options.toBundle());
+        } else {
+            getActivity().startActivity(i);
+        }
+    }
 }
 

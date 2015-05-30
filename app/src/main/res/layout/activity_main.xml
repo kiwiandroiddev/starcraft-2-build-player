@@ -1,74 +1,75 @@
-<LinearLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
+<android.support.design.widget.CoordinatorLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+                                                 xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+        android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/toolbar_expansion_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways"
-        />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <Spinner
+                android:id="@+id/toolbar_expansion_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
             />
 
-        <RelativeLayout
-            android:id="@+id/loading_panel"
-            style="@style/GenericProgressBackground"
-            android:visibility="gone">
+    </android.support.design.widget.AppBarLayout>
 
-            <ProgressBar
-                android:id="@+id/loading_spinner"
-                style="@style/GenericProgressIndicator"
-                android:layout_centerInParent="true"
-                android:background="#0000"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
-            <ProgressBar
-                android:id="@+id/loading_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="256dp"
-                android:layout_height="16dp"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/loading_panel"
+        style="@style/GenericProgressBackground"
+        android:visibility="gone">
 
-        <com.google.ads.AdView
-            android:id="@+id/ad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            ads:adSize="BANNER"
-            ads:adUnitId="a150b967e3b02cd"
-            ads:loadAdOnCreate="true"
-            ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"/>
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            style="@style/GenericProgressIndicator"
+            android:layout_centerInParent="true"
+            android:background="#0000"/>
 
-    </FrameLayout>
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/loading_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="256dp"
+            android:layout_height="16dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <!--<com.google.ads.AdView-->
+        <!--android:id="@+id/ad"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal|bottom"-->
+        <!--ads:adSize="BANNER"-->
+        <!--ads:adUnitId="a150b967e3b02cd"-->
+        <!--ads:loadAdOnCreate="true"-->
+        <!--ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"/>-->
+
+</android.support.design.widget.CoordinatorLayout>
