@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
@@ -33,8 +34,8 @@ public class ItemTypePagerAdapter extends FragmentPagerAdapter {
 		DbAdapter.ItemType itemType = ItemType.values()[position];
 		
 		Bundle data = new Bundle();
-		data.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFactionFilter);
-		data.putSerializable(RaceFragment.KEY_ITEM_TYPE_ENUM, itemType);
+		data.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFactionFilter);
+		data.putSerializable(IntentKeys.KEY_ITEM_TYPE_ENUM, itemType);
 		tab.setArguments(data);
 		
 //		Timber.d(this.toString(), "in getItem(), tab = " + tab);

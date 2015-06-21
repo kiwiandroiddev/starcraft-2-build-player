@@ -1,5 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -32,6 +34,11 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_NAME;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_EXPANSION_ENUM;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTION_ENUM;
 
 //import com.google.analytics.tracking.android.EasyTracker;
 
@@ -73,6 +80,49 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 		sColumns.add(DbAdapter.KEY_AUTHOR);
 	}
 
+	/**
+	 * Starts a new BriefActivity for the given build details.
+	 *
+	 * Only the buildId is strictly needed, having other build fields passed in is a speed
+	 * optimization - saves the new BriefActivity from having to refetch these itself using the
+	 * build ID.
+	 *
+	 * @param callingActivity
+	 * @param buildId
+	 * @param faction
+	 * @param expansion
+	 * @param buildName
+	 */
+	public static void open(Activity callingActivity,
+							long buildId,
+							DbAdapter.Faction faction,
+							DbAdapter.Expansion expansion,
+							String buildName,
+							TextView sharedBuildNameTextView) {
+		Intent i = new Intent(callingActivity, BriefActivity.class);
+		i.putExtra(KEY_BUILD_ID, buildId);	// pass build order record ID
+
+		// speed optimization - pass these so brief activity doesn't need to
+		// requery them from the database and can display them instantly
+		i.putExtra(KEY_FACTION_ENUM, faction);
+		i.putExtra(KEY_EXPANSION_ENUM, expansion);
+		i.putExtra(KEY_BUILD_NAME, buildName);
+
+		if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+			// create the transition animation - the views in the layouts
+			// of both activities are defined with android:transitionName="buildName"
+			ActivityOptions options = ActivityOptions
+					.makeSceneTransitionAnimation(callingActivity,
+							sharedBuildNameTextView, "buildName");
+
+			// start the new activity
+			callingActivity.startActivity(i, options.toBundle());
+		} else {
+			callingActivity.startActivity(i);
+		}
+	}
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 //		mStartTime = SystemClock.uptimeMillis();
@@ -90,15 +140,15 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 //        Timber.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
         if (savedInstanceState == null) {
-        	mBuildId = getIntent().getExtras().getLong(RaceFragment.KEY_BUILD_ID);
-        	mBuildName = getIntent().getExtras().getString(RaceFragment.KEY_BUILD_NAME);
-        	mFaction = (DbAdapter.Faction) getIntent().getExtras().getSerializable(RaceFragment.KEY_FACTION_ENUM);
-        	mExpansion = (DbAdapter.Expansion) getIntent().getExtras().getSerializable(RaceFragment.KEY_EXPANSION_ENUM);
+        	mBuildId = getIntent().getExtras().getLong(KEY_BUILD_ID);
+        	mBuildName = getIntent().getExtras().getString(KEY_BUILD_NAME);
+        	mFaction = (DbAdapter.Faction) getIntent().getExtras().getSerializable(KEY_FACTION_ENUM);
+        	mExpansion = (DbAdapter.Expansion) getIntent().getExtras().getSerializable(KEY_EXPANSION_ENUM);
         } else {
-        	mBuildId = savedInstanceState.getLong(RaceFragment.KEY_BUILD_ID, -1);
-        	mBuildName = savedInstanceState.getString(RaceFragment.KEY_BUILD_NAME);
-        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(RaceFragment.KEY_FACTION_ENUM);
-        	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(RaceFragment.KEY_EXPANSION_ENUM);
+        	mBuildId = savedInstanceState.getLong(KEY_BUILD_ID, -1);
+        	mBuildName = savedInstanceState.getString(KEY_BUILD_NAME);
+        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(KEY_FACTION_ENUM);
+        	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(KEY_EXPANSION_ENUM);
         }
 
         setSupportActionBar(mToolbar);
@@ -176,7 +226,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @OnClick(R.id.activity_brief_play_action_button)
     public void playBuild() {
         Intent i = new Intent(this, PlaybackActivity.class);
-        i.putExtra(RaceFragment.KEY_BUILD_ID, mBuildId);
+        i.putExtra(KEY_BUILD_ID, mBuildId);
         startActivity(i);
     }
 
@@ -187,10 +237,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(RaceFragment.KEY_BUILD_ID, mBuildId);
-        outState.putString(RaceFragment.KEY_BUILD_NAME, mBuildName);
-        outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFaction);
-        outState.putSerializable(RaceFragment.KEY_EXPANSION_ENUM, mExpansion);
+        outState.putLong(KEY_BUILD_ID, mBuildId);
+        outState.putString(KEY_BUILD_NAME, mBuildName);
+        outState.putSerializable(KEY_FACTION_ENUM, mFaction);
+        outState.putSerializable(KEY_EXPANSION_ENUM, mExpansion);
     }
     
 	//=========================================================================

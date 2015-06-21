@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
@@ -34,8 +35,6 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 	 * 
 	 * @param fm fragment manager
 	 * @param buildToEdit - null if user is creating a new build
-	 * @param initialExpansion - null if user is editing an existing build
-	 * @param initialFaction - null if user is editing an existing build
 	 */
 	public EditBuildPagerAdapter(FragmentManager fm, Context context, Build buildToEdit) {
 		super(fm);
@@ -60,7 +59,7 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 		}
 		
 		Bundle data = new Bundle();
-		data.putSerializable(RaceFragment.KEY_BUILD_OBJECT, mBuildToEdit);
+		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuildToEdit);
 		tab.setArguments(data);
 		return tab;
 	}

@@ -56,7 +56,7 @@ public class UnitSelectorActivity extends ActionBarActivity {
 
 		ItemType defaultItemType = null;
         if (savedInstanceState == null) {
-        	mFactionFilter = (Faction) getIntent().getExtras().getSerializable(RaceFragment.KEY_FACTION_ENUM);
+        	mFactionFilter = (Faction) getIntent().getExtras().getSerializable(IntentKeys.KEY_FACTION_ENUM);
         	if (getIntent().getExtras().containsKey(KEY_CALLER_ID)) {
         		mCallerID = getIntent().getExtras().getInt(KEY_CALLER_ID);
         	}
@@ -64,7 +64,7 @@ public class UnitSelectorActivity extends ActionBarActivity {
         		defaultItemType = (ItemType) getIntent().getExtras().getSerializable(KEY_DEFAULT_ITEM_TYPE);
         	}
         } else {
-        	mFactionFilter = (Faction) savedInstanceState.getSerializable(RaceFragment.KEY_FACTION_ENUM);
+        	mFactionFilter = (Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
         	if (savedInstanceState.containsKey(KEY_CALLER_ID)) {
         		mCallerID = savedInstanceState.getInt(KEY_CALLER_ID);
         	}
@@ -97,7 +97,7 @@ public class UnitSelectorActivity extends ActionBarActivity {
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFactionFilter);
+		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFactionFilter);
 		super.onSaveInstanceState(outState);
 	}
 

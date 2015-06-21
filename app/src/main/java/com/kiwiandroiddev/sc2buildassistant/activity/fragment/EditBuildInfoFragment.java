@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
@@ -80,7 +81,7 @@ public class EditBuildInfoFragment extends Fragment {
 		// get initial selections from fragment args or savedInstanceState
 		if (savedInstanceState == null) {			
 			// populate fields from an existing build object
-			Build build = (Build) getArguments().getSerializable(RaceFragment.KEY_BUILD_OBJECT);
+			Build build = (Build) getArguments().getSerializable(IntentKeys.KEY_BUILD_OBJECT);
 			populateFields(build);
 		} else {
 			// restore IcsSpinner selections manually, android system handles the other Views itself

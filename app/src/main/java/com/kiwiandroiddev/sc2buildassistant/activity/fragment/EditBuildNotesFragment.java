@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
@@ -122,7 +123,7 @@ public class EditBuildNotesFragment extends Fragment {
 		
 		// populate fields from build object passed in
 		if (savedInstanceState == null) {			
-			Build build = (Build) getArguments().getSerializable(RaceFragment.KEY_BUILD_OBJECT);
+			Build build = (Build) getArguments().getSerializable(IntentKeys.KEY_BUILD_OBJECT);
 			mNotes.setText(build.getNotes());
 		} // nothing to do in 'else' case since android saves and restores View states itself
 		

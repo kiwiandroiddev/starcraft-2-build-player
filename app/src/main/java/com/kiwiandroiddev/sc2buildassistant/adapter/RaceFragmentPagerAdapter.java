@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 //import android.util.Log;
@@ -36,8 +37,8 @@ public class RaceFragmentPagerAdapter extends FragmentPagerAdapter {
 		
 		// TODO keeping this expansion-value passing for now, would like to remove soon
 		Bundle data = new Bundle();
-		data.putSerializable(RaceFragment.KEY_FACTION_ENUM, race);
-		data.putSerializable(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
+		data.putSerializable(IntentKeys.KEY_FACTION_ENUM, race);
+		data.putSerializable(IntentKeys.KEY_EXPANSION_ENUM, mCurrentExpansion);
 		tab.setArguments(data);
 		
 		return tab;

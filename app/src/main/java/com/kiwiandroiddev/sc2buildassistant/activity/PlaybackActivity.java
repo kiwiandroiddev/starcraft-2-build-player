@@ -144,7 +144,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 		initTTS();
 
         // fetch the build object from database associated with ID we were passed
-        long buildId = getIntent().getExtras().getLong(RaceFragment.KEY_BUILD_ID);	// stub
+        long buildId = getIntent().getExtras().getLong(IntentKeys.KEY_BUILD_ID);	// stub
         DbAdapter db = new DbAdapter(this);
         db.open();
         mBuild = db.fetchBuild(buildId);

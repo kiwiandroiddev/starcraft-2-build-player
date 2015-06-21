@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
@@ -41,8 +42,8 @@ public class UnitSelectorFragment extends Fragment {
 		
 		Bundle dataSource = savedInstanceState == null ? getArguments() : savedInstanceState; 
 
-		mFactionFilter = (Faction) dataSource.getSerializable(RaceFragment.KEY_FACTION_ENUM);
-		mItemTypeFilter = (ItemType) dataSource.getSerializable(RaceFragment.KEY_ITEM_TYPE_ENUM);
+		mFactionFilter = (Faction) dataSource.getSerializable(IntentKeys.KEY_FACTION_ENUM);
+		mItemTypeFilter = (ItemType) dataSource.getSerializable(IntentKeys.KEY_ITEM_TYPE_ENUM);
 
 //		Timber.d(this.toString(), "in UnitSelectorFragment.onCreateView(), faction = " + mFactionFilter
 //				+ ", item type = " + mItemTypeFilter);
@@ -68,8 +69,8 @@ public class UnitSelectorFragment extends Fragment {
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFactionFilter);
-		outState.putSerializable(RaceFragment.KEY_ITEM_TYPE_ENUM, mItemTypeFilter);
+		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFactionFilter);
+		outState.putSerializable(IntentKeys.KEY_ITEM_TYPE_ENUM, mItemTypeFilter);
 		super.onSaveInstanceState(outState);
 	}
 }

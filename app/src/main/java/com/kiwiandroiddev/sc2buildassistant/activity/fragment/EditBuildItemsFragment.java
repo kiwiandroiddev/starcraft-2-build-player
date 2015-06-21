@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemAdapter;
@@ -74,7 +75,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			// The solution is to deep copy the build we get, even though it was supposedly serialized
 			// which should perform the same function as deep copy...
 			
-			Build callerBuild = (Build) getArguments().getSerializable(RaceFragment.KEY_BUILD_OBJECT);
+			Build callerBuild = (Build) getArguments().getSerializable(IntentKeys.KEY_BUILD_OBJECT);
 			//Build build = callerBuild == null ? null : (Build) UnoptimizedDeepCopy.copy(callerBuild);
 			Build build = callerBuild;
 			
@@ -86,7 +87,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			workingList = (ArrayList<BuildItem>) savedInstanceState.getSerializable(KEY_BUILD_ITEM_ARRAY);
 			
 			// stub: doesn't keep up to date with faction selection in Info tab!
-			mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(RaceFragment.KEY_FACTION_ENUM);
+			mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
 		}
 		
 		mAdapter = new EditBuildItemAdapter(getActivity(),
@@ -123,7 +124,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, mAdapter.getArrayList());
-		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFaction);
+		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFaction);
 	}
 	
 	public void setFaction(Faction selection) {
@@ -151,13 +152,13 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		//Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
 		
 		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
-        i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
+        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
         
 		// -1 is the footer item ID
 		if (id != -1) {
 			BuildItem item = mAdapter.getItem(position);
 			//Timber.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
-			i.putExtra(RaceFragment.KEY_BUILD_ITEM_OBJECT, item);
+			i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
 	        i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, id);
 		} else {
 			// "Add item" clicked
@@ -178,7 +179,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	        		data.getExtras().getLong(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID) :
 	        		null;
 	        		
-	        	BuildItem item = (BuildItem) data.getExtras().getSerializable(RaceFragment.KEY_BUILD_ITEM_OBJECT);
+	        	BuildItem item = (BuildItem) data.getExtras().getSerializable(IntentKeys.KEY_BUILD_ITEM_OBJECT);
 	        	//Timber.d(this.toString(), "in EditBuildItemsFragment, got item = " + item);
 	        	
 	        	if (id == null) {	// i.e. new build item to add	        		

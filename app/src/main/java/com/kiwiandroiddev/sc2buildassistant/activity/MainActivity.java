@@ -182,8 +182,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     		// starts the build editor
     		Intent i = new Intent(this, EditBuildActivity.class);
     		// TODO: move KEY definitions into one global 'contract' class
-            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mPagerAdapter.getCurrentExpansion());
-            i.putExtra(RaceFragment.KEY_FACTION_ENUM, DbAdapter.Faction.values()[mPager.getCurrentItem()]);
+            i.putExtra(IntentKeys.KEY_EXPANSION_ENUM, mPagerAdapter.getCurrentExpansion());
+            i.putExtra(IntentKeys.KEY_FACTION_ENUM, DbAdapter.Faction.values()[mPager.getCurrentItem()]);
             startActivity(i);
             return true;
     	case R.id.menu_import_build:

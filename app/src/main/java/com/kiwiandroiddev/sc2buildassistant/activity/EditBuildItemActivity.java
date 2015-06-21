@@ -85,8 +85,8 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
         		mIncomingItemID = extras.getLong(KEY_INCOMING_BUILD_ITEM_ID);
         	
 	        BuildItem item;
-	        if (extras.containsKey(RaceFragment.KEY_BUILD_ITEM_OBJECT)) {
-	        	item = (BuildItem) extras.getSerializable(RaceFragment.KEY_BUILD_ITEM_OBJECT);
+	        if (extras.containsKey(IntentKeys.KEY_BUILD_ITEM_OBJECT)) {
+	        	item = (BuildItem) extras.getSerializable(IntentKeys.KEY_BUILD_ITEM_OBJECT);
 	        } else {
 	        	item = new BuildItem();
 	        	item.setTime(extras.getInt(KEY_DEFAULT_TIME, 0));
@@ -100,14 +100,14 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	        mMainItemID = item.getGameItemID();
 	        mTargetItemID = item.getTarget();
 	        
-        	mFaction = (DbAdapter.Faction) extras.getSerializable(RaceFragment.KEY_FACTION_ENUM);
+        	mFaction = (DbAdapter.Faction) extras.getSerializable(IntentKeys.KEY_FACTION_ENUM);
         } else {
         	if (savedInstanceState.containsKey(KEY_INCOMING_BUILD_ITEM_ID))
         		mIncomingItemID = savedInstanceState.getLong(KEY_INCOMING_BUILD_ITEM_ID);
         		
         	mMainItemID = savedInstanceState.getString(KEY_MAIN_ITEM_ID);
         	mTargetItemID = savedInstanceState.getString(KEY_TARGET_ITEM_ID);
-        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(RaceFragment.KEY_FACTION_ENUM);
+        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
         	
         	// if we're restoring a previous instance, we must have shown the initial selector already
         	mHaveShownInitialSelector = true;
@@ -148,7 +148,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 		
 		outState.putSerializable(KEY_MAIN_ITEM_ID, mMainItemID);
 		outState.putSerializable(KEY_TARGET_ITEM_ID, mTargetItemID);
-		outState.putSerializable(RaceFragment.KEY_FACTION_ENUM, mFaction);
+		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFaction);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -199,7 +199,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 		
 		// finish activity and return build as result
 		Intent data = new Intent();
-		data.putExtra(RaceFragment.KEY_BUILD_ITEM_OBJECT, result);
+		data.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, result);
 		// tell the caller which build item of theirs we're returning
 		if (mIncomingItemID != null)
 			data.putExtra(KEY_INCOMING_BUILD_ITEM_ID, mIncomingItemID);
@@ -245,7 +245,7 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
 	 */
 	private void showUnitSelector(int callerId, ItemType defaultTab) {
         Intent i = new Intent(this, UnitSelectorActivity.class);
-        i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
+        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
         i.putExtra(UnitSelectorActivity.KEY_CALLER_ID, callerId);
         if (defaultTab != null) {
             i.putExtra(UnitSelectorActivity.KEY_DEFAULT_ITEM_TYPE, defaultTab);

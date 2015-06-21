@@ -38,6 +38,7 @@ import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
@@ -56,6 +57,9 @@ import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_EXPANSION_ENUM;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTION_ENUM;
 
 /**
  * Fragment for displaying a list build orders for one of the 3 StarCraft factions (Terran,
@@ -70,15 +74,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	    
 	private static Map<DbAdapter.Faction, Integer> sIconByRace = new HashMap<>();
 
-	// keys that this activity uses when passing data to other activities or fragments
-	public static final String KEY_BUILD_ID = "com.kiwiandroiddev.sc2buildassistant.BuildId";
-	public static final String KEY_BUILD_NAME = "com.kiwiandroiddev.sc2buildassistant.BuildName";
-	public static final String KEY_EXPANSION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Expansion";
-	public static final String KEY_FACTION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Faction";
-	public static final String KEY_ITEM_TYPE_ENUM = "com.kiwiandroiddev.sc2buildassistant.ItemType";
-	public static final String KEY_BUILD_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.Build";
-	public static final String KEY_BUILD_ITEM_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.BuildItem";
-	
 	private int mBgDrawable;
 	private DbAdapter.Expansion mCurrentExpansion;
 	private DbAdapter.Faction mFaction;
@@ -247,7 +242,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
      */
 	private void editBuild(long rowId) {
 		Intent i = new Intent(getActivity(), EditBuildActivity.class);
-        i.putExtra(RaceFragment.KEY_BUILD_ID, rowId);
+        i.putExtra(KEY_BUILD_ID, rowId);
         startActivity(i);
 	}
 
@@ -360,8 +355,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 //        } else {    // footer
 //            // starts the build editor
 //            Intent i = new Intent(getActivity(), EditBuildActivity.class);
-//            i.putExtra(RaceFragment.KEY_EXPANSION_ENUM, mCurrentExpansion);
-//            i.putExtra(RaceFragment.KEY_FACTION_ENUM, mFaction);
+//            i.putExtra(IntentKeys.KEY_EXPANSION_ENUM, mCurrentExpansion);
+//            i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
 //            startActivity(i);
 //        }
 //    }

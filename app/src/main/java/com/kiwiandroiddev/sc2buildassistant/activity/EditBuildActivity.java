@@ -137,7 +137,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	        	Timber.d(mTag + ": neither fragment nor preinitialized fragment set");
 	            // If not, instantiate and add it to the activity
 	        	Bundle data = new Bundle();
-	    		data.putSerializable(RaceFragment.KEY_BUILD_OBJECT, mBuild);
+	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
 	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
 	            ft.add(android.R.id.content, mFragment, mTag);
 	        } else if (mFragment != null) {
@@ -155,7 +155,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 //	            // If not, instantiate and add it to the activity
 //	    		    		
 //	    		Bundle data = new Bundle();
-//	    		data.putSerializable(RaceFragment.KEY_BUILD_OBJECT, mBuild);
+//	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
 //	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
 //	            ft.add(android.R.id.content, mFragment, mTag);
 //	        } else {
@@ -215,9 +215,9 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
         DbAdapter.Faction faction = null;
         if (savedInstanceState == null) {
         	Bundle data = getIntent().getExtras(); 
-        	mBuildId = data.containsKey(RaceFragment.KEY_BUILD_ID) ? data.getLong(RaceFragment.KEY_BUILD_ID) : -1;
-        	expansion = data.containsKey(RaceFragment.KEY_EXPANSION_ENUM) ? (Expansion) data.getSerializable(RaceFragment.KEY_EXPANSION_ENUM) : null;
-        	faction = data.containsKey(RaceFragment.KEY_FACTION_ENUM) ? (Faction) data.getSerializable(RaceFragment.KEY_FACTION_ENUM) : null;
+        	mBuildId = data.containsKey(IntentKeys.KEY_BUILD_ID) ? data.getLong(IntentKeys.KEY_BUILD_ID) : -1;
+        	expansion = data.containsKey(IntentKeys.KEY_EXPANSION_ENUM) ? (Expansion) data.getSerializable(IntentKeys.KEY_EXPANSION_ENUM) : null;
+        	faction = data.containsKey(IntentKeys.KEY_FACTION_ENUM) ? (Faction) data.getSerializable(IntentKeys.KEY_FACTION_ENUM) : null;
         	
             // Load working copy of existing Build from database or create a new one
             if (mBuildId != -1) {
@@ -234,7 +234,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
         	// handle resuming saved state
         	mCreatingNewBuild = savedInstanceState.getBoolean(KEY_NEW_BUILD_BOOL);
         	mInitialBuild = (Build) savedInstanceState.getSerializable(KEY_WORKING_BUILD);
-        	mBuildId = savedInstanceState.getLong(RaceFragment.KEY_BUILD_ID);
+        	mBuildId = savedInstanceState.getLong(IntentKeys.KEY_BUILD_ID);
         }
         
         mCurrentFactionSelection = mInitialBuild.getFaction();
@@ -302,7 +302,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putBoolean(KEY_NEW_BUILD_BOOL, mCreatingNewBuild);
 		outState.putSerializable(KEY_WORKING_BUILD, mInitialBuild);
-		outState.putLong(RaceFragment.KEY_BUILD_ID, mBuildId);
+		outState.putLong(IntentKeys.KEY_BUILD_ID, mBuildId);
 		outState.putInt(KEY_SELECTED_TAB, getSupportActionBar().getSelectedNavigationIndex());
 		super.onSaveInstanceState(outState);
 	}
