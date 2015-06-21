@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.f2prateek.dart.Dart;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.MapFormat;
@@ -66,7 +68,7 @@ import butterknife.InjectView;
 public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 
-    public static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";
+    private static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";
 
 	// StarCraft 2 game speed reference: http://wiki.teamliquid.net/starcraft2/Game_Speed
 	public static final double SLOWER_FACTOR = 0.6;
@@ -117,7 +119,8 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         setContentView(R.layout.activity_playback);
         ButterKnife.inject(this);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+		//noinspection ConstantConditions
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         // Inflate the custom view
         mTimerTextContainer = LayoutInflater.from(this).inflate(R.layout.playback_time_text, null);
@@ -144,7 +147,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 		initTTS();
 
         // fetch the build object from database associated with ID we were passed
-        long buildId = getIntent().getExtras().getLong(IntentKeys.KEY_BUILD_ID);	// stub
+        long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
         DbAdapter db = new DbAdapter(this);
         db.open();
         mBuild = db.fetchBuild(buildId);
@@ -152,9 +155,8 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
         
         // create build player object from build passed in intent
         if (savedInstanceState != null && savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT) != null) {
-        	BuildPlayer savedPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
+			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
 //        	Log.w(this.toString(), "saved buildplayer found, player = " + savedPlayer + ", numListeners = " + savedPlayer.getNumListeners());
-        	mBuildPlayer = savedPlayer;
         } else {
         	mBuildPlayer = new BuildPlayer(mBuild.getItems());
         }
@@ -283,7 +285,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	}
 	
 	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		// is listener invalid?
 		BuildPlayer player = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);

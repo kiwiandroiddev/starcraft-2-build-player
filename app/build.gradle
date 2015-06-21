@@ -26,15 +26,20 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.google.code.gson:gson:2.3'
-    compile project(':dragsortlistviewlibrary')
+    compile 'com.jakewharton:butterknife:6.0.0'
+    compile 'com.f2prateek.dart:dart:1.1.0'
     compile 'com.jakewharton.timber:timber:3.0.2'
+    compile project(':dragsortlistviewlibrary')
     compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
-//    compile files('libs/libGoogleAnalyticsV2.jar')
+    //    compile files('libs/libGoogleAnalyticsV2.jar')
 }

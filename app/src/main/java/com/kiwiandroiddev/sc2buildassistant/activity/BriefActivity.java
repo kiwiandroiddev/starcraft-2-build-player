@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.f2prateek.dart.Dart;
+import com.f2prateek.dart.InjectExtra;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
@@ -51,11 +53,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
 
-	private long mBuildId;
-//	private long mStartTime;	// temp optimization testing
-	private DbAdapter.Faction mFaction;
-	private DbAdapter.Expansion mExpansion;
-	private String mBuildName;
+	@InjectExtra(KEY_BUILD_ID) long mBuildId;
+	@InjectExtra(KEY_FACTION_ENUM) DbAdapter.Faction mFaction;
+	@InjectExtra(KEY_EXPANSION_ENUM) DbAdapter.Expansion mExpansion;
+	@InjectExtra(KEY_BUILD_NAME) String mBuildName;
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.brief_buildSubTitle) TextView mSubtitleView;
@@ -140,15 +141,11 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 //        Timber.d(TAG, "onCreate(), mBuildId = " + mBuildId);
         
         if (savedInstanceState == null) {
-        	mBuildId = getIntent().getExtras().getLong(KEY_BUILD_ID);
-        	mBuildName = getIntent().getExtras().getString(KEY_BUILD_NAME);
-        	mFaction = (DbAdapter.Faction) getIntent().getExtras().getSerializable(KEY_FACTION_ENUM);
-        	mExpansion = (DbAdapter.Expansion) getIntent().getExtras().getSerializable(KEY_EXPANSION_ENUM);
+			// init member variables using Intent extras
+			Dart.inject(this);
         } else {
-        	mBuildId = savedInstanceState.getLong(KEY_BUILD_ID, -1);
-        	mBuildName = savedInstanceState.getString(KEY_BUILD_NAME);
-        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(KEY_FACTION_ENUM);
-        	mExpansion = (DbAdapter.Expansion) savedInstanceState.getSerializable(KEY_EXPANSION_ENUM);
+			// init member variables using previously saved instance state bundle
+			Dart.inject(this, savedInstanceState);
         }
 
         setSupportActionBar(mToolbar);
@@ -189,7 +186,6 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
-
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
