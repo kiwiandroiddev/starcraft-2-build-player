@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 
 /**
@@ -232,8 +234,8 @@ public class SettingsActivity extends ActionBarActivity {
                             db.clear();
                             final boolean forceLoad = true;
                             try {
-                                MainActivity.loadStandardBuildsIntoDB(getActivity(), forceLoad);
-                                MainActivity.notifyBuildProviderObservers(getActivity());
+                                StandardBuildsService.loadStandardBuildsIntoDB(getActivity(), forceLoad);
+                                JsonBuildService.notifyBuildProviderObservers(getActivity());
                                 Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), String.format(getString(R.string.error_loading_std_builds), e.getMessage()),

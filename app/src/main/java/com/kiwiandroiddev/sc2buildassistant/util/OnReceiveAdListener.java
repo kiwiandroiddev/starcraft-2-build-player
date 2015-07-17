@@ -6,7 +6,7 @@ import com.google.ads.AdRequest;
 
 /**
  * Implementation of the AdListener interface that provides default (empty)
- * callback definitions for everything except onReceiveAd().
+ * callback definitions for everything except onReceiveAd(). Reduces boilerplate.
  *
  * Created by matt on 27/04/15.
  */

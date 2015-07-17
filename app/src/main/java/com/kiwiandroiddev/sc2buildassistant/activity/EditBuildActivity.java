@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
@@ -25,7 +26,6 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragm
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
@@ -99,7 +99,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 			mDlg.hide();
 			if (result == true) {
 				// notify observers of buildprovider's build table that its contents have changed
-				MainActivity.notifyBuildProviderObservers(EditBuildActivity.this);
+				JsonBuildService.notifyBuildProviderObservers(EditBuildActivity.this);
 				showMessage(R.string.edit_build_save_successful);
 				EditBuildActivity.this.finish();
 			} else {
