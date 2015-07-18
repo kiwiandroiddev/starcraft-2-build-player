@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
 import timber.log.Timber;
 
 /**
@@ -23,6 +25,29 @@ import timber.log.Timber;
 public class StandardBuildsService {
 	private static final int BUILD_FILES_VERSION = 46;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
+
+	public static Observable<Integer> getLoadStandardBuildsIntoDBObservable(final Context c, final boolean forceLoad) {
+		return Observable.create(new Observable.OnSubscribe<Integer>() {
+			@Override
+			public void call(final Subscriber<? super Integer> observer) {
+				try {
+					if (!observer.isUnsubscribed()) {
+						loadStandardBuildsIntoDB(c, forceLoad, new DbAdapter.ProgressListener() {
+							@Override
+							public void onProgressUpdate(int percent) {
+								if (!observer.isUnsubscribed()) {
+									observer.onNext(percent);
+								}
+							}
+						});
+						observer.onCompleted();
+					}
+				} catch (Exception e) {
+					observer.onError(e);
+				}
+			}
+		});
+	}
 
 	/**
 	 * Loads standard build orders into the local database.

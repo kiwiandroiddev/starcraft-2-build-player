@@ -404,7 +404,10 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		public BuildAdapter(Context context, Cursor cursor) {
 			mBuildViewModelList = new ArrayList<>();
 
-            cursor.moveToFirst();
+            if (!cursor.moveToFirst()) {
+				return;
+			}
+
 			do {
                 long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
 
