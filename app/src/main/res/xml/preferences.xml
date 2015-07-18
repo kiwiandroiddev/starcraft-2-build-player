@@ -14,7 +14,7 @@
 	        android:entryValues="@array/pref_game_speed_values"
 	        android:defaultValue="@string/pref_game_speed_default" />
 	
-	    <com.kiwiandroiddev.sc2buildassistant.NumberPickerPreference
+	    <com.kiwiandroiddev.sc2buildassistant.view.NumberPickerPreference
 	            android:key="pref_early_warning"
 	            android:title="@string/pref_early_warning"
 	            android:summary="@string/pref_early_warning_summary"
@@ -22,7 +22,7 @@
 	            app:startRange="0"
 	            app:endRange="60" />
 	    
-	    <com.kiwiandroiddev.sc2buildassistant.NumberPickerPreference
+	    <com.kiwiandroiddev.sc2buildassistant.view.NumberPickerPreference
 	            android:key="pref_start_time"
 	            android:title="@string/pref_start_time"
 	            android:summary="@string/pref_start_time_summary"

@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.view;
 
 import android.content.Context;
 import android.preference.DialogPreference;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import com.kiwiandroiddev.sc2buildassistant.R;
 
 public class NumberPickerPreference extends DialogPreference {
 	

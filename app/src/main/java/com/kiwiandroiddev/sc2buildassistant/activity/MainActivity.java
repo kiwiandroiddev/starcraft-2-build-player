@@ -26,9 +26,9 @@ import android.widget.Toast;
 
 import com.google.ads.Ad;
 import com.google.ads.AdView;
-import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
+import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.SelectionMode;
+import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;

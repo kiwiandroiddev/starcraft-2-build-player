@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

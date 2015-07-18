@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;

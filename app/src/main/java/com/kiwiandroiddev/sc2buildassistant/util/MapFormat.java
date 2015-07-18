@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.util;
 
 // Source: http://www.java2s.com/Code/Java/I18N/AtextformatsimilartoMessageFormatbutusingstringratherthannumerickeys.htm
 
