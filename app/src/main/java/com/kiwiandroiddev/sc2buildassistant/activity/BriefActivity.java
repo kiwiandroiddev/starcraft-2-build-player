@@ -27,7 +27,6 @@ import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 
 import java.util.ArrayList;
@@ -182,28 +181,25 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getMenuInflater();
-       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
+//       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	// Handle Briefing screen specific menu items
-    	if (item.getItemId() == R.id.menu_play_build) {
-    		// starts the build player interface
-            playBuild();
-    	} else if (item.getItemId() == android.R.id.home) {
+    	if (item.getItemId() == android.R.id.home) {
             finishCompat();
             return true;
         }
     	
     	// use the same options menu as the main activity 
     	boolean result = MainActivity.OnMenuItemSelected(this, item);
-    	if (!result)
-    		return super.onOptionsItemSelected(item);
-    	else
-    		return true;
+    	if (!result) {
+			return super.onOptionsItemSelected(item);
+		} else {
+			return true;
+		}
     }
 
     @Override
