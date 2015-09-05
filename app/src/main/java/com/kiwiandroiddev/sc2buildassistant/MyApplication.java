@@ -26,17 +26,15 @@ public class MyApplication extends Application {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new DebugTree());
+
+            // When dry run is set, hits will not be dispatched, but will still be logged as
+            // though they were dispatched.
+            GoogleAnalytics.getInstance(this).setDryRun(true);
+
+            // Set the log level to verbose.
+            GoogleAnalytics.getInstance(this).getLogger()
+                    .setLogLevel(Logger.LogLevel.VERBOSE);
         }
-
-        // TODO execute only for debug build type
-
-        // When dry run is set, hits will not be dispatched, but will still be logged as
-        // though they were dispatched.
-        GoogleAnalytics.getInstance(this).setDryRun(true);
-
-        // Set the log level to verbose.
-        GoogleAnalytics.getInstance(this).getLogger()
-                .setLogLevel(Logger.LogLevel.VERBOSE);
     }
 
     public DbAdapter getDb() {
