@@ -14,6 +14,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -65,13 +68,13 @@ public class SettingsActivity extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance().activityStop(this);
     }
 
     public static class SettingsFragment extends PreferenceFragment
@@ -97,8 +100,8 @@ public class SettingsActivity extends ActionBarActivity {
             ratePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-//            	EasyTracker.getInstance().setContext(SettingsActivity.this);
-//            	EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "rate_option", null);
+                    EasyTracker.getInstance().setContext(getActivity());
+                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "rate_option", null);
 
                     return launchPlayStore(Uri.parse("market://details?id=" + getActivity().getPackageName()));
                 }
@@ -109,8 +112,8 @@ public class SettingsActivity extends ActionBarActivity {
             proPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-//            	EasyTracker.getInstance().setContext(SettingsActivity.this);
-//            	EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "buy_pro_option", null);
+                    EasyTracker.getInstance().setContext(getActivity());
+                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "buy_pro_option", null);
 
                     return launchPlayStore(Uri.parse("market://details?id=" + PRO_VERSION_PACKAGE));
                 }
@@ -121,8 +124,8 @@ public class SettingsActivity extends ActionBarActivity {
             translatePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-//            	EasyTracker.getInstance().setContext(SettingsActivity.this);
-//            	EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "translate_option", null);
+                    EasyTracker.getInstance().setContext(getActivity());
+                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "translate_option", null);
 
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TRANSLATE_URL));
                     startActivity(browserIntent);
@@ -140,7 +143,7 @@ public class SettingsActivity extends ActionBarActivity {
             });
         }
 
-        /*
+    /*
      * Handles updating preference summaries when their values change
      */
         public void onSharedPreferenceChanged(SharedPreferences sharedPref, String key) {
@@ -165,8 +168,8 @@ public class SettingsActivity extends ActionBarActivity {
                 String summary = String.format(res.getString(R.string.pref_start_time_summary), seconds);
                 pref.setSummary(summary);
             } else if (key.equals(KEY_ENABLE_TRACKING)) {
-//        	GoogleAnalytics myInstance = GoogleAnalytics.getInstance(this);
-//        	myInstance.setAppOptOut(!sharedPref.getBoolean(KEY_ENABLE_TRACKING, true));
+                GoogleAnalytics myInstance = GoogleAnalytics.getInstance(getActivity());
+                myInstance.setAppOptOut(!sharedPref.getBoolean(KEY_ENABLE_TRACKING, true));
             }
             // other preferences here...
         }
@@ -241,9 +244,9 @@ public class SettingsActivity extends ActionBarActivity {
                                 e.printStackTrace();
 
                                 // Report this error for analysis
-//			    		EasyTracker.getInstance().setContext(SettingsActivity.this);
-//			    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
-//			    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
+                                EasyTracker.getInstance().setContext(getActivity());
+                                Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
+                                myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
                             }
                         }
                     })

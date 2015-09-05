@@ -1,7 +1,5 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-//import com.google.analytics.tracking.android.EasyTracker;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,9 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
@@ -132,13 +130,13 @@ public class EditBuildItemActivity extends ActionBarActivity implements OnClickL
     @Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance().activityStop(this);
     }
 	
 	@Override

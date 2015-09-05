@@ -8,9 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
-
-//import com.google.analytics.tracking.android.EasyTracker;
 
 public class InsertLinkDialog extends Activity {
 	
@@ -92,12 +91,12 @@ public class InsertLinkDialog extends Activity {
     @Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance().activityStop(this);
     }
 }

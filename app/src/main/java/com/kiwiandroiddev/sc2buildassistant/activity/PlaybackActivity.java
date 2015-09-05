@@ -31,12 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.f2prateek.dart.Dart;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.MapFormat;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
@@ -51,9 +52,6 @@ import java.util.Queue;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-//import com.google.analytics.tracking.android.EasyTracker;
-//import com.google.analytics.tracking.android.Tracker;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -235,7 +233,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
     @Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance().activityStart(this);
     }
 
 	@Override
@@ -243,7 +241,7 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 //		Log.w(this.toString(), "onStop() called, mBuildPlayer = " + mBuildPlayer);
 		super.onStop();
 		mHandler.removeCallbacks(mUpdateTimeTask);
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance().activityStop(this);
 	}
 	
 	@Override
@@ -566,9 +564,9 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 			String err = "getVerbForItem() in getAlertMessage() threw exception " + e.getMessage() + 
 					" for item " + item + " in build " + mBuild + " playback time=" +
 					mTimerText.getText().toString();
-//    		EasyTracker.getInstance().setContext(this);
-//    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
-//    		myTracker.sendException(err, false);    // false indicates non-fatal exception.
+    		EasyTracker.getInstance().setContext(this);
+    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
+    		myTracker.sendException(err, false);    // false indicates non-fatal exception.
     		return itemName;	// compromise to prevent crash: just say item name
 		}
 		
@@ -608,12 +606,12 @@ public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChan
 	 * which builds are being viewed and which aren't
 	 */
 	private void trackPlaybackView() {
-//    	EasyTracker.getInstance().setContext(this);
-//    	EasyTracker.getTracker().sendEvent("playback_view", mBuild.getExpansion().toString() + "_" + mBuild.getFaction().toString(), mBuild.getName(), null);
+    	EasyTracker.getInstance().setContext(this);
+    	EasyTracker.getTracker().sendEvent("playback_view", mBuild.getExpansion().toString() + "_" + mBuild.getFaction().toString(), mBuild.getName(), null);
 	}
 	
 	private void trackPlaybackFinished() {
-//		EasyTracker.getInstance().setContext(this);
-//    	EasyTracker.getTracker().sendEvent("playback_finished", mBuild.getExpansion().toString() + "_" + mBuild.getFaction().toString(), mBuild.getName(), null);
+		EasyTracker.getInstance().setContext(this);
+    	EasyTracker.getTracker().sendEvent("playback_finished", mBuild.getExpansion().toString() + "_" + mBuild.getFaction().toString(), mBuild.getName(), null);
 	}
 }

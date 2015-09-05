@@ -29,6 +29,8 @@ import android.widget.Toast;
 
 import com.google.ads.Ad;
 import com.google.ads.AdView;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -60,9 +62,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-//import com.google.analytics.tracking.android.EasyTracker;
-//import com.google.analytics.tracking.android.Tracker;
 
 /**
  * Main activity and entry point of the app. Shows available build orders for each of the three factions
@@ -157,13 +156,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 	@Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance().activityStop(this);
     }
     
     @Override
@@ -525,9 +524,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 Log.e(TAG, "LoadStandardBuildsTask returned an exception: ", e);
 
                 // Report this error for analysis
-//	    		EasyTracker.getInstance().setContext(mContext);
-//	    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
-//	    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
+	    		EasyTracker.getInstance().setContext(mContext);
+	    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
+	    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
             }
         }
     }
