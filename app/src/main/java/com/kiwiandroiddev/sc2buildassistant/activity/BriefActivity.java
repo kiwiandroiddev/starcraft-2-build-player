@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
@@ -168,13 +169,13 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     public void onStart() {
     	super.onStart();
-    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance(this).activityStop(this);
     }
 	
     @Override
@@ -319,8 +320,10 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
 	 * which builds are being viewed and which aren't
 	 */
 	private void trackBriefView() {
-    	EasyTracker.getInstance().setContext(this);
-    	EasyTracker.getTracker().sendEvent("brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null);
+    	EasyTracker.getInstance(this).send(
+				MapBuilder.createEvent(
+					"brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null)
+				.build());
 	}
 
 }
