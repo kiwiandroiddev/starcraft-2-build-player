@@ -383,7 +383,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			name = (TextView) itemView.findViewById(R.id.buildName);
 			vsRace = (TextView) itemView.findViewById(R.id.buildVsRace);
 			creationDate = (TextView) itemView.findViewById(R.id.buildCreationDate);
-            itemView.setOnClickListener(this);
 		}
 
 		public void bindBuildViewModel(BuildViewModel model) {
@@ -391,13 +390,18 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			name.setText(model.name);
 			vsRace.setText(model.vsRace);
 			creationDate.setText(model.creationDate);
+			itemView.setOnClickListener(this);
+		}
+
+		public void unbind() {
+			itemView.setOnClickListener(null);
 		}
 
         @Override
         public void onClick(View v) {
             onBuildItemClicked(this);
         }
-    }
+	}
 
 	private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
 		private static final int BUILD_ROW_TYPE = 0;
@@ -451,11 +455,15 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 
 		@Override
 		public void onBindViewHolder(BuildViewHolder viewHolder, int position) {
-			if (position < mBuildViewModelList.size()) {
-				viewHolder.bindBuildViewModel(mBuildViewModelList.get(position));
+			switch (getItemViewType(position)) {
+				case BUILD_ROW_TYPE:
+					viewHolder.bindBuildViewModel(mBuildViewModelList.get(position));
+					return;
+				case FOOTER_ROW_TYPE:
+				default:
+					viewHolder.unbind();
+					return;
 			}
-
-			// nothing to bind for footer row
 		}
 
 		@Override
