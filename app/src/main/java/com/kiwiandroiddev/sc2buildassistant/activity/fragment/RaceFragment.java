@@ -18,7 +18,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -26,9 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +35,6 @@ import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
-import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
@@ -57,7 +53,8 @@ import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION;
-import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_NAME;
 import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_EXPANSION_ENUM;
 import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTION_ENUM;
 
@@ -116,7 +113,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		View v = inflater.inflate(R.layout.fragment_race_layout, container, false);
 		mList = (RecyclerView) v.findViewById(R.id.build_list);
 		mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+		mList.setHasFixedSize(true);
 		mList.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
 
 //        // Add an unselectable spacer to the bottom to stop ads from obscuring content
@@ -403,6 +400,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
 	private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
+		private static final int BUILD_ROW_TYPE = 0;
+		private static final int FOOTER_ROW_TYPE = 1;
 		List<BuildViewModel> mBuildViewModelList;
 
 		public BuildAdapter(Context context, Cursor cursor) {
@@ -438,23 +437,38 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		}
 
 		@Override
-		public BuildViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-			View view = LayoutInflater.from(parent.getContext())
-					.inflate(R.layout.build_row, parent, false);
-			return new BuildViewHolder(view);
+		public BuildViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+			if (viewType == BUILD_ROW_TYPE) {
+				View view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.build_row, parent, false);
+				return new BuildViewHolder(view);
+			} else {
+				View view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.spacer_row, parent, false);
+				return new BuildViewHolder(view);
+			}
 		}
 
 		@Override
-		public void onBindViewHolder(BuildViewHolder viewHolder, int i) {
-			viewHolder.bindBuildViewModel(mBuildViewModelList.get(i));
+		public void onBindViewHolder(BuildViewHolder viewHolder, int position) {
+			if (position < mBuildViewModelList.size()) {
+				viewHolder.bindBuildViewModel(mBuildViewModelList.get(position));
+			}
+
+			// nothing to bind for footer row
 		}
 
 		@Override
 		public int getItemCount() {
-			return mBuildViewModelList.size();
+			return mBuildViewModelList.size() + 1;
 		}
 
-        @Override
+		@Override
+		public int getItemViewType(int position) {
+			return position < mBuildViewModelList.size() ? BUILD_ROW_TYPE : FOOTER_ROW_TYPE;
+		}
+
+		@Override
         public String toString() {
             return "BuildAdapter{" +
                     "mBuildViewModelList=" + mBuildViewModelList +
