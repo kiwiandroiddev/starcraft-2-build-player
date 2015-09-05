@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
-import com.google.analytics.tracking.android.Tracker;
 import com.kiwiandroiddev.sc2buildassistant.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 
 /**
  * Created by matt on 27/11/14.
@@ -68,13 +68,13 @@ public class SettingsActivity extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
-    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance(this).activityStop(this);
     }
 
     public static class SettingsFragment extends PreferenceFragment
@@ -100,8 +100,7 @@ public class SettingsActivity extends ActionBarActivity {
             ratePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-                    EasyTracker.getInstance().setContext(getActivity());
-                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "rate_option", null);
+                    EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "rate_option", null);
 
                     return launchPlayStore(Uri.parse("market://details?id=" + getActivity().getPackageName()));
                 }
@@ -112,8 +111,7 @@ public class SettingsActivity extends ActionBarActivity {
             proPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-                    EasyTracker.getInstance().setContext(getActivity());
-                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "buy_pro_option", null);
+                    EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "buy_pro_option", null);
 
                     return launchPlayStore(Uri.parse("market://details?id=" + PRO_VERSION_PACKAGE));
                 }
@@ -124,8 +122,7 @@ public class SettingsActivity extends ActionBarActivity {
             translatePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     // track this event as it's something we want the user to do (a "goal" in analytics speak)
-                    EasyTracker.getInstance().setContext(getActivity());
-                    EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "translate_option", null);
+                    EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "translate_option", null);
 
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TRANSLATE_URL));
                     startActivity(browserIntent);
@@ -244,9 +241,7 @@ public class SettingsActivity extends ActionBarActivity {
                                 e.printStackTrace();
 
                                 // Report this error for analysis
-                                EasyTracker.getInstance().setContext(getActivity());
-                                Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
-                                myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
+                                EasyTrackerUtils.sendNonFatalException(getActivity(), e);
                             }
                         }
                     })
