@@ -42,4 +42,5 @@ dependencies {
     compile project(':dragsortlistviewlibrary')
     compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
+    compile 'com.android.support:support-v4:22.2.1'
 }
