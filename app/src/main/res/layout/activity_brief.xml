@@ -107,7 +107,7 @@
                 <com.google.ads.AdView
                     android:id="@+id/ad"
                     android:layout_width="wrap_content"
-                    android:layout_height="64dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     ads:adSize="BANNER"
                     ads:adUnitId="a150b967e3b02cd"
