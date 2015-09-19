@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
@@ -39,8 +40,6 @@ import java.util.Date;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import timber.log.Timber;
-
-//import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * Activity for creating new build orders or editing existing ones. Has three fragments
@@ -289,13 +288,13 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
     @Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance(this).activityStop(this);
     }
 	
 	@Override

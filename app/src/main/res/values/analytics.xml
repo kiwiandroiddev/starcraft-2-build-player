@@ -8,7 +8,5 @@
 
   <!--Enable automatic exception tracking-->
   <bool name="ga_reportUncaughtExceptions">true</bool>
-  
-  <!-- Enable printing debug messages to logcat -->
-  <bool name="ga_debug">false</bool>
+
 </resources>

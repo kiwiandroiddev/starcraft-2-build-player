@@ -53,7 +53,8 @@ import hugo.weaving.DebugLog;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION;
-import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID;
+import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_NAME;
 import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_EXPANSION_ENUM;
 import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTION_ENUM;
 
@@ -112,7 +113,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		View v = inflater.inflate(R.layout.fragment_race_layout, container, false);
 		mList = (RecyclerView) v.findViewById(R.id.build_list);
 		mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+		mList.setHasFixedSize(true);
 		mList.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
 
 //        // Add an unselectable spacer to the bottom to stop ads from obscuring content
@@ -382,7 +383,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			name = (TextView) itemView.findViewById(R.id.buildName);
 			vsRace = (TextView) itemView.findViewById(R.id.buildVsRace);
 			creationDate = (TextView) itemView.findViewById(R.id.buildCreationDate);
-            itemView.setOnClickListener(this);
 		}
 
 		public void bindBuildViewModel(BuildViewModel model) {
@@ -390,15 +390,22 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			name.setText(model.name);
 			vsRace.setText(model.vsRace);
 			creationDate.setText(model.creationDate);
+			itemView.setOnClickListener(this);
+		}
+
+		public void unbind() {
+			itemView.setOnClickListener(null);
 		}
 
         @Override
         public void onClick(View v) {
             onBuildItemClicked(this);
         }
-    }
+	}
 
 	private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
+		private static final int BUILD_ROW_TYPE = 0;
+		private static final int FOOTER_ROW_TYPE = 1;
 		List<BuildViewModel> mBuildViewModelList;
 
 		public BuildAdapter(Context context, Cursor cursor) {
@@ -437,23 +444,42 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		}
 
 		@Override
-		public BuildViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-			View view = LayoutInflater.from(parent.getContext())
-					.inflate(R.layout.build_row, parent, false);
-			return new BuildViewHolder(view);
+		public BuildViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+			if (viewType == BUILD_ROW_TYPE) {
+				View view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.build_row, parent, false);
+				return new BuildViewHolder(view);
+			} else {
+				View view = LayoutInflater.from(parent.getContext())
+						.inflate(R.layout.spacer_row, parent, false);
+				return new BuildViewHolder(view);
+			}
 		}
 
 		@Override
-		public void onBindViewHolder(BuildViewHolder viewHolder, int i) {
-			viewHolder.bindBuildViewModel(mBuildViewModelList.get(i));
+		public void onBindViewHolder(BuildViewHolder viewHolder, int position) {
+			switch (getItemViewType(position)) {
+				case BUILD_ROW_TYPE:
+					viewHolder.bindBuildViewModel(mBuildViewModelList.get(position));
+					return;
+				case FOOTER_ROW_TYPE:
+				default:
+					viewHolder.unbind();
+					return;
+			}
 		}
 
 		@Override
 		public int getItemCount() {
-			return mBuildViewModelList.size();
+			return mBuildViewModelList.size() + 1;
 		}
 
-        @Override
+		@Override
+		public int getItemViewType(int position) {
+			return position < mBuildViewModelList.size() ? BUILD_ROW_TYPE : FOOTER_ROW_TYPE;
+		}
+
+		@Override
         public String toString() {
             return "BuildAdapter{" +
                     "mBuildViewModelList=" + mBuildViewModelList +

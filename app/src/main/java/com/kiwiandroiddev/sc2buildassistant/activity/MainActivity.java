@@ -26,9 +26,8 @@ import android.widget.Toast;
 
 import com.google.ads.Ad;
 import com.google.ads.AdView;
-import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
@@ -36,8 +35,10 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
+import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
+import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 
 import java.io.File;
 
@@ -49,16 +50,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-//import com.google.analytics.tracking.android.EasyTracker;
-//import com.google.analytics.tracking.android.Tracker;
-
 /**
  * Main activity and entry point of the app. Shows available build orders for each of the three factions
  * in a view pager. Also performs a number of app initialization functions, such as
  * loading the standard builds from assets into the user's database.
  *
  * @author matt
- *
  */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -126,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Show Changelog if appropriate
         ChangeLog cl = new ChangeLog(this);
         if (cl.firstRun()) {
-			cl.getLogDialog().show();
-		}
+            cl.getLogDialog().show();
+        }
 
         //Debug.stopMethodTracing();	// sc2main
     }
@@ -168,6 +165,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
+
     /**
      * Starcraft expansion selection changed - need to pass this on to
      * race fragments so they can re-filter their list view.
@@ -181,11 +190,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         saveExpansionSelection(expansion.ordinal());
 
         // TODO hacky but have not yet found a better way to find all child fragments
-        for (int i=0; i<3; ++i) {
+        for (int i = 0; i < 3; ++i) {
             String tag = makeFragmentName(mPager.getId(), i);
             Fragment f = mManager.findFragmentByTag(tag);
             if (f != null) {
-                RaceFragment rf = (RaceFragment)f;
+                RaceFragment rf = (RaceFragment) f;
                 rf.setExpansionFilter(expansion);
             }
         }
@@ -203,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mLoadingSpinner.setVisibility(View.VISIBLE);
 		mLoadingBar.setVisibility(View.GONE);
 	}
+
 
     /**
      * This is called intermittently during loading of standard builds into database.
@@ -373,18 +383,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private int getSavedFactionSelection() {
         return getDefaultSharedPreferences()
                 .getInt(SettingsActivity.KEY_FACTION_SELECTION, DbAdapter.Faction.TERRAN.ordinal());
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
     }
 
     /**

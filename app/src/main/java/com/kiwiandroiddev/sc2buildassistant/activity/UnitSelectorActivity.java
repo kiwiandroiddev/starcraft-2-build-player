@@ -6,8 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
@@ -16,8 +16,6 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
-//import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * UI for allowing the user to select any item (unit, structure, upgrade, etc.) of a
@@ -86,13 +84,13 @@ public class UnitSelectorActivity extends ActionBarActivity {
     @Override
     public void onStart() {
     	super.onStart();
-//    	EasyTracker.getInstance().activityStart(this);
+    	EasyTracker.getInstance(this).activityStart(this);
     }
 
     @Override
     public void onStop() {
     	super.onStop();
-//    	EasyTracker.getInstance().activityStop(this);
+    	EasyTracker.getInstance(this).activityStop(this);
     }
 	
 	@Override

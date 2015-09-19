@@ -104,10 +104,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <!-- Spacer to stop Ad from obscuring the bottom of content -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/ad_banner_height"/>
+                <com.google.ads.AdView
+                    android:id="@+id/ad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center_horizontal"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="a150b967e3b02cd"
+                    ads:loadAdOnCreate="true"
+                    ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"
+                    />
 
             </LinearLayout>
 
@@ -123,20 +129,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_media_play"/>
-
-    <!--<RelativeLayout -->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_centerHorizontal="true" >-->
-    <!--<com.google.ads.AdView android:id="@+id/ad"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--ads:adSize="BANNER"-->
-    <!--ads:adUnitId="a150b967e3b02cd"-->
-    <!--ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A"-->
-    <!--ads:loadAdOnCreate="true"/>-->
-    <!--</RelativeLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>
