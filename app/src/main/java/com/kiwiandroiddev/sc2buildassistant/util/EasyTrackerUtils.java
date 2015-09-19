@@ -12,7 +12,7 @@ import com.google.analytics.tracking.android.StandardExceptionParser;
  * Created by matt on 5/09/15.
  */
 public class EasyTrackerUtils {
-    public static void sendNonFatalException(Context c, Exception e) {
+    public static void sendNonFatalException(Context c, Throwable e) {
         EasyTracker.getInstance(c).send(
                 MapBuilder.createException(
                         new StandardExceptionParser(c, null)

@@ -234,7 +234,6 @@ public class SettingsActivity extends ActionBarActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // TODO: do this in background thread as it's very slow
                             // TODO DI candidate if I've ever seen one
                             DbAdapter db = ((MyApplication)getActivity().getApplicationContext()).getDb();
                             db.clear();
@@ -253,6 +252,7 @@ public class SettingsActivity extends ActionBarActivity {
                                         public void onCompleted() {
 //                                            hideLoadingAnim();
                                             JsonBuildService.notifyBuildProviderObservers(getActivity());
+                                            Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
@@ -262,20 +262,11 @@ public class SettingsActivity extends ActionBarActivity {
                                                             e.getMessage()),
                                                     Toast.LENGTH_LONG).show();
                                             Timber.e("LoadStandardBuildsTask returned an exception: ", e);
+
+                                            // Report this error for analysis
+                                            EasyTrackerUtils.sendNonFatalException(getActivity(), e);
                                         }
                                     });
-
-//                            try {
-//                                StandardBuildsService.loadStandardBuildsIntoDB(getActivity(), forceLoad);
-//                                JsonBuildService.notifyBuildProviderObservers(getActivity());
-//                                Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
-//                            } catch (Exception e) {
-//                                Toast.makeText(getActivity(), String.format(getString(R.string.error_loading_std_builds), e.getMessage()),
-//                                        Toast.LENGTH_LONG).show();
-//                                e.printStackTrace();
-
-                                // Report this error for analysis
-//                                EasyTrackerUtils.sendNonFatalException(getActivity(), e);
 
                         }
                     })
