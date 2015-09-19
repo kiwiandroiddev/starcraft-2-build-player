@@ -26,7 +26,7 @@ import java.util.Arrays;
 import timber.log.Timber;
 
 /**
- * Functions for persisting {@link Build} objects with JSON files.
+ * Contains static functions for writing and reading {@link Build} objects to/from JSON files.
  *
  * Created by matt on 17/07/15.
  */
@@ -103,13 +103,13 @@ public class JsonBuildService {
     		newBuilds = readBuildsFromJsonFile(file);
     	} catch (JsonSyntaxException e) {
 			Timber.e("JSON syntax error with file " + file);
-            Toast.makeText(c, "Could't load " + file.toString() + ", invalid JSON syntax", Toast.LENGTH_LONG).show();
+            Toast.makeText(c, "Couldn't load " + file.toString() + ", invalid JSON syntax", Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return;
 		} catch (IOException e) {
 			// TODO make this more informative
 			Timber.e("IO error with file " + file);
-            Toast.makeText(c, "Could't load " + file.toString() + ", input/ouput error", Toast.LENGTH_LONG).show();
+            Toast.makeText(c, "Couldn't load " + file.toString() + ", input/ouput error", Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return;
 		}
@@ -119,7 +119,7 @@ public class JsonBuildService {
     		try { db.addBuild(build); }
     		catch (DbAdapter.NameNotUniqueException e) {
     			// TODO: move to strings.xml
-    			Toast.makeText(c, "Could't import \"" + build.getName() + "\" as there is another build with that name. Please delete the old one first.", Toast.LENGTH_LONG).show();
+    			Toast.makeText(c, "Couldn't import \"" + build.getName() + "\" as there is another build with that name. Please delete the old one first.", Toast.LENGTH_LONG).show();
     		}
     	}
     	notifyBuildProviderObservers(c);
@@ -128,11 +128,10 @@ public class JsonBuildService {
     /**
      * Creates builds directory on user's SD card if needed
      *
-     * @param c
      * @return false if the builds dir doesn't exist and couldn't be created,
      * true otherwise
      */
-    public static boolean createBuildsDirectory(Context c) {
+    public static boolean createBuildsDirectory() {
         File root = Environment.getExternalStorageDirectory();
         File buildsDir = new File(root, BUILDS_DIR);
         if (!buildsDir.exists()) {

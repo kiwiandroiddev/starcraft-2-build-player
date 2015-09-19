@@ -20,12 +20,24 @@ import rx.Subscriber;
 import timber.log.Timber;
 
 /**
+ * Provides methods for initialising a local database with the set of stock build orders,
+ * and upgrading/migrating them when changes are made to the stock selection in app updates.
+ *
  * Created by matt on 17/07/15.
  */
 public class StandardBuildsService {
 	private static final int BUILD_FILES_VERSION = 46;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
 
+	/**
+	 * Returns an observable on the progress of loading stock build orders into the local SQLite DB.
+	 * Should be scheduled on a worker thread.
+	 *
+	 * @param c context
+	 * @param forceLoad if false, builds are only copied if an upgrade is required. If true,
+	 *                  standard builds are always copied.
+	 * @return observable on load progress (percentage)
+	 */
 	public static Observable<Integer> getLoadStandardBuildsIntoDBObservable(final Context c, final boolean forceLoad) {
 		return Observable.create(new Observable.OnSubscribe<Integer>() {
 			@Override
@@ -61,7 +73,7 @@ public class StandardBuildsService {
 	 * In both cases, standard builds loaded will overwrite any changes the
 	 * user has made to them.
 	 */
-	public static void loadStandardBuildsIntoDB(Context c, boolean forceLoad,
+	private static void loadStandardBuildsIntoDB(Context c, boolean forceLoad,
 			DbAdapter.ProgressListener listener) throws IOException {
         DbAdapter db = ((MyApplication) c.getApplicationContext()).getDb();
         db.open();
@@ -84,6 +96,7 @@ public class StandardBuildsService {
         }
 	}
 
+	// TODO make private
 	public static void loadStandardBuildsIntoDB(Context c, boolean forceLoad) throws IOException {
 		loadStandardBuildsIntoDB(c, forceLoad, null);
 	}

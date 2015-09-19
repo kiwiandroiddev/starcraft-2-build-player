@@ -270,7 +270,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * @param rowId
 	 */
 	private void exportBuild(long rowId) {
-		if (!JsonBuildService.createBuildsDirectory(getActivity())) {
+		if (!JsonBuildService.createBuildsDirectory()) {
 			Toast.makeText(getActivity(),
 					String.format(getString(R.string.error_couldnt_create_builds_dir), JsonBuildService.BUILDS_DIR),
 					Toast.LENGTH_LONG).show();

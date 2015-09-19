@@ -21,6 +21,11 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
+
 /**
  * Created by matt on 27/11/14.
  */
@@ -230,23 +235,50 @@ public class SettingsActivity extends ActionBarActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO: do this in background thread as it's very slow
+                            // TODO DI candidate if I've ever seen one
                             DbAdapter db = ((MyApplication)getActivity().getApplicationContext()).getDb();
                             db.clear();
                             final boolean forceLoad = true;
-                            try {
-                                StandardBuildsService.loadStandardBuildsIntoDB(getActivity(), forceLoad);
-                                JsonBuildService.notifyBuildProviderObservers(getActivity());
-                                Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
-                            } catch (Exception e) {
-                                Toast.makeText(getActivity(), String.format(getString(R.string.error_loading_std_builds), e.getMessage()),
-                                        Toast.LENGTH_LONG).show();
-                                e.printStackTrace();
+
+                            StandardBuildsService.getLoadStandardBuildsIntoDBObservable(getActivity(), forceLoad)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Observer<Integer>() {
+                                        @Override
+                                        public void onNext(Integer percent) {
+                                            Timber.d("percent = " + percent);
+                                        }
+
+                                        @Override
+                                        public void onCompleted() {
+//                                            hideLoadingAnim();
+                                            JsonBuildService.notifyBuildProviderObservers(getActivity());
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Toast.makeText(getActivity(),
+                                                    String.format(getString(R.string.error_loading_std_builds),
+                                                            e.getMessage()),
+                                                    Toast.LENGTH_LONG).show();
+                                            Timber.e("LoadStandardBuildsTask returned an exception: ", e);
+                                        }
+                                    });
+
+//                            try {
+//                                StandardBuildsService.loadStandardBuildsIntoDB(getActivity(), forceLoad);
+//                                JsonBuildService.notifyBuildProviderObservers(getActivity());
+//                                Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
+//                            } catch (Exception e) {
+//                                Toast.makeText(getActivity(), String.format(getString(R.string.error_loading_std_builds), e.getMessage()),
+//                                        Toast.LENGTH_LONG).show();
+//                                e.printStackTrace();
 
                                 // Report this error for analysis
 //			    		EasyTracker.getInstance().setContext(SettingsActivity.this);
 //			    		Tracker myTracker = EasyTracker.getTracker();       // Get a reference to tracker.
 //			    		myTracker.sendException(e.getMessage(), false);    // false indicates non-fatal exception.
-                            }
+//                            }
                         }
                     })
                     .setNegativeButton(android.R.string.no, null)
