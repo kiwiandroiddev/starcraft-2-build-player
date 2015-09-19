@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.kiwiandroiddev.sc2buildassistant"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 220
         versionName "2.2.0"
 
@@ -33,8 +33,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.f2prateek.dart:dart:1.1.0'
@@ -42,5 +43,4 @@ dependencies {
     compile project(':dragsortlistviewlibrary')
     compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
-    compile 'com.android.support:support-v4:22.2.1'
 }
