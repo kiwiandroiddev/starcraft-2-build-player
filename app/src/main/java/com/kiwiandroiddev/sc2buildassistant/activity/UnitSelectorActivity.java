@@ -3,7 +3,7 @@ package com.kiwiandroiddev.sc2buildassistant.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
  * @author matt
  *
  */
-public class UnitSelectorActivity extends ActionBarActivity {
+public class UnitSelectorActivity extends AppCompatActivity {
 	
 	public final static int PICK_ITEM_REQUEST = 1;	// request code when getactivityforresult() is called
 	public final static int RESULT_NONE = 90;			// used to say that the user selected "no item" to calling activity

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -44,7 +45,7 @@ public class DbAdapter {
 	private static Map<Long, ItemType> sIdToItemTypeMap = new HashMap<Long, ItemType>();
 	
 	public enum Faction { TERRAN, ZERG, PROTOSS };
-	// TODO would be better to use a proper Bidirection Map class here, but don't want the extra
+	// TODO would be better to use a proper Bidirectional Map class here, but don't want the extra
 	// bloat of another library (Guava)
 	private static Map<Faction, Long> sFactionToIdMap = new HashMap<Faction, Long>();
 	private static Map<Long, Faction> sIdToFactionMap = new HashMap<Long, Faction>();
@@ -759,8 +760,8 @@ public class DbAdapter {
     	return newBuild;
     }
     
-    /** Returns the items in a build order given by build order id. Returns null if there
-     * are no items for the specified build */
+    /** Returns the items in a build order given by build order id. */
+	@NonNull
     public ArrayList<BuildItem> fetchBuildItems(long build_order_id) {   	
     	final String where = KEY_BUILD_ORDER_ID + " = " + build_order_id +
     			" AND " + TABLE_BUILD_ORDER_ITEM + "." + KEY_ITEM_ID + " = " +
@@ -790,10 +791,7 @@ public class DbAdapter {
     			result.close();
     	}
     	
-    	if (items != null && items.size() > 0)
-    		return items;
-    	else
-    		return null;
+    	return items;
     }
     
     /**

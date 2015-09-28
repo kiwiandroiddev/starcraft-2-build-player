@@ -15,7 +15,7 @@ import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,17 +34,17 @@ import com.f2prateek.dart.Dart;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
-import com.kiwiandroiddev.sc2buildassistant.BuildPlayer;
-import com.kiwiandroiddev.sc2buildassistant.BuildPlayerEventListener;
-import com.kiwiandroiddev.sc2buildassistant.MapFormat;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
+import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
+import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -65,7 +65,7 @@ import butterknife.InjectView;
  *
  */
 // credit for timer code: http://kristjansson.us/?p=1010
-public class PlaybackActivity extends ActionBarActivity implements OnSeekBarChangeListener, OnInitListener,
+public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 
     private static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";

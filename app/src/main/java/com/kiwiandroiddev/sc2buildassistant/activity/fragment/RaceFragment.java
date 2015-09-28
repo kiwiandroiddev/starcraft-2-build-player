@@ -31,11 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
-import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
@@ -271,9 +271,9 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * @param rowId
 	 */
 	private void exportBuild(long rowId) {
-		if (!MainActivity.createBuildsDir(getActivity())) {
+		if (!JsonBuildService.createBuildsDirectory()) {
 			Toast.makeText(getActivity(),
-					String.format(getString(R.string.error_couldnt_create_builds_dir), MainActivity.BUILDS_DIR),
+					String.format(getString(R.string.error_couldnt_create_builds_dir), JsonBuildService.BUILDS_DIR),
 					Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -308,7 +308,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 					}
 					
 					try {
-						MainActivity.writeBuild(filename, build);
+						JsonBuildService.writeBuildToJsonFile(filename, build);
 					} catch (Exception e) {
 						Toast.makeText(getActivity(), String.format(getString(R.string.dlg_couldnt_write_file),
 								filename, e.toString()), Toast.LENGTH_LONG).show();
@@ -316,7 +316,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 						return;
 					}
 					Toast.makeText(getActivity(), String.format(getString(R.string.dlg_wrote_file_to_dir),
-							filename, MainActivity.BUILDS_DIR), Toast.LENGTH_LONG).show();
+							filename, JsonBuildService.BUILDS_DIR), Toast.LENGTH_LONG).show();
 				}
 			})
 			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -411,7 +411,10 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		public BuildAdapter(Context context, Cursor cursor) {
 			mBuildViewModelList = new ArrayList<>();
 
-            cursor.moveToFirst();
+            if (!cursor.moveToFirst()) {
+				return;
+			}
+
 			do {
                 long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
 

@@ -12,7 +12,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -25,11 +26,14 @@ import android.widget.TextView;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
+import com.google.ads.Ad;
+import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +51,7 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
@@ -63,6 +67,7 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_buildNotes) TextView mNotesView;
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
+    @InjectView(R.id.ad) AdView mAdView;
 
     // TODO temp!
     @InjectView(R.id.buildName) TextView mBuildNameText;
@@ -137,8 +142,6 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_brief);
         ButterKnife.inject(this);
 
-//        Timber.d(TAG, "onCreate(), mBuildId = " + mBuildId);
-        
         if (savedInstanceState == null) {
 			// init member variables using Intent extras
 			Dart.inject(this);
@@ -158,10 +161,22 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
         // show build title, faction, expansion now
         displayBasicInfo();
 
+		// fade in ad banner when the image loads rather than popping
+		if (mAdView != null) {
+			mAdView.setAlpha(0.0f);
+			mAdView.setAdListener(new OnReceiveAdListener() {
+				@Override
+				public void onReceiveAd(Ad ad) {
+					mAdView.animate()
+							.alpha(1.0f)
+							.setInterpolator(new FastOutSlowInInterpolator())
+							.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+				}
+			});
+		}
+
         trackBriefView();
 
-//        Timber.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - start) + " ms");
-        
         // sc2brief
         //Debug.stopMethodTracing();
 	}
@@ -181,17 +196,25 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getMenuInflater();
-//       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
+       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
     	if (item.getItemId() == android.R.id.home) {
             finishCompat();
             return true;
-        }
+        } else if (item.getItemId() == R.id.menu_edit_build) {
+			Intent i = new Intent(this, EditBuildActivity.class);
+			i.putExtra(KEY_BUILD_ID, mBuildId);
+			startActivity(i);
+			return true;
+		}
     	
     	// use the same options menu as the main activity 
     	boolean result = MainActivity.OnMenuItemSelected(this, item);

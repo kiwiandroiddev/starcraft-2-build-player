@@ -7,12 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;

@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.domain;
 
 
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;

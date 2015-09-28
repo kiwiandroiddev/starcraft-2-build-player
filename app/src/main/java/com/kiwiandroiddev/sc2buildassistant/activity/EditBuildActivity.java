@@ -11,7 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.UnoptimizedDeepCopy;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
@@ -32,6 +31,8 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
+import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +54,7 @@ import timber.log.Timber;
  * @author matt
  *
  */
-public class EditBuildActivity extends ActionBarActivity implements EditBuildInfoListener {
+public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener {
 
     @InjectView(android.R.id.content) View mRootView;
 
@@ -97,7 +98,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 			mDlg.hide();
 			if (result == true) {
 				// notify observers of buildprovider's build table that its contents have changed
-				MainActivity.notifyBuildProviderObservers(EditBuildActivity.this);
+				JsonBuildService.notifyBuildProviderObservers(EditBuildActivity.this);
 				showMessage(R.string.edit_build_save_successful);
 				EditBuildActivity.this.finish();
 			} else {
@@ -108,7 +109,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	    private Fragment mFragment;
-	    private final ActionBarActivity mActivity;
+	    private final AppCompatActivity mActivity;
 	    private final String mTag;
 	    private final Class<T> mClass;
 	    private final Build mBuild;
@@ -118,7 +119,7 @@ public class EditBuildActivity extends ActionBarActivity implements EditBuildInf
 	      * @param tag  The identifier tag for the fragment
 	      * @param clz  The fragment's Class, used to instantiate the fragment
 	      */
-	    public TabListener(ActionBarActivity activity, String tag, Class<T> clz, Build build) {
+	    public TabListener(AppCompatActivity activity, String tag, Class<T> clz, Build build) {
 	        mActivity = activity;
 	        mTag = tag;
 	        mClass = clz;

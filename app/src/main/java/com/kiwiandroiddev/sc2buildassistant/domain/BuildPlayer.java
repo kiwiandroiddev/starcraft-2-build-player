@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.domain;
 
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
@@ -345,7 +345,7 @@ public class BuildPlayer implements Serializable {
 		// we need to tell the user to build one or more units
 		// If the user has seeked back in time, this loop has no effect
 		while (mOldBuildPointer < mBuildPointer) {
-			// TODO: we don't really  want to call this if the users has seeked far ahead
+			// TODO: we don't really  want to call this if the user has seeked far ahead
 			// (to prevent a barrage of build orders)
 			BuildItem item = mItems.get(mOldBuildPointer);
 			for (BuildPlayerEventListener listener : mListeners)

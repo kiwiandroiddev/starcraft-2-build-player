@@ -12,7 +12,7 @@
  * @author: Karsten Priegnitz
  * @see: http://code.google.com/p/android-change-log/
  */
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.util;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -24,6 +24,8 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.webkit.WebView;
+
+import com.kiwiandroiddev.sc2buildassistant.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

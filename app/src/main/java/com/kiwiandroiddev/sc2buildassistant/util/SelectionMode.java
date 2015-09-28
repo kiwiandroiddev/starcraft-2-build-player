@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant;
+package com.kiwiandroiddev.sc2buildassistant.util;
 
 /** Used by FileDialog */
 public class SelectionMode {
