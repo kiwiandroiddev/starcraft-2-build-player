@@ -2,4 +2,6 @@
 <resources>
     <dimen name="screen_edge_padding">32dp</dimen>
     <dimen name="notes_format_tools_bar_width">280dp</dimen>
+
+    <dimen name="material_list_item_padding_horizontal">32dp</dimen>
 </resources>
