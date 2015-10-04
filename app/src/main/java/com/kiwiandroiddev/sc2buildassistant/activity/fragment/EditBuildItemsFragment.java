@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
-import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
-import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DraggableSwipeableBuildItemAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTouchEventListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.OnStartDragListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.SimpleItemTouchCallback;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
@@ -43,30 +41,22 @@ import butterknife.InjectView;
  * @author matt
  *
  */
-public class EditBuildItemsFragment extends Fragment implements OnItemClickListener {
+public class EditBuildItemsFragment extends Fragment implements OnItemClickListener, OnStartDragListener {
 	
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
 	
-//	private EditBuildItemAdapter mAdapter;
 	private DbAdapter.Faction mFaction;		// current faction of build order, used to limit unit selection
 	private BuildItem mDeletedItem;			// for undo support
 	private int mDeletedItemIndex;			// for undo support
     private DbAdapter mDb;
+	private EditBuildItemRecyclerAdapter mAdapter;
+	private ItemTouchHelper mTouchHelper;
+	private ArrayList<BuildItem> mWorkingList;
 
-    @InjectView(R.id.edit_items_list_view)
-	RecyclerView mRecyclerView;
-
+	@InjectView(R.id.edit_items_list_view) RecyclerView mRecyclerView;
 	@InjectView(R.id.undobar) View mUndoBar;
 	@InjectView(R.id.undobar_message) TextView mUndoText;
-
-	private RecyclerView.LayoutManager mLayoutManager;
-	private RecyclerView.Adapter mAdapter;
-	private RecyclerView.Adapter mWrappedAdapter;
-	private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
-	private RecyclerViewSwipeManager mRecyclerViewSwipeManager;
-	private RecyclerViewTouchActionGuardManager mRecyclerViewTouchActionGuardManager;
-	private ArrayList<BuildItem> mWorkingList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,10 +89,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			// stub: doesn't keep up to date with faction selection in Info tab!
 			mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
 		}
-		
-//		mAdapter = new EditBuildItemAdapter(getActivity(),
-//        		R.layout.edit_build_item_row, workingList);
-		
+
 		// get a reference to the global DB instance
 		MyApplication app = (MyApplication) getActivity().getApplicationContext();
 		this.mDb = app.getDb();
@@ -112,18 +99,6 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_edit_build_items, container, false);
         ButterKnife.inject(this, v);
-
-//		mListView.setOnItemClickListener(this);
-//
-//        // set up the "Add item..." extra list entry at the bottom
-//        mListView.addFooterView(getFooterView(), null, true);
-//        mListView.setAdapter(mAdapter);
-//
-//        // set up drag event listeners
-//        DragSortListView dragListView = (DragSortListView) mListView;
-//        dragListView.setDropListener(onDrop);
-//        dragListView.setRemoveListener(onRemove);
-//        //dragListView.setDragScrollProfile(ssProfile);
 
         // can be left open from info and notes editor fragments
         hideKeyboard();
@@ -136,143 +111,26 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		super.onViewCreated(view, savedInstanceState);
 
 		//noinspection ConstantConditions
-		mLayoutManager = new LinearLayoutManager(getActivity());
-
-		// touch guard manager  (this class is required to suppress scrolling while swipe-dismiss animation is running)
-		mRecyclerViewTouchActionGuardManager = new RecyclerViewTouchActionGuardManager();
-		mRecyclerViewTouchActionGuardManager.setInterceptVerticalScrollingWhileAnimationRunning(true);
-		mRecyclerViewTouchActionGuardManager.setEnabled(true);
-
-		// drag & drop manager
-		mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
-//		mRecyclerViewDragDropManager.setDraggingItemShadowDrawable(
-//				(NinePatchDrawable) getResources().getDrawable(R.drawable.material_shadow_z3));
-
-		// swipe manager
-		mRecyclerViewSwipeManager = new RecyclerViewSwipeManager();
-
-		//adapter
-		final DraggableSwipeableBuildItemAdapter myItemAdapter = new DraggableSwipeableBuildItemAdapter(mWorkingList);
-//		myItemAdapter.setEventListener(new DraggableSwipeableBuildItemAdapter().EventListener() {
-//			@Override
-//			public void onItemRemoved(int position) {
-////				((DraggableSwipeableExampleActivity) getActivity()).onItemRemoved(position);
-//			}
-//
-//			@Override
-//			public void onItemPinned(int position) {
-////				((DraggableSwipeableExampleActivity) getActivity()).onItemPinned(position);
-//			}
-//
-//			@Override
-//			public void onItemViewClicked(View v, boolean pinned) {
-//				onItemViewClick(v, pinned);
-//			}
-//		});
-
-		mAdapter = myItemAdapter;
-
-		mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(myItemAdapter);      // wrap for dragging
-		mWrappedAdapter = mRecyclerViewSwipeManager.createWrappedAdapter(mWrappedAdapter);      // wrap for swiping
-
-		final GeneralItemAnimator animator = new SwipeDismissItemAnimator();
-
-		// Change animations are enabled by default since support-v7-recyclerview v22.
-		// Disable the change animation in order to make turning back animation of swiped item works properly.
-		animator.setSupportsChangeAnimations(false);
-
-		mRecyclerView.setLayoutManager(mLayoutManager);
-		mRecyclerView.setAdapter(mWrappedAdapter);  // requires *wrapped* adapter
-		mRecyclerView.setItemAnimator(animator);
 		mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-		// additional decorations
-		//noinspection StatementWithEmptyBody
-//		if (supportsViewElevation()) {
-//			// Lollipop or later has native drop shadow feature. ItemShadowDecorator is not required.
-//		} else {
-//			mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable) getResources().getDrawable(R.drawable.material_shadow_z1)));
-//		}
-//		mRecyclerView.addItemDecoration(new SimpleListDividerDecorator(getResources().getDrawable(R.drawable.list_divider), true));
+		mAdapter = new EditBuildItemRecyclerAdapter(getActivity(), this, mWorkingList);
+		mRecyclerView.setAdapter(mAdapter);
 
-		// NOTE:
-		// The initialization order is very important! This order determines the priority of touch event handling.
-		//
-		// priority: TouchActionGuard > Swipe > DragAndDrop
-		mRecyclerViewTouchActionGuardManager.attachRecyclerView(mRecyclerView);
-		mRecyclerViewSwipeManager.attachRecyclerView(mRecyclerView);
-		mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
-
-		// for debugging
-        animator.setDebug(true);
-        animator.setMoveDuration(2000);
-        animator.setRemoveDuration(2000);
-//        mRecyclerViewSwipeManager.setMoveToOutsideWindowAnimationDuration(2000);
-//        mRecyclerViewSwipeManager.setReturnToDefaultPositionAnimationDuration(2000);
+		ItemTouchHelper.Callback callback =
+				new SimpleItemTouchCallback((ItemTouchEventListener) mAdapter);
+		mTouchHelper = new ItemTouchHelper(callback);
+		mTouchHelper.attachToRecyclerView(mRecyclerView);
 	}
 
 	@Override
-	public void onPause() {
-		mRecyclerViewDragDropManager.cancelDrag();
-		super.onPause();
-	}
-
-	@Override
-	public void onDestroyView() {
-		if (mRecyclerViewDragDropManager != null) {
-			mRecyclerViewDragDropManager.release();
-			mRecyclerViewDragDropManager = null;
-		}
-
-		if (mRecyclerViewSwipeManager != null) {
-			mRecyclerViewSwipeManager.release();
-			mRecyclerViewSwipeManager = null;
-		}
-
-		if (mRecyclerViewTouchActionGuardManager != null) {
-			mRecyclerViewTouchActionGuardManager.release();
-			mRecyclerViewTouchActionGuardManager = null;
-		}
-
-		if (mRecyclerView != null) {
-			mRecyclerView.setItemAnimator(null);
-			mRecyclerView.setAdapter(null);
-			mRecyclerView = null;
-		}
-
-		if (mWrappedAdapter != null) {
-			WrapperAdapterUtils.releaseAll(mWrappedAdapter);
-			mWrappedAdapter = null;
-		}
-		mAdapter = null;
-		mLayoutManager = null;
-
-		super.onDestroyView();
-	}
-
-	private void onItemViewClick(View v, boolean pinned) {
-		int position = mRecyclerView.getChildPosition(v);
-		if (position != RecyclerView.NO_POSITION) {
-//			((DraggableSwipeableExampleActivity) getActivity()).onItemClicked(position);
-		}
-	}
-
-	private boolean supportsViewElevation() {
-		return (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP);
-	}
-
-	public void notifyItemChanged(int position) {
-		mAdapter.notifyItemChanged(position);
-	}
-
-	public void notifyItemInserted(int position) {
-		mAdapter.notifyItemInserted(position);
-		mRecyclerView.scrollToPosition(position);
+	public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+		mTouchHelper.startDrag(viewHolder);
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-//		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, mAdapter.getArrayList());
+		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, mAdapter.getBuildItems());
 		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFaction);
 	}
 	
@@ -284,15 +142,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	}
 	
 	public ArrayList<BuildItem> getBuildItems() {
-		//Timber.d(this.toString(), "getBuildItems() called, items count = " + mAdapter.getCount());
-//		return mAdapter.getArrayList();
-//		return null;
 		return mWorkingList;
-	}
-	
-	private View getFooterView() {
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-		return inflater.inflate(R.layout.edit_build_item_row_footer, null, false);
 	}
 
 	/**
@@ -420,46 +270,4 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			      Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(mUndoText.getWindowToken(), 0);
 	}
-	
-	// ========================================================================
-	// Listeners for listview drag events
-	// ========================================================================
-	
-//	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
-//		@Override
-//		public void drop(int from, int to) {
-//			if (from != to) {
-////				Timber.d(TAG, "drop() called with from: " + from + ", to: " + to);
-//				BuildItem item = mAdapter.getItem(from);
-//				mAdapter.remove(item);
-//				mAdapter.insert(item, to);
-//				mAdapter.notifyDataSetChanged();
-//
-//				EditBuildItemsFragment.this.invalidateUndo();
-//			}
-//		}
-//	};
-//
-//	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener() {
-//		@Override
-//		public void remove(int which) {
-////			Timber.d(TAG, "remove() called with which: " + which);
-//			BuildItem item = mAdapter.getItem(which);
-//			mAdapter.remove(item);
-//
-//			EditBuildItemsFragment.this.showUndo(which, item);
-//		}
-//	};
-
-//	private DragSortListView.DragScrollProfile ssProfile = new DragSortListView.DragScrollProfile() {
-//		@Override
-//		public float getSpeed(float w, long t) {
-//			if (w > 0.8f) {
-//				// Traverse all views in a millisecond
-//				return ((float) t * 0.001f);
-//			} else {
-//				return 10.0f * w;
-//			}
-//		}
-//	};
 }

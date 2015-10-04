@@ -37,7 +37,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
-    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.7.4'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.f2prateek.dart:dart:1.1.0'
