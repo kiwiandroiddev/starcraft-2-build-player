@@ -14,7 +14,7 @@
              android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/edit_items_list_view"
+        android:id="@+id/fragment_edit_build_items_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -62,5 +62,13 @@
             android:textSize="12sp"
             android:textStyle="bold"/>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_edit_build_items_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_menu_btn_add"/>
 
 </FrameLayout>

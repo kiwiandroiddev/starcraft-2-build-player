@@ -1,6 +1,8 @@
 package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Provides a UI for displaying a list of ordered build items that the user can edit.
@@ -54,7 +58,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	private ItemTouchHelper mTouchHelper;
 	private ArrayList<BuildItem> mWorkingList;
 
-	@InjectView(R.id.edit_items_list_view) RecyclerView mRecyclerView;
+	@InjectView(R.id.fragment_edit_build_items_list_view) RecyclerView mRecyclerView;
 	@InjectView(R.id.undobar) View mUndoBar;
 	@InjectView(R.id.undobar_message) TextView mUndoText;
 
@@ -145,6 +149,15 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		return mWorkingList;
 	}
 
+	@OnClick(R.id.fragment_edit_build_items_add_button)
+	public void onAddItemButtonClicked() {
+		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
+        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
+		i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());
+		// TODO pass default supply as well?
+		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
+	}
+
 	/**
 	 * User clicked a build item in the list, let them edit it
 	 */
@@ -170,34 +183,35 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 //        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
 	}
 
-//	@Override
-//	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//	    // Check which request we're responding to
-//	    if (requestCode == EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST) {
-//	        // Make sure the request was successful
-//	        if (resultCode == Activity.RESULT_OK) {
-//	        	Long id = data.getExtras().containsKey(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID) ?
-//	        		data.getExtras().getLong(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID) :
-//	        		null;
-//
-//	        	BuildItem item = (BuildItem) data.getExtras().getSerializable(IntentKeys.KEY_BUILD_ITEM_OBJECT);
-//	        	//Timber.d(this.toString(), "in EditBuildItemsFragment, got item = " + item);
-//
-//	        	if (id == null) {	// i.e. new build item to add
-//	        		// slot the new build item into the correct place based on its time
-//	        		int position = mAdapter.insert(item);
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // Check which request we're responding to
+	    if (requestCode == EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST) {
+	        // Make sure the request was successful
+	        if (resultCode == Activity.RESULT_OK) {
+	        	Long id = data.getExtras().containsKey(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID) ?
+	        		data.getExtras().getLong(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID) :
+	        		null;
+
+	        	BuildItem item = (BuildItem) data.getExtras().getSerializable(IntentKeys.KEY_BUILD_ITEM_OBJECT);
+	        	//Timber.d(this.toString(), "in EditBuildItemsFragment, got item = " + item);
+
+	        	if (id == null) {	// i.e. new build item to add
+	        		// slot the new build item into the correct place based on its time
+	        		int position = mAdapter.autoInsert(item);
 //	        		mListView.setSelection(position);
-//
-//	        		invalidateUndo();
-//	        	} else {			// an existing one should be modified
-//	        		//Timber.d(this.toString(), "replacing item at index " + id  + " with " + item);
-//	        		((EditBuildItemAdapter)mAdapter).replace(item, id.intValue());
-//	        	}
-//	        	// temp testing
-//	        	//Timber.d(this.toString(), "added build item, items size now = " + mAdapter.getCount());
-//	        }
-//	    }
-//	}
+					// TODO scroll to position of newly inserted item
+
+	        		invalidateUndo();
+	        	} else {			// an existing one should be modified
+	        		//Timber.d(this.toString(), "replacing item at index " + id  + " with " + item);
+	        		mAdapter.replace(item, id.intValue());
+	        	}
+	        	// temp testing
+	        	//Timber.d(this.toString(), "added build item, items size now = " + mAdapter.getCount());
+	        }
+	    }
+	}
 	
 //	/**
 //	 * Basic support for undoing build item deletion. Shows a small overlay with
@@ -230,21 +244,23 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 ////	        });
 //	}
 //
-//	private void invalidateUndo() {
+	private void invalidateUndo() {
+		// TODO dismiss snackbar
 //		mDeletedItemIndex = -1;
 //		mDeletedItem = null;
 //		// fade out overlay...
 //		mUndoBar.setVisibility(View.GONE);
-//	}
+	}
 //
 //    @OnClick(R.id.undobar_button)
-//	public void onUndoClick() {
-//		if (mDeletedItem != null && mDeletedItemIndex != -1) {
-//			mAdapter.insert(mDeletedItem, mDeletedItemIndex);
+	// TODO wire up to snackbar action
+	public void onUndoClick() {
+		if (mDeletedItem != null && mDeletedItemIndex != -1) {
+			mAdapter.insert(mDeletedItem, mDeletedItemIndex);
 //			mAdapter.notifyDataSetChanged();
-//			invalidateUndo();
-//		}
-//	}
+			invalidateUndo();
+		}
+	}
 	
 	// ========================================================================
 	// Helpers
@@ -255,14 +271,14 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	 * (which should probably be the maximum time in the list)
 	 * @return time in seconds
 	 */
-//	private int getDuration() {
-//		int count = ((EditBuildItemAdapter)mAdapter).getArrayList().size();
-//		if (count > 0) {
-//			return ((EditBuildItemAdapter)mAdapter).getArrayList().get(count-1).getTime();
-//		} else {
-//			return 0;
-//		}
-//	}
+	private int getDuration() {
+		int count = mAdapter.getBuildItems().size();
+		if (count > 0) {
+			return mAdapter.getBuildItems().get(count-1).getTime();
+		} else {
+			return 0;
+		}
+	}
 	
 	/** Hides the on-screen keyboard if visible */
 	private void hideKeyboard() {

@@ -2,6 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -140,6 +141,61 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         BuildItem prev = mBuildItems.remove(fromPosition);
         mBuildItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
         notifyItemMoved(fromPosition, toPosition);
+    }
+
+    /**
+     * Inserts the specified object at the specified index in the array.
+     *
+     * @param item The build item to insert into the array.
+     * @param index The index at which the object must be inserted.
+     */
+    public void insert(@NonNull BuildItem item, int index) {
+        mBuildItems.add(index, item);
+        notifyItemInserted(index);
+    }
+
+    /**
+     * Attempts to insert a new build item into the correct position in the list
+     * based on its time value. The existing item at that position (if any) and
+     * all subsequent items will be shifted along to the right by one. Note:
+     * assumes build items are already ordered by time (which they may well not
+     * be). Insertion takes O(n) time.
+     *
+     * @param item
+     *            new build item to add
+     * @return index of array where item was inserted.
+     */
+    public int autoInsert(@NonNull BuildItem item) {
+        for (int i=0; i<mBuildItems.size(); i++) {
+            if (item.getTime() < mBuildItems.get(i).getTime()) {
+                mBuildItems.add(i, item);
+                notifyItemInserted(i);
+                return i;
+            }
+        }
+
+        // item had a greater time value than all others, append it to the end
+        mBuildItems.add(item);
+        notifyItemInserted(mBuildItems.size()-1);
+        return (mBuildItems.size()-1);
+    }
+
+    /**
+     * Replaces the build item at specified index with a new one,
+     * if the new and existing build items aren't equivalent.
+     *
+     * @param item		new BuildItem
+     * @param index		position in arraylist
+     */
+    public void replace(@NonNull BuildItem item, int index) {
+        BuildItem existingItem = mBuildItems.get(index);
+
+        if (item == existingItem || item.equals(existingItem)) {
+            return;
+        }
+
+        mBuildItems.set(index, item);
+        notifyItemChanged(index);
     }
 
     public ArrayList<BuildItem> getBuildItems() {
