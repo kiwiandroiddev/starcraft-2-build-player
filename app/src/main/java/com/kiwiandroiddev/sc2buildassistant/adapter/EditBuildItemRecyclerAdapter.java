@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * which is for showing a read-only list of build items, e.g. on the Playback screen).
  * The list is editable in the sense that build items can added, removed and reordered.
  *
+ * TODO BUG drag swapping not persisting
+ *
  * Created by matt on 4/10/15.
  */
 public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuildItemViewHolder>
@@ -29,13 +31,15 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     private final Context mContext;
     private final DbAdapter mDb;
     private final OnStartDragListener mOnStartDragListener;
+    private final OnBuildItemClickedListener mOnBuildItemClickedListener;
     private final ArrayList<BuildItem> mBuildItems;
 
     public EditBuildItemRecyclerAdapter(Context context,
                                         OnStartDragListener onStartDragListener,
-                                        ArrayList<BuildItem> buildItems) {
+                                        OnBuildItemClickedListener onBuildItemClickedListener, ArrayList<BuildItem> buildItems) {
         mContext = context;
         mOnStartDragListener = onStartDragListener;
+        mOnBuildItemClickedListener = onBuildItemClickedListener;
         mBuildItems = buildItems;
 
         // get a reference to the global DB instance. TODO: inject this reference via DI container
@@ -63,8 +67,8 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
      * @param position
      */
     @Override
-    public void onBindViewHolder(final EditBuildItemViewHolder holder, int position) {
-        BuildItem item = mBuildItems.get(position);
+    public void onBindViewHolder(final EditBuildItemViewHolder holder, final int position) {
+        final BuildItem item = mBuildItems.get(position);
 
         // work out if this build item is in the wrong position based on its time
         boolean outOfPosition = false;
@@ -121,6 +125,14 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
                     mOnStartDragListener.onStartDrag(holder);
                 }
                 return false;
+            }
+        });
+
+        // stub - use whole row
+        holder.icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnBuildItemClickedListener.onBuildItemClicked(item, position);
             }
         });
     }

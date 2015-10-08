@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
@@ -25,6 +23,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTouchEventListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemClickedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnStartDragListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.SimpleItemTouchCallback;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
@@ -45,7 +44,7 @@ import butterknife.OnClick;
  * @author matt
  *
  */
-public class EditBuildItemsFragment extends Fragment implements OnItemClickListener, OnStartDragListener {
+public class EditBuildItemsFragment extends Fragment implements OnStartDragListener, OnBuildItemClickedListener {
 	
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
@@ -118,7 +117,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-		mAdapter = new EditBuildItemRecyclerAdapter(getActivity(), this, mWorkingList);
+		mAdapter = new EditBuildItemRecyclerAdapter(getActivity(), this, this, mWorkingList);
 		mRecyclerView.setAdapter(mAdapter);
 
 		ItemTouchHelper.Callback callback =
@@ -158,11 +157,21 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
 	}
 
+	@Override
+	public void onBuildItemClicked(BuildItem item, int position) {
+		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
+		i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
+		i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
+		i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, position);
+		// TODO pass default supply as well?
+		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
+	}
+
 	/**
 	 * User clicked a build item in the list, let them edit it
 	 */
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		//Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
 
 //		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
@@ -181,7 +190,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 //		}
 //
 //        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
-	}
+//	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -212,8 +221,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 	        }
 	    }
 	}
-	
-//	/**
+	//	/**
 //	 * Basic support for undoing build item deletion. Shows a small overlay with
 //	 * an undo button to restore a build item that was just deleted.
 //	 *
@@ -251,6 +259,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 //		// fade out overlay...
 //		mUndoBar.setVisibility(View.GONE);
 	}
+
 //
 //    @OnClick(R.id.undobar_button)
 	// TODO wire up to snackbar action
@@ -261,11 +270,11 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			invalidateUndo();
 		}
 	}
-	
+
 	// ========================================================================
 	// Helpers
 	// ========================================================================
-	
+
 	/**
 	 * returns the time value for the last build item in the list
 	 * (which should probably be the maximum time in the list)
@@ -279,7 +288,7 @@ public class EditBuildItemsFragment extends Fragment implements OnItemClickListe
 			return 0;
 		}
 	}
-	
+
 	/** Hides the on-screen keyboard if visible */
 	private void hideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
