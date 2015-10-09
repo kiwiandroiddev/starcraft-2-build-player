@@ -43,7 +43,7 @@
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="x2"
+                    tools:text="x2"
                     android:textAppearance="?android:attr/textAppearanceSmall"/>
             </FrameLayout>
 
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:text="unit name"
+                    tools:text="unit name"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:text="target"
+                    tools:text="target"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:visibility="visible"/>
             </LinearLayout>
@@ -88,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/desc_drag_handle"
                 android:paddingLeft="4dp"
@@ -100,92 +101,3 @@
     </FrameLayout>
 
 </FrameLayout>
-
-<!--<FrameLayout android:id="@+id/container"-->
-             <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-             <!--android:layout_width="match_parent"-->
-             <!--android:layout_height="match_parent"-->
-             <!--android:clickable="true"-->
-             <!--android:foreground="?attr/selectableItemBackground">-->
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<FrameLayout-->
-            <!--android:id="@+id/frameLayout1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginRight="8dip"-->
-            <!--android:layout_toRightOf="@+id/drag_handle">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/unit_icon"-->
-                <!--android:layout_width="48dip"-->
-                <!--android:layout_height="48dip"-->
-                <!--android:contentDescription="@string/desc_unit_icon"/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/count_label"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom|right"-->
-                <!--android:shadowColor="#000000"-->
-                <!--android:shadowDx="1"-->
-                <!--android:shadowDy="1"-->
-                <!--android:shadowRadius="2"-->
-                <!--android:text="x2"-->
-                <!--android:textAppearance="?android:attr/textAppearanceSmall"/>-->
-        <!--</FrameLayout>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/time_label"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:paddingRight="8dp"-->
-            <!--android:textAppearance="?android:attr/textAppearanceSmall"/>-->
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/linearLayout1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toLeftOf="@+id/time_label"-->
-            <!--android:layout_toRightOf="@+id/frameLayout1"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/main_label"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ellipsize="end"-->
-                <!--android:text="unit name"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/target_label"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ellipsize="end"-->
-                <!--android:text="target"-->
-                <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-                <!--android:visibility="visible"/>-->
-        <!--</LinearLayout>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/drag_handle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:contentDescription="@string/desc_drag_handle"-->
-            <!--android:paddingLeft="4dp"-->
-            <!--android:paddingRight="4dp"-->
-            <!--android:scaleType="center"-->
-            <!--android:src="@drawable/drag_handle_std"/>-->
-
-    <!--</RelativeLayout>-->
-
-<!--</FrameLayout>-->
