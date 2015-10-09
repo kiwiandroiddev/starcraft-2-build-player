@@ -129,8 +129,7 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
             }
         });
 
-        // stub - use whole row
-        holder.icon.setOnClickListener(new View.OnClickListener() {
+        holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnBuildItemClickedListener.onBuildItemClicked(item, position);

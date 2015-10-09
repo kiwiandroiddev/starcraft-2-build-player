@@ -20,6 +20,7 @@ public class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
     public final TextView count;
     public final ImageView icon;
     public final View handle;
+    public final View container;
 
     public EditBuildItemViewHolder(View view) {
         super(view);
@@ -29,6 +30,7 @@ public class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
         count = (TextView)view.findViewById(R.id.count_label);
         icon = (ImageView)view.findViewById(R.id.unit_icon);
         handle = view.findViewById(R.id.drag_handle);
+        container = view.findViewById(R.id.container);
     }
 
 }
