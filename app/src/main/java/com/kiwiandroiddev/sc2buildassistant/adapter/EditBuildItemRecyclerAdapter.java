@@ -15,13 +15,14 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Adapter for displaying build items in an editable list (as opposed to BuildItemAdapter
  * which is for showing a read-only list of build items, e.g. on the Playback screen).
  * The list is editable in the sense that build items can added, removed and reordered.
  *
- * TODO BUG drag swapping not persisting
+ * BUG: views not updating on move (red time text when out of place)
  *
  * Created by matt on 4/10/15.
  */
@@ -150,8 +151,7 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        BuildItem prev = mBuildItems.remove(fromPosition);
-        mBuildItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        Collections.swap(mBuildItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
     }
 
