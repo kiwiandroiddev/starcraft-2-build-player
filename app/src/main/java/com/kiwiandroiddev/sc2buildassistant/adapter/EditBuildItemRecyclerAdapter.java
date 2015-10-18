@@ -22,12 +22,18 @@ import java.util.Collections;
  * which is for showing a read-only list of build items, e.g. on the Playback screen).
  * The list is editable in the sense that build items can added, removed and reordered.
  *
+ * Has a blank footer item to prevent the last build item from being partially obscured
+ * by the Floating Action Button to add new items.
+ *
  * BUG: views not updating on move (red time text when out of place)
  *
  * Created by matt on 4/10/15.
  */
 public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuildItemViewHolder>
         implements ItemTouchEventListener {
+
+    private static final int BUILD_ROW_TYPE = 0;
+    private static final int FOOTER_ROW_TYPE = 1;
 
     private final Context mContext;
     private final DbAdapter mDb;
@@ -57,8 +63,19 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
      */
     @Override
     public EditBuildItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.edit_build_item_row, parent, false);
-        return new EditBuildItemViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if (viewType == BUILD_ROW_TYPE) {
+            View view = inflater.inflate(R.layout.edit_build_item_row, parent, false);
+            return new EditBuildItemViewHolder(view);
+        } else {
+            View view = inflater.inflate(R.layout.spacer_row, parent, false);
+            return new EditBuildItemViewHolder(view);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position < mBuildItems.size() ? BUILD_ROW_TYPE : FOOTER_ROW_TYPE;
     }
 
     /**
@@ -69,6 +86,11 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
      */
     @Override
     public void onBindViewHolder(final EditBuildItemViewHolder holder, final int position) {
+        if (getItemViewType(position) == FOOTER_ROW_TYPE) {
+            // blank row - nothing to bind
+            return;
+        }
+
         final BuildItem item = mBuildItems.get(position);
 
         // work out if this build item is in the wrong position based on its time
@@ -139,7 +161,7 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
     @Override
     public int getItemCount() {
-        return mBuildItems.size();
+        return mBuildItems.size() + 1 /*footer*/;
     }
 
     @Override
