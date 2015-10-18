@@ -204,6 +204,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //    	}
 		
 		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.activity_edit_build);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.inject(this);
@@ -280,9 +281,10 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //        mPager.setAdapter(mPagerAdapter);
         
         // set action bar title
-        getSupportActionBar().setTitle(mCreatingNewBuild == true ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
-        if (!mCreatingNewBuild)
-        	getSupportActionBar().setSubtitle(mInitialBuild.getName());
+        getSupportActionBar().setTitle(mCreatingNewBuild ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
+        if (!mCreatingNewBuild) {
+			getSupportActionBar().setSubtitle(mInitialBuild.getName());
+		}
 	}
 
     @Override

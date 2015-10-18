@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -22,8 +22,8 @@ import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTouchEventListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemClickedListener;
+import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemRemovedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnStartDragListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.SimpleItemTouchCallback;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
@@ -44,24 +44,21 @@ import butterknife.OnClick;
  * @author matt
  *
  */
-public class EditBuildItemsFragment extends Fragment implements OnStartDragListener, OnBuildItemClickedListener {
+public class EditBuildItemsFragment extends Fragment implements OnStartDragListener, OnBuildItemClickedListener, OnBuildItemRemovedListener {
 	
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
 	
 	private DbAdapter.Faction mFaction;		// current faction of build order, used to limit unit selection
-	private BuildItem mDeletedItem;			// for undo support
-	private int mDeletedItemIndex;			// for undo support
     private DbAdapter mDb;
 	private EditBuildItemRecyclerAdapter mAdapter;
 	private ItemTouchHelper mTouchHelper;
 	private ArrayList<BuildItem> mWorkingList;
+    private Snackbar mItemDeletedSnackbar;
 
-	@InjectView(R.id.fragment_edit_build_items_list_view) RecyclerView mRecyclerView;
-	@InjectView(R.id.undobar) View mUndoBar;
-	@InjectView(R.id.undobar_message) TextView mUndoText;
+    @InjectView(R.id.fragment_edit_build_items_list_view) RecyclerView mRecyclerView;
 
-	@Override
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -117,13 +114,13 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-		mAdapter = new EditBuildItemRecyclerAdapter(getActivity(), this, this, mWorkingList);
+		mAdapter = new EditBuildItemRecyclerAdapter(getActivity(), this, this, this, mWorkingList);
 		mRecyclerView.setAdapter(mAdapter);
 
-		ItemTouchHelper.Callback callback =
-				new SimpleItemTouchCallback((ItemTouchEventListener) mAdapter);
+		ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(mAdapter);
 		mTouchHelper = new ItemTouchHelper(callback);
 		mTouchHelper.attachToRecyclerView(mRecyclerView);
+
 	}
 
 	@Override
@@ -167,31 +164,14 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
 	}
 
-	/**
-	 * User clicked a build item in the list, let them edit it
+    /**
+	 * Called with the output of the item editor dialog, from either adding a new build item
+	 * to the list or selecting an existing one to edit.
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
 	 */
-//	@Override
-//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		//Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
-
-//		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
-//        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
-//
-//		// -1 is the footer item ID
-//		if (id != -1) {
-//			BuildItem item = mAdapter.getItem(position);
-//			//Timber.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
-//			i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
-//	        i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, id);
-//		} else {
-//			// "Add item" clicked
-//			i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());	// stub
-//			// TODO pass default supply as well?
-//		}
-//
-//        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
-//	}
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    // Check which request we're responding to
@@ -221,57 +201,59 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	        }
 	    }
 	}
-	//	/**
-//	 * Basic support for undoing build item deletion. Shows a small overlay with
-//	 * an undo button to restore a build item that was just deleted.
-//	 *
-//	 * @param itemIndex	  index of deleted item in underlying arraylist
-//	 * @param deletedItem  build item that was deleted
-//	 */
-//	private void showUndo(int itemIndex, BuildItem deletedItem) {
-//		mDeletedItemIndex = itemIndex;
-//		mDeletedItem = deletedItem;
+    /**
+     * User clicked a build item in the list, let them edit it
+     */
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    //Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
+
+//		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
+//        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
 //
-//		// fade in overlay...
-//		String name = mDb.getNameString(deletedItem.getGameItemID());
-//		String undoText = "Deleted <b>" + name;
-//		if (deletedItem.getCount() > 1)
-//			undoText = undoText + " x" + deletedItem.getCount();
-//		undoText = undoText + "</b>";
+//		// -1 is the footer item ID
+//		if (id != -1) {
+//			BuildItem item = mAdapter.getItem(position);
+//			//Timber.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
+//			i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
+//	        i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, id);
+//		} else {
+//			// "Add item" clicked
+//			i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());	// stub
+//			// TODO pass default supply as well?
+//		}
 //
-//		mUndoText.setText(Html.fromHtml(undoText));
-//		mUndoBar.setVisibility(View.VISIBLE);
-////	    mUndoBar.setAlpha(1);
-////	    mUndoBar.animate().alpha(0.4f).setDuration(5000)
-////	        .withEndAction(new Runnable() {
-////
-////	          @Override
-////	          public void run() {
-////	        	  mUndoBar.setVisibility(View.GONE);
-////	          }
-////	        });
+//        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
 //	}
-//
+
+    @Override
+    public void onBuildItemRemoved(final int deletedItemPosition, final BuildItem deletedItem) {
+        String itemName = mDb.getNameString(deletedItem.getGameItemID());
+        String deletionMessage = deletedItem.getCount() > 1 ?
+                            getString(R.string.deleted_items_x_N, itemName, deletedItem.getCount()) :
+                            getString(R.string.deleted_item, itemName);
+
+        mItemDeletedSnackbar = Snackbar.make(getView(), deletionMessage, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (deletedItemPosition != -1 && deletedItem != null) {
+                            mAdapter.insert(deletedItem, deletedItemPosition);
+                        }
+                        mItemDeletedSnackbar = null;
+                    }
+                });
+        mItemDeletedSnackbar.show();
+    }
+
 	private void invalidateUndo() {
-		// TODO dismiss snackbar
-//		mDeletedItemIndex = -1;
-//		mDeletedItem = null;
-//		// fade out overlay...
-//		mUndoBar.setVisibility(View.GONE);
+        if (mItemDeletedSnackbar != null) {
+            mItemDeletedSnackbar.dismiss();
+            mItemDeletedSnackbar = null;
+        }
 	}
 
-//
-//    @OnClick(R.id.undobar_button)
-	// TODO wire up to snackbar action
-	public void onUndoClick() {
-		if (mDeletedItem != null && mDeletedItemIndex != -1) {
-			mAdapter.insert(mDeletedItem, mDeletedItemIndex);
-//			mAdapter.notifyDataSetChanged();
-			invalidateUndo();
-		}
-	}
-
-	// ========================================================================
+    // ========================================================================
 	// Helpers
 	// ========================================================================
 
@@ -293,6 +275,6 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	private void hideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
 			      Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(mUndoText.getWindowToken(), 0);
+			imm.hideSoftInputFromWindow(mRecyclerView.getWindowToken(), 0);
 	}
 }

@@ -39,14 +39,18 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     private final DbAdapter mDb;
     private final OnStartDragListener mOnStartDragListener;
     private final OnBuildItemClickedListener mOnBuildItemClickedListener;
+    private final OnBuildItemRemovedListener mOnBuildItemRemovedListener;
     private final ArrayList<BuildItem> mBuildItems;
 
     public EditBuildItemRecyclerAdapter(Context context,
                                         OnStartDragListener onStartDragListener,
-                                        OnBuildItemClickedListener onBuildItemClickedListener, ArrayList<BuildItem> buildItems) {
+                                        OnBuildItemClickedListener onBuildItemClickedListener,
+                                        OnBuildItemRemovedListener onBuildItemRemovedListener,
+                                        ArrayList<BuildItem> buildItems) {
         mContext = context;
         mOnStartDragListener = onStartDragListener;
         mOnBuildItemClickedListener = onBuildItemClickedListener;
+        mOnBuildItemRemovedListener = onBuildItemRemovedListener;
         mBuildItems = buildItems;
 
         // get a reference to the global DB instance. TODO: inject this reference via DI container
@@ -166,8 +170,9 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
     @Override
     public void onItemDismiss(int position) {
-        mBuildItems.remove(position);
+        BuildItem removedItem = mBuildItems.remove(position);
         notifyItemRemoved(position);
+        mOnBuildItemRemovedListener.onBuildItemRemoved(position, removedItem);
     }
 
     @Override
