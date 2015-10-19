@@ -65,7 +65,7 @@ public class EditBuildItemAdapter extends ArrayAdapter<BuildItem> {
 				outOfPosition = true;
 		}
 		
-//		Timber.d(this.toString(), String.format("in getView(), positon=%s, convertView=%s, parent=%s, item=%s, main=%s, target=%s, item.getText()=%s",
+//		Timber.d(this.toString(), String.format("in getView(), position=%s, convertView=%s, parent=%s, item=%s, main=%s, target=%s, item.getText()=%s",
 //				position, convertView, parent, item, main, target, item.getText()));
 		
 		// set the main label (either unit name or message text)

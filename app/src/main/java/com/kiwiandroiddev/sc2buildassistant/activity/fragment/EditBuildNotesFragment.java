@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog;
@@ -32,7 +33,7 @@ import com.kiwiandroiddev.sc2buildassistant.model.Build;
  * @author matt
  *
  */
-public class EditBuildNotesFragment extends Fragment {
+public class EditBuildNotesFragment extends Fragment implements BuildEditorTabView {
 	
 	private static final String TAG = "EditBuildNotesFragment";
 	private EditText mNotes;
@@ -61,6 +62,7 @@ public class EditBuildNotesFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO butterknife-ify
 		View v = inflater.inflate(R.layout.fragment_edit_build_notes, container, false);
 		mNotes = (EditText) v.findViewById(R.id.edit_notes);
 		
@@ -224,4 +226,12 @@ public class EditBuildNotesFragment extends Fragment {
 		mNotes.getText().replace(end, end, tag);
 		mNotes.setSelection(end + tag.length());
 	}
+
+	@Override
+	public boolean requestsAddButton() {
+		return false;
+	}
+
+	@Override
+	public void onAddButtonClicked() {}
 }

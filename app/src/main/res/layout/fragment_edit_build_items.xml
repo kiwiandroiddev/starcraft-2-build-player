@@ -1,82 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <!-- cacheColorHint: don't perform blending optimization when scrolling, stops listview from going black -->
-<!--     <ListView -->
-<!--         android:id="@+id/edit_items_list_view" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="match_parent"  -->
-<!--         android:cacheColorHint="#0000"> -->
-<!--     </ListView> -->
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-<com.mobeta.android.dslv.DragSortListView
-xmlns:dslv="http://schemas.android.com/apk/lib/com.kiwiandroiddev.sc2buildassistant"
-android:id="@+id/edit_items_list_view"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:fastScrollEnabled="true"
-android:paddingLeft="@dimen/screen_edge_padding"
-android:paddingRight="@dimen/screen_edge_padding"
-dslv:collapsed_height="2dp"
-dslv:drag_enabled="true"
-dslv:drag_handle_id="@id/drag_handle"
-dslv:drag_scroll_start="0.33"
-dslv:drag_start_mode="onDown"
-dslv:float_alpha="0.6"
-dslv:max_drag_scroll_speed="0.5"
-dslv:remove_enabled="true"
-dslv:remove_mode="flingRemove"
-dslv:slide_shuffle_speed="0.3"
-dslv:sort_enabled="true"
-dslv:track_drag_sort="false"
-dslv:use_default_controller="true" />
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-<LinearLayout
-        android:id="@+id/undobar"
-        android:visibility="gone"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_edit_build_items_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="8dp"
-        android:alpha="100"
-         >
+        android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/undobar_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:text="Deleted"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff" />
-        
-        <View
-            android:layout_width="1dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/gray"
-        />
-        
-        <Button
-            android:id="@+id/undobar_button"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="16dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:drawableLeft="@drawable/ic_action_undo"
-            android:drawablePadding="8dp"
-            android:text="Undo"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:textColor="@color/gray" />
-    </LinearLayout>
-    
 </FrameLayout>

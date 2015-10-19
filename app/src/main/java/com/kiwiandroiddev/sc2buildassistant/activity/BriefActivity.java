@@ -13,7 +13,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -51,7 +51,7 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
@@ -196,17 +196,25 @@ public class BriefActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getMenuInflater();
-//       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
+       inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
        inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
     	if (item.getItemId() == android.R.id.home) {
             finishCompat();
             return true;
-        }
+        } else if (item.getItemId() == R.id.menu_edit_build) {
+			Intent i = new Intent(this, EditBuildActivity.class);
+			i.putExtra(KEY_BUILD_ID, mBuildId);
+			startActivity(i);
+			return true;
+		}
     	
     	// use the same options menu as the main activity 
     	boolean result = MainActivity.OnMenuItemSelected(this, item);

@@ -10,18 +10,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
-import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
+import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
+import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 
 import rx.Observer;
@@ -32,7 +32,7 @@ import timber.log.Timber;
 /**
  * Created by matt on 27/11/14.
  */
-public class SettingsActivity extends ActionBarActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     public static final String PRO_VERSION_PACKAGE = "com.kiwiandroiddev.sc2buildassistantpro";
     public static final String TRANSLATE_URL = "http://www.getlocalization.com/sc2buildplayer/";

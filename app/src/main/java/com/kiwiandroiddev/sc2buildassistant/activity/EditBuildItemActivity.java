@@ -2,7 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * @author matt
  *
  */
-public class EditBuildItemActivity extends ActionBarActivity implements OnClickListener {
+public class EditBuildItemActivity extends AppCompatActivity implements OnClickListener {
 	
 	public static final int EDIT_BUILD_ITEM_REQUEST = 0;
 	
