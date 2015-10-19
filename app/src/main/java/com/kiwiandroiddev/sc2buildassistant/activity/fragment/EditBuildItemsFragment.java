@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
@@ -33,7 +34,6 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 /**
  * Provides a UI for displaying a list of ordered build items that the user can edit.
@@ -44,7 +44,8 @@ import butterknife.OnClick;
  * @author matt
  *
  */
-public class EditBuildItemsFragment extends Fragment implements OnStartDragListener, OnBuildItemClickedListener, OnBuildItemRemovedListener {
+public class EditBuildItemsFragment extends Fragment implements OnStartDragListener, OnBuildItemClickedListener,
+        OnBuildItemRemovedListener, BuildEditorTabView {
 	
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
@@ -145,14 +146,14 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		return mWorkingList;
 	}
 
-	@OnClick(R.id.fragment_edit_build_items_add_button)
-	public void onAddItemButtonClicked() {
-		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
+    @Override
+    public void onAddButtonClicked() {
+        Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
         i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
-		i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());
-		// TODO pass default supply as well?
-		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
-	}
+        i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());
+        // TODO pass default supply as well?
+        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
+    }
 
 	@Override
 	public void onBuildItemClicked(BuildItem item, int position) {
@@ -277,4 +278,9 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 			      Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(mRecyclerView.getWindowToken(), 0);
 	}
+
+    @Override
+    public boolean requestsAddButton() {
+        return true;
+    }
 }

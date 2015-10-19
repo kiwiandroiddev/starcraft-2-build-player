@@ -39,6 +39,7 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 /**
@@ -56,9 +57,12 @@ import timber.log.Timber;
  */
 public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener {
 
-    @InjectView(android.R.id.content) View mRootView;
+    @InjectView(R.id.edit_build_activity_root) View mRootView;
+	@InjectView(R.id.edit_build_activity_add_button) View mAddButton;
 
-    /** Writes a build object to the database in a background task */
+	private BuildEditorTabView mCurrentlyVisibleEditorTab;
+
+	/** Writes a build object to the database in a background task */
 	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
 		private DbAdapter mDb;
 		private Build mBuild;
@@ -107,7 +111,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		}
 	}
 	
-	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+	public class TabListener<T extends Fragment> implements ActionBar.TabListener {
 	    private Fragment mFragment;
 	    private final AppCompatActivity mActivity;
 	    private final String mTag;
@@ -138,7 +142,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	        	Bundle data = new Bundle();
 	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
 	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
-	            ft.add(android.R.id.content, mFragment, mTag);
+	            ft.add(R.id.edit_build_activity_content, mFragment, mTag);
 	        } else if (mFragment != null) {
 	        	Timber.d(mTag + ": fragment already exists, reattaching");
 	            // If it exists, simply attach it in order to show it
@@ -148,7 +152,19 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	            ft.attach(preInitializedFragment);
 	            mFragment = preInitializedFragment;
 	        }
-	        
+
+			// show Floating Action Button if fragment requests it
+			if (mFragment instanceof BuildEditorTabView) {
+				BuildEditorTabView tabView = (BuildEditorTabView) mFragment;
+				// TODO animate FAB appearing/disappearing
+				mAddButton.setVisibility(tabView.requestsAddButton() ? View.VISIBLE : View.GONE);
+
+				// save a reference to this so activity can forward click events to it
+				mCurrentlyVisibleEditorTab = tabView;
+			} else {
+				throw new IllegalStateException("Build editor fragments should implement BuildEditorTabView");
+			}
+
 //	        // Check if the fragment is already initialized
 //	        if (mFragment == null) {
 //	            // If not, instantiate and add it to the activity
@@ -204,7 +220,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //    	}
 		
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_edit_build);
+		setContentView(R.layout.activity_edit_build);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.inject(this);
@@ -254,21 +270,21 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 
     	Timber.d("onCreate() called, num tabs = " + actionBar.getTabCount());
         ActionBar.Tab tab = actionBar.newTab()
-                .setText("Info")
-                .setTabListener(new TabListener<EditBuildInfoFragment>(
-                        this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
+                .setText(getString(R.string.edit_build_info_title))
+                .setTabListener(new TabListener<>(
+						this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab()
-            .setText("Notes")
-            .setTabListener(new TabListener<EditBuildNotesFragment>(
-                        this, "notes", EditBuildNotesFragment.class, mFragmentSharedBuild));
+            .setText(getString(R.string.edit_build_notes_title))
+            .setTabListener(new TabListener<>(
+					this, "notes", EditBuildNotesFragment.class, mFragmentSharedBuild));
         actionBar.addTab(tab);
         
         tab = actionBar.newTab()
-                .setText("Items")
-                .setTabListener(new TabListener<EditBuildItemsFragment>(
-                        this, "items", EditBuildItemsFragment.class, mFragmentSharedBuild));
+                .setText(getString(R.string.edit_build_items_title))
+                .setTabListener(new TabListener<>(
+						this, "items", EditBuildItemsFragment.class, mFragmentSharedBuild));
         actionBar.addTab(tab);
         
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_TAB)) {
@@ -335,6 +351,13 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         }
         return super.onOptionsItemSelected(item);
     }
+
+	@OnClick(R.id.edit_build_activity_add_button)
+	public void onAddButtonClicked() {
+		if (mCurrentlyVisibleEditorTab != null) {
+			mCurrentlyVisibleEditorTab.onAddButtonClicked();
+		}
+	}
 
 	@Override
 	public void onFactionSelectionChanged(final Faction selection) {
