@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true" >
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/screen_edge_padding"
+            android:paddingRight="@dimen/screen_edge_padding">
             <EditText
                 android:id="@+id/edit_notes"
                 android:layout_width="match_parent"
@@ -19,12 +23,11 @@
                 android:gravity="top"
                 android:hint="@string/edit_build_notes_hint"
                 android:inputType="textMultiLine|textNoSuggestions"
-                android:paddingLeft="@dimen/screen_edge_padding"
-                android:paddingRight="@dimen/screen_edge_padding">
+                >
                 <requestFocus />
                 </EditText>
         </android.support.design.widget.TextInputLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
