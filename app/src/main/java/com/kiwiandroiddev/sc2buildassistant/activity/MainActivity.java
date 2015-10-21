@@ -36,6 +36,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
+import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // TODO hacky but have not yet found a better way to find all child fragments
         for (int i = 0; i < 3; ++i) {
-            String tag = makeFragmentName(mPager.getId(), i);
+            String tag = FragmentUtils.makeFragmentName(mPager.getId(), i);
             Fragment f = mManager.findFragmentByTag(tag);
             if (f != null) {
                 RaceFragment rf = (RaceFragment) f;
@@ -384,10 +385,4 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 .getInt(SettingsActivity.KEY_FACTION_SELECTION, DbAdapter.Faction.TERRAN.ordinal());
     }
 
-    /**
-     * Helper for getting Fragments inside the tab pager
-     */
-    public static String makeFragmentName(int viewId, int index) {
-        return "android:switcher:" + viewId + ":" + index;
-    }
 }
