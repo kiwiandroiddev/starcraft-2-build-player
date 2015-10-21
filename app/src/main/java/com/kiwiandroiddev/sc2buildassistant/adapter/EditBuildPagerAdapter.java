@@ -89,8 +89,9 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 		if (mBuildToEdit.getFaction() != selection) {
 			mBuildToEdit.setFaction(selection);
 			// clear any build items from the old faction
-			if (mBuildToEdit.getItems() != null && mBuildToEdit.getItems().size() > 0)
+			if (mBuildToEdit.getItems() != null && mBuildToEdit.getItems().size() > 0) {
 				mBuildToEdit.setItems(new ArrayList<BuildItem>());
+			}
 		}
 	}
 }

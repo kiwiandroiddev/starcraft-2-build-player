@@ -7,10 +7,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -33,7 +32,6 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
-import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,13 +68,13 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	private Build mInitialBuild;
 	private Build mFragmentSharedBuild;
 	private EditBuildPagerAdapter mPagerAdapter;
-//	private ViewPager mPager;
 	private Faction mCurrentFactionSelection;
 	private BuildEditorTabView mCurrentlyVisibleEditorTab;
 
 	@InjectView(R.id.edit_build_activity_root) View mRootView;
 	@InjectView(R.id.edit_build_activity_add_button) View mAddButton;
 	@InjectView(R.id.toolbar) Toolbar mToolbar;
+    @InjectView(R.id.pager) ViewPager mPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,40 +133,43 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //		Timber.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
         
         // setup action bar for tabs
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//        actionBar.setDisplayShowTitleEnabled(false);
-
-    	mFragmentSharedBuild = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
-
-    	Timber.d("onCreate() called, num tabs = " + actionBar.getTabCount());
-        ActionBar.Tab tab = actionBar.newTab()
-                .setText(getString(R.string.edit_build_info_title))
-                .setTabListener(new TabListener<>(
-						this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-
-        tab = actionBar.newTab()
-            .setText(getString(R.string.edit_build_notes_title))
-            .setTabListener(new TabListener<>(
-					this, "notes", EditBuildNotesFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-        
-        tab = actionBar.newTab()
-                .setText(getString(R.string.edit_build_items_title))
-                .setTabListener(new TabListener<>(
-						this, "items", EditBuildItemsFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-        
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_TAB)) {
-        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt(KEY_SELECTED_TAB));
-        }
+//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+////        actionBar.setDisplayShowTitleEnabled(false);
+//
+//    	mFragmentSharedBuild = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
+//
+//    	Timber.d("onCreate() called, num tabs = " + actionBar.getTabCount());
+//        ActionBar.Tab tab = actionBar.newTab()
+//                .setText(getString(R.string.edit_build_info_title))
+//                .setTabListener(new TabListener<>(
+//						this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
+//        actionBar.addTab(tab);
+//
+//        tab = actionBar.newTab()
+//            .setText(getString(R.string.edit_build_notes_title))
+//            .setTabListener(new TabListener<>(
+//					this, "notes", EditBuildNotesFragment.class, mFragmentSharedBuild));
+//        actionBar.addTab(tab);
+//
+//        tab = actionBar.newTab()
+//                .setText(getString(R.string.edit_build_items_title))
+//                .setTabListener(new TabListener<>(
+//						this, "items", EditBuildItemsFragment.class, mFragmentSharedBuild));
+//        actionBar.addTab(tab);
+//
+//        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_TAB)) {
+//        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt(KEY_SELECTED_TAB));
+//        }
         
         // Set up view pager
-//        mPager = (ViewPager) findViewById(R.id.pager);
-//        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild);
-//        mPager.setAdapter(mPagerAdapter);
-        
+        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild);
+        mPager.setAdapter(mPagerAdapter);
+
+        /** Bind tabs view to pager */
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(mPager);
+
         // set action bar title
         getSupportActionBar().setTitle(mCreatingNewBuild ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
         if (!mCreatingNewBuild) {
@@ -305,7 +306,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 				// thereby limiting new items to the correct faction
 				
 				// TODO: work out how to translate this to new tab layout
-//				mPagerAdapter.setFaction(selection);
+				mPagerAdapter.setFaction(selection);
 
 				// TEMP HACK
 				mFragmentSharedBuild.setFaction(selection);
@@ -580,83 +581,83 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		}
 	}
 
-	public class TabListener<T extends Fragment> implements ActionBar.TabListener {
-		private Fragment mFragment;
-		private final AppCompatActivity mActivity;
-		private final String mTag;
-		private final Class<T> mClass;
-		private final Build mBuild;
-
-		/** Constructor used each time a new tab is created.
-		 * @param activity  The host Activity, used to instantiate the fragment
-		 * @param tag  The identifier tag for the fragment
-		 * @param clz  The fragment's Class, used to instantiate the fragment
-		 */
-		public TabListener(AppCompatActivity activity, String tag, Class<T> clz, Build build) {
-			mActivity = activity;
-			mTag = tag;
-			mClass = clz;
-			mBuild = build;
-		}
-
-	    /* The following are each of the ActionBar.TabListener callbacks */
-
-		public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-			Fragment preInitializedFragment = mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
-
-			// Check if the fragment is already initialized
-			if (mFragment == null && preInitializedFragment == null) {
-				Timber.d(mTag + ": neither fragment nor preinitialized fragment set");
-				// If not, instantiate and add it to the activity
-				Bundle data = new Bundle();
-				data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
-				mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
-				ft.add(R.id.edit_build_activity_content, mFragment, mTag);
-			} else if (mFragment != null) {
-				Timber.d(mTag + ": fragment already exists, reattaching");
-				// If it exists, simply attach it in order to show it
-				ft.attach(mFragment);
-			} else if (preInitializedFragment != null) {
-				Timber.d(mTag + ": pre-initialized fragment already exists, reattaching that");
-				ft.attach(preInitializedFragment);
-				mFragment = preInitializedFragment;
-			}
-
-			// show Floating Action Button if fragment requests it
-			if (mFragment instanceof BuildEditorTabView) {
-				BuildEditorTabView tabView = (BuildEditorTabView) mFragment;
-				// TODO animate FAB appearing/disappearing
-				mAddButton.setVisibility(tabView.requestsAddButton() ? View.VISIBLE : View.GONE);
-
-				// save a reference to this so activity can forward click events to it
-				mCurrentlyVisibleEditorTab = tabView;
-			} else {
-				throw new IllegalStateException("Build editor fragments should implement BuildEditorTabView");
-			}
-
-//	        // Check if the fragment is already initialized
-//	        if (mFragment == null) {
-//	            // If not, instantiate and add it to the activity
+//	public class TabListener<T extends Fragment> implements ActionBar.TabListener {
+//		private Fragment mFragment;
+//		private final AppCompatActivity mActivity;
+//		private final String mTag;
+//		private final Class<T> mClass;
+//		private final Build mBuild;
 //
-//	    		Bundle data = new Bundle();
-//	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
-//	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
-//	            ft.add(android.R.id.content, mFragment, mTag);
-//	        } else {
-//	            // If it exists, simply attach it in order to show it
-//	            ft.attach(mFragment);
-//	        }
-		}
-
-		public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-			if (mFragment != null) {
-				// Detach the fragment, because another one is being attached
-				ft.detach(mFragment);
-			}
-		}
-
-		public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-			// User selected the already selected tab. Usually do nothing.
-		}
-	}
+//		/** Constructor used each time a new tab is created.
+//		 * @param activity  The host Activity, used to instantiate the fragment
+//		 * @param tag  The identifier tag for the fragment
+//		 * @param clz  The fragment's Class, used to instantiate the fragment
+//		 */
+//		public TabListener(AppCompatActivity activity, String tag, Class<T> clz, Build build) {
+//			mActivity = activity;
+//			mTag = tag;
+//			mClass = clz;
+//			mBuild = build;
+//		}
+//
+//	    /* The following are each of the ActionBar.TabListener callbacks */
+//
+//		public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+//			Fragment preInitializedFragment = mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
+//
+//			// Check if the fragment is already initialized
+//			if (mFragment == null && preInitializedFragment == null) {
+//				Timber.d(mTag + ": neither fragment nor preinitialized fragment set");
+//				// If not, instantiate and add it to the activity
+//				Bundle data = new Bundle();
+//				data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
+//				mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
+//				ft.add(R.id.edit_build_activity_content, mFragment, mTag);
+//			} else if (mFragment != null) {
+//				Timber.d(mTag + ": fragment already exists, reattaching");
+//				// If it exists, simply attach it in order to show it
+//				ft.attach(mFragment);
+//			} else if (preInitializedFragment != null) {
+//				Timber.d(mTag + ": pre-initialized fragment already exists, reattaching that");
+//				ft.attach(preInitializedFragment);
+//				mFragment = preInitializedFragment;
+//			}
+//
+//			// show Floating Action Button if fragment requests it
+//			if (mFragment instanceof BuildEditorTabView) {
+//				BuildEditorTabView tabView = (BuildEditorTabView) mFragment;
+//				// TODO animate FAB appearing/disappearing
+//				mAddButton.setVisibility(tabView.requestsAddButton() ? View.VISIBLE : View.GONE);
+//
+//				// save a reference to this so activity can forward click events to it
+//				mCurrentlyVisibleEditorTab = tabView;
+//			} else {
+//				throw new IllegalStateException("Build editor fragments should implement BuildEditorTabView");
+//			}
+//
+////	        // Check if the fragment is already initialized
+////	        if (mFragment == null) {
+////	            // If not, instantiate and add it to the activity
+////
+////	    		Bundle data = new Bundle();
+////	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
+////	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
+////	            ft.add(android.R.id.content, mFragment, mTag);
+////	        } else {
+////	            // If it exists, simply attach it in order to show it
+////	            ft.attach(mFragment);
+////	        }
+//		}
+//
+//		public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//			if (mFragment != null) {
+//				// Detach the fragment, because another one is being attached
+//				ft.detach(mFragment);
+//			}
+//		}
+//
+//		public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//			// User selected the already selected tab. Usually do nothing.
+//		}
+//	}
 }

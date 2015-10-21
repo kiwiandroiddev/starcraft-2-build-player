@@ -213,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mLoadingBar.setVisibility(View.GONE);
 	}
 
-
     /**
      * This is called intermittently during loading of standard builds into database.
      * Hides indeterminate progress spinner and shows the progress bar with
