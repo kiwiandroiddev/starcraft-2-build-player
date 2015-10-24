@@ -8,6 +8,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
+import com.kiwiandroiddev.sc2buildassistant.util.OnPageSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +52,6 @@ import timber.log.Timber;
  * Reference for combining tabs with view pager:
  * https://developer.android.com/training/implementing-navigation/lateral.html
  *
- * TODO: use TabLayout from design support library
- *
  * @author matt
  *
  */
@@ -68,14 +68,13 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	private Build mInitialBuild;
 	private EditBuildPagerAdapter mPagerAdapter;
 	private Faction mCurrentFactionSelection;
-	private BuildEditorTabView mCurrentlyVisibleEditorTab;
 
-	@InjectView(R.id.edit_build_activity_root) View mRootView;
-	@InjectView(R.id.edit_build_activity_add_button) View mAddButton;
-	@InjectView(R.id.toolbar) Toolbar mToolbar;
+    @InjectView(R.id.edit_build_activity_root) View mRootView;
+    @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
+    @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.pager) ViewPager mPager;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Can't have both fullscreen mode and window resizing when the soft keyboard
 		// becomes visible (needed so formatting toolbar stays on screen). Known bug
@@ -129,6 +128,18 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         // Set up view pager
         mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild);
         mPager.setAdapter(mPagerAdapter);
+        ViewPager.OnPageChangeListener onPageChangeListener = new OnPageSelectedListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // Show or hide floating Add button depending on current tab's preference
+                // TODO animate FAB vis change
+                mAddButton.setVisibility(getCurrentlyVisibleEditorTab().requestsAddButton() ? View.VISIBLE : View.GONE);
+            }
+        };
+        mPager.addOnPageChangeListener(onPageChangeListener);
+
+        // force-initialise FAB visibility (listener isn't naturally fired until user switches pages)
+        onPageChangeListener.onPageSelected(mPager.getCurrentItem());
 
         /** Bind tabs view to pager */
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
@@ -140,6 +151,17 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 			getSupportActionBar().setSubtitle(mInitialBuild.getName());
 		}
 	}
+
+    private BuildEditorTabView getCurrentlyVisibleEditorTab() {
+        Fragment fragment = mPagerAdapter.getItem(mPager.getCurrentItem());
+        if (fragment instanceof BuildEditorTabView) {
+            Timber.d("current editor tab = " + fragment);
+            return (BuildEditorTabView) fragment;
+        } else {
+            throw new IllegalStateException("Fragment from EditBuildPagerAdapter must implement BuildEditorTabView "
+                    + fragment);
+        }
+    }
 
     @Override
     public void onStart() {
@@ -190,9 +212,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 
 	@OnClick(R.id.edit_build_activity_add_button)
 	public void onAddButtonClicked() {
-		if (mCurrentlyVisibleEditorTab != null) {
-			mCurrentlyVisibleEditorTab.onAddButtonClicked();
-		}
+		getCurrentlyVisibleEditorTab().onAddButtonClicked();
 	}
 
 	@Override
