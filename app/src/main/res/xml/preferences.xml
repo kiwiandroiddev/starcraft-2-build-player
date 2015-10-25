@@ -57,10 +57,10 @@
             android:key="pref_rate_this_app"
             android:summary="@string/pref_rate_this_app_summary" />
         
-        <Preference
-            android:title="@string/pref_upgrade_to_pro_title"
-            android:key="pref_upgrade_to_pro"
-            android:summary="@string/pref_upgrade_to_pro_summary" />
+        <!--<Preference-->
+            <!--android:title="@string/pref_upgrade_to_pro_title"-->
+            <!--android:key="pref_upgrade_to_pro"-->
+            <!--android:summary="@string/pref_upgrade_to_pro_summary" />-->
         
         <Preference
             android:title="@string/pref_translate_title"

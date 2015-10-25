@@ -114,15 +114,15 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             /** Launch Pro version's listing in Play Store when user taps "Buy Pro version" */
-            Preference proPref = (Preference)findPreference("pref_upgrade_to_pro");
-            proPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    // track this event as it's something we want the user to do (a "goal" in analytics speak)
-                    EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "buy_pro_option", null);
-
-                    return launchPlayStore(Uri.parse("market://details?id=" + PRO_VERSION_PACKAGE));
-                }
-            });
+//            Preference proPref = (Preference)findPreference("pref_upgrade_to_pro");
+//            proPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                public boolean onPreferenceClick(Preference preference) {
+//                    // track this event as it's something we want the user to do (a "goal" in analytics speak)
+//                    EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "buy_pro_option", null);
+//
+//                    return launchPlayStore(Uri.parse("market://details?id=" + PRO_VERSION_PACKAGE));
+//                }
+//            });
 
             /** Launch getlocalization page in a browser window */
             Preference translatePref = (Preference)findPreference("pref_translate");
