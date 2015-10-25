@@ -64,8 +64,8 @@
 	<string name="dlg_invalid_filename">Błędna nazwa pliku</string>
 	<string name="dlg_wrote_file_to_dir">Pomyślnie zapisano %1$s do %2$s</string>
 	<string name="dlg_couldnt_write_file">Błąd: Nie można zapisać %1$s, powód: %2$s</string>
-	
-	
+	<string name="dlg_confirm_change_faction_title">Zmień Faction?</string>
+	<string name="dlg_confirm_change_faction_message">Spowoduje to usunięcie wszystkich istniejących elementów!</string>
 	<string name="error_unknown_author">Nieokreślone źródło</string>
 	<string name="error_couldnt_create_builds_dir">Błąd: Nie można utworzyć katalogu %1$s . Czy Twoja karta SD jest podłączona?</string>
 	<string name="add_build_footer">Dodaj Build &#8230;</string>
@@ -98,7 +98,7 @@
 	<string name="item_type_structure">Struktura</string>
 	<string name="item_type_upgrade">Ulepsz </string>
 	<string name="item_type_ability">Zdolność</string>
-	
+	<string name="item_type_note">Różny</string>
 	<string name="desc_drag_handle">Dotknij cel, aby zmienić kolejność budowy przedmiotów</string>
 	<string name="desc_unit_icon">Ikona jednostki, struktura, uaktualnienie lub zdolność</string>
 	
