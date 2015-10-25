@@ -121,7 +121,6 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(mAdapter);
 		mTouchHelper = new ItemTouchHelper(callback);
 		mTouchHelper.attachToRecyclerView(mRecyclerView);
-
 	}
 
 	@Override
@@ -134,11 +133,17 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		outState.putSerializable(KEY_BUILD_ITEM_ARRAY, mAdapter.getBuildItems());
 		outState.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFaction);
 	}
-	
+
+    /**
+     * Called when user changes the build's faction in the Info editor fragment.
+     * When this happens, all items should be cleared from the build because they're no longer
+     * available to the new faction.
+     * @param selection
+     */
 	public void setFaction(Faction selection) {
 		if (selection != mFaction) {
 			mFaction = selection;
-//			mAdapter.clear();
+			mAdapter.clear();
 		}
 	}
 	
@@ -202,30 +207,6 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	        }
 	    }
 	}
-    /**
-     * User clicked a build item in the list, let them edit it
-     */
-//	@Override
-//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    //Timber.d(this.toString(), "parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
-
-//		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
-//        i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
-//
-//		// -1 is the footer item ID
-//		if (id != -1) {
-//			BuildItem item = mAdapter.getItem(position);
-//			//Timber.d(this.toString(), "onItemClick(), sending to EditBuildItemActivity item " + item);
-//			i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
-//	        i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, id);
-//		} else {
-//			// "Add item" clicked
-//			i.putExtra(EditBuildItemActivity.KEY_DEFAULT_TIME, getDuration());	// stub
-//			// TODO pass default supply as well?
-//		}
-//
-//        startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
-//	}
 
     @Override
     public void onBuildItemRemoved(final int deletedItemPosition, final BuildItem deletedItem) {

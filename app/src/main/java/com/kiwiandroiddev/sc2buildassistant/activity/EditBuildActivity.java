@@ -1,5 +1,8 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,11 +10,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,7 +37,8 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
-import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
+import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
+import com.kiwiandroiddev.sc2buildassistant.util.SimpleAnimatorListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,163 +56,32 @@ import timber.log.Timber;
  * Reference for combining tabs with view pager:
  * https://developer.android.com/training/implementing-navigation/lateral.html
  *
- * TODO: use TabLayout from design support library
- *
  * @author matt
  *
  */
-public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener {
+public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener, EditBuildPagerAdapter.OnFragmentCreatedListener {
 
-    @InjectView(R.id.edit_build_activity_root) View mRootView;
-	@InjectView(R.id.edit_build_activity_add_button) View mAddButton;
-
-	private BuildEditorTabView mCurrentlyVisibleEditorTab;
-
-	/** Writes a build object to the database in a background task */
-	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
-		private DbAdapter mDb;
-		private Build mBuild;
-		private long mBuildId;
-		private ProgressDialog mDlg;
-		
-		public WriteBuildTask(Build build, long buildId) {
-			super();
-			mDb = ((MyApplication) getApplicationContext()).getDb();
-			mBuild = build;
-			mBuildId = buildId;
-		}
-				 
-		protected Boolean doInBackground(Void... unused) {
-			try {
-				mDb.addOrReplaceBuild(mBuild, mBuildId);
-				return true;
-			} catch (DbAdapter.NameNotUniqueException e) {
-				return false;
-			}
-		}
-		
-		protected void onPreExecute() {
-            mDlg = new ProgressDialog(EditBuildActivity.this);
-            mDlg.setMessage("Saving...");       // TODO: localize
-            mDlg.setCancelable(false);
-            mDlg.setIndeterminate(true);
-            mDlg.show();
-		}
-		
-		/**
-		 * If write was successful, displays a message, notifies content provider observers and
-		 * finishes the activity.
-		 * If unsuccessful, displays an error message.
-		 */
-		protected void onPostExecute(Boolean result) {
-			mDlg.hide();
-			if (result == true) {
-				// notify observers of buildprovider's build table that its contents have changed
-				JsonBuildService.notifyBuildProviderObservers(EditBuildActivity.this);
-				showMessage(R.string.edit_build_save_successful);
-				EditBuildActivity.this.finish();
-			} else {
-				showMessage(R.string.edit_build_title_already_taken_error);	
-			}
-		}
-	}
-	
-	public class TabListener<T extends Fragment> implements ActionBar.TabListener {
-	    private Fragment mFragment;
-	    private final AppCompatActivity mActivity;
-	    private final String mTag;
-	    private final Class<T> mClass;
-	    private final Build mBuild;
-
-	    /** Constructor used each time a new tab is created.
-	      * @param activity  The host Activity, used to instantiate the fragment
-	      * @param tag  The identifier tag for the fragment
-	      * @param clz  The fragment's Class, used to instantiate the fragment
-	      */
-	    public TabListener(AppCompatActivity activity, String tag, Class<T> clz, Build build) {
-	        mActivity = activity;
-	        mTag = tag;
-	        mClass = clz;
-	        mBuild = build;
-	    }
-
-	    /* The following are each of the ActionBar.TabListener callbacks */
-
-	    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-	    	Fragment preInitializedFragment = mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
-
-	        // Check if the fragment is already initialized
-	        if (mFragment == null && preInitializedFragment == null) {
-	        	Timber.d(mTag + ": neither fragment nor preinitialized fragment set");
-	            // If not, instantiate and add it to the activity
-	        	Bundle data = new Bundle();
-	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
-	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
-	            ft.add(R.id.edit_build_activity_content, mFragment, mTag);
-	        } else if (mFragment != null) {
-	        	Timber.d(mTag + ": fragment already exists, reattaching");
-	            // If it exists, simply attach it in order to show it
-	            ft.attach(mFragment);
-	        } else if (preInitializedFragment != null) {
-	        	Timber.d(mTag + ": pre-initialized fragment already exists, reattaching that");
-	            ft.attach(preInitializedFragment);
-	            mFragment = preInitializedFragment;
-	        }
-
-			// show Floating Action Button if fragment requests it
-			if (mFragment instanceof BuildEditorTabView) {
-				BuildEditorTabView tabView = (BuildEditorTabView) mFragment;
-				// TODO animate FAB appearing/disappearing
-				mAddButton.setVisibility(tabView.requestsAddButton() ? View.VISIBLE : View.GONE);
-
-				// save a reference to this so activity can forward click events to it
-				mCurrentlyVisibleEditorTab = tabView;
-			} else {
-				throw new IllegalStateException("Build editor fragments should implement BuildEditorTabView");
-			}
-
-//	        // Check if the fragment is already initialized
-//	        if (mFragment == null) {
-//	            // If not, instantiate and add it to the activity
-//	    		    		
-//	    		Bundle data = new Bundle();
-//	    		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuild);
-//	            mFragment = Fragment.instantiate(mActivity, mClass.getName(), data);
-//	            ft.add(android.R.id.content, mFragment, mTag);
-//	        } else {
-//	            // If it exists, simply attach it in order to show it
-//	            ft.attach(mFragment);
-//	        }
-	    }
-
-	    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-	        if (mFragment != null) {
-	            // Detach the fragment, because another one is being attached
-	            ft.detach(mFragment);
-	        }
-	    }
-
-	    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-	        // User selected the already selected tab. Usually do nothing.
-	    }
-    }
-	
 //	public static final int EDIT_BUILD_REQUEST = 128;
 	
 	private static final String KEY_NEW_BUILD_BOOL = "mCreatingNewBuild";
 	private static final String KEY_WORKING_BUILD = "mWorkingBuild";
 	private static final String KEY_SELECTED_TAB = "mSelectedTab";
-	private static final String TAG = "EditBuildActivity";
-	
+
 	private boolean mCreatingNewBuild = false;
 	private long mBuildId;		// id of existing build, if any
 	private Build mInitialBuild;
-	private Build mFragmentSharedBuild;
 	private EditBuildPagerAdapter mPagerAdapter;
-//	private ViewPager mPager;
 	private Faction mCurrentFactionSelection;
-	
-	@Override
+    private boolean mHaveInitialisedFABVisibility = false;
+    private ObjectAnimator mButtonAppearAnimation;
+    private boolean mButtonIsOrWillBeVisible;
+
+    @InjectView(R.id.edit_build_activity_root) View mRootView;
+    @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
+    @InjectView(R.id.toolbar) Toolbar mToolbar;
+    @InjectView(R.id.pager) ViewPager mPager;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Can't have both fullscreen mode and window resizing when the soft keyboard
 		// becomes visible (needed so formatting toolbar stays on screen). Known bug
@@ -221,9 +96,10 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_build);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.inject(this);
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get arguments sent by BuildListActivity - these will determine
         // if we should create a new build or edit an existing one
@@ -255,53 +131,99 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         
         mCurrentFactionSelection = mInitialBuild.getFaction();
         setBackgroundImage(mCurrentFactionSelection);
-        
-//        if (mInitialBuild.getItems() != null)
-//        	Timber.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild items count = " + mInitialBuild.getItems().size());
-//        
-//		Timber.d(this.toString(), "in EditBuildActivity.onCreate(), mInitialBuild id = " + Integer.toHexString(System.identityHashCode(mInitialBuild)));
-        
-        // setup action bar for tabs
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//        actionBar.setDisplayShowTitleEnabled(false);
+        initAnimators();
 
-    	mFragmentSharedBuild = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
-
-    	Timber.d("onCreate() called, num tabs = " + actionBar.getTabCount());
-        ActionBar.Tab tab = actionBar.newTab()
-                .setText(getString(R.string.edit_build_info_title))
-                .setTabListener(new TabListener<>(
-						this, "info", EditBuildInfoFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-
-        tab = actionBar.newTab()
-            .setText(getString(R.string.edit_build_notes_title))
-            .setTabListener(new TabListener<>(
-					this, "notes", EditBuildNotesFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-        
-        tab = actionBar.newTab()
-                .setText(getString(R.string.edit_build_items_title))
-                .setTabListener(new TabListener<>(
-						this, "items", EditBuildItemsFragment.class, mFragmentSharedBuild));
-        actionBar.addTab(tab);
-        
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_TAB)) {
-        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt(KEY_SELECTED_TAB));
-        }
-        
         // Set up view pager
-//        mPager = (ViewPager) findViewById(R.id.pager);
-//        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild);
-//        mPager.setAdapter(mPagerAdapter);
-        
+        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild, this);
+        mPager.setOffscreenPageLimit(3);
+        mPager.setAdapter(mPagerAdapter);
+        final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // Show or hide floating Add button depending on current tab's preference
+                setAddButtonVisibility(getCurrentlyVisibleEditorTab().requestsAddButton());
+            }
+        };
+        mPager.addOnPageChangeListener(onPageChangeListener);
+
+        /** Bind tabs view to pager */
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(mPager);
+
         // set action bar title
         getSupportActionBar().setTitle(mCreatingNewBuild ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
         if (!mCreatingNewBuild) {
 			getSupportActionBar().setSubtitle(mInitialBuild.getName());
 		}
 	}
+
+    /**
+     * This is called whenever EditBuildPagerAdapter creates a new child Fragment. It's
+     * used here to initialise the Floating "Add" button's visibility at the earliest possible
+     * moment.
+     * Note that the FAB's visibility is also updated whenever the user switches editor Fragments
+     * via an OnPageChangeListener - ideally that would fire automatically when the ViewPager is
+     * first populated, making this method unnecessary.
+     *
+     * @param newFragment
+     */
+    @Override
+    public void onEditorFragmentCreated(Fragment newFragment) {
+        if (!mHaveInitialisedFABVisibility) {
+            if (!(newFragment instanceof BuildEditorTabView)) {
+                throw new IllegalStateException("You should change " + newFragment + " to implement BuildEditorTabView");
+            }
+
+            BuildEditorTabView tab = (BuildEditorTabView) newFragment;
+            setAddButtonVisibility(tab.requestsAddButton());
+            mHaveInitialisedFABVisibility = true;
+        }
+    }
+
+    private void initAnimators() {
+        // init from XML (one source of truth for initial view state)
+        mButtonIsOrWillBeVisible = mAddButton.getVisibility() == View.VISIBLE;
+
+        mButtonAppearAnimation = ObjectAnimator.ofPropertyValuesHolder(mAddButton,
+                PropertyValuesHolder.ofFloat("scaleX", 0.0f, 1.0f),
+                PropertyValuesHolder.ofFloat("scaleY", 0.0f, 1.0f));
+        mButtonAppearAnimation.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+        mButtonAppearAnimation.setInterpolator(new FastOutSlowInInterpolator());
+    }
+
+    private void setAddButtonVisibility(boolean makeVisible) {
+        if (makeVisible && !mButtonIsOrWillBeVisible) {
+            mAddButton.setVisibility(View.VISIBLE);
+            mButtonAppearAnimation.removeAllListeners();
+            mButtonAppearAnimation.start();
+            mButtonIsOrWillBeVisible = true;
+        } else if (!makeVisible && mButtonIsOrWillBeVisible) {
+            mButtonAppearAnimation.removeAllListeners();
+            mButtonAppearAnimation.addListener(new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mAddButton.setVisibility(View.GONE);
+                }
+            });
+            mButtonAppearAnimation.reverse();
+            mButtonIsOrWillBeVisible = false;
+        }
+    }
+
+    private BuildEditorTabView getCurrentlyVisibleEditorTab() {
+        Fragment fragment = mPagerAdapter.getRegisteredFragment(mPager.getCurrentItem());
+        if (fragment == null) {
+            Timber.e("Warning: registered fragment was null in getCurrentlyVisibleEditorTab, returning default BuildEditorTabView impl.");
+            return BuildEditorTabView.DefaultBuildEditorTabView;
+        }
+        if (fragment instanceof BuildEditorTabView) {
+            Timber.d("current editor tab = " + fragment);
+            return (BuildEditorTabView) fragment;
+        } else {
+            throw new IllegalStateException(String.format("Fragment \"%s\" from EditBuildPagerAdapter must implement BuildEditorTabView",
+                    fragment));
+        }
+    }
 
     @Override
     public void onStart() {
@@ -344,8 +266,6 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
             case android.R.id.home:
             	// This is called when the Home (Up) button is pressed
                 // in the Action Bar.
-            	// TODO: prompt user to save changes (do it in onDestroy instead?)
-                //finish();
             	doExit();
                 return true;            	
         }
@@ -354,9 +274,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 
 	@OnClick(R.id.edit_build_activity_add_button)
 	public void onAddButtonClicked() {
-		if (mCurrentlyVisibleEditorTab != null) {
-			mCurrentlyVisibleEditorTab.onAddButtonClicked();
-		}
+		getCurrentlyVisibleEditorTab().onAddButtonClicked();
 	}
 
 	@Override
@@ -413,7 +331,6 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 						new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-                                // TODO: bug? mPagerAdapter will be null...
 								mPagerAdapter.setFaction(selection);
 								mCurrentFactionSelection = selection;
 								setBackgroundImage(selection);
@@ -430,15 +347,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 				// no items in initial build
 				// send new faction to pageradapter so it's passed on to items editor when created
 				// thereby limiting new items to the correct faction
-				
-				// TODO: work out how to translate this to new tab layout
-//				mPagerAdapter.setFaction(selection);
-
-				// TEMP HACK
-				mFragmentSharedBuild.setFaction(selection);
-				// clear any old-faction build items
-				if (mFragmentSharedBuild.getItems() != null && mFragmentSharedBuild.getItems().size() > 0)
-					mFragmentSharedBuild.setItems(new ArrayList<BuildItem>());
+				mPagerAdapter.setFaction(selection);
 				
 				mCurrentFactionSelection = selection;
 				setBackgroundImage(selection);
@@ -471,7 +380,6 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 			return;
 		}
 		if (!newBuild.isWellOrdered()) {
-			// TODO: provide real-time visual feedback of this in the items editor fragment
 			showMessage(R.string.edit_build_not_well_ordered_error);
 			return;
 		}
@@ -504,8 +412,10 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	}
 	
 	private boolean userMadeChanges(Build assembledBuild) {
-		if (assembledBuild == null)
-			assembledBuild = assembleBuild();
+		if (assembledBuild == null) {
+            assembledBuild = assembleBuild();
+        }
+
 //		Timber.d(this.toString(), "initial build items = " + mInitialBuild.getItems() + ", assembled build items = " + assembledBuild.getItems());
 //		Timber.d(this.toString(), "authors the same = " + Build.objectsEquivalent(mInitialBuild.getAuthor(), assembledBuild.getAuthor()));
 //		Timber.d(this.toString(), "initial items size = " + mInitialBuild.getItems().size() + ", assembledbuild items size = " + assembledBuild.getItems().size());
@@ -554,27 +464,17 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	/** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
 	private EditBuildInfoFragment findInfoFragment() {
 		FragmentManager fm = getSupportFragmentManager();
-		EditBuildInfoFragment f = (EditBuildInfoFragment) fm.findFragmentByTag("info");
-		Timber.d("in findInfoFragment(), f = " + f);
-		return f;
-//		return (EditBuildInfoFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 0));
+		return (EditBuildInfoFragment) fm.findFragmentByTag(FragmentUtils.makeFragmentName(mPager.getId(), 0));
 	}
 	
 	private EditBuildNotesFragment findNotesFragment() {
 		FragmentManager fm = getSupportFragmentManager();
-		EditBuildNotesFragment f = (EditBuildNotesFragment) fm.findFragmentByTag("notes");
-		Timber.d("in findNotesFragment(), f = " + f);
-		return f;
-		
-//		return (EditBuildNotesFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 1));
+		return (EditBuildNotesFragment) fm.findFragmentByTag(FragmentUtils.makeFragmentName(mPager.getId(), 1));
 	}
 	
 	private EditBuildItemsFragment findItemsFragment() {
 		FragmentManager fm = getSupportFragmentManager();
-		EditBuildItemsFragment f = (EditBuildItemsFragment) fm.findFragmentByTag("items");
-		Timber.d("in findItemsFragment(), f = " + f);
-		return f;
-//		return (EditBuildItemsFragment) fm.findFragmentByTag(BuildListActivity.makeFragmentName(mPager.getId(), 2));
+		return (EditBuildItemsFragment) fm.findFragmentByTag(FragmentUtils.makeFragmentName(mPager.getId(), 2));
 	}
 	
 	/**
@@ -586,8 +486,9 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //		Build result = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
 
 		// set creation time if needed
-		if (result.getCreated() == null)
-			result.setCreated(new Date());
+		if (result.getCreated() == null) {
+            result.setCreated(new Date());
+        }
 		
 		EditBuildInfoFragment infoFragment = findInfoFragment();
 		EditBuildNotesFragment notesFragment = findNotesFragment();
@@ -639,8 +540,9 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	 */
 	@Override
 	public void onTitleChanged(String newTitle) {
-		if (!newTitle.matches(""))
-			getSupportActionBar().setSubtitle(newTitle);
+		if (!newTitle.matches("")) {
+            getSupportActionBar().setSubtitle(newTitle);
+        }
 	}
 	
 	/** Convenience function to build and show a yes/no dialog */
@@ -652,5 +554,57 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
     		.setPositiveButton(android.R.string.yes, positiveAction)
 			.setNegativeButton(android.R.string.no, negativeAction)
 			.show();
+	}
+
+    /**
+     * Writes a build object to the database in a background task
+     * TODO: Rx-ify
+     */
+	private class WriteBuildTask extends AsyncTask<Void, Void, Boolean> {
+		private DbAdapter mDb;
+		private Build mBuild;
+		private long mBuildId;
+		private ProgressDialog mDlg;
+
+		public WriteBuildTask(Build build, long buildId) {
+			super();
+			mDb = ((MyApplication) getApplicationContext()).getDb();
+			mBuild = build;
+			mBuildId = buildId;
+		}
+
+		protected Boolean doInBackground(Void... unused) {
+			try {
+				mDb.addOrReplaceBuild(mBuild, mBuildId);
+				return true;
+			} catch (DbAdapter.NameNotUniqueException e) {
+				return false;
+			}
+		}
+
+		protected void onPreExecute() {
+			mDlg = new ProgressDialog(EditBuildActivity.this);
+			mDlg.setMessage(getString(R.string.edit_build_save_in_progress));
+			mDlg.setCancelable(false);
+			mDlg.setIndeterminate(true);
+			mDlg.show();
+		}
+
+		/**
+		 * If write was successful, displays a message, notifies content provider observers and
+		 * finishes the activity.
+		 * If unsuccessful, displays an error message.
+		 */
+		protected void onPostExecute(Boolean result) {
+			mDlg.hide();
+			if (result == true) {
+				// notify observers of buildprovider's build table that its contents have changed
+				JsonBuildService.notifyBuildProviderObservers(EditBuildActivity.this);
+				showMessage(R.string.edit_build_save_successful);
+				EditBuildActivity.this.finish();
+			} else {
+				showMessage(R.string.edit_build_title_already_taken_error);
+			}
+		}
 	}
 }

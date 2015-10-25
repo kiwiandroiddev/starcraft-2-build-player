@@ -236,6 +236,11 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         notifyItemChanged(index);
     }
 
+    public void clear() {
+        mBuildItems.clear();
+        notifyDataSetChanged();
+    }
+
     public ArrayList<BuildItem> getBuildItems() {
         return mBuildItems;
     }

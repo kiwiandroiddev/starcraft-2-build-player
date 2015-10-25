@@ -88,6 +88,7 @@
 	<string name="edit_build_not_well_ordered_error">Please make sure build items are ordered by increasing time!</string>
 	<string name="edit_build_title_already_taken_error">That title is already in use, please choose a different one</string>
 	<string name="edit_build_discarded_changes">Discarded changes</string>
+	<string name="edit_build_save_in_progress">Saving…</string>
 	<string name="edit_build_save_successful">Build saved</string>
 	<string name="edit_build_prompt_save_title">Save changes?</string>
 	<string name="edit_build_prompt_save_message">You\'ve made some changes to this build - would you like to save them?</string>
@@ -100,7 +101,10 @@
 	<string name="item_type_note">Misc</string>
 	<string name="desc_drag_handle">Touch target to reorder build items</string>
 	<string name="desc_unit_icon">Icon of the unit, structure, upgrade or ability</string>
-	
+	<string name="deleted_items_x_N">Deleted %1$s x%2$d</string>
+	<string name="deleted_item">Deleted %1$s</string>
+	<string name="undo">Undo</string>
+
 	<!-- Edit item dialog -->
 	<string name="dlg_item_label">Item</string>
 	<string name="dlg_amount_label">Amount</string>
@@ -343,8 +347,6 @@
 	<string name="gameitem_ventral_sacs">Ventral Sacs</string>
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
-	<string name="deleted_items_x_N">Deleted %1$s x%2$d</string>
-	<string name="deleted_item">Deleted %1$s</string>
-	<string name="undo">Undo</string>
+
 
 </resources>
