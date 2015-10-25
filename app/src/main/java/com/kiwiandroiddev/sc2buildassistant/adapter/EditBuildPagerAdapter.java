@@ -2,12 +2,14 @@ package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
@@ -15,29 +17,44 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFrag
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 
 import java.util.ArrayList;
 
 /**
  * Manages the 3 build editor fragments (info, notes and items) for a ViewPager
  * so they can be swiped between by the user. 
- * 
+ *
+ * Instantiated Fragment instances can be retrieved via the {@link #getRegisteredFragment(int)}
+ * method.
+ * Credit: https://stackoverflow.com/questions/8785221/retrieve-a-fragment-from-a-viewpager
+ *
  * @author matt
  *
  */
 public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 
 	private Context mContext;
+	private OnFragmentCreatedListener mFragmentCreatedListener;
 	private Build mBuildToEdit;
-	
+	private SparseArray<Fragment> registeredFragments = new SparseArray<>();
+
+	public interface OnFragmentCreatedListener {
+		void onFragmentCreated(Fragment newFragment);
+	}
+
 	/**
 	 * 
 	 * @param fm fragment manager
 	 * @param buildToEdit - null if user is creating a new build
 	 */
-	public EditBuildPagerAdapter(FragmentManager fm, Context context, Build buildToEdit) {
+	public EditBuildPagerAdapter(@NonNull FragmentManager fm,
+								 @NonNull Context context,
+								 @NonNull Build buildToEdit,
+								 @NonNull OnFragmentCreatedListener fragmentCreatedListener) {
 		super(fm);
 		mContext = context;
+		mFragmentCreatedListener = fragmentCreatedListener;
 		mBuildToEdit = (Build) UnoptimizedDeepCopy.copy(buildToEdit);
 	}
 
@@ -60,6 +77,9 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 		Bundle data = new Bundle();
 		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuildToEdit);
 		tab.setArguments(data);
+
+		mFragmentCreatedListener.onFragmentCreated(tab);
+
 		return tab;
 	}
 
@@ -84,6 +104,23 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 		}
 		return mContext.getString(res);
     }
+
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+		Fragment fragment = (Fragment) super.instantiateItem(container, position);
+		registeredFragments.put(position, fragment);
+		return fragment;
+	}
+
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object) {
+		registeredFragments.remove(position);
+		super.destroyItem(container, position, object);
+	}
+
+	public Fragment getRegisteredFragment(int position) {
+		return registeredFragments.get(position);
+	}
 
 	public void setFaction(Faction selection) {
 		if (mBuildToEdit.getFaction() != selection) {

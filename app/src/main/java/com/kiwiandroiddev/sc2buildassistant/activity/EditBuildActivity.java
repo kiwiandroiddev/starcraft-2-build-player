@@ -34,7 +34,6 @@ import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
-import com.kiwiandroiddev.sc2buildassistant.util.OnPageSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +54,7 @@ import timber.log.Timber;
  * @author matt
  *
  */
-public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener {
+public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener, EditBuildPagerAdapter.OnFragmentCreatedListener {
 
 //	public static final int EDIT_BUILD_REQUEST = 128;
 	
@@ -68,6 +67,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	private Build mInitialBuild;
 	private EditBuildPagerAdapter mPagerAdapter;
 	private Faction mCurrentFactionSelection;
+    private boolean mHaveInitialisedFABVisibility = false;
 
     @InjectView(R.id.edit_build_activity_root) View mRootView;
     @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
@@ -126,20 +126,16 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         setBackgroundImage(mCurrentFactionSelection);
         
         // Set up view pager
-        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild);
+        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild, this);
         mPager.setAdapter(mPagerAdapter);
-        ViewPager.OnPageChangeListener onPageChangeListener = new OnPageSelectedListener() {
+        final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // Show or hide floating Add button depending on current tab's preference
-                // TODO animate FAB vis change
-                mAddButton.setVisibility(getCurrentlyVisibleEditorTab().requestsAddButton() ? View.VISIBLE : View.GONE);
+                setAddButtonVisibility(getCurrentlyVisibleEditorTab().requestsAddButton());
             }
         };
         mPager.addOnPageChangeListener(onPageChangeListener);
-
-        // force-initialise FAB visibility (listener isn't naturally fired until user switches pages)
-        onPageChangeListener.onPageSelected(mPager.getCurrentItem());
 
         /** Bind tabs view to pager */
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
@@ -152,14 +148,42 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		}
 	}
 
+    /**
+     * This is called whenever EditBuildPagerAdapter creates a new child Fragment. It's
+     * used here to initialise the Floating "Add" button's visibility at the earliest possible
+     * moment.
+     * Note that the FAB's visibility is also updated whenever the user switches editor Fragments
+     * via an OnPageChangeListener - ideally that would fire automatically when the ViewPager is
+     * first populated, making this method unnecessary.
+     *
+     * @param newFragment
+     */
+    @Override
+    public void onFragmentCreated(Fragment newFragment) {
+        if (!mHaveInitialisedFABVisibility) {
+            if (!(newFragment instanceof BuildEditorTabView)) {
+                throw new IllegalStateException("You should change " + newFragment + " to implement BuildEditorTabView");
+            }
+
+            BuildEditorTabView tab = (BuildEditorTabView) newFragment;
+            setAddButtonVisibility(tab.requestsAddButton());
+            mHaveInitialisedFABVisibility = true;
+        }
+    }
+
+    private void setAddButtonVisibility(boolean visible) {
+        // TODO animate
+        mAddButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     private BuildEditorTabView getCurrentlyVisibleEditorTab() {
-        Fragment fragment = mPagerAdapter.getItem(mPager.getCurrentItem());
+        Fragment fragment = mPagerAdapter.getRegisteredFragment(mPager.getCurrentItem());
         if (fragment instanceof BuildEditorTabView) {
             Timber.d("current editor tab = " + fragment);
             return (BuildEditorTabView) fragment;
         } else {
-            throw new IllegalStateException("Fragment from EditBuildPagerAdapter must implement BuildEditorTabView "
-                    + fragment);
+            throw new IllegalStateException(String.format("Fragment \"%s\" from EditBuildPagerAdapter must implement BuildEditorTabView",
+                    fragment));
         }
     }
 
@@ -424,8 +448,9 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 //		Build result = (Build) UnoptimizedDeepCopy.copy(mInitialBuild);
 
 		// set creation time if needed
-		if (result.getCreated() == null)
-			result.setCreated(new Date());
+		if (result.getCreated() == null) {
+            result.setCreated(new Date());
+        }
 		
 		EditBuildInfoFragment infoFragment = findInfoFragment();
 		EditBuildNotesFragment notesFragment = findNotesFragment();
@@ -493,7 +518,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 			.show();
 	}
 
-	/**
+    /**
      * Writes a build object to the database in a background task
      * TODO: Rx-ify
      */
