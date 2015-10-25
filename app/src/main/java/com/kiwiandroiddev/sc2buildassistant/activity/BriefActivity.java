@@ -197,15 +197,11 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getMenuInflater();
        inflater.inflate(R.menu.brief_menu, menu);		// add the "play build" action bar item
-       inflater.inflate(R.menu.options_menu, menu);
        return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
-
     	if (item.getItemId() == android.R.id.home) {
             finishCompat();
             return true;

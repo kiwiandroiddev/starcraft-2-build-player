@@ -282,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.build_list_menu, menu);		// add the "new build" action bar item
-        inflater.inflate(R.menu.options_menu, menu);
         return true;
     }
 
