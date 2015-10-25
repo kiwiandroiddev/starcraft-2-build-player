@@ -194,8 +194,10 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	        	if (id == null) {	// i.e. new build item to add
 	        		// slot the new build item into the correct place based on its time
 	        		int position = mAdapter.autoInsert(item);
-//	        		mListView.setSelection(position);
-					// TODO scroll to position of newly inserted item
+
+					// Scroll to position of newly inserted item
+                    // TODO: off-by-one error when scrolling down to newly appended items
+                    mRecyclerView.scrollToPosition(position);
 
 	        		invalidateUndo();
 	        	} else {			// an existing one should be modified
