@@ -6,4 +6,14 @@ package com.kiwiandroiddev.sc2buildassistant.activity;
 public interface BuildEditorTabView {
     boolean requestsAddButton();
     void onAddButtonClicked();
+
+    BuildEditorTabView DefaultBuildEditorTabView = new BuildEditorTabView() {
+        @Override
+        public boolean requestsAddButton() {
+            return false;
+        }
+
+        @Override
+        public void onAddButtonClicked() {}
+    };
 }

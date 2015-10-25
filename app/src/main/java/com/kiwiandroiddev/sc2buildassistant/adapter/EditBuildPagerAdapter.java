@@ -40,7 +40,7 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 	private SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
 	public interface OnFragmentCreatedListener {
-		void onFragmentCreated(Fragment newFragment);
+		void onEditorFragmentCreated(Fragment newFragment);
 	}
 
 	/**
@@ -77,9 +77,6 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 		Bundle data = new Bundle();
 		data.putSerializable(IntentKeys.KEY_BUILD_OBJECT, mBuildToEdit);
 		tab.setArguments(data);
-
-		mFragmentCreatedListener.onFragmentCreated(tab);
-
 		return tab;
 	}
 
@@ -109,6 +106,7 @@ public class EditBuildPagerAdapter extends FragmentPagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		Fragment fragment = (Fragment) super.instantiateItem(container, position);
 		registeredFragments.put(position, fragment);
+		mFragmentCreatedListener.onEditorFragmentCreated(fragment);
 		return fragment;
 	}
 

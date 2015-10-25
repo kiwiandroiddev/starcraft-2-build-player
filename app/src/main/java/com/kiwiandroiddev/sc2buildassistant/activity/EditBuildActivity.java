@@ -1,5 +1,8 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,6 +14,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,6 +38,7 @@ import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
+import com.kiwiandroiddev.sc2buildassistant.util.SimpleAnimatorListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,6 +73,8 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	private EditBuildPagerAdapter mPagerAdapter;
 	private Faction mCurrentFactionSelection;
     private boolean mHaveInitialisedFABVisibility = false;
+    private ObjectAnimator mButtonAppearAnimation;
+    private boolean mButtonIsOrWillBeVisible;
 
     @InjectView(R.id.edit_build_activity_root) View mRootView;
     @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
@@ -124,9 +131,11 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         
         mCurrentFactionSelection = mInitialBuild.getFaction();
         setBackgroundImage(mCurrentFactionSelection);
-        
+        initAnimators();
+
         // Set up view pager
         mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild, this);
+        mPager.setOffscreenPageLimit(3);
         mPager.setAdapter(mPagerAdapter);
         final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -159,7 +168,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
      * @param newFragment
      */
     @Override
-    public void onFragmentCreated(Fragment newFragment) {
+    public void onEditorFragmentCreated(Fragment newFragment) {
         if (!mHaveInitialisedFABVisibility) {
             if (!(newFragment instanceof BuildEditorTabView)) {
                 throw new IllegalStateException("You should change " + newFragment + " to implement BuildEditorTabView");
@@ -171,13 +180,42 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         }
     }
 
-    private void setAddButtonVisibility(boolean visible) {
-        // TODO animate
-        mAddButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+    private void initAnimators() {
+        // init from XML (one source of truth for initial view state)
+        mButtonIsOrWillBeVisible = mAddButton.getVisibility() == View.VISIBLE;
+
+        mButtonAppearAnimation = ObjectAnimator.ofPropertyValuesHolder(mAddButton,
+                PropertyValuesHolder.ofFloat("scaleX", 0.0f, 1.0f),
+                PropertyValuesHolder.ofFloat("scaleY", 0.0f, 1.0f));
+        mButtonAppearAnimation.setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime));
+        mButtonAppearAnimation.setInterpolator(new FastOutSlowInInterpolator());
+    }
+
+    private void setAddButtonVisibility(boolean makeVisible) {
+        if (makeVisible && !mButtonIsOrWillBeVisible) {
+            mAddButton.setVisibility(View.VISIBLE);
+            mButtonAppearAnimation.removeAllListeners();
+            mButtonAppearAnimation.start();
+            mButtonIsOrWillBeVisible = true;
+        } else if (!makeVisible && mButtonIsOrWillBeVisible) {
+            mButtonAppearAnimation.removeAllListeners();
+            mButtonAppearAnimation.addListener(new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mAddButton.setVisibility(View.GONE);
+                }
+            });
+            mButtonAppearAnimation.reverse();
+            mButtonIsOrWillBeVisible = false;
+        }
     }
 
     private BuildEditorTabView getCurrentlyVisibleEditorTab() {
         Fragment fragment = mPagerAdapter.getRegisteredFragment(mPager.getCurrentItem());
+        if (fragment == null) {
+            Timber.e("Warning: registered fragment was null in getCurrentlyVisibleEditorTab, returning default BuildEditorTabView impl.");
+            return BuildEditorTabView.DefaultBuildEditorTabView;
+        }
         if (fragment instanceof BuildEditorTabView) {
             Timber.d("current editor tab = " + fragment);
             return (BuildEditorTabView) fragment;
