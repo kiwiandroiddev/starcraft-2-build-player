@@ -348,16 +348,19 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		
 		// Do we currently have enough translated strings for the language?
 		boolean haveTranslations = (lang.matches("en") || lang.matches("fr"));
-				
+
 		if (haveTranslations) {
 			int langAvailable = mTts.isLanguageAvailable(currentLocale); 
 			if (langAvailable == TextToSpeech.LANG_AVAILABLE ||
-				langAvailable == TextToSpeech.LANG_COUNTRY_AVAILABLE) {
+				langAvailable == TextToSpeech.LANG_COUNTRY_AVAILABLE ||
+				langAvailable == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE) {
 				mTts.setLanguage(currentLocale);
 				return;
 			}
 		}
-		
+
+		// TODO inform the user that TTS data isn't available for their language, and what
+		// they can do to get it etc.
 		mTts.setLanguage(Locale.US);
 	}
 	

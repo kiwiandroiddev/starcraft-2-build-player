@@ -1,0 +1,348 @@
+<resources>
+    <string name="app_name">Starcraft 2  buildy </string>
+    <string name="save">Zapisz</string>
+    <string name="discard">Cofnij zmiany</string>
+    <string name="menu_settings">Ustawienia </string>
+    <string name="menu_rate">Oceń  aplikację </string>
+    <string name="menu_play_build">Graj builda </string>
+    <string name="menu_new_build">Nowy build </string>
+    <string name="menu_edit_build">Edytuj</string>
+    <string name="menu_delete_build">Usuń</string>
+    <string name="menu_move_item_up">Rusz do góry</string>
+    <string name="menu_move_item_down">Rusz w dół</string>
+    <string name="menu_delete_item">Usuń</string>
+    <string name="menu_export_build">Eksportuj </string>
+    
+    <string name="menu_preview">Podgląd </string>
+    <string name="title_activity_main">StarCraft 2 Build Player</string>
+	<string name="playback_stop">Zatrzymaj</string>
+	<string name="playback_play">Graj</string>
+	<string name="playback_pause">Pauza </string>
+	<string name="pref_game_speed">Prędkość gry</string>
+	<string name="pref_game_speed_default">4</string>
+	<string name="pref_early_warning">Wyprzedzenie powiadomienia </string>
+	<string name="pref_early_warning_summary">Otrzymasz ostrzeżenie z wyprzedzeniem %1$d sekund przed czasem wybudowania jednotek</string>
+	<string name="pref_start_time">Domyślne rozpoczęcie gry</string>
+	<string name="pref_start_time_summary">Budowanie zacznie się od %1$d sekundy gry (Powiększ, aby dać sobie czas, aby uzyskać pracowników wydobycia, itp)</string>
+	<string name="pref_player_category_title">Gracz</string>
+	<string name="pref_database_category_title">Baza danych</string>
+	<string name="pref_restore_database_title">Zresetuj  bazę danych </string>
+	<string name="pref_restore_database_summary">Przywróć domyślne buildy. Uwaga: dane użytkownika zostaną stracone</string>
+	<string name="pref_restore_database_succeeded">Baza danych została zresetowana</string>
+	<string name="pref_about_category_title">O programie</string>
+	<string name="pref_changelog_title">Zobacz changelogi&#8230;</string>
+	<string name="pref_rate_this_app_title">Oceń  aplikację </string>
+	<string name="pref_rate_this_app_summary">Przekaż opinię, aby pomóc poprawić i promować tę aplikację</string>
+	<string name="pref_upgrade_to_pro_title">Kup pełną wersję </string>
+	<string name="pref_upgrade_to_pro_summary">Bez reklam.  Pełna funkcjonalność </string>
+	<string name="pref_tracking_title">Popraw tą aplikację</string>
+	<string name="pref_tracking_summary">Zezwól na wysyłanie anonimowych danych by ulepszyć aplikację </string>
+	<string name="pref_general_category_title">Główne </string>
+	<string name="pref_show_status_bar_title">Pokaż pasek stanu </string>
+	<string name="pref_show_status_bar_summary">Wymagany restart </string>
+	<string name="pref_translate_title">Tłumaczenie </string>
+	<string name="pref_translate_summary">Pomóż przetłumaczyć tekst w tej aplikacji na twój język</string>
+	<string name="numberpicker_units_label">Sekundy w grze</string>
+	<string name="race_terran">Terranie</string>
+	<string name="race_protoss">Protosi</string>
+	<string name="race_zerg">Zergi</string>
+	<string name="race_any">Dowolny</string>
+	<string name="expansion_wol">Wings of  Liberty </string>
+	<string name="expansion_hots">Heart of the  Swarm </string>
+	
+	<string name="dlg_tts_install_prompt">Brak języka wymowy. Czy zainstalować teraz?</string>
+	<string name="dlg_yes">Tak</string>
+	<string name="dlg_no">Nie</string>
+	<string name="dlg_no_market_error">Błąd otwarcia Play Store </string>
+	<string name="dlg_game_speed_alert">Prędkość gry: %1$s</string>
+	<string name="dlg_confirm_db_reset_title">Zresetować bazę danych? </string>
+	<string name="dlg_confirm_db_reset_message">Ostrzeżenie: to trwale usunie wszelkie niestandardowe Build ordery i / lub modyfikacje do standardowych Build orderów, które wykonałeś!</string>
+	<string name="dlg_confirm_delete_build_title">Skasować build?</string>
+	<string name="dlg_confirm_delete_build_message">To całkowicie usunie builda, chyba że  zrobiłeś kopię zapasową </string>
+	<string name="dlg_enter_filename_title">Wprowadź nazwę pliku</string>
+	<string name="dlg_enter_filename_message">Wprowadź  nazwę pliku dla builda </string>
+	<string name="dlg_invalid_filename">Błędna nazwa pliku</string>
+	<string name="dlg_wrote_file_to_dir">Pomyślnie zapisano %1$s do %2$s</string>
+	<string name="dlg_couldnt_write_file">Błąd: Nie można zapisać %1$s, powód: %2$s</string>
+	
+	
+	<string name="error_unknown_author">Nieokreślone źródło</string>
+	<string name="error_couldnt_create_builds_dir">Błąd: Nie można utworzyć katalogu %1$s . Czy Twoja karta SD jest podłączona?</string>
+	<string name="add_build_footer">Dodaj Build &#8230;</string>
+	<string name="brief_source_label">Źródło</string>
+	<string name="brief_author_label">Autor: </string>
+	<string name="edit_build_new_title">Nowy build </string>
+	<string name="edit_build_edit_title">Edytuj build </string>
+	<string name="edit_build_info_title">Info </string>
+	<string name="edit_build_notes_title">Notatki</string>
+	<string name="edit_build_items_title">Pozycje</string>
+	<string name="edit_build_vs">Kontra </string>
+	<string name="edit_build_title_hint">Tytuł </string>
+	<string name="edit_build_author_hint">Autor </string>
+	<string name="edit_build_source_url_hint">Źródło URL (http:// &#8230;)</string>
+	<string name="edit_build_source_title_hint">Źródło Tytułu (np "Liquipedia")</string>
+	<string name="edit_build_notes_hint">Uwagi (akceptuje znaczniki HTML)</string>
+	
+	<string name="edit_build_invalid_time_message">Proszę wprowadź właściwy czas</string>
+	<string name="edit_build_invalid_count_message">Wpisz poprawną ilość artykułu</string>
+	<string name="edit_build_no_title_error">Proszę wprowadź nazwę builda </string>
+	<string name="edit_build_not_well_ordered_error">Proszę upewnić się, że elementy są sortowane według zwiększającego się czasu budowy!</string>
+	<string name="edit_build_title_already_taken_error">Nazwa jest już w użyciu, proszę wybrać inną</string>
+	<string name="edit_build_discarded_changes">Odrzucone zmiany</string>
+	<string name="edit_build_save_successful">Build  zapisany </string>
+	<string name="edit_build_prompt_save_title">Zapisać zmiany? </string>
+	<string name="edit_build_prompt_save_message">Wprowadziłeś zmiany w tym buildzie. Czy chcesz zapisać zmiany? </string>
+	<string name="dlg_edit_item_title">Edytuj przedmiot </string>
+	<string name="dlg_select_item_title">Wybierz Jednostkę / Ulepszenie / Umiejętność</string>
+	<string name="item_type_unit">Jednostka</string>
+	<string name="item_type_structure">Struktura</string>
+	<string name="item_type_upgrade">Ulepsz </string>
+	<string name="item_type_ability">Zdolność</string>
+	
+	<string name="desc_drag_handle">Dotknij cel, aby zmienić kolejność budowy przedmiotów</string>
+	<string name="desc_unit_icon">Ikona jednostki, struktura, uaktualnienie lub zdolność</string>
+	
+	<!-- Edit item dialog -->
+	<string name="dlg_item_label">Przedmiot </string>
+	<string name="dlg_amount_label">Ilość</string>
+	<string name="dlg_time_label">Czas</string>
+	<string name="dlg_supply_label">Zaopatrzenie</string>
+	<string name="dlg_target_label">Cel </string>
+	<string name="dlg_custom_text_label">Własny tekst</string>
+	<string name="dlg_custom_speech_label">Własna  wymowa </string>
+	<string name="dlg_clear_label">Czysto </string>
+		
+	<!-- Preview Notes dialog -->
+	<string name="dlg_preview_notes_title">Podgląd notatek </string>
+	
+	<!-- Insert Link dialog -->
+	<string name="dlg_insert_link_title">Wstaw link</string>
+	<string name="label_hint">Link do tekstu</string>
+	<string name="url_hint">URL(http:// &#8230;)</string>
+	
+	<!-- Changelog -->
+	<string name="changelog_full_title">Lista zmian</string>
+    <string name="changelog_title">Co nowego</string>
+    <string name="changelog_ok_button">Ok</string>
+    <string name="changelog_show_full">Więcej&#8230;</string>
+	
+    <!-- File Dialog -->
+    <string name="location">Lokacja</string>
+    <string name="cant_read_folder">Folder nie może być odczytany!</string>
+    <string name="nnew">Nowe</string>
+    <string name="select">Wybierz</string>
+    <string name="file_name">Nazwa pliku:</string>
+    <string name="cancel">Anuluj</string>
+    <string name="create">Zapisz</string>
+    <string name="no_data">Brak Danych</string>
+    <string name="err">Błąd</string>
+    
+    <!-- Action Verbs -->
+    <!--   Generic (fallback)   -->
+    <string name="verb_structure_generic">Build</string>
+    <string name="verb_unit_generic">Pociąg </string>
+    <string name="verb_upgrade_generic">Przeszukaj ponownie </string>
+    <string name="verb_ability_generic">Użyj</string>
+    <string name="verb_note_generic">Notatka</string>
+    <!--   Zerg   -->
+    
+    
+    <string name="verb_upgrade_zerg">Ewoluuj</string>
+    <!--   Protoss   -->
+    
+    
+   
+    <!-- sentence templates for build item alerts -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Game Items -->
+	<string name="gameitem_note">Notatka</string>
+	
+	<string name="gameitem_armory">Zbrojownia</string>
+	<string name="gameitem_banshee">Banshee</string>
+	<string name="gameitem_barracks">Koszary</string>
+	<string name="gameitem_battlecruiser">Krążownik</string>
+	<string name="gameitem_bunker">Bunkier</string>
+	<string name="gameitem_cloak">Maskowanie</string>
+	<string name="gameitem_combat_shield">Tarcza bojowa</string>
+	<string name="gameitem_command_center">Centrum Dowodzenia</string>
+	<string name="gameitem_concussion_shells">Pociski udarowe</string>
+	<string name="gameitem_durable_materials">Trwałe materiały</string>
+	<string name="gameitem_engineering_bay">Zakład Inżynieryjny</string>
+	<string name="gameitem_factory">Fabryka</string>
+	<string name="gameitem_fusion_core">Rdzeń Fuzyjny</string>
+	<string name="gameitem_ghost">Duch</string>
+	<string name="gameitem_ghost_academy">Akademia Duchów</string>
+	<string name="gameitem_hellbat">Hellbat</string>
+	<string name="gameitem_hellion">Helion </string>
+	<string name="gameitem_hi_sec_auto_tracking">Hi-sec Auto Tracking</string>
+	<string name="gameitem_infantry_armor_level1">Panczerz Piechoty Poziom 1</string>
+	<string name="gameitem_infantry_armor_level2">Panczerz Piechoty Poziom 2</string>
+	<string name="gameitem_infantry_armor_level3">Panczerz Piechoty Poziom 3</string>
+	<string name="gameitem_infantry_weapons_level1">Broń Piechoty Poziom 1</string>
+	<string name="gameitem_infantry_weapons_level2">Broń Piechoty Poziom 2</string>
+	<string name="gameitem_infantry_weapons_level3">Broń Piechoty Poziom 3</string>
+	<string name="gameitem_infernal_preigniter">Piekielny zapalnik</string>
+	<string name="gameitem_marauder">Maruder</string>
+	<string name="gameitem_marine">Marine</string>
+	<string name="gameitem_medivac">Prom Medyczny</string>
+	<string name="gameitem_missile_turret">Wieżyczka obronna</string>
+	<string name="gameitem_mule">Call Down MULE</string>
+	<string name="gameitem_orbital_command">Orbital Command</string>
+	<string name="gameitem_planetary_fortress">Forteca Planetarna</string>
+	<string name="gameitem_raven">Kruk</string>
+	<string name="gameitem_reactor">Reaktor</string>
+	<string name="gameitem_reaper">Żniwiarz</string>
+	<string name="gameitem_refinery">Rafineria</string>
+	<string name="gameitem_scv">ERK</string>
+	
+	
+	<string name="gameitem_siege_mode">Tryb Oblężniczy</string>
+	<string name="gameitem_siege_tank">Czołg Oblężniczy</string>
+	<string name="gameitem_starport">Port Gwiezdny</string>
+	<string name="gameitem_stim_pack">Stymulant</string>
+	<string name="gameitem_supply_depot">Magazyn</string>
+	<string name="gameitem_tech_lab">Lab. Technologiczne</string>
+	<string name="gameitem_thor">Thor</string>
+	
+	<string name="gameitem_vehicle_plating_level1">Poziom 1 poszycia pojazdu</string>
+	<string name="gameitem_vehicle_plating_level2">Poziom 2 poszycia pojazdu</string>
+	<string name="gameitem_vehicle_plating_level3">Poziom 3 poszycia pojazdu</string>
+	<string name="gameitem_vehicle_weapons_level1">Broń pojazdów Poziom 1</string>
+	<string name="gameitem_vehicle_weapons_level2">Broń pojazdów Poziom 2</string>
+	<string name="gameitem_vehicle_weapons_level3">Broń pojazdów Poziom 3</string>
+	<string name="gameitem_viking">Wiking</string>
+	<string name="gameitem_widow_mine">Wdowia Mina</string>
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_archon">Archont</string>
+	<string name="gameitem_assimilator">Asymilator</string>
+	<string name="gameitem_blink">Mrugnięcie</string>
+	<string name="gameitem_carrier">Nosiciel</string>
+	<string name="gameitem_charge">Doładuj </string>
+	<string name="gameitem_chrono_boost">Zagięcie czasoprzestrzeni</string>
+	<string name="gameitem_colossus">Kolos</string>
+	<string name="gameitem_cybernetics_core">Rdzeń Cybernetyczny</string>
+	<string name="gameitem_dark_shrine">Mroczne Sanktuarium</string>
+	<string name="gameitem_dark_templar">Mroczny Templariusz</string>
+	<string name="gameitem_extended_thermal_lance">Rozszerzona Lanca termiczna</string>
+	
+	<string name="gameitem_forge">Kuźnia</string>
+	<string name="gameitem_gateway">Brama</string>
+	<string name="gameitem_gravitic_booster">Dopalacze grawitacyjne</string>
+	
+	
+	<string name="gameitem_ground_armor_level1">Pancerz Piechoty Poziom 1</string>
+	<string name="gameitem_ground_armor_level2">Pancerz Piechoty Poziom 2</string>
+	<string name="gameitem_ground_armor_level3">Pancerz Piechoty Poziom 3</string>
+	<string name="gameitem_ground_weapons_level1">Broń Piechoty Poziom 1</string>
+	<string name="gameitem_ground_weapons_level2">Broń Piechoty Poziom 2</string>
+	<string name="gameitem_ground_weapons_level3">Broń Piechoty Poziom 3</string>
+	<string name="gameitem_hallucination">Halucynacje</string>
+	<string name="gameitem_high_templar">Wysoki Templariusz</string>
+	<string name="gameitem_immortal">Nieśmiertelny </string>
+	<string name="gameitem_khaydarin_amulet">Amulet Khaydarina</string>
+	<string name="gameitem_mothership">Statek-Matka</string>
+	<string name="gameitem_mothership_core">Rdzeń Statku-Matki</string>
+	<string name="gameitem_nexus">Nexus</string>
+	<string name="gameitem_observer">Obserwator </string>
+	<string name="gameitem_oracle">Wyrocznia</string>
+	<string name="gameitem_phoenix">Feniks</string>
+	
+	<string name="gameitem_photon_cannon">Działo Fotonowe</string>
+	<string name="gameitem_probe">Próbnik</string>
+	<string name="gameitem_psi_storm">Burza PSI</string>
+	<string name="gameitem_pylon">Pylon</string>
+	
+	
+	<string name="gameitem_sentry">Wartownik</string>
+	<string name="gameitem_shields_level1">Osłony Poziom 1</string>
+	<string name="gameitem_shields_level2">Osłony Poziom 2</string>
+	<string name="gameitem_shields_level3">Osłony Poziom 3</string>
+	
+	<string name="gameitem_stargate">Gwiezdne wrota </string>
+	
+	
+	<string name="gameitem_transform_to_gateway">Transformuj w bramę </string>
+	
+	<string name="gameitem_twilight_council">Rada Zmroku</string>
+	<string name="gameitem_void_ray">Promień Otchłani</string>
+	
+	
+	
+	<string name="gameitem_zealot">Zelota</string>
+	
+	<string name="gameitem_baneling">Tępiciel</string>
+	
+	
+	<string name="gameitem_burrow">Zagrzeb</string>
+	
+	
+	<string name="gameitem_drone">Robotnica</string>
+	
+	
+	<string name="gameitem_extractor">Ekstraktor</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_hive">Rój</string>
+	<string name="gameitem_hydralisk">Hydralisk </string>
+	<string name="gameitem_hydralisk_den">Legowisko Hydralisków</string>
+	
+	
+	<string name="gameitem_lair">Leże</string>
+	<string name="gameitem_melee_attacks_level1">Atak wręcz Poziom 1</string>
+	<string name="gameitem_melee_attacks_level2">Atak wręcz Poziom 2</string>
+	<string name="gameitem_melee_attacks_level3">Atak wręcz Poziom 3</string>
+	<string name="gameitem_metabolic_boost">Przyspieszenie metabolizmu </string>
+	<string name="gameitem_missile_attacks_level1">Atak rakietowy Poziom 1</string>
+	<string name="gameitem_missile_attacks_level2">Atak rakietowy Poziom 2</string>
+	<string name="gameitem_missile_attacks_level3">Atak rakietowy Poziom 3</string>
+	
+	<string name="gameitem_mutalisk">Mutalisk</string>
+	<string name="gameitem_nydus_network">Sieć  nydusowa </string>
+	<string name="gameitem_nydus_worm">Czerw nydusowy</string>
+	<string name="gameitem_overlord">Nadrządca</string>
+	<string name="gameitem_overseer">Nadzorca</string>
+	
+	
+	<string name="gameitem_queen">Królowa</string>
+	<string name="gameitem_roach">Karakan</string>
+	
+	<string name="gameitem_spawn_larvae">Powij larwy</string>
+	
+	
+	<string name="gameitem_spire">Iglica</string>
+	<string name="gameitem_spore_crawler">Pełzacz zarodnikowy</string>
+	<string name="gameitem_swarm_host">Gospodarz roju</string>
+	
+	<string name="gameitem_ultralisk">Ultralisk </string>
+	<string name="gameitem_ultralisk_cavern">Pieczara Ultralisków</string>
+	<string name="gameitem_ventral_sacs">Worki brzuszne</string>
+	<string name="gameitem_viper">Żmija</string>
+	<string name="gameitem_zergling">Zerling </string>
+	
+</resources>
