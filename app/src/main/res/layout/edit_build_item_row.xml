@@ -12,6 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:paddingEnd="@dimen/material_list_item_padding_horizontal"
+        android:paddingLeft="@dimen/material_list_item_padding_horizontal"
+        android:paddingRight="@dimen/material_list_item_padding_horizontal"
+        android:paddingStart="@dimen/material_list_item_padding_horizontal"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground">
 

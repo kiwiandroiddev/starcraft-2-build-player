@@ -1,31 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip">
 
-	<TextView android:id="@+id/unit_label"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:textSize="20sp"
-	    android:layout_centerVertical="true"
-	    android:layout_toRightOf="@+id/unit_icon"
-	    android:paddingLeft="10dip"
-    />
-	
-	<TextView android:id="@+id/time_label"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:textSize="14sp"
-	    android:layout_centerVertical="true"
-	    android:layout_alignParentRight="true"
-	    android:paddingRight="5dip"
-    />
-	
+    <TextView
+        android:id="@+id/unit_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/unit_icon"
+        android:paddingLeft="10dip"
+        android:textSize="20sp"
+        tools:text="SCV"
+        />
+
+    <TextView
+        android:id="@+id/time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="5dip"
+        android:textSize="14sp"
+        tools:text="0:15"
+        />
+
     <ImageView
         android:id="@+id/unit_icon"
         android:layout_width="@dimen/unit_icon_size"
         android:layout_height="@dimen/unit_icon_size"
-    />
-    
+        tools:src="@drawable/gameitem_scv_small"
+        />
+
 </RelativeLayout>

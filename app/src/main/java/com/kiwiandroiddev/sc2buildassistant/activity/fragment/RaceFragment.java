@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -18,20 +19,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
+import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
-import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
@@ -40,6 +38,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -74,7 +73,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	private int mBgDrawable;
 	private DbAdapter.Expansion mCurrentExpansion;
 	private DbAdapter.Faction mFaction;
-	private RecyclerView mList;
+	private RecyclerView mRecyclerView;
     private BuildAdapter mAdapter;
 
 	static {
@@ -111,16 +110,11 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		// create a list view to show the builds for this race
 		// and make clicks on an item start the playback activity for that build
 		View v = inflater.inflate(R.layout.fragment_race_layout, container, false);
-		mList = (RecyclerView) v.findViewById(R.id.build_list);
-		mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-		mList.setHasFixedSize(true);
-		mList.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
+		mRecyclerView = (RecyclerView) v.findViewById(R.id.build_list);
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+		mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.setBackgroundDrawable(this.getActivity().getResources().getDrawable(mBgDrawable));
 
-//        // Add an unselectable spacer to the bottom to stop ads from obscuring content
-//        list.addFooterView(getAdSpacerView(), null, false);     // false = not selectable
-
-//		registerForContextMenu(mList);
-		
 		// load list of build order names for this tab's faction and expansion
 		// use race ID to differentiate the cursor from ones for other tabs
 		getActivity().getSupportLoaderManager().initLoader(mFaction.ordinal(), null, this);
@@ -192,47 +186,10 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @DebugLog
     private void updateListAdapter() {
-        if (mList != null) {
-            mList.setAdapter(mAdapter);
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(mAdapter);
         }
     }
-
-    /**
-	 * A build order in the list view was long-pressed, create and display the
-	 * appropriate context menu
-	 */
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-	                                ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-
-	    // disable context menu for footer ("new build item")
-	    if (info.id != -1) {
-		    MenuInflater inflater = getActivity().getMenuInflater();
-		    inflater.inflate(R.menu.build_list_context_menu, menu);
-	    }
-	}
-	
-	/**
-	 * Handle menu choices for when the user long-presses a build order
-	 */
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    switch (item.getItemId()) {
-	        case R.id.menu_edit_build:
-	            editBuild(info.id);
-	            return true;
-	        case R.id.menu_delete_build:
-	            deleteBuild(info.id);
-	            return true;
-	        case R.id.menu_export_build:
-	        	exportBuild(info.id);
-	        	return true;
-	    }
-	 	return super.onContextItemSelected(item);
-	}
 
     /**
      * Starts the build editor activity, passing ID of build in the database
@@ -248,6 +205,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
      * @param rowId
      */
 	private void deleteBuild(final long rowId) {
+        // TODO replace with Material Dialog (for ICS devices)
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle(R.string.dlg_confirm_delete_build_title)
     		.setMessage(R.string.dlg_confirm_delete_build_message)
@@ -372,25 +330,27 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		}
 	}
 
-	private final class BuildViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	private final class BuildViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
         public TextView name;
 		public TextView vsRace;
 		public TextView creationDate;
         public BuildViewModel viewModel;
 
-		public BuildViewHolder(View itemView) {
+		public BuildViewHolder(@NonNull View itemView) {
 			super(itemView);
 			name = (TextView) itemView.findViewById(R.id.buildName);
 			vsRace = (TextView) itemView.findViewById(R.id.buildVsRace);
 			creationDate = (TextView) itemView.findViewById(R.id.buildCreationDate);
 		}
 
-		public void bindBuildViewModel(BuildViewModel model) {
+		public void bindBuildViewModel(@NonNull BuildViewModel model) {
             viewModel = model;
 			name.setText(model.name);
 			vsRace.setText(model.vsRace);
 			creationDate.setText(model.creationDate);
 			itemView.setOnClickListener(this);
+			itemView.setOnLongClickListener(this);
 		}
 
 		public void unbind() {
@@ -401,6 +361,12 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
         public void onClick(View v) {
             onBuildItemClicked(this);
         }
+
+		@Override
+		public boolean onLongClick(View v) {
+            onBuildItemLongPressed(this);
+			return true;    // event handled
+		}
 	}
 
 	private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
@@ -465,7 +431,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 				case FOOTER_ROW_TYPE:
 				default:
 					viewHolder.unbind();
-					return;
 			}
 		}
 
@@ -510,6 +475,45 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
         } else {
             getActivity().startActivity(i);
         }
+    }
+    
+    private void onBuildItemLongPressed(final BuildViewHolder buildViewHolder) {
+        Context context = getActivity();
+        final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(context);
+        adapter.add(new MaterialSimpleListItem.Builder(context)
+                .content(R.string.menu_edit_build)
+                .build());
+        adapter.add(new MaterialSimpleListItem.Builder(context)
+                .content(R.string.menu_delete_build)
+                .build());
+        adapter.add(new MaterialSimpleListItem.Builder(context)
+                .content(R.string.menu_export_build)
+                .build());
+
+        new MaterialDialog.Builder(context)
+                .title(buildViewHolder.viewModel.name)
+                .adapter(adapter, new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        long buildId = buildViewHolder.viewModel.buildId;
+                        switch (which) {
+                            case 0:
+                                editBuild(buildId);
+                                break;
+                            case 1:
+                                deleteBuild(buildId);
+                                break;
+                            case 2:
+                                exportBuild(buildId);
+                                break;
+                            default:
+                                Timber.e("Unknown context menu item selected, index = " + which);
+                                break;
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }
 
