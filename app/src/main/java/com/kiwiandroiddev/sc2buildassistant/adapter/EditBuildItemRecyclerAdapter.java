@@ -177,8 +177,11 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(mBuildItems, fromPosition, toPosition);
-        notifyItemMoved(fromPosition, toPosition);
+        // prevent swapping with blank footer
+        if (toPosition < mBuildItems.size()) {
+            Collections.swap(mBuildItems, fromPosition, toPosition);
+            notifyItemMoved(fromPosition, toPosition);
+        }
     }
 
     /**
