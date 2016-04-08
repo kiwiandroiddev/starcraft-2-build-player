@@ -9,8 +9,8 @@ android {
         applicationId "com.kiwiandroiddev.sc2buildassistant"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 220
-        versionName "2.2.0"
+        versionCode 250
+        versionName "2.5.0"
 
         testApplicationId "com.kiwiandroiddev.sc2buildassistant.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"

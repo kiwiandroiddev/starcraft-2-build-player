@@ -19,6 +19,13 @@
     </style>
   </head>
   <body>
+$ 2.5.0
+  % Version 2.5.0
+  _ 2015-11-01
+    * Material Design update!
+    * Polish language support added - Thanks dominik.rafał, pawel18283848, Wooly
+    * Russian language support added - Thanks Neutrion, TheRishka, Roraks
+    * 6 new builds added
 $ 2.1.5
   % Version 2.1.5
   _ 2013-06-29
