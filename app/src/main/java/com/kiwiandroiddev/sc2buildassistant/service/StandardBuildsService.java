@@ -58,7 +58,7 @@ public class StandardBuildsService {
 					observer.onError(e);
 				}
 			}
-		});
+		}).onBackpressureBuffer();
 	}
 
 	/**

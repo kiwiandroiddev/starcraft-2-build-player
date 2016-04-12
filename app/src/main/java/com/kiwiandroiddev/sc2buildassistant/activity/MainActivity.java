@@ -56,7 +56,7 @@ import java.io.File;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import hugo.weaving.DebugLog;
-import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -150,11 +150,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * if so, load all builds from JSON files into DB, showing progress feedback in the UI
      */
     private void loadStandardBuilds() {
-        showLoadingAnim();
         StandardBuildsService.getLoadStandardBuildsIntoDBObservable(this, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onStart() {
+                        showLoadingAnim();
+                    }
+
                     @Override
                     public void onNext(Integer percent) {
                         setLoadProgress(percent);
@@ -168,11 +172,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                     @Override
                     public void onError(Throwable e) {
+                        hideLoadingAnim();
                         Toast.makeText(MainActivity.this,
                                 String.format(MainActivity.this.getString(R.string.error_loading_std_builds),
                                         e.getMessage()),
                                 Toast.LENGTH_LONG).show();
                         Timber.e("LoadStandardBuildsTask returned an exception: ", e);
+                        e.printStackTrace();
                     }
                 });
     }
