@@ -49,7 +49,6 @@ dependencies {
     compile('com.afollestad.material-dialogs:commons:0.8.4.2@aar') {
         transitive = true
     }
-    compile project(':dragsortlistviewlibrary')
     compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
 }
