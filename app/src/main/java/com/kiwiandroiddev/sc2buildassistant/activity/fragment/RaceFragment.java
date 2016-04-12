@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
+import android.Manifest;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -29,6 +30,14 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.EmptyPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -73,6 +82,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	private int mBgDrawable;
 	private DbAdapter.Expansion mCurrentExpansion;
 	private DbAdapter.Faction mFaction;
+	private ViewGroup mRootView;
 	private RecyclerView mRecyclerView;
     private BuildAdapter mAdapter;
 
@@ -82,7 +92,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		sIconByRace.put(DbAdapter.Faction.ZERG, R.drawable.zerg_icon_drawable);
 	}
 
-    @DebugLog
+	@DebugLog
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -118,7 +128,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		// load list of build order names for this tab's faction and expansion
 		// use race ID to differentiate the cursor from ones for other tabs
 		getActivity().getSupportLoaderManager().initLoader(mFaction.ordinal(), null, this);
-		
+
+		mRootView = (ViewGroup) v;
 		return v;
 	}
 
@@ -228,14 +239,40 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * 
 	 * @param rowId
 	 */
-	private void exportBuild(long rowId) {
+	private void exportBuild(final long rowId) {
+		final PermissionListener snackbarPermissionListener =
+				SnackbarOnDeniedPermissionListener.Builder
+						.with(mRootView, R.string.permission_popup_write_storage_denied_for_exporting)
+						.withOpenSettingsButton(R.string.permission_popup_settings)
+						.build();
+
+		Dexter.checkPermission(new EmptyPermissionListener() {
+			@Override
+			public void onPermissionGranted(PermissionGrantedResponse response) {
+				exportBuildWithPermissionsGranted(rowId);
+			}
+
+			@Override
+			public void onPermissionDenied(PermissionDeniedResponse response) {
+				snackbarPermissionListener.onPermissionDenied(response);
+			}
+
+			@Override
+			public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+				token.continuePermissionRequest();
+			}
+		}, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+	}
+
+	private void exportBuildWithPermissionsGranted(long rowId) {
+
 		if (!JsonBuildService.createBuildsDirectory()) {
 			Toast.makeText(getActivity(),
 					String.format(getString(R.string.error_couldnt_create_builds_dir), JsonBuildService.BUILDS_DIR),
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		
+
 		// get build object from DB
 		DbAdapter db = ((MyApplication) getActivity().getApplicationContext()).getDb();
 		final Build build = db.fetchBuild(rowId);
@@ -243,7 +280,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			Timber.d("couldn't export build with id " + rowId + " as it doesn't exist in DB");
 			return;
 		}
-		
+
 		// create a dialog with a text input field to get filename
 		final EditText input = new EditText(getActivity());
 		final String buildName = build.getName();
@@ -254,37 +291,37 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
 		alert.setTitle(R.string.dlg_enter_filename_title)
-			.setMessage(R.string.dlg_enter_filename_message)
-			.setView(input)
-			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					// TODO: confirm overwrite with another dialog if filename alreaady exists!
-					final String filename = input.getText().toString();
-					if (filename.matches("")) {
-						Toast.makeText(getActivity(), R.string.dlg_invalid_filename, Toast.LENGTH_LONG).show();
-						return;
+				.setMessage(R.string.dlg_enter_filename_message)
+				.setView(input)
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// TODO: confirm overwrite with another dialog if filename alreaady exists!
+						final String filename = input.getText().toString();
+						if (filename.matches("")) {
+							Toast.makeText(getActivity(), R.string.dlg_invalid_filename, Toast.LENGTH_LONG).show();
+							return;
+						}
+
+						try {
+							JsonBuildService.writeBuildToJsonFile(filename, build);
+						} catch (Exception e) {
+							Toast.makeText(getActivity(), String.format(getString(R.string.dlg_couldnt_write_file),
+									filename, e.toString()), Toast.LENGTH_LONG).show();
+							e.printStackTrace();
+							return;
+						}
+						Toast.makeText(getActivity(), String.format(getString(R.string.dlg_wrote_file_to_dir),
+								filename, JsonBuildService.BUILDS_DIR), Toast.LENGTH_LONG).show();
 					}
-					
-					try {
-						JsonBuildService.writeBuildToJsonFile(filename, build);
-					} catch (Exception e) {
-						Toast.makeText(getActivity(), String.format(getString(R.string.dlg_couldnt_write_file),
-								filename, e.toString()), Toast.LENGTH_LONG).show();
-						e.printStackTrace();
-						return;
+				})
+				.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
 					}
-					Toast.makeText(getActivity(), String.format(getString(R.string.dlg_wrote_file_to_dir),
-							filename, JsonBuildService.BUILDS_DIR), Toast.LENGTH_LONG).show();
-				}
-			})
-			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					// Canceled.
-				}
-			}).show();
+				}).show();
 	}
 
-    /**
+	/**
      * Spacer to stop Ad from obscuring the bottom of content
      * @return
      */
@@ -302,19 +339,6 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	public static String removeSpecialCharacters(String input) {
 		return input.replaceAll("[^\\dA-Za-z]+", "_");
 	}
-
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position,
-//                            long id) {
-//        if (id != -1) {
-//        } else {    // footer
-//            // starts the build editor
-//            Intent i = new Intent(getActivity(), EditBuildActivity.class);
-//            i.putExtra(IntentKeys.KEY_EXPANSION_ENUM, mCurrentExpansion);
-//            i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
-//            startActivity(i);
-//        }
-//    }
 
 	private final static class BuildViewModel {
         public final long buildId;

@@ -104,6 +104,9 @@
 	<string name="deleted_items_x_N">Deleted %1$s x%2$d</string>
 	<string name="deleted_item">Deleted %1$s</string>
 	<string name="undo">Undo</string>
+	<string name="permission_popup_write_storage_denied_for_exporting">External storage access is needed to export builds</string>
+	<string name="permission_popup_read_storage_denied_for_importing">External storage access is needed to import builds</string>
+	<string name="permission_popup_settings">Settings</string>
 
 	<!-- Edit item dialog -->
 	<string name="dlg_item_label">Item</string>
@@ -347,6 +350,5 @@
 	<string name="gameitem_ventral_sacs">Ventral Sacs</string>
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
-
 
 </resources>

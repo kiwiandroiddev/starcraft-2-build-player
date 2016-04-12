@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -27,6 +29,14 @@ import android.widget.Toast;
 import com.google.ads.Ad;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.EmptyPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
@@ -68,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	private FragmentManager mManager;
     private int mPreviousFactionChoice;
 
+    @InjectView(R.id.activity_main_root_view) ViewGroup mRootView;
     @InjectView(R.id.pager) ViewPager mPager;
     @InjectView(R.id.loading_panel) View mLoadingLayout;
     @InjectView(R.id.loading_spinner) ProgressBar mLoadingSpinner;
@@ -313,6 +324,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void onImportBuildMenuClicked() {
+        final PermissionListener snackbarPermissionListener =
+                SnackbarOnDeniedPermissionListener.Builder
+                        .with(mRootView, R.string.permission_popup_read_storage_denied_for_importing)
+                        .withOpenSettingsButton(R.string.permission_popup_settings)
+                        .build();
+
+        Dexter.checkPermission(new EmptyPermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+                openImportBuildDialog();
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+                snackbarPermissionListener.onPermissionDenied(response);
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                token.continuePermissionRequest();
+            }
+        }, Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
+
+    private void openImportBuildDialog() {
         Intent intent = new Intent(getBaseContext(), FileDialog.class);
         File root = Environment.getExternalStorageDirectory();
         File buildsDir = new File(root, JsonBuildService.BUILDS_DIR);
