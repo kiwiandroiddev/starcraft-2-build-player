@@ -48,6 +48,7 @@
 	<string name="race_any">Any</string>
 	<string name="expansion_wol">Wings of Liberty</string>
 	<string name="expansion_hots">Heart of the Swarm</string>
+	<string name="expansion_lotv">Legacy of the Void</string>
 	<string name="error_loading_std_builds">Error loading standard builds: %1$s</string>
 	<string name="dlg_tts_install_prompt">Text-to-Speech support not found. Install it now?</string>
 	<string name="dlg_yes">Yes</string>

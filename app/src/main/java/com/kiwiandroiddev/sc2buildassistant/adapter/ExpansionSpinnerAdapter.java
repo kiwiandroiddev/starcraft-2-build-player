@@ -22,13 +22,14 @@ public class ExpansionSpinnerAdapter extends BaseAdapter implements SpinnerAdapt
 
 	private Context mContext;
 	private String[] mExpansionNames;
-	private static int[] sExpansionIcons = new int[] { R.drawable.wol_icon, R.drawable.hots_icon };
+	private static int[] sExpansionIcons = new int[] { R.drawable.wol_icon, R.drawable.hots_icon, R.drawable.hots_icon };
 	
 	public ExpansionSpinnerAdapter(Context context) {
 		mContext = context;
 		mExpansionNames = new String[] {
 				context.getString(R.string.expansion_wol),
-				context.getString(R.string.expansion_hots) };
+				context.getString(R.string.expansion_hots),
+				context.getString(R.string.expansion_lotv)};
 	}
 	
 	@Override
@@ -61,7 +62,6 @@ public class ExpansionSpinnerAdapter extends BaseAdapter implements SpinnerAdapt
 	private View getView(int position, View convertView, ViewGroup parent, int viewResId) {
 		View row = convertView;
 		if (row == null) {
-//			LayoutInflater inflater = ((ActionBarActivity)mContext).getLayoutInflater();
 			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(viewResId, parent, false);
 		}

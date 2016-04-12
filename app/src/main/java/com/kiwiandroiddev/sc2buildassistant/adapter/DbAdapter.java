@@ -54,7 +54,7 @@ public class DbAdapter {
     private static Map<Faction, Long> sFactionToIdMap = new HashMap<Faction, Long>();
     private static Map<Long, Faction> sIdToFactionMap = new HashMap<Long, Faction>();
 
-    public enum Expansion {WOL, HOTS}
+    public enum Expansion {WOL, HOTS, LOTV}
 
     ;
     private static Map<Expansion, Long> sExpansionToIdMap = new HashMap<Expansion, Long>();
@@ -186,9 +186,11 @@ public class DbAdapter {
 
         sExpansionToIdMap.put(Expansion.WOL, (long) 1);
         sExpansionToIdMap.put(Expansion.HOTS, (long) 2);
+        sExpansionToIdMap.put(Expansion.LOTV, (long) 3);
 
         sIdToExpansionMap.put((long) 1, Expansion.WOL);
         sIdToExpansionMap.put((long) 2, Expansion.HOTS);
+        sIdToExpansionMap.put((long) 3, Expansion.LOTV);
 
         sItemTypeNameMap.put(ItemType.UNIT, R.string.item_type_unit);
         sItemTypeNameMap.put(ItemType.STRUCTURE, R.string.item_type_structure);
@@ -202,6 +204,7 @@ public class DbAdapter {
 
         sExpansionNameMap.put(DbAdapter.Expansion.WOL, R.string.expansion_wol);
         sExpansionNameMap.put(DbAdapter.Expansion.HOTS, R.string.expansion_hots);
+        sExpansionNameMap.put(DbAdapter.Expansion.LOTV, R.string.expansion_lotv);
     }
 
     /**
@@ -316,6 +319,7 @@ public class DbAdapter {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion);
 
+            // TODO: add LotV row to expansion table
             if (oldVersion <= 46) {
                 // 48: added date created and date modified to Build table
                 db.execSQL(String.format("ALTER TABLE %s ADD COLUMN %s TEXT", TABLE_BUILD_ORDER, KEY_CREATED));
@@ -324,17 +328,16 @@ public class DbAdapter {
                 // 47: moved verbs from DB to strings.xml, verb table no longer needed
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_FACTION_ITEM_TYPE_VERB);
 
-//            	if (oldVersion == 43 || oldVersion == 44 || oldVersion == 45) {
-
                 // 44: enduring locusts upgrade added to items, need to reload items from JSON file
                 // 45: warpgate structure and transform ability added
                 // 46: removed anabolic synthesis, renamed air attacks to flyer attacks
                 loadItemDefinitions(mContext, db, false);
 
-//            	}
             } else {
-                for (String table : ALL_TABLES)
+                // FIXME won't this wipe custom builds from the DB for users upgrading from 47+?
+                for (String table : ALL_TABLES) {
                     db.execSQL("DROP TABLE IF EXISTS " + table);
+                }
                 onCreate(db);
             }
         }
@@ -350,7 +353,7 @@ public class DbAdapter {
 
             db.beginTransaction();
 
-            String[] expansions = {"Wings of Liberty", "Heart of the Swarm"};
+            String[] expansions = {"Wings of Liberty", "Heart of the Swarm", "Legacy of the Void"};
             for (String expansion : expansions) {
                 initialValues.clear();
                 initialValues.put(KEY_NAME, expansion);
@@ -462,7 +465,7 @@ public class DbAdapter {
      * Constructor - takes the context to allow the database to be
      * opened/created
      *
-     * @param ctx the Context within which to work
+     * @param context the Context within which to work
      */
     public DbAdapter(Context context) {
         this.mContext = context;
