@@ -102,16 +102,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        // slide ad banner in from the bottom when it loads (rather than popping)
-        if (mAdView != null) {
-            mAdView.setAdListener(new OnReceiveAdListener() {
-                @Override
-                public void onReceiveAd(Ad ad) {
-                    mAdView.startAnimation(
-                            AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
-                }
-            });
-        }
+        initAdBannerSlideInAnimation();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -129,20 +120,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         loadStandardBuilds();
-
         initRaceFragmentPagerAndExpansionSpinner(savedInstanceState);
-
-        // Show Changelog if appropriate
-        ChangeLog cl = new ChangeLog(this);
-        if (cl.firstRun()) {
-            cl.getLogDialog().show();
-        }
+        showChangelogIfNeeded();
 
         //Debug.stopMethodTracing();	// sc2main
     }
 
     private SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    // slide ad banner in from the bottom when it loads (rather than popping)
+    private void initAdBannerSlideInAnimation() {
+        if (mAdView != null) {
+            mAdView.setAdListener(new OnReceiveAdListener() {
+                @Override
+                public void onReceiveAd(Ad ad) {
+                    mAdView.startAnimation(
+                            AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
+                }
+            });
+        }
+    }
+
+    private void showChangelogIfNeeded() {
+        ChangeLog cl = new ChangeLog(this);
+        if (cl.firstRun()) {
+            cl.getLogDialog().show();
+        }
     }
 
     /**
