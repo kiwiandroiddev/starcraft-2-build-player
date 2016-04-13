@@ -253,32 +253,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mLoadingBar.setProgress(percent);
 	}
 
-	/** hides progress spinner and bar */
+	/** hides both progress spinner and bar */
     @DebugLog
 	public void hideLoadingAnim() {
 		mLoadingLayout.setVisibility(View.GONE);
 	}
 
     private void initRaceFragmentPagerAndExpansionSpinner(Bundle savedInstanceState) {
-        /** Getting fragment manager */
         mManager = getSupportFragmentManager();
-
-        /** Instantiating FragmentPagerAdapter */
         mPagerAdapter = new RaceFragmentPagerAdapter(mManager, this);
 
         final int previousExpansionChoice = savedInstanceState != null ?
                 savedInstanceState.getInt(KEY_EXPANSION_CHOICE) :
                 getSavedExpansionSelection();
         mPagerAdapter.setCurrentExpansion(DbAdapter.Expansion.values()[previousExpansionChoice]);
-
-        /** Setting the pagerAdapter to the pager object */
         mPager.setAdapter(mPagerAdapter);
 
         mPreviousFactionChoice = savedInstanceState != null ?
                 savedInstanceState.getInt(KEY_FACTION_CHOICE) :
                 getSavedFactionSelection();
 
-        /** Bind tabs view to pager */
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mPager);
 

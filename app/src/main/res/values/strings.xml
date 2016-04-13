@@ -182,6 +182,7 @@
 	<string name="gameitem_combat_shield">Combat Shield</string>
 	<string name="gameitem_command_center">Command Center</string>
 	<string name="gameitem_concussion_shells">Concussion Shells</string>
+	<string name="gameitem_cyclone">Cyclone</string>
 	<string name="gameitem_durable_materials">Durable Materials</string>
 	<string name="gameitem_engineering_bay">Engineering Bay</string>
 	<string name="gameitem_factory">Factory</string>
@@ -191,6 +192,7 @@
 	<string name="gameitem_hellbat">Hellbat</string>
 	<string name="gameitem_hellion">Hellion</string>
 	<string name="gameitem_hi_sec_auto_tracking">Hi-sec Auto Tracking</string>
+	<string name="gameitem_hyperflight_rotors">Hyperflight Rotors</string>
 	<string name="gameitem_infantry_armor_level1">Infantry Armor Level 1</string>
 	<string name="gameitem_infantry_armor_level2">Infantry Armor Level 2</string>
 	<string name="gameitem_infantry_armor_level3">Infantry Armor Level 3</string>
@@ -198,6 +200,7 @@
 	<string name="gameitem_infantry_weapons_level2">Infantry Weapons Level 2</string>
 	<string name="gameitem_infantry_weapons_level3">Infantry Weapons Level 3</string>
 	<string name="gameitem_infernal_preigniter">Infernal Preigniter</string>
+	<string name="gameitem_liberator">Liberator</string>
 	<string name="gameitem_marauder">Marauder</string>
 	<string name="gameitem_marine">Marine</string>
 	<string name="gameitem_medivac">Medivac</string>
@@ -235,6 +238,7 @@
 	<string name="gameitem_air_weapons_level1">Air Weapons Level 1</string>
 	<string name="gameitem_air_weapons_level2">Air Weapons Level 2</string>
 	<string name="gameitem_air_weapons_level3">Air Weapons Level 3</string>
+	<string name="gameitem_adept">Adept</string>
 	<string name="gameitem_archon">Archon</string>
 	<string name="gameitem_assimilator">Assimilator</string>
 	<string name="gameitem_blink">Blink</string>
@@ -245,6 +249,7 @@
 	<string name="gameitem_cybernetics_core">Cybernetics Core</string>
 	<string name="gameitem_dark_shrine">Dark Shrine</string>
 	<string name="gameitem_dark_templar">Dark Templar</string>
+	<string name="gameitem_disruptor">Disruptor</string>
 	<string name="gameitem_extended_thermal_lance">Extended Thermal Lance</string>
 	<string name="gameitem_fleet_beacon">Fleet Beacon</string>
 	<string name="gameitem_forge">Forge</string>
@@ -321,6 +326,8 @@
 	<string name="gameitem_infestation_pit">Infestation Pit</string>
 	<string name="gameitem_infestor">Infestor</string>
 	<string name="gameitem_lair">Lair</string>
+	<string name="gameitem_lurker">Lurker</string>
+	<string name="gameitem_lurker_den">Lurker Den</string>
 	<string name="gameitem_melee_attacks_level1">Melee Attacks Level 1</string>
 	<string name="gameitem_melee_attacks_level2">Melee Attacks Level 2</string>
 	<string name="gameitem_melee_attacks_level3">Melee Attacks Level 3</string>
@@ -337,6 +344,7 @@
 	<string name="gameitem_pathogen_glands">Pathogen Glands</string>
 	<string name="gameitem_pneumatized_carapace">Pneumatized Carapace</string>
 	<string name="gameitem_queen">Queen</string>
+	<string name="gameitem_ravager">Ravager</string>
 	<string name="gameitem_roach">Roach</string>
 	<string name="gameitem_roach_warren">Roach Warren</string>
 	<string name="gameitem_spawn_larvae">Spawn Larvae</string>
