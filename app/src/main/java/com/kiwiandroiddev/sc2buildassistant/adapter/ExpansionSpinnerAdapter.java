@@ -22,7 +22,7 @@ public class ExpansionSpinnerAdapter extends BaseAdapter implements SpinnerAdapt
 
 	private Context mContext;
 	private String[] mExpansionNames;
-	private static int[] sExpansionIcons = new int[] { R.drawable.wol_icon, R.drawable.hots_icon, R.drawable.hots_icon };
+	private static int[] sExpansionIcons = new int[] { R.drawable.wol_icon, R.drawable.hots_icon, R.drawable.lotv_icon };
 	
 	public ExpansionSpinnerAdapter(Context context) {
 		mContext = context;
