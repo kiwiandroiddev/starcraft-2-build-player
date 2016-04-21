@@ -13,6 +13,6 @@ public final class IntentKeys {
     public static final String KEY_EXPANSION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Expansion";
     public static final String KEY_FACTION_ENUM = "com.kiwiandroiddev.sc2buildassistant.Faction";
     public static final String KEY_ITEM_TYPE_ENUM = "com.kiwiandroiddev.sc2buildassistant.ItemType";
-    public static final String KEY_BUILD_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.Build";
-    public static final String KEY_BUILD_ITEM_OBJECT = "com.kiwiandroiddev.sc2buildassistant.model.BuildItem";
+    public static final String KEY_BUILD_OBJECT = "com.kiwiandroiddev.sc2buildassistant.domain.model.Build";
+    public static final String KEY_BUILD_ITEM_OBJECT = "com.kiwiandroiddev.sc2buildassistant.domain.model.BuildItem";
 }

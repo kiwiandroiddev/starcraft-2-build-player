@@ -8,7 +8,7 @@ import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -10,6 +10,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 
 /**
  * Used to show available StarCraft 2 expansions in a Spinner widget. Rows in the
@@ -34,12 +35,12 @@ public class ExpansionSpinnerAdapter extends BaseAdapter implements SpinnerAdapt
 	
 	@Override
 	public int getCount() {
-		return DbAdapter.Expansion.values().length;
+		return Expansion.values().length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return DbAdapter.Expansion.values()[position];
+		return Expansion.values()[position];
 	}
 
 	@Override

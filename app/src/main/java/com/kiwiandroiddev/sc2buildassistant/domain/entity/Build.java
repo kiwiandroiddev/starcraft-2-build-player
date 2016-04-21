@@ -1,8 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.model;
-
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+package com.kiwiandroiddev.sc2buildassistant.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,33 +22,33 @@ public class Build implements Serializable {
 	private String mSource;		// original forum post, web page, etc. Can contain HTML (e.g. hyperlinks)
 	private String mAuthor;		// author, person who transcribed the build
 	private ArrayList<BuildItem> mItems;	// buildings/units in this build order. Important: assumed to be ordered from first->last!
-	private DbAdapter.Faction mFaction;
-	private DbAdapter.Faction mVsFaction;
-	private DbAdapter.Expansion mExpansion;
+	private Faction mFaction;
+	private Faction mVsFaction;
+	private Expansion mExpansion;
 	
 	public Build() {
 		super();
-		mExpansion = DbAdapter.Expansion.WOL;
+		mExpansion = Expansion.WOL;
 	}
 	
-	public Build(String name, DbAdapter.Faction race) {
+	public Build(String name, Faction race) {
 		super();
 		mName = name;
 		mFaction = race;
 		mItems = null;
-		mExpansion = DbAdapter.Expansion.WOL;
+		mExpansion = Expansion.WOL;
 	}
 	
-	public Build(String name, DbAdapter.Faction race, ArrayList<BuildItem> items) {
+	public Build(String name, Faction race, ArrayList<BuildItem> items) {
 		super();
 		mName = name;
 		mFaction = race;
 		mItems = items;
-		mExpansion = DbAdapter.Expansion.WOL;
+		mExpansion = Expansion.WOL;
 	}
 	
-	public Build(String name, DbAdapter.Faction race, DbAdapter.Faction vsRace,
-				  DbAdapter.Expansion expansion, String source, String notes, ArrayList<BuildItem> items) {
+	public Build(String name, Faction race, Faction vsRace,
+				 Expansion expansion, String source, String notes, ArrayList<BuildItem> items) {
 		super();
 		mName = name;
 		mFaction = race;
@@ -102,11 +98,11 @@ public class Build implements Serializable {
 		return mItems;
 	}
 	
-	public DbAdapter.Faction getFaction() {
+	public Faction getFaction() {
 		return mFaction;
 	}
 	
-	public DbAdapter.Faction getVsFaction() {
+	public Faction getVsFaction() {
 		return mVsFaction;
 	}
 		
@@ -160,7 +156,7 @@ public class Build implements Serializable {
 		}
 	}
 	
-	public DbAdapter.Expansion getExpansion() {
+	public Expansion getExpansion() {
 		return mExpansion;
 	}
 

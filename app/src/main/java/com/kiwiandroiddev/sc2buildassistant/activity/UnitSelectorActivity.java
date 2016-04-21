@@ -8,9 +8,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
 
 import butterknife.ButterKnife;
@@ -34,7 +33,7 @@ public class UnitSelectorActivity extends AppCompatActivity {
 	public static final String KEY_DEFAULT_ITEM_TYPE = "DefaultItemType";		// initial tab to have selected (unit/structure/upgrade...)
 	public static final String KEY_RESULT_ITEM_ID = "ItemID";		// key for item ID (int) selected by user using this dialog
 	
-	private DbAdapter.Faction mFactionFilter;				// only show units from this side in the selector dialog
+	private Faction mFactionFilter;				// only show units from this side in the selector dialog
     private int mCallerID = -1;							// see KEY_CALLER_ID comment
 
     private ItemTypePagerAdapter mPagerAdapter;

@@ -16,12 +16,11 @@ import android.widget.TextView;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.FactionSpinnerAdapter;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -54,7 +53,7 @@ public class EditBuildInfoFragment extends Fragment implements BuildEditorTabVie
 	@InjectView(R.id.edit_author) TextView mAuthor;
 
 	public interface EditBuildInfoListener {
-		void onFactionSelectionChanged(DbAdapter.Faction selection);
+		void onFactionSelectionChanged(Faction selection);
 		void onTitleChanged(String newTitle);
 		// ..
 	}
@@ -98,7 +97,7 @@ public class EditBuildInfoFragment extends Fragment implements BuildEditorTabVie
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				mCallback.onFactionSelectionChanged(DbAdapter.Faction.values()[position]);
+				mCallback.onFactionSelectionChanged(Faction.values()[position]);
 			}
 
 			@Override

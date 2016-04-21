@@ -8,7 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 //import android.util.Log;
 
 /**
@@ -20,7 +21,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
  */
 public class RaceFragmentPagerAdapter extends FragmentPagerAdapter {
 	
-	private DbAdapter.Expansion mCurrentExpansion;		// pass this onto RaceFragments when created
+	private Expansion mCurrentExpansion;		// pass this onto RaceFragments when created
 	private Context mContext;				// needed so we can get locale-independent strings
 	
 	public RaceFragmentPagerAdapter(FragmentManager manager, Context context) {
@@ -32,7 +33,7 @@ public class RaceFragmentPagerAdapter extends FragmentPagerAdapter {
 	/** This method will be invoked when a page is requested to create */
 	@Override
 	public Fragment getItem(int position) {
-		DbAdapter.Faction race = DbAdapter.Faction.values()[position];
+		Faction race = Faction.values()[position];
 		RaceFragment tab = new RaceFragment();
 		
 		// TODO keeping this expansion-value passing for now, would like to remove soon
@@ -54,15 +55,15 @@ public class RaceFragmentPagerAdapter extends FragmentPagerAdapter {
 	@Override
     public CharSequence getPageTitle(int position) {
 		// get faction corresponding to tab position
-		final DbAdapter.Faction faction = DbAdapter.Faction.values()[position];
+		final Faction faction = Faction.values()[position];
         return mContext.getString(DbAdapter.getFactionName(faction));
     }
 	
-	public void setCurrentExpansion(DbAdapter.Expansion expansion) {
+	public void setCurrentExpansion(Expansion expansion) {
 		mCurrentExpansion = expansion;
 	}
 	
-	public DbAdapter.Expansion getCurrentExpansion() {
+	public Expansion getCurrentExpansion() {
 		return mCurrentExpansion;
 	}
 }

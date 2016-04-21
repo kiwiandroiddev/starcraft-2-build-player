@@ -38,12 +38,12 @@ import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.domain.GameSpeeds;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
 
@@ -582,7 +582,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         args.put("target", mDb.getNameString(item.getTarget()));
         
         String template;
-        DbAdapter.ItemType itemType = mDb.getItemType(item.getGameItemID());
+        ItemType itemType = mDb.getItemType(item.getGameItemID());
         final boolean multipleItems = item.getCount() > 1;
         if (itemType == ItemType.STRUCTURE) {
         	if (item.getTarget() == null)

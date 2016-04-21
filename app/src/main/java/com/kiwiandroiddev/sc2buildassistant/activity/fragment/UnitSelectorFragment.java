@@ -13,8 +13,8 @@ import android.widget.GridView;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.adapter.UnitIconAdapter;
 
 /**

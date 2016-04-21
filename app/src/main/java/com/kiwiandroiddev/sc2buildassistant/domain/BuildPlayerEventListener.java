@@ -1,7 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
 
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 /** Interface used by BuildPlayer to notify high-level code of playback events */
 public interface BuildPlayerEventListener {

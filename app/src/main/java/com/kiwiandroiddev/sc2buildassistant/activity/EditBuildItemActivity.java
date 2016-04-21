@@ -15,8 +15,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -43,7 +44,7 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	
 	private static final int NO_ITEM_ICON = R.drawable.stat_notify_disabled;
 	
-	private DbAdapter.Faction mFaction;		// current faction for the build order, used to limit unit selection
+	private Faction mFaction;		// current faction for the build order, used to limit unit selection
 	
 	// whether this dialog is for editing an existing build item or making a new one
 	// (modifies its behaviour slightly)
@@ -98,14 +99,14 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	        mMainItemID = item.getGameItemID();
 	        mTargetItemID = item.getTarget();
 	        
-        	mFaction = (DbAdapter.Faction) extras.getSerializable(IntentKeys.KEY_FACTION_ENUM);
+        	mFaction = (Faction) extras.getSerializable(IntentKeys.KEY_FACTION_ENUM);
         } else {
         	if (savedInstanceState.containsKey(KEY_INCOMING_BUILD_ITEM_ID))
         		mIncomingItemID = savedInstanceState.getLong(KEY_INCOMING_BUILD_ITEM_ID);
         		
         	mMainItemID = savedInstanceState.getString(KEY_MAIN_ITEM_ID);
         	mTargetItemID = savedInstanceState.getString(KEY_TARGET_ITEM_ID);
-        	mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
+        	mFaction = (Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
         	
         	// if we're restoring a previous instance, we must have shown the initial selector already
         	mHaveShownInitialSelector = true;

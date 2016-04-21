@@ -44,9 +44,9 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 
 import java.text.DateFormat;
@@ -77,19 +77,19 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  */
 public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 	    
-	private static Map<DbAdapter.Faction, Integer> sIconByRace = new HashMap<>();
+	private static Map<Faction, Integer> sIconByRace = new HashMap<>();
 
 	private int mBgDrawable;
-	private DbAdapter.Expansion mCurrentExpansion;
-	private DbAdapter.Faction mFaction;
+	private Expansion mCurrentExpansion;
+	private Faction mFaction;
 	private ViewGroup mRootView;
 	private RecyclerView mRecyclerView;
     private BuildAdapter mAdapter;
 
 	static {
-		sIconByRace.put(DbAdapter.Faction.TERRAN, R.drawable.terran_icon_drawable);
-		sIconByRace.put(DbAdapter.Faction.PROTOSS, R.drawable.protoss_icon_drawable);
-		sIconByRace.put(DbAdapter.Faction.ZERG, R.drawable.zerg_icon_drawable);
+		sIconByRace.put(Faction.TERRAN, R.drawable.terran_icon_drawable);
+		sIconByRace.put(Faction.PROTOSS, R.drawable.protoss_icon_drawable);
+		sIconByRace.put(Faction.ZERG, R.drawable.zerg_icon_drawable);
 	}
 
 	@DebugLog
@@ -107,8 +107,8 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 			// passed from racefragmentpageradapter when this is constructed
 			mCurrentExpansion = (Expansion) data.getSerializable(KEY_EXPANSION_ENUM);
 		} else {
-			mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(KEY_FACTION_ENUM);
-			mCurrentExpansion = (DbAdapter.Expansion)savedInstanceState.getSerializable(KEY_EXPANSION_ENUM);
+			mFaction = (Faction) savedInstanceState.getSerializable(KEY_FACTION_ENUM);
+			mCurrentExpansion = (Expansion)savedInstanceState.getSerializable(KEY_EXPANSION_ENUM);
 		}
 		
 		mBgDrawable = sIconByRace.containsKey(mFaction) ? sIconByRace.get(mFaction) : R.drawable.not_found;
@@ -146,7 +146,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 	 * expansion given as an argument
 	 * @param game
 	 */
-	public void setExpansionFilter(DbAdapter.Expansion game) {
+	public void setExpansionFilter(Expansion game) {
 		mCurrentExpansion = game;
 
 		// mCurrentExpansion is used to build the query for a new cursor

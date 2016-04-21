@@ -33,6 +33,8 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 
 import java.util.ArrayList;
@@ -53,12 +55,14 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  */
 public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final HashMap<DbAdapter.Faction, Integer> sRaceBgMap;
+    private static final HashMap<Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
 
 	@InjectExtra(KEY_BUILD_ID) long mBuildId;
-	@InjectExtra(KEY_FACTION_ENUM) DbAdapter.Faction mFaction;
-	@InjectExtra(KEY_EXPANSION_ENUM) DbAdapter.Expansion mExpansion;
+	@InjectExtra(KEY_FACTION_ENUM)
+	Faction mFaction;
+	@InjectExtra(KEY_EXPANSION_ENUM)
+	Expansion mExpansion;
 	@InjectExtra(KEY_BUILD_NAME) String mBuildName;
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
@@ -73,10 +77,10 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @InjectView(R.id.buildName) TextView mBuildNameText;
 
 	static {
-		sRaceBgMap = new HashMap<DbAdapter.Faction, Integer>();
-		sRaceBgMap.put(DbAdapter.Faction.TERRAN, R.drawable.terran_icon_blur_drawable);
-		sRaceBgMap.put(DbAdapter.Faction.PROTOSS, R.drawable.protoss_icon_blur_drawable);
-		sRaceBgMap.put(DbAdapter.Faction.ZERG, R.drawable.zerg_icon_blur_drawable);
+		sRaceBgMap = new HashMap<Faction, Integer>();
+		sRaceBgMap.put(Faction.TERRAN, R.drawable.terran_icon_blur_drawable);
+		sRaceBgMap.put(Faction.PROTOSS, R.drawable.protoss_icon_blur_drawable);
+		sRaceBgMap.put(Faction.ZERG, R.drawable.zerg_icon_blur_drawable);
 		
 		// Columns from the build order table containing info we want to display
 		sColumns = new ArrayList<String>();
@@ -100,8 +104,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 	 */
 	public static void open(Activity callingActivity,
 							long buildId,
-							DbAdapter.Faction faction,
-							DbAdapter.Expansion expansion,
+							Faction faction,
+							Expansion expansion,
 							String buildName,
 							TextView sharedBuildNameTextView) {
 		Intent i = new Intent(callingActivity, BriefActivity.class);
@@ -259,7 +263,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 	//=========================================================================
 	
 	/* returns a string resource ID */
-	public static int getBackgroundDrawable(DbAdapter.Faction race) {
+	public static int getBackgroundDrawable(Faction race) {
 		return sRaceBgMap.get(race);
 	}
 

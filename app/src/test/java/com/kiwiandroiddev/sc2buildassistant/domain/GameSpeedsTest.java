@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 
 import org.junit.Test;
 

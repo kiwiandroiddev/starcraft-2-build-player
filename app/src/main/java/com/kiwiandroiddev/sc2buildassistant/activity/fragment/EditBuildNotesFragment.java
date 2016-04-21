@@ -20,7 +20,7 @@ import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 /**
  * Provides a UI for editing the free-form notes of a particular build order.

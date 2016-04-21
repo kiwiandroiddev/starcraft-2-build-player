@@ -31,11 +31,11 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragm
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.SimpleAnimatorListener;
@@ -103,8 +103,8 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 
         // Get arguments sent by BuildListActivity - these will determine
         // if we should create a new build or edit an existing one
-        DbAdapter.Expansion expansion = null;
-        DbAdapter.Faction faction = null;
+        Expansion expansion = null;
+        Faction faction = null;
         if (savedInstanceState == null) {
         	Bundle data = getIntent().getExtras(); 
         	mBuildId = data.containsKey(IntentKeys.KEY_BUILD_ID) ? data.getLong(IntentKeys.KEY_BUILD_ID) : -1;

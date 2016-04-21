@@ -2,7 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.domain;
 
 import android.support.annotation.NonNull;
 
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 
 /**
  * Created by matt on 18/04/16.

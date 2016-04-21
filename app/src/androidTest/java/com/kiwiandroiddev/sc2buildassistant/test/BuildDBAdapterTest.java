@@ -3,10 +3,9 @@ package com.kiwiandroiddev.sc2buildassistant.test;
 import junit.framework.Assert;
 
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import timber.log.Timber;
 

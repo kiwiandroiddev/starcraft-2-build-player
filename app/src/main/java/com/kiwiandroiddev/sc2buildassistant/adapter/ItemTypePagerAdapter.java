@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
-import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
 /**
  * Manages unit selector fragments for each item type (structure, unit, ability etc.)
@@ -20,9 +20,9 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 public class ItemTypePagerAdapter extends FragmentPagerAdapter {
 
 	private Context mContext;
-	private DbAdapter.Faction mFactionFilter;
+	private Faction mFactionFilter;
 
-	public ItemTypePagerAdapter(FragmentManager fm, Context context, DbAdapter.Faction factionFilter) {
+	public ItemTypePagerAdapter(FragmentManager fm, Context context, Faction factionFilter) {
 		super(fm);
 		mContext = context;
 		mFactionFilter = factionFilter;
@@ -31,7 +31,7 @@ public class ItemTypePagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		Fragment tab = new UnitSelectorFragment();
-		DbAdapter.ItemType itemType = ItemType.values()[position];
+		ItemType itemType = ItemType.values()[position];
 		
 		Bundle data = new Bundle();
 		data.putSerializable(IntentKeys.KEY_FACTION_ENUM, mFactionFilter);

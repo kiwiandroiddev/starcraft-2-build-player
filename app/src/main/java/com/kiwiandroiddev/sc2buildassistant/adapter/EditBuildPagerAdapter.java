@@ -14,9 +14,9 @@ import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.util.UnoptimizedDeepCopy;
 
 import java.util.ArrayList;

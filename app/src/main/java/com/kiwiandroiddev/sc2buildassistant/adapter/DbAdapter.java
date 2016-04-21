@@ -13,8 +13,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,27 +43,21 @@ import java.util.Map;
  */
 public class DbAdapter {
 
-    public enum ItemType {UNIT, STRUCTURE, UPGRADE, ABILITY, NOTE}
-
     private static Map<ItemType, Long> sItemTypeToIdMap = new HashMap<ItemType, Long>();
     private static Map<Long, ItemType> sIdToItemTypeMap = new HashMap<Long, ItemType>();
-
-    public enum Faction {TERRAN, ZERG, PROTOSS}
 
     // TODO would be better to use a proper Bidirectional Map class here, but don't want the extra
     // bloat of another library (Guava)
     private static Map<Faction, Long> sFactionToIdMap = new HashMap<Faction, Long>();
     private static Map<Long, Faction> sIdToFactionMap = new HashMap<Long, Faction>();
 
-    public enum Expansion {WOL, HOTS, LOTV}
-
     private static Map<Expansion, Long> sExpansionToIdMap = new HashMap<Expansion, Long>();
     private static Map<Long, Expansion> sIdToExpansionMap = new HashMap<Long, Expansion>();
 
     // links item type, faction and expansion enums to locale-independent string resources
-    private static Map<DbAdapter.ItemType, Integer> sItemTypeNameMap = new HashMap<DbAdapter.ItemType, Integer>();
-    private static Map<DbAdapter.Faction, Integer> sFactionNameMap = new HashMap<DbAdapter.Faction, Integer>();
-    private static Map<DbAdapter.Expansion, Integer> sExpansionNameMap = new HashMap<DbAdapter.Expansion, Integer>();
+    private static Map<ItemType, Integer> sItemTypeNameMap = new HashMap<ItemType, Integer>();
+    private static Map<Faction, Integer> sFactionNameMap = new HashMap<Faction, Integer>();
+    private static Map<Expansion, Integer> sExpansionNameMap = new HashMap<Expansion, Integer>();
 
     private static final String DB_NAME = "build_order_db";
     private static final int DB_VERSION = 48;
@@ -195,13 +192,13 @@ public class DbAdapter {
         sItemTypeNameMap.put(ItemType.ABILITY, R.string.item_type_ability);
         sItemTypeNameMap.put(ItemType.NOTE, R.string.item_type_note);
 
-        sFactionNameMap.put(DbAdapter.Faction.TERRAN, R.string.race_terran);
-        sFactionNameMap.put(DbAdapter.Faction.PROTOSS, R.string.race_protoss);
-        sFactionNameMap.put(DbAdapter.Faction.ZERG, R.string.race_zerg);
+        sFactionNameMap.put(Faction.TERRAN, R.string.race_terran);
+        sFactionNameMap.put(Faction.PROTOSS, R.string.race_protoss);
+        sFactionNameMap.put(Faction.ZERG, R.string.race_zerg);
 
-        sExpansionNameMap.put(DbAdapter.Expansion.WOL, R.string.expansion_wol);
-        sExpansionNameMap.put(DbAdapter.Expansion.HOTS, R.string.expansion_hots);
-        sExpansionNameMap.put(DbAdapter.Expansion.LOTV, R.string.expansion_lotv);
+        sExpansionNameMap.put(Expansion.WOL, R.string.expansion_wol);
+        sExpansionNameMap.put(Expansion.HOTS, R.string.expansion_hots);
+        sExpansionNameMap.put(Expansion.LOTV, R.string.expansion_lotv);
     }
 
     /**
@@ -211,21 +208,21 @@ public class DbAdapter {
     /**
      * returns a string resource ID
      */
-    public static int getItemTypeName(DbAdapter.ItemType type) {
+    public static int getItemTypeName(ItemType type) {
         return sItemTypeNameMap.get(type);
     }
 
     /**
      * returns a string resource ID
      */
-    public static int getFactionName(DbAdapter.Faction race) {
+    public static int getFactionName(Faction race) {
         return sFactionNameMap.get(race);
     }
 
     /**
      * returns a string resource ID
      */
-    public static int getExpansionName(DbAdapter.Expansion game) {
+    public static int getExpansionName(Expansion game) {
         return sExpansionNameMap.get(game);
     }
 

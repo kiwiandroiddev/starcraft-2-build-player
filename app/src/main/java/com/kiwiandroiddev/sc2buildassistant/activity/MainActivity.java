@@ -40,9 +40,10 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        final DbAdapter.Expansion expansion = DbAdapter.Expansion.values()[position];
+        final Expansion expansion = Expansion.values()[position];
 
         // pass on current expansion to any racefragments created in future
         mPagerAdapter.setCurrentExpansion(expansion);
@@ -266,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         final int previousExpansionChoice = savedInstanceState != null ?
                 savedInstanceState.getInt(KEY_EXPANSION_CHOICE) :
                 getSavedExpansionSelection();
-        mPagerAdapter.setCurrentExpansion(DbAdapter.Expansion.values()[previousExpansionChoice]);
+        mPagerAdapter.setCurrentExpansion(Expansion.values()[previousExpansionChoice]);
         mPager.setAdapter(mPagerAdapter);
 
         mPreviousFactionChoice = savedInstanceState != null ?
@@ -324,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void onNewBuildMenuClicked() {
         Intent i = new Intent(this, EditBuildActivity.class);
         i.putExtra(IntentKeys.KEY_EXPANSION_ENUM, mPagerAdapter.getCurrentExpansion());
-        i.putExtra(IntentKeys.KEY_FACTION_ENUM, DbAdapter.Faction.values()[mPager.getCurrentItem()]);
+        i.putExtra(IntentKeys.KEY_FACTION_ENUM, Faction.values()[mPager.getCurrentItem()]);
         startActivity(i);
     }
 
@@ -417,12 +418,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /** Now defaults to Heart of the Swarm */
     private int getSavedExpansionSelection() {
         return getDefaultSharedPreferences()
-                .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, DbAdapter.Expansion.HOTS.ordinal());
+                .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, Expansion.HOTS.ordinal());
     }
 
     private int getSavedFactionSelection() {
         return getDefaultSharedPreferences()
-                .getInt(SettingsActivity.KEY_FACTION_SELECTION, DbAdapter.Faction.TERRAN.ordinal());
+                .getInt(SettingsActivity.KEY_FACTION_SELECTION, Faction.TERRAN.ordinal());
     }
 
 }

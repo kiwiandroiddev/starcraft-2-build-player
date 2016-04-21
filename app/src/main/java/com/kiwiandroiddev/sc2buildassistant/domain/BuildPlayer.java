@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;

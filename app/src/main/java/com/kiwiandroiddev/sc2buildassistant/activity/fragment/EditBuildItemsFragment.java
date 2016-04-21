@@ -21,14 +21,14 @@ import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemClickedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemRemovedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnStartDragListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.SimpleItemTouchCallback;
-import com.kiwiandroiddev.sc2buildassistant.model.Build;
-import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	public static final String TAG = "EditBuildItemsFragment";
 	private static final String KEY_BUILD_ITEM_ARRAY = "buildItemArray";
 	
-	private DbAdapter.Faction mFaction;		// current faction of build order, used to limit unit selection
+	private Faction mFaction;		// current faction of build order, used to limit unit selection
     private DbAdapter mDb;
 	private EditBuildItemRecyclerAdapter mAdapter;
 	private ItemTouchHelper mTouchHelper;
@@ -88,7 +88,7 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 			mWorkingList = (ArrayList<BuildItem>) savedInstanceState.getSerializable(KEY_BUILD_ITEM_ARRAY);
 			
 			// stub: doesn't keep up to date with faction selection in Info tab!
-			mFaction = (DbAdapter.Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
+			mFaction = (Faction) savedInstanceState.getSerializable(IntentKeys.KEY_FACTION_ENUM);
 		}
 
 		// get a reference to the global DB instance

@@ -10,7 +10,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
 /**
  * Used to show the StarCraft 2 factions (Terran, Protoss and Zerg) in a Spinner widget.
@@ -36,17 +36,17 @@ public class FactionSpinnerAdapter extends BaseAdapter implements SpinnerAdapter
 	@Override
 	public int getCount() {
 		final int extra = mAllowAny ? 1 : 0; 
-		return DbAdapter.Faction.values().length + extra;
+		return Faction.values().length + extra;
 	}
 
 	@Override
 	public Object getItem(int position) {
 		if (!mAllowAny)
-			return DbAdapter.Faction.values()[position];
+			return Faction.values()[position];
 		else {
 			if (position == 0)
 				return null;
-			return DbAdapter.Faction.values()[position-1];
+			return Faction.values()[position-1];
 		}
 	}
 

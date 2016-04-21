@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.model;
+package com.kiwiandroiddev.sc2buildassistant.domain.entity;
 
 import java.io.Serializable;
 
@@ -100,7 +100,6 @@ public class BuildItem implements Serializable {
 		return mVoice;
 	}
 	
-	// Mutators
 	public void setCount(int count) {
 		mCount = count;
 	}
