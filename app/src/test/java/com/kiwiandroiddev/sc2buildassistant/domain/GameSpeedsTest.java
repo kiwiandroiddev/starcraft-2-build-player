@@ -31,10 +31,10 @@ public class GameSpeedsTest {
         assertThat(GameSpeeds.getMultiplierForGameSpeed(FAST_INDEX, Expansion.HOTS)).isEqualTo(1.2d);
         assertThat(GameSpeeds.getMultiplierForGameSpeed(FASTER_INDEX, Expansion.HOTS)).isEqualTo(1.4d);
 
-        assertThat(GameSpeeds.getMultiplierForGameSpeed(SLOWER_INDEX, Expansion.LOTV)).isEqualTo(0.2d);
-        assertThat(GameSpeeds.getMultiplierForGameSpeed(SLOW_INDEX, Expansion.LOTV)).isEqualTo(0.4d);
-        assertThat(GameSpeeds.getMultiplierForGameSpeed(NORMAL_INDEX, Expansion.LOTV)).isEqualTo(0.6d);
-        assertThat(GameSpeeds.getMultiplierForGameSpeed(FAST_INDEX, Expansion.LOTV)).isEqualTo(0.8d);
+        assertThat(GameSpeeds.getMultiplierForGameSpeed(SLOWER_INDEX, Expansion.LOTV)).isEqualTo(0.45d);
+        assertThat(GameSpeeds.getMultiplierForGameSpeed(SLOW_INDEX, Expansion.LOTV)).isEqualTo(0.6d);
+        assertThat(GameSpeeds.getMultiplierForGameSpeed(NORMAL_INDEX, Expansion.LOTV)).isEqualTo(0.75d);
+        assertThat(GameSpeeds.getMultiplierForGameSpeed(FAST_INDEX, Expansion.LOTV)).isEqualTo(0.85d);
         assertThat(GameSpeeds.getMultiplierForGameSpeed(FASTER_INDEX, Expansion.LOTV)).isEqualTo(1.0d);
     }
 

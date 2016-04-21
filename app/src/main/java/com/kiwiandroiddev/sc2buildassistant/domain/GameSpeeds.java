@@ -19,10 +19,10 @@ public final class GameSpeeds {
     private static double[] sWolGameSpeedIndexToMultiplier =
             { SLOWER_FACTOR, SLOW_FACTOR, NORMAL_FACTOR, FAST_FACTOR, FASTER_FACTOR };
 
-    private static final double LOTV_SLOWER_FACTOR = 0.2;
-    private static final double LOTV_SLOW_FACTOR = 0.4;
-    private static final double LOTV_NORMAL_FACTOR = 0.6;
-    private static final double LOTV_FAST_FACTOR = 0.8;
+    private static final double LOTV_SLOWER_FACTOR = 0.45;
+    private static final double LOTV_SLOW_FACTOR = 0.6;
+    private static final double LOTV_NORMAL_FACTOR = 0.75;
+    private static final double LOTV_FAST_FACTOR = 0.85;
     private static final double LOTV_FASTER_FACTOR = 1.0;
     
     private static double[] sLotvGameSpeedIndexToMultiplier =

@@ -25,7 +25,7 @@ import java.util.Collections;
  * Has a blank footer item to prevent the last build item from being partially obscured
  * by the Floating Action Button to add new items.
  *
- * BUG: views not updating on move (red time text when out of place)
+ * FIXME: views not updating on move (red time text when out of place)
  *
  * Created by matt on 4/10/15.
  */
