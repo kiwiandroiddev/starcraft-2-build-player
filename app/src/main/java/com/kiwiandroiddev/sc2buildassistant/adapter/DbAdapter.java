@@ -42,13 +42,11 @@ public class DbAdapter {
 
     public enum ItemType {UNIT, STRUCTURE, UPGRADE, ABILITY, NOTE}
 
-    ;
     private static Map<ItemType, Long> sItemTypeToIdMap = new HashMap<ItemType, Long>();
     private static Map<Long, ItemType> sIdToItemTypeMap = new HashMap<Long, ItemType>();
 
     public enum Faction {TERRAN, ZERG, PROTOSS}
 
-    ;
     // TODO would be better to use a proper Bidirectional Map class here, but don't want the extra
     // bloat of another library (Guava)
     private static Map<Faction, Long> sFactionToIdMap = new HashMap<Faction, Long>();
@@ -56,7 +54,6 @@ public class DbAdapter {
 
     public enum Expansion {WOL, HOTS, LOTV}
 
-    ;
     private static Map<Expansion, Long> sExpansionToIdMap = new HashMap<Expansion, Long>();
     private static Map<Long, Expansion> sIdToExpansionMap = new HashMap<Long, Expansion>();
 
@@ -320,6 +317,9 @@ public class DbAdapter {
                     + newVersion);
 
             // TODO: add LotV row to expansion table
+            // 2.1.5 -> db 48
+            // run pragma user-version to check
+
             if (oldVersion <= 46) {
                 // 48: added date created and date modified to Build table
                 db.execSQL(String.format("ALTER TABLE %s ADD COLUMN %s TEXT", TABLE_BUILD_ORDER, KEY_CREATED));
@@ -950,7 +950,6 @@ public class DbAdapter {
      * isn't available, the next best match will be returned. If all else fails, "build"
      * will be returned.
      *
-     * @param item_name
      * @return verb string
      */
     public String getVerb(Faction faction, ItemType type) {
@@ -1080,7 +1079,6 @@ public class DbAdapter {
     /**
      * Returns the row ID of the given ItemType (e.g. unit, structure...)
      *
-     * @param item type as an enum value
      * @return row ID of item type in DB
      */
     public static long getItemTypeID(ItemType type) {

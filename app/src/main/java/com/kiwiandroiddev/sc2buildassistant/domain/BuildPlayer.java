@@ -19,7 +19,7 @@ public class BuildPlayer implements Serializable {
 	
 	private static final long serialVersionUID = 5709010570800905185L;
 	
-	private ArrayList<BuildPlayerEventListener> mListeners = new ArrayList<BuildPlayerEventListener>();
+	private ArrayList<BuildPlayerEventListener> mListeners = new ArrayList<>();
 	private ArrayList<BuildItem> mItems;
 	private boolean mStopped = true;
 	private boolean mPaused = false;			// implicitly: playing = (!mStopped && !mPaused)
@@ -35,7 +35,6 @@ public class BuildPlayer implements Serializable {
 	private int mOldBuildPointer = 0;
 	private boolean mWasPaused = false;
 	private boolean mWasStopped = true;
-//	private boolean mUserSeeked = false;	// has the user skipped to a different section of the build since last iterate()?
 	private boolean mMultiplierChanged = false;
 	private boolean mStartTimeChanged = true;	// fake change event to force initialization
 	
@@ -45,7 +44,6 @@ public class BuildPlayer implements Serializable {
 	
 	public BuildPlayer(ArrayList<BuildItem> items) {
 		mItems = items;
-//		mSeekOffset = (mStartTime * 1000);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -79,11 +77,7 @@ public class BuildPlayer implements Serializable {
 	public int getNumItems() {
 		return mItems.size();
 	}
-	
-	public int getNumListeners() {
-		return mListeners.size();
-	}
-	
+
 	/*
 	 * returns how much early warning is given to user of build items, in game seconds
 	 */
@@ -97,8 +91,7 @@ public class BuildPlayer implements Serializable {
 	public int getStartTime() {
 		return mStartTime;
 	}
-	// ..
-	
+
 	// ------------------------------------------------------------------------
 	// Mutators
 	// ------------------------------------------------------------------------	
@@ -116,16 +109,7 @@ public class BuildPlayer implements Serializable {
 	}
 	
 	public void removeListeners() {
-//		Log.w(this.toString(), "removeListeners() called");
 		mListeners.clear();
-	}
-	
-	public String getListenerStrings() {
-		String result = "";
-		for (BuildPlayerEventListener a : mListeners) {
-			result += a.toString() + " ";
-		}
-		return result;
 	}
 	
 	/*
@@ -177,23 +161,15 @@ public class BuildPlayer implements Serializable {
 			for (BuildPlayerEventListener listener : mListeners)
 				listener.onBuildPaused();
 			
-//			mPlayPauseButton.setText(PlaybackActivity.this.getString(R.string.playback_play));
 		} else if (mWasPaused && !mPaused) {
 			// paused -> playing
-//			mSeekOffset = (long)mCurrentGameTime;
 			updateReferencePoint();
 			
 			// fire onResume() event
 			for (BuildPlayerEventListener listener : mListeners)
 				listener.onBuildResumed();
 		}
-		
-//		if (mUserWasSeeking && !mUserIsSeeking) {
-//			// finished seeking
-//			mSeekOffset = mSeekBar.getProgress() * 1000;
-//			updateReferencePoint();
-//		}
-		
+
 		mWasStopped = mStopped;
 		mWasPaused = mPaused;
 		
@@ -315,7 +291,6 @@ public class BuildPlayer implements Serializable {
 
 		// convert from seconds (JSON build file) to ms (used internally)
 		while (mCurrentGameTime >= ((nextItem.getTime() - getAlertOffset()) * 1000)) {
-			//buildThisNow(mBuildPointer);
 			mBuildPointer++;
 			if (buildFinished())
 				return;
@@ -326,7 +301,7 @@ public class BuildPlayer implements Serializable {
 	
 	/*
 	 * checks if the user should be building/training any new units
-	 * since the last update (call to run()), and if so, tells the
+	 * since the last update (call to iterate()), and if so, tells the
 	 * user to build them.
 	 */
 	private void doBuildAlerts() {
@@ -345,7 +320,7 @@ public class BuildPlayer implements Serializable {
 		// we need to tell the user to build one or more units
 		// If the user has seeked back in time, this loop has no effect
 		while (mOldBuildPointer < mBuildPointer) {
-			// TODO: we don't really  want to call this if the user has seeked far ahead
+			// TODO: we don't really want to call this if the user has seeked far ahead
 			// (to prevent a barrage of build orders)
 			BuildItem item = mItems.get(mOldBuildPointer);
 			for (BuildPlayerEventListener listener : mListeners)

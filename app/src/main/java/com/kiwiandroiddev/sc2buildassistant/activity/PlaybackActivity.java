@@ -41,6 +41,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;
+import com.kiwiandroiddev.sc2buildassistant.domain.GameSpeeds;
 import com.kiwiandroiddev.sc2buildassistant.model.Build;
 import com.kiwiandroiddev.sc2buildassistant.model.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
@@ -70,21 +71,12 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
     private static final String KEY_BUILD_PLAYER_OBJECT = "BuildPlayer";
 
-	// StarCraft 2 game speed reference: http://wiki.teamliquid.net/starcraft2/Game_Speed
-	public static final double SLOWER_FACTOR = 0.6;
-	public static final double SLOW_FACTOR = 0.8;
-	public static final double NORMAL_FACTOR = 1.0;
-	public static final double FAST_FACTOR = 1.2;
-	public static final double FASTER_FACTOR = 1.4;
-	
 	public static final int TIME_STEP = 100;	// milliseconds between updates
-	
 	private Build mBuild;	// build order to play back, passed in by main activity
 	private BuildPlayer mBuildPlayer;
 	private DbAdapter mDb;
 	private Handler mHandler = new Handler();
 	private Queue<Integer> mPendingAlerts;		// values are indices of build items in the build
-    private double[] mIndexToMultiplier = { SLOWER_FACTOR, SLOW_FACTOR, NORMAL_FACTOR, FAST_FACTOR, FASTER_FACTOR };
 
     private View mTimerTextContainer;
 	private TextView mMaxTimeText;
@@ -185,7 +177,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 //        Log.w(this.toString(), "sharedPref identity = " + sharedPref.toString());
         sharedPref.registerOnSharedPreferenceChangeListener(this);		// notify this activity when settings change
         		
-		// hacky: initialize buildplayer with early warning preference
+		// hacky: initialize buildplayer with stored preferences
         this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_GAME_SPEED);
 		this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_EARLY_WARNING);
 		this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_START_TIME);
@@ -391,12 +383,15 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		}
 	}
 	
-	private void gameSpeedChanged(int index) {
-		mBuildPlayer.setTimeMultiplier(mIndexToMultiplier[index]);
-		String speed = getResources().getStringArray(R.array.pref_game_speed_text)[index];
+	private void gameSpeedChanged(int gameSpeedIndex) {
+		mBuildPlayer.setTimeMultiplier(
+				GameSpeeds.getMultiplierForGameSpeed(gameSpeedIndex, mBuild.getExpansion())
+		);
+		
+		String speed = getResources().getStringArray(R.array.pref_game_speed_text)[gameSpeedIndex];
 		Toast.makeText(this, String.format(getString(R.string.dlg_game_speed_alert), speed), Toast.LENGTH_LONG).show();
 	}
-	
+
 	//=========================================================================
 	// BuildPlayer callback methods follow
 	//=========================================================================
