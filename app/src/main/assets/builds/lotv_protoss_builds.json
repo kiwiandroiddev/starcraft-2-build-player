@@ -1,0 +1,544 @@
+[
+  {
+    "mCreated": "2016-05-01 14:20:31",
+    "mExpansion": "LOTV",
+    "mFaction": "PROTOSS",
+    "mSource": "<a href=\"http://imbabuilds.com/lotv-protoss/lotv-pvz/pvz-drogos-macro-phoenix-opener/\">ImbaBuilds</a>",
+    "mNotes": "<html><h2>General Overview</h2>
+<p>This build opens with an explosive 3 base economy before getting 2 Stargates for Phoenix for map control and scouting. While you are using the scouting Phoenix, you can transition into standard Chargelot/Archon/Immortal play or hit an aggressive 3 base timing.</p>
+<h2>Build Order</h2>
+14 – Pylon<br />
+17 – Nexus<br />
+18 – 1st Gateway<br />
+19 – 2 Assimilators<br />
+21 – 2nd Gateway<br />
+22 – @100% Gateway, start Cybernetics Core<br />
+@100% Cybernetics Core, start 2 Adepts, Warpgate Research, Mothership Core, and Pylon<br />
+@100% Adepts, start 2 more Adepts<br />
+@400 Mins, start 3rd Nexus, 2 Sentries, and 2 more Assimilators<br />
+@100% Sentries, start 2 Stargates and 3rd Sentry<br />
+@100% Stargates, start constant Phoenix production<br />
+Benchmark: When your 1st Phoenix finish (@5:30ish), you should have 4 Adepts, 3 Sentries, a Mothership Core, 2 Phoenix, and roughly 52 Probes.<br />
+<h2>Scouting</h2>
+
+<p>Because you are opening with a Nexus first, you should be on the look-out for any early Zergling rushes of any type. Use an initial Probe to scout for your opponent’s gas and 3rd base timing. If your opponent has opened up with Speedlings or appears to be staying on 2 bases, abandon this build (before starting your own 3rd Nexus) in favor of a less greedy 2 base opener. After any early game shenanigans are ruled out, as you have spotted your opponent’s third Hatchery going down, the rest of your scouting will come from your Phoenix.</p>
+
+<p>Use your Phoenix to first pick off every Overlord on the map that is undefended by creep/Queens.  Then use them to poke around your opponent’s base – picking up units not protected by Spore Crawlers/Queens.  Be sure to scout what tech structures your opponent is making.  If you spot a swell of Roaches, add defensive Pylons at your third and consider Void Rays. If you spot a Hydralisk Den, start a Twilight Council instantly and go for Chargelots.</p>
+
+<h2>Transitions</h2>
+
+<p>This build can either hit a timing off of 3 bases or use the strong 3 base economy to enter an early late game. In either case, you should only produce 6-8 Phoenix.</p>
+
+<p>If you are choosing to hit a 3 base timing with this build, be sure to start your Robotics Facility (for a Warp Prism), and go up to at least 8 Gateways before moving out.  Constantly reinforce with Adepts as you use your Phoenix/Adept army to walk through Speedlings, Hydras, and/or Mutalisks. Watch out for Lurker play, though!</p>
+
+<p>If you are choosing to play the macro game, use your huge 3 base economy to afford the late-game Chargelot/Archon/Immortal infrastructure. First start a Robotics Facility, Twilight Council, and Forge and all 6 Assimilators on only 4 Gateways. Then start Zealot Charge, +1 Ground Weapons, and a Templar Archives before adding your late game Gateways and 4th base.</p>
+
+<h2>Tips</h2>
+
+ - Spend all of your early game chronoboost on your two Nexus to maximize Probe production.<br />
+ - If you think after Probe scouting that your opponent is going for early aggression, feel free to stay on 2 bases and abandon this build in favor of a less greedy opener.<br />
+ - Use your initial Adepts to keep your opponent honest. But do not overcommit them by trying to get too much harassment done when your opponent is playing safe.<br />
+ - If possible, hide the Stargates somewhere in your base that is less likely to be scouted by an Overlord.<br />
+ - Chronoboost your Stargates to get out those Phoenix as quickly as possible. Only move out with at least 4.<br />
+ - Defending mid-game pushes comes down to Pylon placement, Photon Overcharge, and Forcefields, more than actual army.<br />
+ - A main strength of this build is its versatility, but you can only be versatile if you have the necessary scouting information.  Scouting your opponent’s tech path and army production with your Phoenix is crucial.<br />
+<h2>Pros and Cons</h2>
+
+<p>This build is an incredibly versatile build that opens up with a 3 base economy extremely quickly. It gets out early Phoenix for scouting and map control, but can still transition into a standard Chargelot/Archon/Immortal late game as well.</p>
+
+<p>However, this build requires a lot of APM and focus in order to execute.  Reacting to your opponent’s tech choices and unit composition while macroing effectively at home is not easy.</p>
+
+<h2>Favorable Maps</h2>
+
+<p>This build is strongest on larger maps where your opponent is less likely to attempt early pressure, and on maps with an easy-to-defend 3rd Nexus.
+<p>
+- Dusk Towers<br />
+- Orbital Shipyard<br />
+- Ruins of Seras<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"https://www.youtube.com/watch?v=jhTJ104bYb8&t=28m30s\">Drogo beating Bly with this build in the Dreamhack Leipzig 2016 Finals</a></p>
+
+<p><a href=\"http://ggtracker.com/matches/6444130\">Drogo’s Macro Phoenix Opener Tutorial Replay vs a Very Easy AI</a></p>
+",
+    "mItems": [
+      {
+        "mCount": 1,
+        "mTime": 20,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 36,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 46,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 60,
+        "mUnit": "nexus"
+      },
+      {
+        "mCount": 1,
+        "mTime": 60,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 72,
+        "mUnit": "gateway"
+      },
+      {
+        "mCount": 1,
+        "mTime": 74,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 81,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 84,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 88,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 95,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 106,
+        "mUnit": "gateway"
+      },
+      {
+        "mCount": 1,
+        "mTime": 107,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 117,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 123,
+        "mUnit": "cybernetics_core"
+      },
+      {
+        "mCount": 1,
+        "mTime": 131,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 134,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 141,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 145,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 152,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 155,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 2,
+        "mTime": 157,
+        "mUnit": "adept"
+      },
+      {
+        "mCount": 1,
+        "mTime": 162,
+        "mUnit": "warp_gate"
+      },
+      {
+        "mCount": 1,
+        "mTime": 165,
+        "mUnit": "mothership_core"
+      },
+      {
+        "mCount": 1,
+        "mTime": 171,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 174,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTarget": "gateway",
+        "mTime": 174,
+        "mUnit": "chrono_boost"
+      },
+      {
+        "mCount": 1,
+        "mTime": 185,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 187,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 189,
+        "mUnit": "adept"
+      },
+      {
+        "mCount": 1,
+        "mTime": 193,
+        "mUnit": "adept"
+      },
+      {
+        "mCount": 1,
+        "mTime": 195,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 207,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 2,
+        "mTime": 208,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 218,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 225,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 227,
+        "mUnit": "nexus"
+      },
+      {
+        "mCount": 1,
+        "mTime": 229,
+        "mUnit": "sentry"
+      },
+      {
+        "mCount": 1,
+        "mTime": 230,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 232,
+        "mUnit": "sentry"
+      },
+      {
+        "mCount": 1,
+        "mTime": 238,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 239,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 240,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 246,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 251,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 257,
+        "mUnit": "sentry"
+      },
+      {
+        "mCount": 1,
+        "mTime": 257,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 264,
+        "mUnit": "stargate"
+      },
+      {
+        "mCount": 1,
+        "mTime": 264,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 269,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 273,
+        "mUnit": "stargate"
+      },
+      {
+        "mCount": 1,
+        "mTime": 275,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 275,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 281,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 291,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 2,
+        "mTime": 294,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 2,
+        "mTime": 295,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 299,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 300,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 305,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 306,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 2,
+        "mTime": 308,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTarget": "stargate",
+        "mTime": 310,
+        "mUnit": "chrono_boost"
+      },
+      {
+        "mCount": 1,
+        "mTime": 313,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 1,
+        "mTime": 316,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTarget": "stargate",
+        "mTime": 317,
+        "mUnit": "chrono_boost"
+      },
+      {
+        "mCount": 2,
+        "mTime": 321,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 327,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 2,
+        "mTime": 327,
+        "mUnit": "gateway"
+      },
+      {
+        "mCount": 1,
+        "mTime": 329,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 1,
+        "mTime": 333,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 333,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 335,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 2,
+        "mTime": 336,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 338,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 345,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 349,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 350,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 1,
+        "mTime": 351,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 357,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 2,
+        "mTime": 363,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 3,
+        "mTime": 363,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 369,
+        "mUnit": "twilight_council"
+      },
+      {
+        "mCount": 1,
+        "mTime": 372,
+        "mUnit": "robotics_facility"
+      },
+      {
+        "mCount": 1,
+        "mTime": 374,
+        "mUnit": "forge"
+      },
+      {
+        "mCount": 1,
+        "mTime": 374,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 376,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 1,
+        "mTime": 379,
+        "mUnit": "phoenix"
+      },
+      {
+        "mCount": 1,
+        "mTime": 385,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 386,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 4,
+        "mTime": 386,
+        "mUnit": "adept"
+      },
+      {
+        "mCount": 1,
+        "mTime": 415,
+        "mUnit": "templar_archives"
+      },
+      {
+        "mCount": 1,
+        "mTime": 417,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 4,
+        "mTime": 418,
+        "mUnit": "adept"
+      }
+    ],
+    "mModified": "2016-05-01 14:20:31",
+    "mName": "Drogo's Macro Phoenix Opener",
+    "mVsFaction": "ZERG"
+  }
+]
