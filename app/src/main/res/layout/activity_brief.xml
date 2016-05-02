@@ -64,8 +64,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:marginRight="4dp"
-                        android:marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="@string/brief_source_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="16sp"/>
@@ -90,8 +90,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:marginRight="4dp"
-                        android:marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="@string/brief_author_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="16sp"/>
