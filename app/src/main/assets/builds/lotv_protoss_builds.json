@@ -1,5 +1,104 @@
 [
   {
+    "mName": "1 gate FE (Faster Nexus)",
+    "mCreated": "2016-04-25 17:58:50",
+    "mModified": "2016-04-25 17:58:50",
+    "mExpansion": "LOTV",
+    "mFaction": "PROTOSS",
+    "mItems": [
+      {
+        "mCount": 1,
+        "mTime": 10,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 18,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 21,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 34,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 38,
+        "mUnit": "gateway"
+      },
+      {
+        "mCount": 1,
+        "mTime": 45,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 54,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 55,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 66,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 77,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 82,
+        "mUnit": "nexus"
+      },
+      {
+        "mCount": 1,
+        "mTime": 87,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 95,
+        "mUnit": "cybernetics_core"
+      },
+      {
+        "mCount": 1,
+        "mTime": 98,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 109,
+        "mUnit": "pylon"
+      },
+      {
+        "mCount": 1,
+        "mTime": 109,
+        "mUnit": "probe"
+      },
+      {
+        "mCount": 1,
+        "mTime": 116,
+        "mUnit": "assimilator"
+      },
+      {
+        "mCount": 1,
+        "mTime": 125,
+        "mUnit": "probe"
+      }
+    ]
+  },
+  {
     "mCreated": "2016-05-01 14:20:31",
     "mExpansion": "LOTV",
     "mFaction": "PROTOSS",
