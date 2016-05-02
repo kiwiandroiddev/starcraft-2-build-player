@@ -1,0 +1,237 @@
+[
+  {
+    "mName": "aLive's Raven Expand",
+    "mModified": "2016-04-25 18:33:55",
+    "mCreated": "2016-04-25 18:33:55",
+    "mSource": "<a href=\"http://imbabuilds.com/lotv-terran/lotv-tvt/tvt-alives-raven-expand/\">ImbaBuilds</a>",
+    "mExpansion": "LOTV",
+    "mFaction": "TERRAN",
+    "mVsFaction": "TERRAN",
+    "mNotes": "<html><h2>General Overview</h2>
+
+<p>This fast expansion build uses a lot of scouting in order to stay safe against Reapers and Banshees, getting out enough Marines and the infrastructure needed to defend all sorts of aggression that early-game TvT can have.</p>
+
+<h2>Build Order</h2>
+<p>
+14 – Supply Depot<br />
+15 – Refinery<br />
+16 – Barracks<br />
+19 – 2nd Refinery<br />
+20 – @100% Barracks, start Factory and Orbital Command<br />
+Start constant Marine production (up to 3)<br />
+24 – @100% Factory, start Starport, Tech lab on Factory, and Reactor on Barracks<br />
+27 – @400 Mins, start 2nd Command Center<br />
+@100% Starport, swap onto Tech lab and start a Raven, start a Tech lab on Factory<br />
+@150 Gas, start Cyclone<br />
+Benchmark: When your Raven pops (@3:50ish), you should have 26 SCVs, 5 Marines, 1 Raven, and 1 Cyclone almost done.<br />
+</p>
+<h2>Scouting</h2>
+
+<p>Figuring out your opponent’s opening so that you can react appropriately when you are performing this build is crucial.  Therefore, it is strongly suggested that you SCV scout around 16 or 17 supply in order to see whether your opponent has opened gas first or not.</p>
+
+<p>If your SCV gets into your opponent’s base and sees a Refinery and a Marine, try and stick around to see what add-ons your opponent is making. A fast Tech lab usually will be swapped off onto the Starport for a fast Banshee.  A fast Reactor can be used to swap off and go for Hellions.  Against Hellion play, build your Command Center and keep your Marines on the high ground.</p>
+
+<p>If you get into your opponent’s base and see multiple Barracks or a Reaper pop out, expect early Reaper harassment. Against Reaper play, build your Command Center and position your Marines on the high ground.  If your opponent commits to multiple Barracks, maintain constant Marine production and get a Hellion from your Factory instead of an initial Tech lab. With a Reactored Hellion follow-up you can seize map control and deal with Reapers quite easily.</p>
+
+<p>If your opponent is opening with an expansion of their own or has mined the same amount of gas as you have, then consider cutting the Raven and going into delayed Cloaked Banshee OR Siege Tank production of your own.  Whichever you choose is personal preference.</p>
+
+<p>When your second Orbital Command finishes and you are still worried about a 1 base play, consider scanning your opponent’s main base.  Against 1 base non-Banshee play, starting Siege Tanks and using your Raven for Turrets is an easy way to stay safe.  Against 1 base Banshee play, position your Cyclone and Raven near your production or mineral line as you start a Viking or two for extra defense.</p>
+
+<h2>Transitions</h2>
+
+<p>Because this build opens with every tech building, this build transitions quite strongly into either Marine/Tank/Medivac or Mech play.</p>
+
+<p>When transitioning into Marine/Tank play, against Mech and 3CC builds you can get away with starting your 3rd Command Center right away and following-up with 2 Barracks with Tech labs (to start Stimpack/Combat Shields), 3 Refineries, and 2 Engineering bays.</p>
+
+<p>Against a player opening straight into Bio play or aggressive Marine/Tank play, however, it is necessary to start a Tech lab on your initial Barracks as soon as possible for a quicker Stimpack.  Then, you can build a 2nd Barracks onto the naked Reactor and start Siege Tank production to take yourself into the midgame. This is followed up by a 3rd Command Center, 1 more Barracks, both Refineries at your natural expansion, and 2 Engineering Bays.  Not having Stimpack completed in time for the inevitable 10ish minute drop play can be a game changer because with Medivacs boosting around your main and natural, it is very easy to get caught out of position and take a lot of damage for free.</p>
+
+<p>Another possible follow-up is going for Mech play. By starting a 3rd Command Center instantly, getting all 4 Refineries, and making 2 more Factories and an Armory, you’ll instantly be at the midgame infrastructure you need.  Be sure to make Vikings for drop defense and start your Siege Tank production as son as possible so that you have a healthy Siege Tank count to defend any early drops/pressure.</p>
+
+<h2>Tips</h2>
+<p>
+ - <b>Fully read the Scouting section of this build</b> before performing it in a game.  The reactions to scouting information as presented in the Scouting section must be learned before this build is even worth performing in a real game.<br />
+ - SCV scout with this build at 16 or 17 supply.<br />
+ - Cyclones shut down Banshees hard. However, make sure you have enough energy to Scan an escaping Banshee in order to take advantage of the huge range of the Cyclone’s lock-on ability.<br />
+ - Anticipate how many Banshees your opponent is making and either continue to produce Vikings or stop after 1 or 2 for safety.<br />
+ - Be sure to transition into your midgame infrastructure as soon as you have successfully defended any 1 base play.<br />
+</p>
+<h2>Pros and Cons</h2>
+
+<p>This build defends early pressure quite easily, while getting a quick expansion and going into the midgame.  Also, this build is incredibly versatile when it comes to transitions, for opening with a 1/1/1 grants you the freedom to transition into nearly anything.</p>
+
+<p>However, this build requires a lot of scouting in order to be performed effectively. The reactions and transitions you must perform depend entirely on your scouting information and interpretation of your opponent’s build order.</p>
+
+<h2>Favorable Maps</h2>
+
+<p>This build is very strong on maps with smaller cliff ranges that Reapers can jump up, encouraging Banshee play.</p>
+<p>
+ - Dusk Towers<br />
+ - Prion Terraces<br />
+ - Lerilak Crest<br />
+ - Ruins of Seras<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"https://www.youtube.com/watch?v=ab74hhlOvDg#t=6m20s\">aLive beating Bbyong with this build during SPL 2016</a></p>
+
+<p><a href=\"http://ggtracker.com/matches/6451978\">aLive’s Raven Expand Tutorial Replay vs a Very Easy AI</a></p>
+</html>",
+    "mItems": [
+      {
+        "mCount": 1,
+        "mTime": 13,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 18,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 25,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 38,
+        "mUnit": "refinery"
+      },
+      {
+        "mCount": 1,
+        "mTime": 40,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 45,
+        "mUnit": "barracks"
+      },
+      {
+        "mCount": 1,
+        "mTime": 52,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 64,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 65,
+        "mUnit": "refinery"
+      },
+      {
+        "mCount": 1,
+        "mTime": 76,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 93,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 96,
+        "mUnit": "factory"
+      },
+      {
+        "mCount": 1,
+        "mTime": 107,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 111,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 118,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 118,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 129,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 130,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 141,
+        "mUnit": "starport"
+      },
+      {
+        "mCount": 1,
+        "mTime": 142,
+        "mUnit": "tech_lab"
+      },
+      {
+        "mCount": 1,
+        "mTime": 178,
+        "mUnit": "command_center"
+      },
+      {
+        "mCount": 1,
+        "mTime": 187,
+        "mUnit": "raven"
+      },
+      {
+        "mCount": 1,
+        "mTime": 190,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 191,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 192,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 196,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 213,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 213,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 219,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 219,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 225,
+        "mUnit": "scv"
+      }
+    ]
+  }
+]
