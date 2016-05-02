@@ -233,5 +233,353 @@ Benchmark: When your Raven pops (@3:50ish), you should have 26 SCVs, 5 Marines, 
         "mUnit": "scv"
       }
     ]
+  },
+  {
+    "mName": "ForGG's Marine/Hellbat Timing",
+    "mSource": "<a href=\"http://imbabuilds.com/lotv-terran/lotv-tvz/tvz-forggs-marine-hellbat-timing/\">ImbaBuilds</a>",
+    "mCreated": "2016-04-27 22:43:25",
+    "mModified": "2016-04-27 22:43:25",
+    "mExpansion": "LOTV",
+    "mFaction": "TERRAN",
+    "mVsFaction": "ZERG",
+    "mNotes": "<html><h2>General Overview</h2>
+
+<p>This Reaper FE build takes your economy immediately into the midgame while still hitting an early 5 minute Marine Hellbat timing to punish a greedy Zerg.</p>
+
+<h2>Build Order</h2>
+<p>
+14 – Supply Depot<br />
+16 – Barracks<br />
+16 – Refinery<br />
+19 – @100% Barracks, start Orbital Command and a Reaper<br />
+20 – @400 Mins, start 2nd Command Center<br />
+22 – @100% Reaper, start Marine<br />
+23 – @150 Gas, start Factory, Reactor on Barracks, and 2nd Refinery<br />
+@100% 2nd Command Center, start Orbital Command<br />
+@100% Factory, swap off onto Reactor, start Starport<br />
+Constant Marine/Hellion production<br />
+@100 Gas, start Armory<br />
+@100% Starport, start Medivac<br />
+Push out when your Medivac finishes (@4:15ish) with 6 Hellions, 4 Marines, 1 Medivac, and around 34 SCVs at home. Morph your Hellions into Hellbats before the engagement.<br />
+</p>
+<h2>Scouting</h2>
+
+<p>SCV scouting is not necessary because your Reaper will be out in time to deal with any early shenanigans. With this Reaper, take map control, spot your opponent’s gas timing(s), and check for a lot of Queens or Roaches. Be on the look-out for a 3rd Hatchery.</p>
+
+<p>With your first Hellions, you can continue to pressure the front and scout your opponent slightly more thoroughly.</p>
+<p>
+ - If you see a ton of Speedlings, then make sure your Hellion micro is on point. Feel free to pull back to more effectively deal with Speedlings. Keep your Hellions alive so that your later push is stronger.<br />
+ - If you see Roaches and only 2 bases, then immediately cut Reactor Hellion production and start making Widow Mines two at a time. Cancel the attack and instead go for a Bunker, 3rd base, and Marauders as you defend.<br />
+ - If you see two Evolution Chambers or a 3rd base, then assume your opponent is playing a macro game, and continue with the attack.<br />
+</p>
+<h2>Transitions</h2>
+
+<p>This build transitions pretty easily into standard Marine/Marauder/Medivac/Mine play, Marine/Tank/Medivac play, and Mech play.</p>
+
+<p>For either the Bio/Mine or Marine/Tank transition, as you are pushing out, instantly start your 3rd Command Center, Tech lab on your Barracks for Stimpack, and 2 Engineering Bays.  It is also strongly suggested that you continue Medivac and Marine production before adding on more Barracks so that you can continue unrelenting drop play and keep your opponent on their half of the map while you are attempting to take your own third and get into your comfortable late-game infrastructure.  When your Engineering Bays finish, be sure to start your Infantry upgrades, all of your Refineries, and throw down up to 5 more Barracks to be able to pump out a 3 base army.</p>
+
+<p>If you are going for Marine/Marauder/Medivac/Mine play, be sure to start a Reactor on your naked Factory and start Widow Mine production (adding a 2nd Factory with a Tech lab for the Widow Mine upgrade once you have later secured your third).</p>
+
+<p>If you are going for a Marine/Tank/Medivac play, be sure to start a Tech lab on your naked Factory and start Siege Tank production (adding a 2nd Factory with a Tech lab once you have later secured your third).</p>
+
+<p>If you are going for a Mech followup, be sure to start your 3rd Command Center, all your Refineries, and 2 more Factories. Get +1 Vehicle Weapons, and start Siege Tanks (and/or Liberators) early to defend any Roach pushes. Use your first push to scout for a likely Roach or Mutalisk followup.</p>
+
+<h2>Tips</h2>
+<p>
+ - Do NOT over commit with your initial Hellions.  Use them exclusively for scouting purposes in the early game; their true purpose is to bolster your ground army in the actual Marine Hellbat timing attack.<br />
+ - Against any all-ins with this build, you must rely on your Bunker placement, SCV control, and scouting it coming.  Be active on the map with your first Hellions so that you know what is coming your way before it gets to your doorstep.<br />
+ - Do NOT clump up against Banelings.  Your opponent should not be able to have that many Banelings by the 5 minute attack, but be sure to spread your army and micro appropriately if you see Banelings on the field.<br />
+ - Remember to pick up your Marines into the Medivacs and boost away as soon as your army is finally overtaken.  Keeping your opponent on their side of the map while you set up your own 3rd base is crucial.<br />
+ - Save at least one scan to kill creep.  As a Zerg, losing your initial midgame creep and a Queen or two spreading it can be devastating for the later stages of the game.<br />
+</p>
+<h2>Pros and Cons</h2>
+
+<p>This build opens somewhat economically, quickly transitioning into an timing and hitting your opponent with a lot of units at the 5 minute mark before they can even stabilize their third base economy.  It is a very strong build for punishing greedy Zergs.</p>
+
+<p>However, while you are opening with 2 Command Centers, it is definitely not nearly as macro-oriented as a more standard Reactor Hellion 3CC build. If your opponent spots this attack early and overproduces units to defend, you will have to pick up and rely on drop play instead of a large frontal assault to get an advantage.</p>
+
+<h2>Favorable Maps</h2>
+
+<p>This build is strongest on smaller maps so that your opponent has less time to prepare an ample defense.</p>
+<p>
+Orbital Shipyard<br />
+Prion Terraces<br />
+Ulrena<br />
+Lerilak Crest<br />
+</p>
+<h2>Replays</h2>
+
+<p><a href=\"http://ggtracker.com/matches/6453020\">Masters League AM example replay</a></p>
+
+<p><a href=\"http://ggtracker.com/matches/6433860\">ForGG’s Marine/Hellbat Timing Tutorial Replay vs a Very Easy AI</a></p>
+</html>",
+    "mItems": [
+      {
+        "mCount": 1,
+        "mTime": 25,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 39,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 41,
+        "mUnit": "barracks"
+      },
+      {
+        "mCount": 1,
+        "mTime": 46,
+        "mUnit": "refinery"
+      },
+      {
+        "mCount": 1,
+        "mTime": 51,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 64,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 76,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 90,
+        "mUnit": "reaper"
+      },
+      {
+        "mCount": 1,
+        "mTime": 102,
+        "mUnit": "command_center"
+      },
+      {
+        "mCount": 1,
+        "mTime": 113,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 115,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 116,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 122,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 127,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 130,
+        "mUnit": "refinery"
+      },
+      {
+        "mCount": 1,
+        "mTime": 138,
+        "mUnit": "factory"
+      },
+      {
+        "mCount": 1,
+        "mTime": 139,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTarget": "barracks",
+        "mTime": 139,
+        "mUnit": "reactor"
+      },
+      {
+        "mCount": 1,
+        "mTime": 151,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 164,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 176,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 180,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 188,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 189,
+        "mUnit": "starport"
+      },
+      {
+        "mCount": 2,
+        "mTime": 191,
+        "mUnit": "hellion"
+      },
+      {
+        "mCount": 1,
+        "mTime": 196,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 200,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 200,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 205,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 205,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 210,
+        "mUnit": "armory"
+      },
+      {
+        "mCount": 1,
+        "mTime": 212,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 2,
+        "mTime": 214,
+        "mUnit": "hellion"
+      },
+      {
+        "mCount": 1,
+        "mTime": 220,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 1,
+        "mTime": 222,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 225,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 229,
+        "mUnit": "medivac"
+      },
+      {
+        "mCount": 1,
+        "mTime": 231,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 234,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 237,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 238,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 2,
+        "mTime": 245,
+        "mUnit": "hellion"
+      },
+      {
+        "mCount": 1,
+        "mTime": 247,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 248,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 249,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 257,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 258,
+        "mUnit": "tech_lab"
+      },
+      {
+        "mCount": 2,
+        "mTime": 267,
+        "mUnit": "hellion"
+      },
+      {
+        "mCount": 2,
+        "mTime": 268,
+        "mUnit": "scv"
+      },
+      {
+        "mCount": 1,
+        "mTime": 269,
+        "mUnit": "mule"
+      },
+      {
+        "mCount": 1,
+        "mTime": 274,
+        "mUnit": "supply_depot"
+      },
+      {
+        "mCount": 1,
+        "mTime": 279,
+        "mUnit": "marine"
+      },
+      {
+        "mCount": 2,
+        "mTime": 280,
+        "mUnit": "scv"
+      }
+    ]
   }
 ]
