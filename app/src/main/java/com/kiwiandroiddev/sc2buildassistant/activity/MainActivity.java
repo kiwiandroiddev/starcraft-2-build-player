@@ -72,8 +72,11 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 	public static final int REQUEST_OPEN = 2;			// open file request code for importing builds
-	private static final String KEY_EXPANSION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.ExpansionChoice";
+    private static final String KEY_EXPANSION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.ExpansionChoice";
 	private static final String KEY_FACTION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.FactionChoice";
+
+    public static final Expansion DEFAULT_EXPANSION_SELECTION = Expansion.LOTV;
+    public static final Faction DEFAULT_FACTION_SELECTION = Faction.TERRAN;
 
     private RaceFragmentPagerAdapter mPagerAdapter;
 	private FragmentManager mManager;
@@ -415,15 +418,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_FACTION_SELECTION, index);
     }
 
-    /** Now defaults to Heart of the Swarm */
     private int getSavedExpansionSelection() {
         return getDefaultSharedPreferences()
-                .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, Expansion.HOTS.ordinal());
+                .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, DEFAULT_EXPANSION_SELECTION.ordinal());
     }
 
     private int getSavedFactionSelection() {
         return getDefaultSharedPreferences()
-                .getInt(SettingsActivity.KEY_FACTION_SELECTION, Faction.TERRAN.ordinal());
+                .getInt(SettingsActivity.KEY_FACTION_SELECTION, DEFAULT_FACTION_SELECTION.ordinal());
     }
 
 }
