@@ -1,10 +1,61 @@
 [
   {
     "mName": "1 gate FE (Faster Nexus)",
+    "mSource": "<a href=\"http://imbabuilds.com/lotv-protoss/lotv-pvt/pvt-1gate-fe/\">ImbaBuilds</a>",
     "mCreated": "2016-04-25 17:58:50",
     "mModified": "2016-04-25 17:58:50",
     "mExpansion": "LOTV",
     "mFaction": "PROTOSS",
+    "mNotes": "<html><h2>General Overview</h2>
+
+<p>This opener gets a quick Nexus, while still getting an early Adept. It provides both a strong economy and good scouting opportunities.</p>
+
+<h2>Faster Nexus Build Order</h2>
+<p>
+14 – Pylon<br />
+16 – Gateway<br />
+17 – Assimilator<br />
+Rally Probes into gas slowly<br />
+20 – Nexus<br />
+21 – @100% Gateway, start Cybernetics Core, Pylon<br />
+For a fast tech follow-up, also get 2nd Assimilator<br />
+24 – @100% Cybernetics Core, start Adept and Warpgate Research<br />
+Benchmark: When you start your Adept (@2:10ish), you should have 23 Probes.<br />
+</p>
+<h2>Faster Adept Build Order
+<p>
+14 – Pylon<br />
+16 – Gateway<br />
+17 – Assimilator<br />
+20 – Nexus<br />
+20 – @100% Gateway, start Cybernetics Core, Pylon<br />
+23 – Nexus<br />
+25 – @100% Cybernetics Core, start Adept and Warpgate Research<br />
+For a fast tech follow-up, also get 2nd Assimilator<br />
+Benchmark: When you start your Adept (@2:00ish), you should have 23 Probes.<br />
+</p>
+<h2>Scouting</h2>
+
+<p>Probe scouting with this build is optional because you are following up with a fast Adept. However, if you are worried about quick cheese, or want to spot if your opponent is going for a gas first or Reaper build, Probe scout with the worker who starts the Gateway.</p>
+
+<p>Use your first Adept to take map control and scout your opponent’s front. Alternatively, if your opponent has a Reaper on the map, you can keep your Adept back in order to prevent the Reaper from scouting your midgame transition. Watch for 1 base play, signifying early drops or air harass, or normal bio openers.</p>
+
+<h2>Transitions</h2>
+
+<p>This build gives you a strong 2 base economy quickly and allows you to transition to any midgame build. For instance, you can start a Robotics Facility and go for a Disruptor drop, or Adept drop, a Twilight Council and go for fast Blink or Dark Templars, a Stargate and go for an Oracle or Phoenix, or even a quick 3rd expansion. With any tech build, you should get a 2nd Assimilator at 21 supply. Typically your next 100 or 150 gas after this build ends goes into the tech building of choice, with the Mothership Core soon afterwards for fast defense.</p>
+
+<h2>Pros and Cons</h2>
+
+<p>This build is a flexible macro opener that allows you to transition into almost any build order. However, it does not allow you to apply (much) early game pressure to your opponent. Furthermore, it is slightly less economical than a Nexus first build.</p>
+
+<p>The faster Nexus build requires you to cut a single Probe while you are supply blocked at 23. The faster Nexus build expands roughly 20 seconds earlier than the faster Adept build, while getting the Adept roughly 10 seconds slower. The faster Adept build is typically followed by an instantaneous tech building (i.e. Stargate) so that your harass (i.e. Oracle) hits as fast as possible. It is more common to see pros perform the faster Nexus 1gate FE because they value the economy more than the harassment potential.</p>
+
+<h2>Replays</h2>
+
+<p><a href=\"http://ggtracker.com/matches/6511505\">1gate FE Faster Nexus Tutorial Replay vs a Very Easy AI</a></p>
+
+<p><a href=\"http://ggtracker.com/matches/6511506\">1gate FE Faster Adept Tutorial Replay vs a Very Easy AI</a></p>
+</html>",
     "mItems": [
       {
         "mCount": 1,
@@ -160,7 +211,7 @@ Benchmark: When your 1st Phoenix finish (@5:30ish), you should have 4 Adepts, 3 
 <p><a href=\"https://www.youtube.com/watch?v=jhTJ104bYb8&t=28m30s\">Drogo beating Bly with this build in the Dreamhack Leipzig 2016 Finals</a></p>
 
 <p><a href=\"http://ggtracker.com/matches/6444130\">Drogo’s Macro Phoenix Opener Tutorial Replay vs a Very Easy AI</a></p>
-",
+</html>",
     "mItems": [
       {
         "mCount": 1,
