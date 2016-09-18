@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class GameSpeedsTest {
 
-    public static final int SLOWER_INDEX = 0;
+    private static final int SLOWER_INDEX = 0;
     private static final int SLOW_INDEX = 1;
     private static final int NORMAL_INDEX = 2;
     private static final int FAST_INDEX = 3;
