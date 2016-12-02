@@ -14,7 +14,6 @@
     <string name="menu_export_build">Exporter</string>
     <string name="menu_import_build">Importer un build#8230;</string>
     <string name="menu_preview">Avant-première</string>
-    <string name="title_activity_main">Starcraft 2 Build Player</string>
 	<string name="playback_stop">Arrêter</string>
 	<string name="playback_play">Jouer</string>
 	<string name="playback_pause">Pause</string>

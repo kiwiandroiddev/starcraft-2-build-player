@@ -13,8 +13,7 @@
     <string name="menu_delete_item">Удалить</string>
     <string name="menu_export_build">Экспорт</string>
     <string name="menu_import_build">Импортировать гайд&#8230;</string>
-    
-    <string name="title_activity_main">StarCraft 2 Build Player</string>
+
 	<string name="playback_stop">Стоп</string>
 	<string name="playback_play">Играть</string>
 	<string name="playback_pause">Пауза</string>
@@ -37,19 +36,19 @@
 	<string name="pref_upgrade_to_pro_summary">Никакой рекламы, больше функций!</string>
 	<string name="pref_tracking_title">Улучшить это приложение</string>
 	<string name="pref_tracking_summary">Разрешить отправление анонимной информации, чтобы мы могли сделать приложение лучше</string>
-	
-	
-	
+
+
+
 	<string name="pref_translate_title">Перевод</string>
-	
+
 	<string name="numberpicker_units_label">Игровые секунды</string>
 	<string name="race_terran">Терран</string>
 	<string name="race_protoss">Протосс</string>
 	<string name="race_zerg">Зерг</string>
-	
+
 	<string name="expansion_wol">Крылья свободы</string>
 	<string name="expansion_hots">Сердце роя</string>
-	
+
 	<string name="dlg_tts_install_prompt">Не найдет драйвер конвертирования текста в речь. Установить сейчас?</string>
 	<string name="dlg_yes">Да</string>
 	<string name="dlg_no">Нет</string>
@@ -64,8 +63,8 @@
 	<string name="dlg_invalid_filename">Неправильное название!</string>
 	<string name="dlg_wrote_file_to_dir">Успешно переписано их %1$s в %2$s</string>
 	<string name="dlg_couldnt_write_file">Ошибка! Не удалось записать %1$s, причина: %2$s</string>
-	
-	
+
+
 	<string name="error_unknown_author">Неизвестный источник</string>
 	<string name="error_couldnt_create_builds_dir">Ошибка: невозможно создать папку %1$s. Проверьте SD карту</string>
 	<string name="add_build_footer">Добавить гайд&#8230;</string>
@@ -99,33 +98,33 @@
 	<string name="item_type_upgrade">Обновить</string>
 	<string name="item_type_ability">Умение</string>
 	<string name="item_type_note">Прочее</string>
-	
-	
-	
+
+
+
 	<!-- Edit item dialog -->
-	
+
 	<string name="dlg_amount_label">Сумма</string>
 	<string name="dlg_time_label">Время</string>
-	
+
 	<string name="dlg_target_label">Цель</string>
-	
-	
+
+
 	<string name="dlg_clear_label">Очистить</string>
-		
+
 	<!-- Preview Notes dialog -->
-	
-	
+
+
 	<!-- Insert Link dialog -->
-	
-	
-	
-	
+
+
+
+
 	<!-- Changelog -->
 	<string name="changelog_full_title">Список изменений</string>
     <string name="changelog_title">Что нового:</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">подробнее&#8230;</string>
-	
+
     <!-- File Dialog -->
     <string name="location">Местоположение</string>
     <string name="cant_read_folder">Папка не может быть прочитана!</string>
@@ -136,36 +135,36 @@
     <string name="create">Сохранить</string>
     <string name="no_data">Нет данных</string>
     <string name="err">Ошибка</string>
-    
+
     <!-- Action Verbs -->
     <!--   Generic (fallback)   -->
     <string name="verb_structure_generic">Строить</string>
-    
-    
-    
-    
+
+
+
+
     <!--   Zerg   -->
-    
-    
-    
+
+
+
     <!--   Protoss   -->
-    
-    
-   
+
+
+
     <!-- sentence templates for build item alerts -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
     <!-- Game Items -->
 	<string name="gameitem_note">Ошибка</string>
-	
+
 	<string name="gameitem_armory">Оружейная</string>
 	<string name="gameitem_banshee">Банши</string>
 	<string name="gameitem_barracks">Казармы</string>
@@ -183,51 +182,51 @@
 	<string name="gameitem_ghost_academy">Академия призраков</string>
 	<string name="gameitem_hellbat">Геллитрон</string>
 	<string name="gameitem_hellion">Геллион</string>
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	<string name="gameitem_marauder">Мародер</string>
 	<string name="gameitem_marine">Морпех</string>
 	<string name="gameitem_medivac">Медэвак</string>
-	
+
 	<string name="gameitem_mule">Вызвать МУЛ</string>
-	
+
 	<string name="gameitem_planetary_fortress">Планетарная крепость</string>
 	<string name="gameitem_raven">Ворон</string>
 	<string name="gameitem_reactor">Реактор</string>
 	<string name="gameitem_reaper">Головорез</string>
-	
+
 	<string name="gameitem_scv">КСМ</string>
 	<string name="gameitem_seeker_missile">Самонаводящаяся ракета</string>
-	
-	
-	
-	
+
+
+
+
 	<string name="gameitem_stim_pack">Стимпак</string>
-	
+
 	<string name="gameitem_tech_lab">Техническая лаборатория</string>
 	<string name="gameitem_thor">ТОР</string>
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	<string name="gameitem_viking">Викинг</string>
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	<string name="gameitem_archon">Архонт</string>
 	<string name="gameitem_assimilator">Ассимилятор</string>
 	<string name="gameitem_blink">Скачок</string>
@@ -236,113 +235,113 @@
 	<string name="gameitem_chrono_boost">Ускорение</string>
 	<string name="gameitem_colossus">Колосс</string>
 	<string name="gameitem_cybernetics_core">Кибернетическое ядро</string>
-	
+
 	<string name="gameitem_dark_templar">Темный тамплиер</string>
-	
-	
+
+
 	<string name="gameitem_forge">Кузница</string>
 	<string name="gameitem_gateway">Открытые врата</string>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	<string name="gameitem_high_templar">Высший тамплиер</string>
 	<string name="gameitem_immortal">Бессмертный</string>
-	
+
 	<string name="gameitem_mothership">Материнский корабль</string>
 	<string name="gameitem_mothership_core">Материнское ядро</string>
 	<string name="gameitem_nexus">Нексус</string>
 	<string name="gameitem_observer">Наблюдатель</string>
 	<string name="gameitem_oracle">Оракул</string>
 	<string name="gameitem_phoenix">Феникс</string>
-	
+
 	<string name="gameitem_photon_cannon">Фотонная пушка</string>
-	
+
 	<string name="gameitem_psi_storm">Пси-шторм</string>
 	<string name="gameitem_pylon">Пилон</string>
 	<string name="gameitem_robotics_bay">Завод роботехники</string>
-	
+
 	<string name="gameitem_sentry">Часовой</string>
-	
-	
-	
+
+
+
 	<string name="gameitem_stalker">Сталкер</string>
 	<string name="gameitem_stargate">Звездные врата</string>
 	<string name="gameitem_tempest">Храм</string>
 	<string name="gameitem_templar_archives">Тамплиерские архивы</string>
 	<string name="gameitem_transform_to_gateway">Закрыть врата</string>
 	<string name="gameitem_transform_to_warp_gate">Открыть врата</string>
-	
-	
-	
-	
+
+
+
+
 	<string name="gameitem_warp_prism">Призма вызова</string>
 	<string name="gameitem_zealot">Зилот</string>
-	
+
 	<string name="gameitem_baneling">Бейлинг</string>
-	
-	
+
+
 	<string name="gameitem_burrow">Закопаться</string>
-	
-	
+
+
 	<string name="gameitem_drone">Рабочий</string>
-	
-	
+
+
 	<string name="gameitem_extractor">Экстрактор</string>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<string name="gameitem_hydralisk">Гидралиск</string>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 	<string name="gameitem_mutalisk">Муталиск</string>
 	<string name="gameitem_nydus_network">Сеть Нидус</string>
 	<string name="gameitem_nydus_worm">Нидус червь</string>
 	<string name="gameitem_overlord">Владыка</string>
-	
-	
-	
+
+
+
 	<string name="gameitem_queen">Королева</string>
 	<string name="gameitem_roach">Таракан</string>
-	
-	
+
+
 	<string name="gameitem_spawning_pool">Омут рождения</string>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<string name="gameitem_ultralisk">Ультралиск</string>
 	<string name="gameitem_ultralisk_cavern">Логово ультралиска</string>
-	
-	
+
+
 	<string name="gameitem_zergling">Зерглинг</string>
-	
+
 </resources>

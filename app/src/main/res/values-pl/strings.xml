@@ -14,7 +14,6 @@
     <string name="menu_export_build">Eksportuj </string>
     
     <string name="menu_preview">Podgląd </string>
-    <string name="title_activity_main">StarCraft 2 Build Player</string>
 	<string name="playback_stop">Zatrzymaj</string>
 	<string name="playback_play">Graj</string>
 	<string name="playback_pause">Pauza </string>
