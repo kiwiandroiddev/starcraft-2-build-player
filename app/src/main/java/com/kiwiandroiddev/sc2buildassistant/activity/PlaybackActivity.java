@@ -37,7 +37,7 @@ import com.google.analytics.tracking.android.StandardExceptionParser;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;

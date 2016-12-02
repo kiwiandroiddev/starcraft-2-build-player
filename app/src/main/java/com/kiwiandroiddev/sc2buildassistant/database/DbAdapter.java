@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.adapter;
+package com.kiwiandroiddev.sc2buildassistant.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -60,8 +61,12 @@ public class DbAdapter {
     private static Map<Expansion, Integer> sExpansionNameMap = new HashMap<Expansion, Integer>();
 
     private static final String DB_NAME = "build_order_db";
-    private static final int DB_VERSION = 48;
-    private static final String TAG = "DbAdapter";    // to use in log messages
+
+    // v2.1.5 -> db 48
+    // v2.5.0 -> db 49
+    private static final int DB_VERSION = 49;
+
+    private static final String TAG = "DbAdapter";
 
     // used for storing build creation and modified times as text fields (SQLite doesn't have a datetime type)
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -88,7 +93,6 @@ public class DbAdapter {
     /**
      * Database creation SQL statements
      */
-
     public static final String TABLE_EXPANSION = "expansion";    // WoL, HotS, LotV
     public static final String TABLE_FACTION = "faction";        // terran, protoss or zerg
     public static final String TABLE_BUILD_ORDER = "build_order";
@@ -143,19 +147,12 @@ public class DbAdapter {
      * Default SORT BY clauses for each table
      */
     public static final String TABLE_BUILD_ORDER_DEFAULT_SORT = (KEY_VS_FACTION_ID + ", " + KEY_NAME);
-    // ..
 
-    /**
-     * BuildDBAdapter Member variables
-     */
     private Context mContext;
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
     private boolean isOpen = false;
 
-    /**
-     * Initialize static variables
-     */
     static {
         // TODO: duplication of knowledge from addStaticData() method. Can't actually guarantee these IDs. They should be queried from the DB
         sItemTypeToIdMap.put(ItemType.UNIT, (long) 1);
@@ -201,27 +198,17 @@ public class DbAdapter {
         sExpansionNameMap.put(Expansion.LOTV, R.string.expansion_lotv);
     }
 
-    /**
-     * Static convenience methods
-     */
-
-    /**
-     * returns a string resource ID
-     */
+    @StringRes
     public static int getItemTypeName(ItemType type) {
         return sItemTypeNameMap.get(type);
     }
 
-    /**
-     * returns a string resource ID
-     */
+    @StringRes
     public static int getFactionName(Faction race) {
         return sFactionNameMap.get(race);
     }
 
-    /**
-     * returns a string resource ID
-     */
+    @StringRes
     public static int getExpansionName(Expansion game) {
         return sExpansionNameMap.get(game);
     }
@@ -231,12 +218,17 @@ public class DbAdapter {
      */
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
+        private Map<Integer, Patch> PATCHES;
+
         private boolean mNeedsStaticDataAdded = false;
         private Context mContext;
 
         DatabaseHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);
             mContext = context;
+
+            PATCHES = new HashMap<>();
+            PATCHES.put(48, new PatchFrom48To49());
         }
 
         @Override
@@ -310,40 +302,32 @@ public class DbAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                    + newVersion);
+            Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
 
-            // TODO: add LotV row to expansion table
-            // 2.1.5 -> db 48
-            // run pragma user-version to check
-
-            if (oldVersion <= 46) {
-                // 48: added date created and date modified to Build table
-                db.execSQL(String.format("ALTER TABLE %s ADD COLUMN %s TEXT", TABLE_BUILD_ORDER, KEY_CREATED));
-                db.execSQL(String.format("ALTER TABLE %s ADD COLUMN %s TEXT", TABLE_BUILD_ORDER, KEY_MODIFIED));
-
-                // 47: moved verbs from DB to strings.xml, verb table no longer needed
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_FACTION_ITEM_TYPE_VERB);
-
-                // 44: enduring locusts upgrade added to items, need to reload items from JSON file
-                // 45: warpgate structure and transform ability added
-                // 46: removed anabolic synthesis, renamed air attacks to flyer attacks
-                loadItemDefinitions(mContext, db, false);
-
-            } else {
-                // FIXME won't this wipe custom builds from the DB for users upgrading from 47+?
-                for (String table : ALL_TABLES) {
-                    db.execSQL("DROP TABLE IF EXISTS " + table);
+            for (int i=oldVersion; i<newVersion; i++) {
+                if (PATCHES.get(oldVersion) != null) {
+                    PATCHES.get(oldVersion).upgrade(db);
                 }
-                onCreate(db);
             }
         }
 
+        private class PatchFrom48To49 implements Patch {
+
+            @Override
+            public void upgrade(SQLiteDatabase db) {
+                addLotvExpansionAndNewItems(db);
+            }
+
+            private void addLotvExpansionAndNewItems(SQLiteDatabase db) {
+                addStaticData(db);
+            }
+
+        }
+
         /**
-         * Adds static data like expansion and race names. This only needs to be called
-         * once, after the database is first created.
+         * Adds static data like expansion and race names.
          */
-        public void addStaticData(SQLiteDatabase db) {
+        void addStaticData(SQLiteDatabase db) {
             Log.w(DbAdapter.TAG, "addStaticData() called");
 
             ContentValues initialValues = new ContentValues();
@@ -380,14 +364,14 @@ public class DbAdapter {
             //db.execSQL("INSERT INTO " + TABLE_BUILD_ORDER + " (name, expansion_id, faction_id) VALUES ('test build order', 0, 0);");
         }
 
-        public boolean needsStaticDataAdded() {
+        boolean needsStaticDataAdded() {
             return mNeedsStaticDataAdded;
         }
 
         /**
          * tells this helper that static data has now been added to the DB
          */
-        public void staticDataAdded() {
+        void staticDataAdded() {
             mNeedsStaticDataAdded = false;
         }
 
@@ -458,12 +442,6 @@ public class DbAdapter {
         }
     }
 
-    /**
-     * Constructor - takes the context to allow the database to be
-     * opened/created
-     *
-     * @param context the Context within which to work
-     */
     public DbAdapter(Context context) {
         this.mContext = context;
     }

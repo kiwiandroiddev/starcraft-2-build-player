@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 import java.io.File;

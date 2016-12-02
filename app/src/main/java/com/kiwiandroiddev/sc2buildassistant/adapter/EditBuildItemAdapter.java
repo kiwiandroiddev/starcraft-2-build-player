@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.util.ArrayList;

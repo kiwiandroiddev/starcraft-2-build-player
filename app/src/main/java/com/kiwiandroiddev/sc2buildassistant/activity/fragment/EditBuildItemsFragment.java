@@ -20,7 +20,7 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemClickedListener;

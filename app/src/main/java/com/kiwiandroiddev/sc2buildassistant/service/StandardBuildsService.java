@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ import timber.log.Timber;
  * Created by matt on 17/07/15.
  */
 public class StandardBuildsService {
-	private static final int BUILD_FILES_VERSION = 46;	// tracks changes to build JSON files in assets/
+	private static final int BUILD_FILES_VERSION = 49;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
 
 	/**

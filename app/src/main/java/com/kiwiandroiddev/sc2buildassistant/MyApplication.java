@@ -6,7 +6,7 @@ import android.app.Application;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Logger;
 import com.karumi.dexter.Dexter;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 
 import timber.log.Timber;
 import timber.log.Timber.DebugTree;

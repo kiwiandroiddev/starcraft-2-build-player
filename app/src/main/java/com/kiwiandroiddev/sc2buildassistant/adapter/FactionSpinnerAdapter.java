@@ -10,6 +10,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
 /**

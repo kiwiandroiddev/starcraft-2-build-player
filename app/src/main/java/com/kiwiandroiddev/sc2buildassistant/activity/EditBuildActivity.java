@@ -30,7 +30,7 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragm
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;

@@ -2,7 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.test;
 
 import junit.framework.Assert;
 
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
 import android.test.AndroidTestCase;

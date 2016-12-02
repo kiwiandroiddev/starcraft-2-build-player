@@ -32,7 +32,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;

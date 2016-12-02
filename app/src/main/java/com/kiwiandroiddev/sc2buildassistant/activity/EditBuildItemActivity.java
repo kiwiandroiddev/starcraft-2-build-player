@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;

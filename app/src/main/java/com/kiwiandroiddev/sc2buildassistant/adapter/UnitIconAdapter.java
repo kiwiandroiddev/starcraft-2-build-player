@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 

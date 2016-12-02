@@ -18,7 +18,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.adapter.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;

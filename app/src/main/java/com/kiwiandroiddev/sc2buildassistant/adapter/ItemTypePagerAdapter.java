@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.UnitSelectorFragment;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
