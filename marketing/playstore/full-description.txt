@@ -24,7 +24,7 @@ Please let me know about any bugs, errors or issues you come across by emailing 
 
 <b>Permissions</b>
 
-Storage Access - so you can export your builds to plain-text files on your SD card
+Storage Access - so you can export your builds to plain-text files in your device storage
 
 Internet Access - necessary to serve ads in the free version
 
