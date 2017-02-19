@@ -503,7 +503,27 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
     
     private void onBuildItemLongPressed(final BuildViewHolder buildViewHolder) {
         Context context = getActivity();
-        final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(context);
+        final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(new MaterialSimpleListAdapter.Callback() {
+			@Override
+			public void onMaterialListItemSelected(MaterialDialog dialog, int index, MaterialSimpleListItem item) {
+				long buildId = buildViewHolder.viewModel.buildId;
+				switch (index) {
+					case 0:
+						editBuild(buildId);
+						break;
+					case 1:
+						deleteBuild(buildId);
+						break;
+					case 2:
+						exportBuild(buildId);
+						break;
+					default:
+						Timber.e("Unknown context menu item selected, index = " + index);
+						break;
+				}
+				dialog.dismiss();
+			}
+		});
         adapter.add(new MaterialSimpleListItem.Builder(context)
                 .content(R.string.menu_edit_build)
                 .build());
@@ -516,27 +536,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 
         new MaterialDialog.Builder(context)
                 .title(buildViewHolder.viewModel.name)
-                .adapter(adapter, new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        long buildId = buildViewHolder.viewModel.buildId;
-                        switch (which) {
-                            case 0:
-                                editBuild(buildId);
-                                break;
-                            case 1:
-                                deleteBuild(buildId);
-                                break;
-                            case 2:
-                                exportBuild(buildId);
-                                break;
-                            default:
-                                Timber.e("Unknown context menu item selected, index = " + which);
-                                break;
-                        }
-                        dialog.dismiss();
-                    }
-                })
+                .adapter(adapter, null)
                 .show();
     }
 }

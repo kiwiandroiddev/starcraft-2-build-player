@@ -57,11 +57,11 @@ dependencies {
     compile 'com.f2prateek.dart:dart:1.1.0'
     compile 'com.jakewharton.timber:timber:3.0.2'
     compile 'com.karumi:dexter:2.2.2'
-    compile('com.afollestad.material-dialogs:core:0.8.4.2@aar') {
+    compile("com.afollestad.material-dialogs:core:${rootProject.ext.materialDialogsVersion}@aar") {
         transitive = true
     }
     // Contains MaterialSimpleListAdapter
-    compile('com.afollestad.material-dialogs:commons:0.8.4.2@aar') {
+    compile("com.afollestad.material-dialogs:commons:${rootProject.ext.materialDialogsVersion}@aar") {
         transitive = true
     }
     compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
