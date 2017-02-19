@@ -165,7 +165,7 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 		Intent i = new Intent(getActivity(), EditBuildItemActivity.class);
 		i.putExtra(IntentKeys.KEY_FACTION_ENUM, mFaction);
 		i.putExtra(IntentKeys.KEY_BUILD_ITEM_OBJECT, item);
-		i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, position);
+		i.putExtra(EditBuildItemActivity.KEY_INCOMING_BUILD_ITEM_ID, Long.valueOf(position));
 		// TODO pass default supply as well?
 		startActivityForResult(i, EditBuildItemActivity.EDIT_BUILD_ITEM_REQUEST);
 	}
