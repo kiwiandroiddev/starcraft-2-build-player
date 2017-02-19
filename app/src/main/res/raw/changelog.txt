@@ -22,12 +22,12 @@
 $ 2.5.0
   % Version 2.5.0
   _ 2015-11-01
-    * It's about time: LotV support added
+    * Hell, It's About Time: LotV support added
     * 2 LotV builds added for Terran and Protoss
     * Material Design update
     * Polish language support added - Thanks dominik.rafał, pawel18283848, Wooly
     * Russian language support added - Thanks Neutrion, TheRishka, Roraks
-    ! If you experience any issues with this update (or have suggestions for Zerg builds) please <a href="mailto:kiwiandroiddev@gmail.com?Subject=StarCraft%202%20Build%20Player%20v210%20Issue">let me know</a>
+    ! If you experience any issues with this update (or have suggestions for Zerg builds) please <a href="mailto:kiwiandroiddev@gmail.com?Subject=StarCraft%202%20Build%20Player%20v210%20Issue">let me know!</a>
 $ 2.1.5
   % Version 2.1.5
   _ 2013-06-29

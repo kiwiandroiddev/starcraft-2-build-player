@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.kiwiandroiddev.sc2buildassistant"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 250
         versionName "2.5.0"
 
