@@ -21,7 +21,7 @@
   <body>
 $ 2.5.0
   % Version 2.5.0
-  _ 2015-11-01
+  _ 2017-02-19
     * Hell, It's About Time: LotV support added
     * 2 LotV builds added for Terran and Protoss
     * Material Design update

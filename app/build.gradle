@@ -11,6 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 250
         versionName "2.5.0"
+        setProperty("archivesBaseName", "kiwiandroiddev-sc2buildassistant-$versionName")
 
         testApplicationId "com.kiwiandroiddev.sc2buildassistant.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
