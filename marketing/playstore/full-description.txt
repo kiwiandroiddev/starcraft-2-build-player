@@ -6,7 +6,7 @@ These are just some of things that top StarCraft 2 players and casters will prob
 
 <b>Features:</b>
  • Play like a pro by receiving reminders of complex build orders as you play
- • 50 build orders included in version 2.5.0, including 4 builds for the new Legacy of the Void expansion
+ • 50 build orders included in version 2.5.1, including 4 builds for the new Legacy of the Void expansion
  • All build orders include detailed explanation and references - learn the "why" as well as the "what" of effective strategies
  • Includes strategies for every possible match-up of Terran, Zerg and Protoss
  • Uses Text-To-Speech to give you in-game alerts for your build order - no need to look away from your monitor while playing

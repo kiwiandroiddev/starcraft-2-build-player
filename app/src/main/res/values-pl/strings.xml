@@ -18,7 +18,6 @@
 	<string name="playback_play">Graj</string>
 	<string name="playback_pause">Pauza </string>
 	<string name="pref_game_speed">Prędkość gry</string>
-	<string name="pref_game_speed_default">4</string>
 	<string name="pref_early_warning">Wyprzedzenie powiadomienia </string>
 	<string name="pref_early_warning_summary">Otrzymasz ostrzeżenie z wyprzedzeniem %1$d sekund przed czasem wybudowania jednotek</string>
 	<string name="pref_start_time">Domyślne rozpoczęcie gry</string>
