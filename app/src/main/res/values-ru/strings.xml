@@ -18,7 +18,6 @@
 	<string name="playback_play">Играть</string>
 	<string name="playback_pause">Пауза</string>
 	<string name="pref_game_speed">Скорость игры</string>
-	<string name="pref_game_speed_default">Четыре</string>
 	<string name="pref_early_warning">Таймер предупреждений</string>
 	<string name="pref_early_warning_summary">Вы получите уведомление за %1$d секунд</string>
 	<string name="pref_start_time">Стартовое время</string>

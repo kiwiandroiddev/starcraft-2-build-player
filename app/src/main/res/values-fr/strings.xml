@@ -18,7 +18,6 @@
 	<string name="playback_play">Jouer</string>
 	<string name="playback_pause">Pause</string>
 	<string name="pref_game_speed">Vitesse du jeu</string>
-	<string name="pref_game_speed_default">4</string>
 	<string name="pref_early_warning">Alerte précoce</string>
 	<string name="pref_early_warning_summary">Vous bénéficierez d\'une alerte de %1$d secondes avant chaque construction</string>
 	<string name="pref_start_time">Temps de démarrage par défaut</string>

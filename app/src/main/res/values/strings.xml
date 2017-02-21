@@ -18,7 +18,7 @@
 	<string name="playback_play">Play</string>
 	<string name="playback_pause">Pause</string>
 	<string name="pref_game_speed">Game Speed</string>
-	<string name="pref_game_speed_default">4</string>
+	<string name="pref_game_speed_default" translatable="false">4</string>
 	<string name="pref_early_warning">Alert time offset</string>
 	<string name="pref_early_warning_summary">You will be given %1$d game seconds advance warning of build items</string>
 	<string name="pref_start_time">Default start time</string>
