@@ -295,7 +295,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 				.setView(input)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						// TODO: confirm overwrite with another dialog if filename alreaady exists!
+						// TODO: confirm overwrite with another dialog if filename already exists!
 						final String filename = input.getText().toString();
 						if (filename.matches("")) {
 							Toast.makeText(getActivity(), R.string.dlg_invalid_filename, Toast.LENGTH_LONG).show();

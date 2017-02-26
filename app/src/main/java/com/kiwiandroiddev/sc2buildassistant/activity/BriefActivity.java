@@ -26,16 +26,15 @@ import android.widget.TextView;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
-import com.google.ads.Ad;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
-import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,10 +58,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final ArrayList<String> sColumns;
 
 	@InjectExtra(KEY_BUILD_ID) long mBuildId;
-	@InjectExtra(KEY_FACTION_ENUM)
-	Faction mFaction;
-	@InjectExtra(KEY_EXPANSION_ENUM)
-	Expansion mExpansion;
+	@InjectExtra(KEY_FACTION_ENUM) Faction mFaction;
+	@InjectExtra(KEY_EXPANSION_ENUM) Expansion mExpansion;
 	@InjectExtra(KEY_BUILD_NAME) String mBuildName;
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
@@ -168,9 +165,9 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 		// fade in ad banner when the image loads rather than popping
 		if (mAdView != null) {
 			mAdView.setAlpha(0.0f);
-			mAdView.setAdListener(new OnReceiveAdListener() {
+			mAdView.setAdListener(new AdListener() {
 				@Override
-				public void onReceiveAd(Ad ad) {
+				public void onAdLoaded() {
 					mAdView.animate()
 							.alpha(1.0f)
 							.setInterpolator(new FastOutSlowInInterpolator())

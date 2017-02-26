@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/brief_root"
-    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -112,15 +111,13 @@
                     android:layout_marginTop="4dp"
                     tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc."/>
 
-                <com.google.ads.AdView
+                <com.google.android.gms.ads.AdView
                     android:id="@+id/ad"
                     android:layout_width="wrap_content"
                     android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
-                    ads:adSize="BANNER"
-                    ads:adUnitId="a150b967e3b02cd"
-                    ads:loadAdOnCreate="true"
-                    ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"
+                    app:adSize="BANNER"
+                    app:adUnitId="a150b967e3b02cd"
                     />
 
             </LinearLayout>

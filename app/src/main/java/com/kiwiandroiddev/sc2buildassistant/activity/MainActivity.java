@@ -26,9 +26,9 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.ads.Ad;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -49,7 +49,6 @@ import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
-import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 
 import java.io.File;
@@ -107,6 +106,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ButterKnife.inject(this);
 
         initAdBannerSlideInAnimation();
+        // TODO need to do this programmatically e.g.
+//        AdView adView = (AdView)this.findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice("TEST_DEVICE_ID")
+//                .build();
+//        adView.loadAd(adRequest);
+        //
+//        app:loadAdOnCreate="true"
+//        app:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -137,9 +146,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // slide ad banner in from the bottom when it loads (rather than popping)
     private void initAdBannerSlideInAnimation() {
         if (mAdView != null) {
-            mAdView.setAdListener(new OnReceiveAdListener() {
+            mAdView.setAdListener(new AdListener() {
                 @Override
-                public void onReceiveAd(Ad ad) {
+                public void onAdLoaded() {
                     mAdView.startAnimation(
                             AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
                 }
