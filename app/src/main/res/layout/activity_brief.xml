@@ -111,14 +111,22 @@
                     android:layout_marginTop="4dp"
                     tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc."/>
 
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/ad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center_horizontal"
-                    app:adSize="BANNER"
-                    app:adUnitId="a150b967e3b02cd"
-                    />
+                <!-- prevent adview from stealing focus and auto-scrolling when it loads -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/ad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        app:adSize="BANNER"
+                        app:adUnitId="a150b967e3b02cd"
+                        />
+
+                </FrameLayout>
 
             </LinearLayout>
 

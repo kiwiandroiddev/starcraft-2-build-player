@@ -32,6 +32,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
@@ -151,9 +152,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 			Dart.inject(this, savedInstanceState);
         }
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+		initToolbar();
 
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
@@ -162,27 +161,39 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         // show build title, faction, expansion now
         displayBasicInfo();
 
-		// fade in ad banner when the image loads rather than popping
-		if (mAdView != null) {
-			mAdView.setAlpha(0.0f);
-			mAdView.setAdListener(new AdListener() {
-				@Override
-				public void onAdLoaded() {
-					mAdView.animate()
-							.alpha(1.0f)
-							.setInterpolator(new FastOutSlowInInterpolator())
-							.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-				}
-			});
-		}
+		initAdBanner();
 
-        trackBriefView();
+		trackBriefView();
 
         // sc2brief
         //Debug.stopMethodTracing();
 	}
-	
-    @Override
+
+	private void initToolbar() {
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+	}
+
+	private void initAdBanner() {
+		AdLoader.loadAdForRealUsers(mAdView);
+		fadeInAdOnLoad(mAdView);
+	}
+
+	private void fadeInAdOnLoad(final AdView adView) {
+		adView.setAlpha(0.0f);
+		adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                adView.animate()
+                        .alpha(1.0f)
+                        .setInterpolator(new FastOutSlowInInterpolator())
+                        .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+            }
+        });
+	}
+
+	@Override
     public void onStart() {
     	super.onStart();
     	EasyTracker.getInstance(this).activityStart(this);
