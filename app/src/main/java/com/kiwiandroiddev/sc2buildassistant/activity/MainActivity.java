@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,9 +27,9 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.ads.Ad;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -42,6 +43,7 @@ import com.kiwiandroiddev.sc2buildassistant.activity.dialog.FileDialog;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.RaceFragment;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
@@ -49,7 +51,6 @@ import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
-import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 
 import java.io.File;
@@ -71,15 +72,15 @@ import timber.log.Timber;
  */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-	public static final int REQUEST_OPEN = 2;			// open file request code for importing builds
+    public static final int REQUEST_OPEN = 2;            // open file request code for importing builds
     private static final String KEY_EXPANSION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.ExpansionChoice";
-	private static final String KEY_FACTION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.FactionChoice";
+    private static final String KEY_FACTION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.FactionChoice";
 
     public static final Expansion DEFAULT_EXPANSION_SELECTION = Expansion.LOTV;
     public static final Faction DEFAULT_FACTION_SELECTION = Faction.TERRAN;
 
     private RaceFragmentPagerAdapter mPagerAdapter;
-	private FragmentManager mManager;
+    private FragmentManager mManager;
     private int mPreviousFactionChoice;
 
     @InjectView(R.id.activity_main_root_view) ViewGroup mRootView;
@@ -89,38 +90,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @InjectView(R.id.loading_bar) ProgressBar mLoadingBar;
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
-    @InjectView(R.id.ad) AdView mAdView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 //    	Debug.startMethodTracing("sc2main");
 
-    	SharedPreferences sharedPrefs = getDefaultSharedPreferences();
-    	if (!sharedPrefs.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
-	        // hides status bar on Android 4.0+, on Android 2.3.x status bar is already hidden from the app theme...
-			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-					WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    	}
+        SharedPreferences sharedPrefs = getDefaultSharedPreferences();
+        if (!sharedPrefs.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
+            // hides status bar on Android 4.0+, on Android 2.3.x status bar is already hidden from the app theme...
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
-    	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        initAdBannerSlideInAnimation();
+        initAdBanner();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // HACK: default values from XML don't work for custom preference widgets (i.e. number picker)
         // so we have to manually set default values
         if (!sharedPrefs.contains(SettingsActivity.KEY_EARLY_WARNING)) {
-        	Editor ed = sharedPrefs.edit();
-        	ed.putInt(SettingsActivity.KEY_EARLY_WARNING, 5);	// TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
-        	ed.commit();
+            Editor ed = sharedPrefs.edit();
+            ed.putInt(SettingsActivity.KEY_EARLY_WARNING, 5);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
+            ed.commit();
         }
         if (!sharedPrefs.contains(SettingsActivity.KEY_START_TIME)) {
-        	Editor ed = sharedPrefs.edit();
-        	ed.putInt(SettingsActivity.KEY_START_TIME, 15);	// TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
-        	ed.commit();
+            Editor ed = sharedPrefs.edit();
+            ed.putInt(SettingsActivity.KEY_START_TIME, 15);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
+            ed.commit();
         }
 
         loadStandardBuilds();
@@ -130,21 +130,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //Debug.stopMethodTracing();	// sc2main
     }
 
+    private void initAdBanner() {
+        AdView adView = (AdView) findViewById(R.id.ad);
+        initSlideInOnLoadAnimation(adView);
+        AdLoader.loadAdForRealUsers(adView);
+    }
+
     private SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     // slide ad banner in from the bottom when it loads (rather than popping)
-    private void initAdBannerSlideInAnimation() {
-        if (mAdView != null) {
-            mAdView.setAdListener(new OnReceiveAdListener() {
-                @Override
-                public void onReceiveAd(Ad ad) {
-                    mAdView.startAnimation(
-                            AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
-                }
-            });
-        }
+    private void initSlideInOnLoadAnimation(@NonNull final AdView adView) {
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                adView.startAnimation(
+                        AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_from_bottom));
+            }
+        });
     }
 
     private void showChangelogIfNeeded() {
@@ -232,13 +236,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // do nothing
     }
 
-    /** shows the indeterminate progress spinner, hides progress bar */
+    /**
+     * shows the indeterminate progress spinner, hides progress bar
+     */
     @DebugLog
-	public void showLoadingAnim() {
-		mLoadingLayout.setVisibility(View.VISIBLE);
-		mLoadingSpinner.setVisibility(View.VISIBLE);
-		mLoadingBar.setVisibility(View.GONE);
-	}
+    public void showLoadingAnim() {
+        mLoadingLayout.setVisibility(View.VISIBLE);
+        mLoadingSpinner.setVisibility(View.VISIBLE);
+        mLoadingBar.setVisibility(View.GONE);
+    }
 
     /**
      * This is called intermittently during loading of standard builds into database.
@@ -249,19 +255,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     @DebugLog
     public void setLoadProgress(Integer percent) {
-		if (mLoadingSpinner.getVisibility() == View.VISIBLE)
-			mLoadingSpinner.setVisibility(View.GONE);
-		if (mLoadingBar.getVisibility() == View.GONE)
-			mLoadingBar.setVisibility(View.VISIBLE);
+        if (mLoadingSpinner.getVisibility() == View.VISIBLE)
+            mLoadingSpinner.setVisibility(View.GONE);
+        if (mLoadingBar.getVisibility() == View.GONE)
+            mLoadingBar.setVisibility(View.VISIBLE);
 
-		mLoadingBar.setProgress(percent);
-	}
+        mLoadingBar.setProgress(percent);
+    }
 
-	/** hides both progress spinner and bar */
+    /**
+     * hides both progress spinner and bar
+     */
     @DebugLog
-	public void hideLoadingAnim() {
-		mLoadingLayout.setVisibility(View.GONE);
-	}
+    public void hideLoadingAnim() {
+        mLoadingLayout.setVisibility(View.GONE);
+    }
 
     private void initRaceFragmentPagerAndExpansionSpinner(Bundle savedInstanceState) {
         mManager = getSupportFragmentManager();
@@ -301,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.build_list_menu, menu);		// add the "new build" action bar item
+        inflater.inflate(R.menu.build_list_menu, menu);        // add the "new build" action bar item
         return true;
     }
 
@@ -361,16 +369,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = new Intent(getBaseContext(), FileDialog.class);
         File root = Environment.getExternalStorageDirectory();
         File buildsDir = new File(root, JsonBuildService.BUILDS_DIR);
-        intent.putExtra(FileDialog.START_PATH, buildsDir.getAbsolutePath());	// stub
+        intent.putExtra(FileDialog.START_PATH, buildsDir.getAbsolutePath());    // stub
         intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
-        intent.putExtra(FileDialog.FORMAT_FILTER, new String[] { "json" });
+        intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{"json"});
         intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_OPEN);
         startActivityForResult(intent, REQUEST_OPEN);
     }
 
     // helper than can be used by all activities that show the same menu
     public static boolean OnMenuItemSelected(Context ctx, MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.menu_settings:
                 Intent i = new Intent(ctx, SettingsActivity.class);
                 ctx.startActivity(i);
@@ -384,17 +392,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * Gets the result when an open-file dialog completes
      * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
      */
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    switch (requestCode) {
-		// import build file dialog returned
-	    case REQUEST_OPEN:
-	    	if (resultCode == RESULT_OK) {
-                final String filename = data.getStringExtra(FileDialog.RESULT_PATH);
-                JsonBuildService.importBuildsFromJsonFileToDatabase(getApplicationContext(), filename);
-	    	}
-	    	break;
-	    }
-	}
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // import build file dialog returned
+            case REQUEST_OPEN:
+                if (resultCode == RESULT_OK) {
+                    final String filename = data.getStringExtra(FileDialog.RESULT_PATH);
+                    JsonBuildService.importBuildsFromJsonFileToDatabase(getApplicationContext(), filename);
+                }
+                break;
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -402,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mPreviousFactionChoice = mPager.getCurrentItem();
     }
 
-	@Override
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_EXPANSION_CHOICE, mToolbarExpansionSpinner.getSelectedItemPosition());
@@ -411,11 +419,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void saveExpansionSelection(int index) {
-		IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_EXPANSION_SELECTION, index);
+        IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_EXPANSION_SELECTION, index);
     }
 
     private void saveFactionSelection(int index) {
-		IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_FACTION_SELECTION, index);
+        IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_FACTION_SELECTION, index);
     }
 
     private int getSavedExpansionSelection() {

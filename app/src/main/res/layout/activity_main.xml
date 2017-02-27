@@ -1,11 +1,9 @@
-<android.support.design.widget.CoordinatorLayout xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-                                                 xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:id="@+id/activity_main_root_view"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-    >
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,7 +21,7 @@
             <Spinner
                 android:id="@+id/toolbar_expansion_spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -31,8 +29,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            />
+            android:background="?attr/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -40,8 +37,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <RelativeLayout
         android:id="@+id/loading_panel"
@@ -52,24 +48,22 @@
             android:id="@+id/loading_spinner"
             style="@style/GenericProgressIndicator"
             android:layout_centerInParent="true"
-            android:background="#0000"/>
+            android:background="#0000" />
 
         <ProgressBar
             android:id="@+id/loading_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="256dp"
             android:layout_height="16dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
-    <com.google.ads.AdView
+    <com.google.android.gms.ads.AdView
         android:id="@+id/ad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="a150b967e3b02cd"
-        ads:loadAdOnCreate="true"
-        ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A,DE812DC8D7D780751D4A8765E49ADDEB"/>
+        app:adSize="BANNER"
+        app:adUnitId="a150b967e3b02cd" />
 
 </android.support.design.widget.CoordinatorLayout>

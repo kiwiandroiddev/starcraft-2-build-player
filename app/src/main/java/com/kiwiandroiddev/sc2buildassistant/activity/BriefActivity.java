@@ -26,16 +26,16 @@ import android.widget.TextView;
 
 import com.f2prateek.dart.Dart;
 import com.f2prateek.dart.InjectExtra;
-import com.google.ads.Ad;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
-import com.kiwiandroiddev.sc2buildassistant.util.OnReceiveAdListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,10 +59,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final ArrayList<String> sColumns;
 
 	@InjectExtra(KEY_BUILD_ID) long mBuildId;
-	@InjectExtra(KEY_FACTION_ENUM)
-	Faction mFaction;
-	@InjectExtra(KEY_EXPANSION_ENUM)
-	Expansion mExpansion;
+	@InjectExtra(KEY_FACTION_ENUM) Faction mFaction;
+	@InjectExtra(KEY_EXPANSION_ENUM) Expansion mExpansion;
 	@InjectExtra(KEY_BUILD_NAME) String mBuildName;
 
     @InjectView(R.id.toolbar) Toolbar mToolbar;
@@ -154,9 +152,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 			Dart.inject(this, savedInstanceState);
         }
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+		initToolbar();
 
         // request a cursor loader from the loader manager. This will be used to
         // fetch build order info from the database.
@@ -165,27 +161,39 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         // show build title, faction, expansion now
         displayBasicInfo();
 
-		// fade in ad banner when the image loads rather than popping
-		if (mAdView != null) {
-			mAdView.setAlpha(0.0f);
-			mAdView.setAdListener(new OnReceiveAdListener() {
-				@Override
-				public void onReceiveAd(Ad ad) {
-					mAdView.animate()
-							.alpha(1.0f)
-							.setInterpolator(new FastOutSlowInInterpolator())
-							.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-				}
-			});
-		}
+		initAdBanner();
 
-        trackBriefView();
+		trackBriefView();
 
         // sc2brief
         //Debug.stopMethodTracing();
 	}
-	
-    @Override
+
+	private void initToolbar() {
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+	}
+
+	private void initAdBanner() {
+		AdLoader.loadAdForRealUsers(mAdView);
+		fadeInAdOnLoad(mAdView);
+	}
+
+	private void fadeInAdOnLoad(final AdView adView) {
+		adView.setAlpha(0.0f);
+		adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                adView.animate()
+                        .alpha(1.0f)
+                        .setInterpolator(new FastOutSlowInInterpolator())
+                        .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+            }
+        });
+	}
+
+	@Override
     public void onStart() {
     	super.onStart();
     	EasyTracker.getInstance(this).activityStart(this);

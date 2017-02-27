@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:id="@+id/edit_build_activity_root"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_build_activity_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,14 +16,13 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            />
+            android:background="?attr/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -31,13 +30,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/edit_build_activity_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit_build_activity_add_button"
@@ -45,17 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:visibility="gone"
-        android:src="@drawable/ic_add_24dp"/>
-
-    <!--     <com.google.ads.AdView android:id="@+id/ad" -->
-    <!--                    android:layout_width="wrap_content" -->
-    <!--                    android:layout_height="wrap_content" -->
-    <!--                    android:layout_alignParentBottom="true" -->
-    <!--                    android:layout_centerHorizontal="true" -->
-    <!--                    ads:adSize="BANNER" -->
-    <!--                    ads:adUnitId="a150b967e3b02cd" -->
-    <!--                    ads:testDevices="TEST_EMULATOR,947D1DE4DD71747C1BDAB51AB10C6F0A" -->
-    <!--                    ads:loadAdOnCreate="true"/> -->
+        android:src="@drawable/ic_add_24dp"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

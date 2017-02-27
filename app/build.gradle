@@ -65,10 +65,12 @@ dependencies {
     compile("com.afollestad.material-dialogs:commons:${rootProject.ext.materialDialogsVersion}@aar") {
         transitive = true
     }
-    compile files('libs/GoogleAdMobAdsSdk-6.2.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
+    compile "com.google.firebase:firebase-ads:${rootProject.ext.firebaseVersion}"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'org.assertj:assertj-core:1.7.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
