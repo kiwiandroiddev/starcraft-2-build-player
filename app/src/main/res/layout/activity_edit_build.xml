@@ -32,11 +32,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--<FrameLayout-->
-    <!--android:id="@+id/edit_build_activity_content"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit_build_activity_add_button"
         android:layout_width="wrap_content"
@@ -45,13 +40,5 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_24dp"
         android:visibility="gone" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:adSize="BANNER"
-        app:adUnitId="a150b967e3b02cd" />
 
 </android.support.design.widget.CoordinatorLayout>

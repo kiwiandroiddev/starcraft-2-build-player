@@ -30,12 +30,12 @@ import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragm
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildInfoFragment.EditBuildInfoListener;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildItemsFragment;
 import com.kiwiandroiddev.sc2buildassistant.activity.fragment.EditBuildNotesFragment;
-import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildPagerAdapter;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.SimpleAnimatorListener;
@@ -61,8 +61,6 @@ import timber.log.Timber;
  */
 public class EditBuildActivity extends AppCompatActivity implements EditBuildInfoListener, EditBuildPagerAdapter.OnFragmentCreatedListener {
 
-//	public static final int EDIT_BUILD_REQUEST = 128;
-	
 	private static final String KEY_NEW_BUILD_BOOL = "mCreatingNewBuild";
 	private static final String KEY_WORKING_BUILD = "mWorkingBuild";
 	private static final String KEY_SELECTED_TAB = "mSelectedTab";
@@ -80,6 +78,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
     @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.pager) ViewPager mPager;
+	@InjectView(R.id.tabs) TabLayout mTabLayout;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +86,10 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		// becomes visible (needed so formatting toolbar stays on screen). Known bug
 		// in AOSP apparently:
 		// https://code.google.com/p/android/issues/detail?id=5497
-		
-//		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//    	if (!sharedPref.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
-//			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//					WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//    	}
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_build);
         ButterKnife.inject(this);
-        setSupportActionBar(mToolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get arguments sent by BuildListActivity - these will determine
         // if we should create a new build or edit an existing one
@@ -133,31 +123,37 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
         setBackgroundImage(mCurrentFactionSelection);
         initAnimators();
 
-        // Set up view pager
-        mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild, this);
-        mPager.setOffscreenPageLimit(3);
-        mPager.setAdapter(mPagerAdapter);
-        final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+		initViewPager();
+
+        initToolbar();
+	}
+
+	private void initViewPager() {
+		mPagerAdapter = new EditBuildPagerAdapter(getSupportFragmentManager(), this, mInitialBuild, this);
+		mPager.setOffscreenPageLimit(3);
+		mPager.setAdapter(mPagerAdapter);
+		final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // Show or hide floating Add button depending on current tab's preference
                 setAddButtonVisibility(getCurrentlyVisibleEditorTab().requestsAddButton());
             }
         };
-        mPager.addOnPageChangeListener(onPageChangeListener);
+		mPager.addOnPageChangeListener(onPageChangeListener);
 
-        /** Bind tabs view to pager */
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(mPager);
+		mTabLayout.setupWithViewPager(mPager);
+	}
 
-        // set action bar title
-        getSupportActionBar().setTitle(mCreatingNewBuild ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
-        if (!mCreatingNewBuild) {
+	private void initToolbar() {
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle(mCreatingNewBuild ? getString(R.string.edit_build_new_title) : getString(R.string.edit_build_edit_title));
+		if (!mCreatingNewBuild) {
 			getSupportActionBar().setSubtitle(mInitialBuild.getName());
 		}
 	}
 
-    /**
+	/**
      * This is called whenever EditBuildPagerAdapter creates a new child Fragment. It's
      * used here to initialise the Floating "Add" button's visibility at the earliest possible
      * moment.
