@@ -50,4 +50,11 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
+    <style name="playback_time_text">
+        <item name="android:maxLines">1</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
 </resources>
