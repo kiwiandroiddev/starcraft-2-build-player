@@ -339,7 +339,12 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		final String lang = currentLocale.getLanguage();
 		
 		// Do we currently have enough translated strings for the language?
-		boolean haveTranslations = (lang.matches("en") || lang.matches("fr") || lang.matches("ru"));
+		// TODO fix this shit... oh god.
+		boolean haveTranslations = (
+				lang.matches("en") ||
+				lang.matches("fr") ||
+				lang.matches("ru") ||
+				lang.matches("pt"));
 
 		if (haveTranslations) {
 			int langAvailable = mTts.isLanguageAvailable(currentLocale); 
