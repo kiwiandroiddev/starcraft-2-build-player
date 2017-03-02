@@ -98,14 +98,6 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
         final BuildItem item = mBuildItems.get(position);
 
-        // work out if this build item is in the wrong position based on its time
-        boolean outOfPosition = false;
-        if (position > 0 && position < mBuildItems.size()) {
-            BuildItem previousItem = mBuildItems.get(position - 1);
-            if (item.getTime() < previousItem.getTime())
-                outOfPosition = true;
-        }
-
         // set the main label (either unit name or message text)
         if (item.getText() == null || item.getText().matches("")) {
             String s = mDb.getNameString(item.getGameItemID());
@@ -137,7 +129,7 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         // show the unit's time in the build queue
         int timeSec = item.getTime();
         holder.time.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
-        if (outOfPosition) {
+        if (itemIsOutOfPositionBasedOnTime(position)) {
             holder.time.setTextColor(Color.RED);
         } else {
             holder.time.setTextColor(mContext.getResources().getColor(android.R.color.secondary_text_dark));
@@ -159,9 +151,19 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnBuildItemClickedListener.onBuildItemClicked(item, position);
+                mOnBuildItemClickedListener.onBuildItemClicked(item, holder.getAdapterPosition());
             }
         });
+    }
+
+    private boolean itemIsOutOfPositionBasedOnTime(int position) {
+        BuildItem item = mBuildItems.get(position);
+        if (position > 0 && position < mBuildItems.size()) {
+            BuildItem previousItem = mBuildItems.get(position - 1);
+            if (item.getTime() < previousItem.getTime())
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -178,11 +180,16 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        // prevent swapping with blank footer
-        if (toPosition < mBuildItems.size()) {
-            Collections.swap(mBuildItems, fromPosition, toPosition);
-            notifyItemMoved(fromPosition, toPosition);
-        }
+        boolean attemptingToSwapWithFooter = toPosition >= mBuildItems.size();
+        if (attemptingToSwapWithFooter)
+            return;
+
+        Collections.swap(mBuildItems, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+
+        // check if items are now out-of-position and show in UI if needed
+        notifyItemChanged(toPosition);
+        notifyItemChanged(fromPosition);
     }
 
     /**
