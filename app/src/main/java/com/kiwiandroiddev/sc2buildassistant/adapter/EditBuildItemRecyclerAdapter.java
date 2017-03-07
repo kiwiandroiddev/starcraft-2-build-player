@@ -26,8 +26,6 @@ import java.util.Collections;
  * Has a blank footer item to prevent the last build item from being partially obscured
  * by the Floating Action Button to add new items.
  *
- * FIXME: views not updating on move (red time text when out of place)
- *
  * Created by matt on 4/10/15.
  */
 public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuildItemViewHolder>
@@ -179,17 +177,24 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     }
 
     @Override
+    public void onItemDropped(int atPosition) {
+        updateOutOfPositionWarningForItem(atPosition);
+    }
+
+    private void updateOutOfPositionWarningForItem(int atPosition) {
+        notifyItemChanged(atPosition);
+    }
+
+    @Override
     public void onItemMove(int fromPosition, int toPosition) {
         boolean attemptingToSwapWithFooter = toPosition >= mBuildItems.size();
-        if (attemptingToSwapWithFooter)
-            return;
+        if (attemptingToSwapWithFooter) return;
+
+        boolean pointlessSwap = (fromPosition == toPosition);
+        if (pointlessSwap) return;
 
         Collections.swap(mBuildItems, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
-
-        // check if items are now out-of-position and show in UI if needed
-        notifyItemChanged(toPosition);
-        notifyItemChanged(fromPosition);
     }
 
     /**

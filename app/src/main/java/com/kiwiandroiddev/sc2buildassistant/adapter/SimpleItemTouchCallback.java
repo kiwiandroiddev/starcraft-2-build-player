@@ -10,7 +10,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  */
 public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
 
+    private static int INVALID_POSITION = -1;
+
     private ItemTouchEventListener mListener;
+    private int draggedTo = INVALID_POSITION;
 
     public SimpleItemTouchCallback(@NonNull ItemTouchEventListener listener) {
         super();
@@ -62,7 +65,10 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
     public boolean onMove(RecyclerView recyclerView,
                           ViewHolder viewHolder,
                           ViewHolder target) {
-        mListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        int toPosition = target.getAdapterPosition();
+        mListener.onItemMove(viewHolder.getAdapterPosition(), toPosition);
+
+        draggedTo = toPosition;
 
         return true;
     }
@@ -70,5 +76,15 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(ViewHolder viewHolder, int directionFlags) {
         mListener.onItemDismiss(viewHolder.getAdapterPosition());
+    }
+
+    @Override
+    public void clearView(RecyclerView recyclerView, ViewHolder viewHolder) {
+        super.clearView(recyclerView, viewHolder);
+
+        if (draggedTo != INVALID_POSITION)
+            mListener.onItemDropped(draggedTo);
+
+        draggedTo = INVALID_POSITION;
     }
 }
