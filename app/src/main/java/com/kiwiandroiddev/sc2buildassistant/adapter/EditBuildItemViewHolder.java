@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +13,7 @@ import com.kiwiandroiddev.sc2buildassistant.R;
  *
  * Created by matt on 4/10/15.
  */
-public class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
+class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
 
     public final TextView mainLabel;
     public final TextView targetLabel;
@@ -22,7 +23,7 @@ public class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
     public final View handle;
     public final View container;
 
-    public EditBuildItemViewHolder(View view) {
+    EditBuildItemViewHolder(View view) {
         super(view);
         mainLabel = (TextView)view.findViewById(R.id.main_label);
         targetLabel = (TextView)view.findViewById(R.id.target_label);
@@ -31,6 +32,13 @@ public class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
         icon = (ImageView)view.findViewById(R.id.unit_icon);
         handle = view.findViewById(R.id.drag_handle);
         container = view.findViewById(R.id.container);
+    }
+
+    public void setOutOfOrderIndicatorVisibility(boolean visible) {
+        if (visible)
+            time.setTextColor(Color.RED);
+        else
+            time.setTextColor(itemView.getResources().getColor(android.R.color.secondary_text_dark));
     }
 
 }

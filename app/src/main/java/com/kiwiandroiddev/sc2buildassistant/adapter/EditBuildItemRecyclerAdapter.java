@@ -1,7 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +16,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Adapter for displaying build items in an editable list (as opposed to BuildItemAdapter
@@ -28,11 +28,13 @@ import java.util.Collections;
  *
  * Created by matt on 4/10/15.
  */
-public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuildItemViewHolder>
+public class EditBuildItemRecyclerAdapter
+        extends RecyclerView.Adapter<EditBuildItemViewHolder>
         implements ItemTouchEventListener {
 
     private static final int BUILD_ROW_TYPE = 0;
     private static final int FOOTER_ROW_TYPE = 1;
+    private static final String OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD = "outOfPositionIndicatorChange";
 
     private final Context mContext;
     private final DbAdapter mDb;
@@ -127,11 +129,8 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         // show the unit's time in the build queue
         int timeSec = item.getTime();
         holder.time.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
-        if (itemIsOutOfPositionBasedOnTime(position)) {
-            holder.time.setTextColor(Color.RED);
-        } else {
-            holder.time.setTextColor(mContext.getResources().getColor(android.R.color.secondary_text_dark));
-        }
+
+        holder.setOutOfOrderIndicatorVisibility(itemIsOutOfPositionBasedOnTime(position));
 
         // pass touches on the drag handle up to the adapter's parent so it can take
         // appropriate action to start the drag operation
@@ -165,6 +164,18 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     }
 
     @Override
+    public void onBindViewHolder(EditBuildItemViewHolder holder, int position, List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position);
+            return;
+        }
+
+        if (payloads.contains(OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD)) {
+            holder.setOutOfOrderIndicatorVisibility(itemIsOutOfPositionBasedOnTime(position));
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return mBuildItems.size() + 1 /*footer*/;
     }
@@ -182,7 +193,7 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     }
 
     private void updateOutOfPositionWarningForItem(int atPosition) {
-        notifyItemChanged(atPosition);
+        notifyItemChanged(atPosition, OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD);
     }
 
     @Override
