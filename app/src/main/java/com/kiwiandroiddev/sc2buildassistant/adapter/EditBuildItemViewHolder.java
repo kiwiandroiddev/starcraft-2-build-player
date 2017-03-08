@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +10,7 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 
 /**
  * Stores view references for a specific row within an editable build item list.
- *
+ * <p>
  * Created by matt on 4/10/15.
  */
 class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
@@ -25,20 +25,23 @@ class EditBuildItemViewHolder extends RecyclerView.ViewHolder {
 
     EditBuildItemViewHolder(View view) {
         super(view);
-        mainLabel = (TextView)view.findViewById(R.id.main_label);
-        targetLabel = (TextView)view.findViewById(R.id.target_label);
-        time = (TextView)view.findViewById(R.id.time_label);
-        count = (TextView)view.findViewById(R.id.count_label);
-        icon = (ImageView)view.findViewById(R.id.unit_icon);
+        mainLabel = (TextView) view.findViewById(R.id.main_label);
+        targetLabel = (TextView) view.findViewById(R.id.target_label);
+        time = (TextView) view.findViewById(R.id.time_label);
+        count = (TextView) view.findViewById(R.id.count_label);
+        icon = (ImageView) view.findViewById(R.id.unit_icon);
         handle = view.findViewById(R.id.drag_handle);
         container = view.findViewById(R.id.container);
     }
 
-    public void setOutOfOrderIndicatorVisibility(boolean visible) {
-        if (visible)
-            time.setTextColor(Color.RED);
-        else
-            time.setTextColor(itemView.getResources().getColor(android.R.color.secondary_text_dark));
+    void setOutOfOrderIndicatorVisibility(boolean visible) {
+        time.setTextColor(
+                visible ? getColor(R.color.build_item_out_of_position)
+                        : getColor(android.R.color.secondary_text_dark));
+    }
+
+    private int getColor(int build_item_out_of_position) {
+        return ContextCompat.getColor(itemView.getContext(), build_item_out_of_position);
     }
 
 }
