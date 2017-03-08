@@ -1,7 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +16,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Adapter for displaying build items in an editable list (as opposed to BuildItemAdapter
@@ -26,17 +26,16 @@ import java.util.Collections;
  * Has a blank footer item to prevent the last build item from being partially obscured
  * by the Floating Action Button to add new items.
  *
- * FIXME: views not updating on move (red time text when out of place)
- *
  * Created by matt on 4/10/15.
  */
-public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuildItemViewHolder>
+public class EditBuildItemRecyclerAdapter
+        extends RecyclerView.Adapter<EditBuildItemViewHolder>
         implements ItemTouchEventListener {
 
     private static final int BUILD_ROW_TYPE = 0;
     private static final int FOOTER_ROW_TYPE = 1;
+    private static final String OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD = "outOfPositionIndicatorChange";
 
-    private final Context mContext;
     private final DbAdapter mDb;
     private final OnStartDragListener mOnStartDragListener;
     private final OnBuildItemClickedListener mOnBuildItemClickedListener;
@@ -48,7 +47,6 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
                                         OnBuildItemClickedListener onBuildItemClickedListener,
                                         OnBuildItemRemovedListener onBuildItemRemovedListener,
                                         ArrayList<BuildItem> buildItems) {
-        mContext = context;
         mOnStartDragListener = onStartDragListener;
         mOnBuildItemClickedListener = onBuildItemClickedListener;
         mOnBuildItemRemovedListener = onBuildItemRemovedListener;
@@ -92,19 +90,10 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     @Override
     public void onBindViewHolder(final EditBuildItemViewHolder holder, final int position) {
         if (getItemViewType(position) == FOOTER_ROW_TYPE) {
-            // blank row - nothing to bind
             return;
         }
 
         final BuildItem item = mBuildItems.get(position);
-
-        // work out if this build item is in the wrong position based on its time
-        boolean outOfPosition = false;
-        if (position > 0 && position < mBuildItems.size()) {
-            BuildItem previousItem = mBuildItems.get(position - 1);
-            if (item.getTime() < previousItem.getTime())
-                outOfPosition = true;
-        }
 
         // set the main label (either unit name or message text)
         if (item.getText() == null || item.getText().matches("")) {
@@ -137,11 +126,8 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         // show the unit's time in the build queue
         int timeSec = item.getTime();
         holder.time.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
-        if (outOfPosition) {
-            holder.time.setTextColor(Color.RED);
-        } else {
-            holder.time.setTextColor(mContext.getResources().getColor(android.R.color.secondary_text_dark));
-        }
+
+        holder.setOutOfOrderIndicatorVisibility(itemIsOutOfPositionBasedOnTime(position));
 
         // pass touches on the drag handle up to the adapter's parent so it can take
         // appropriate action to start the drag operation
@@ -159,9 +145,31 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnBuildItemClickedListener.onBuildItemClicked(item, position);
+                mOnBuildItemClickedListener.onBuildItemClicked(item, holder.getAdapterPosition());
             }
         });
+    }
+
+    private boolean itemIsOutOfPositionBasedOnTime(int position) {
+        BuildItem item = mBuildItems.get(position);
+        if (position > 0 && position < mBuildItems.size()) {
+            BuildItem previousItem = mBuildItems.get(position - 1);
+            if (item.getTime() < previousItem.getTime())
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBindViewHolder(EditBuildItemViewHolder holder, int position, List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position);
+            return;
+        }
+
+        if (payloads.contains(OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD)) {
+            holder.setOutOfOrderIndicatorVisibility(itemIsOutOfPositionBasedOnTime(position));
+        }
     }
 
     @Override
@@ -177,12 +185,26 @@ public class EditBuildItemRecyclerAdapter extends RecyclerView.Adapter<EditBuild
     }
 
     @Override
-    public void onItemMove(int fromPosition, int toPosition) {
-        // prevent swapping with blank footer
-        if (toPosition < mBuildItems.size()) {
-            Collections.swap(mBuildItems, fromPosition, toPosition);
-            notifyItemMoved(fromPosition, toPosition);
+    public void onItemDropped(int atPosition) {
+        for (int i=0; i<mBuildItems.size(); i++) {
+            updateOutOfPositionWarningForItem(i);
         }
+    }
+
+    private void updateOutOfPositionWarningForItem(int atPosition) {
+        notifyItemChanged(atPosition, OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        boolean attemptingToSwapWithFooter = toPosition >= mBuildItems.size();
+        if (attemptingToSwapWithFooter) return;
+
+        boolean pointlessSwap = (fromPosition == toPosition);
+        if (pointlessSwap) return;
+
+        Collections.swap(mBuildItems, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     /**
