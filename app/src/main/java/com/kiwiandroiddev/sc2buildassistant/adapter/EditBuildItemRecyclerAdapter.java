@@ -36,7 +36,6 @@ public class EditBuildItemRecyclerAdapter
     private static final int FOOTER_ROW_TYPE = 1;
     private static final String OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD = "outOfPositionIndicatorChange";
 
-    private final Context mContext;
     private final DbAdapter mDb;
     private final OnStartDragListener mOnStartDragListener;
     private final OnBuildItemClickedListener mOnBuildItemClickedListener;
@@ -48,7 +47,6 @@ public class EditBuildItemRecyclerAdapter
                                         OnBuildItemClickedListener onBuildItemClickedListener,
                                         OnBuildItemRemovedListener onBuildItemRemovedListener,
                                         ArrayList<BuildItem> buildItems) {
-        mContext = context;
         mOnStartDragListener = onStartDragListener;
         mOnBuildItemClickedListener = onBuildItemClickedListener;
         mOnBuildItemRemovedListener = onBuildItemRemovedListener;
@@ -92,7 +90,6 @@ public class EditBuildItemRecyclerAdapter
     @Override
     public void onBindViewHolder(final EditBuildItemViewHolder holder, final int position) {
         if (getItemViewType(position) == FOOTER_ROW_TYPE) {
-            // blank row - nothing to bind
             return;
         }
 
@@ -189,7 +186,9 @@ public class EditBuildItemRecyclerAdapter
 
     @Override
     public void onItemDropped(int atPosition) {
-        updateOutOfPositionWarningForItem(atPosition);
+        for (int i=0; i<mBuildItems.size(); i++) {
+            updateOutOfPositionWarningForItem(i);
+        }
     }
 
     private void updateOutOfPositionWarningForItem(int atPosition) {
