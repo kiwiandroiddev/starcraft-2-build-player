@@ -63,7 +63,7 @@
 	<string name="dlg_enter_filename_message">insira nome do arquivo para ordem de construção</string>
 	<string name="dlg_invalid_filename">Nome Inválido!</string>
 	<string name="dlg_wrote_file_to_dir">Escrito com sucesso %1$s para %2$s</string>
-	<string name="dlg_couldnt_write_file">Não pode escrever &amp;2$s, razão: %2$2</string>
+	<string name="dlg_couldnt_write_file">Não pode escrever %1$s, razão: %2$s</string>
 	<string name="dlg_confirm_change_faction_title">Mudar Facção?</string>
 	<string name="dlg_confirm_change_faction_message">Isto irá deletar todos os itens existentes da build!</string>
 	<string name="error_unknown_author">Fonte não especificada</string>
