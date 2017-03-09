@@ -2,11 +2,8 @@ package com.kiwiandroiddev.sc2buildassistant.activity.fragment;
 
 import android.Manifest;
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
@@ -215,21 +213,25 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
      *
      * @param rowId
      */
-    private void deleteBuild(final long rowId) {
-        // TODO replace with Material Dialog (for ICS devices)
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dlg_confirm_delete_build_title)
-                .setMessage(R.string.dlg_confirm_delete_build_message)
-                .setPositiveButton(android.R.string.yes, new OnClickListener() {
+    private void confirmDeleteBuild(final long rowId) {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.dlg_confirm_delete_build_title)
+                .content(R.string.dlg_confirm_delete_build_message)
+                .positiveText(android.R.string.yes)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Uri buildUri = ContentUris.withAppendedId(
-                                Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER), rowId);
-                        getActivity().getContentResolver().delete(buildUri, null, null);
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteBuild(rowId);
                     }
                 })
-                .setNegativeButton(android.R.string.no, null)
+                .negativeText(android.R.string.no)
                 .show();
+    }
+
+    private void deleteBuild(long rowId) {
+        Uri buildUri = ContentUris.withAppendedId(
+                Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER), rowId);
+        getActivity().getContentResolver().delete(buildUri, null, null);
     }
 
     /**
@@ -504,7 +506,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
                         editBuild(buildId);
                         break;
                     case 1:
-                        deleteBuild(buildId);
+                        confirmDeleteBuild(buildId);
                         break;
                     case 2:
                         exportBuild(buildId);
