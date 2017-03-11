@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "690656755804-54n184eou5kj5jhu1po0l4tfm78coqql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kiwiandroiddev.sc2buildassistant",
+            "certificate_hash": "73c223b47fffd48ad2877298e7f103f9a9cdb324"
+          }
+        },
+        {
           "client_id": "690656755804-ats2cbthbds4iq38e3anq1r9knh76nmr.apps.googleusercontent.com",
           "client_type": 3
         }
