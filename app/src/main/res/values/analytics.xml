@@ -9,4 +9,15 @@
   <!--Enable automatic exception tracking-->
   <bool name="ga_reportUncaughtExceptions">true</bool>
 
+  <!-- screen names for reporting -->
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.MainActivity">Main</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity">Brief</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.PlaybackActivity">Playback</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity">Settings</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity">Edit Build</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity">Edit Build Item</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity">Unit Selector</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog">Insert Link Dialog</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog">Preview Notes Dialog</string>
+
 </resources>
