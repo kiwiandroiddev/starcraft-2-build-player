@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void showChangelogIfNeeded() {
         ChangeLog cl = new ChangeLog(this);
         if (cl.firstRun()) {
-            cl.getLogDialog().show();
+            cl.showLogDialog();
         }
     }
 
@@ -376,18 +376,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivityForResult(intent, REQUEST_OPEN);
     }
 
-    // helper than can be used by all activities that show the same menu
-    public static boolean OnMenuItemSelected(Context ctx, MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-                Intent i = new Intent(ctx, SettingsActivity.class);
-                ctx.startActivity(i);
-                return true;
-            default:
-                return false;
-        }
-    }
-
     /*
      * Gets the result when an open-file dialog completes
      * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
@@ -401,6 +389,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     JsonBuildService.importBuildsFromJsonFileToDatabase(getApplicationContext(), filename);
                 }
                 break;
+        }
+    }
+
+    // helper than can be used by all activities that show the same menu
+    public static boolean OnMenuItemSelected(Context ctx, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                Intent i = new Intent(ctx, SettingsActivity.class);
+                ctx.startActivity(i);
+                return true;
+            default:
+                return false;
         }
     }
 

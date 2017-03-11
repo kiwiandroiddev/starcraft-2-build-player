@@ -10,4 +10,5 @@
 
     <dimen name="material_list_item_height">72dp</dimen>
     <dimen name="material_list_item_padding_horizontal">16dp</dimen>
+    <dimen name="dialog_screen_edge_padding">16dp</dimen>
 </resources>

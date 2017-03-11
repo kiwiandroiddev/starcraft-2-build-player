@@ -6,14 +6,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -49,16 +41,6 @@
                 android:text="@string/dlg_amount_label"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
-
-<!--             <TextView -->
-<!--                 android:id="@+id/TextView02" -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_alignParentLeft="true" -->
-<!--                 android:layout_below="@+id/TextView01" -->
-<!--                 android:layout_marginTop="@dimen/dlg_build_item_vertical_margin" -->
-<!--                 android:text="Supply" -->
-<!--                 android:textAppearance="?android:attr/textAppearanceSmall" /> -->
 
             <TextView
                 android:id="@+id/TextView03"
@@ -237,16 +219,16 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/buttonLayout1"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@android:string/cancel" />
 
         <Button
@@ -254,6 +236,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@android:string/ok" />
     </LinearLayout>
 

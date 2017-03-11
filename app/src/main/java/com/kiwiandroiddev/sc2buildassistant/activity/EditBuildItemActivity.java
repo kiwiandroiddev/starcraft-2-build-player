@@ -3,7 +3,6 @@ package com.kiwiandroiddev.sc2buildassistant.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,9 +14,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -54,7 +53,6 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	private String mMainItemID;			// required
 	private String mTargetItemID;		// can be none/null (build item might not need a target)
 
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.dlg_unit_button) ImageButton mUnitButton;
     @InjectView(R.id.dlg_target_button) ImageButton mTargetButton;
     @InjectView(R.id.dlg_clear_target_button) Button mClearTargetButton;
@@ -70,9 +68,7 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 		setContentView(R.layout.dialog_edit_build_item);
         ButterKnife.inject(this);
 
-		setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(R.string.dlg_edit_item_title);
+		setTitle(R.string.dlg_edit_item_title);
 
         mUnitButton.setOnClickListener(this);
         mTargetButton.setOnClickListener(this);

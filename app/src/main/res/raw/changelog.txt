@@ -22,15 +22,18 @@
 $ 2.6.0
   % Version 2.6.0
   _ DATE
-    * Portuguese language support added - Thanks CaioLopes and GetLoc147
+    * Portuguese language support added - Thanks <b>CaioLopes</b> and <b>GetLoc147</b>
+    * Fixed playback time wrapping in build player
+    * Material Dialogs
+    * Bug fixes
 $ 2.5.0
   % Version 2.5.0
   _ 2017-02-19
     * Hell, It's About Time: LotV support added
     * 2 LotV builds added for Terran and Protoss
     * Material Design update
-    * Polish language support added - Thanks dominik.rafał, pawel18283848, Wooly
-    * Russian language support added - Thanks Neutrion, TheRishka, Roraks
+    * Polish language support added - Thanks <b>dominik.rafał</b>, <b>pawel18283848</b>, <b>Wooly</b>
+    * Russian language support added - Thanks <b>Neutrion</b>, <b>TheRishka</b>, <b>Roraks</b>
     ! If you experience any issues with this update (or have suggestions for Zerg builds) please <a href="mailto:kiwiandroiddev@gmail.com?Subject=StarCraft%202%20Build%20Player%20v210%20Issue">let me know!</a>
 $ 2.1.5
   % Version 2.1.5

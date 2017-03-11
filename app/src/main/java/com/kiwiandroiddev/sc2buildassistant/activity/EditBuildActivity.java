@@ -3,13 +3,12 @@ package com.kiwiandroiddev.sc2buildassistant.activity;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -289,23 +291,23 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 				// yes it has items
 				// confirm item deletion with user
 				showConfirmationDialog(this, R.string.dlg_confirm_change_faction_title,
-						R.string.dlg_confirm_change_faction_message,
-						// if user confirms, change faction
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								itemsEditor.setFaction(selection);
-								mCurrentFactionSelection = selection;
-								setBackgroundImage(selection);
-							}},
-							// if user cancels, revert the faction selection
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								EditBuildInfoFragment infoFragment = findInfoFragment();
-								if (infoFragment != null)
-									infoFragment.setFactionSelection(mCurrentFactionSelection);
-							}});
+                        R.string.dlg_confirm_change_faction_message,
+                        // if user confirms, change faction
+                        new SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                itemsEditor.setFaction(selection);
+                                mCurrentFactionSelection = selection;
+                                setBackgroundImage(selection);
+                            }
+                        },
+                        // if user cancels, revert the faction selection
+                        new SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                revertFactionSelectionInInfoFragment();
+                            }
+                        });
 			} else {
 			// no, no items
 				// go ahead and change faction
@@ -320,25 +322,25 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 				// yes it has items
 				// show confirmation dialog
 				showConfirmationDialog(this, R.string.dlg_confirm_change_faction_title,
-						R.string.dlg_confirm_change_faction_message,
-						// if user accepts, send new faction to pageradapter
-						// When pageradapter creates items editor, it should pass it an empty build
-						// item list
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								mPagerAdapter.setFaction(selection);
-								mCurrentFactionSelection = selection;
-								setBackgroundImage(selection);
-							}},
-							// if user cancels, revert the faction selection
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								EditBuildInfoFragment infoFragment = findInfoFragment();
-								if (infoFragment != null)
-									infoFragment.setFactionSelection(mCurrentFactionSelection);
-							}});
+                        R.string.dlg_confirm_change_faction_message,
+                        // if user accepts, send new faction to pageradapter
+                        // When pageradapter creates items editor, it should pass it an empty build
+                        // item list
+                        new SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                mPagerAdapter.setFaction(selection);
+                                mCurrentFactionSelection = selection;
+                                setBackgroundImage(selection);
+                            }
+                        },
+                        // if user cancels, revert the faction selection
+                        new SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                revertFactionSelectionInInfoFragment();
+                            }
+                        });
 			} else {
 				// no items in initial build
 				// send new faction to pageradapter so it's passed on to items editor when created
@@ -351,7 +353,13 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 		}
 	}
 
-	private void setBackgroundImage(Faction faction) {
+    private void revertFactionSelectionInInfoFragment() {
+        EditBuildInfoFragment infoFragment = findInfoFragment();
+        if (infoFragment != null)
+            infoFragment.setFactionSelection(mCurrentFactionSelection);
+    }
+
+    private void setBackgroundImage(Faction faction) {
 		// set background graphic
 		mRootView.setBackgroundDrawable(
                 getResources().getDrawable(BriefActivity.getBackgroundDrawable(faction)));
@@ -366,7 +374,6 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	 * and an error message will be shown instead.
 	 */
 	private void saveResult() {
-//		DbAdapter db = ((MyApplication) getApplicationContext()).getDb();
 		Build newBuild = assembleBuild();
 		
 		// last minute sanity checking on user's input before we write it to the database
@@ -429,35 +436,37 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	 * The user is attempting to exit the activity without explicitly saving the build
 	 */
 	private void doExit() {
-		// check if the user has made changes to the build (whether new or existing)
-			// if so, prompt them to save changes
-			// if not, just finish
-
 		if (userMadeChanges()) {
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-		    alertDialog.setPositiveButton(R.string.save, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					saveResult();
-				}
-			}).setNegativeButton(R.string.discard, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					showMessage(R.string.edit_build_discarded_changes);
-					finish();
-				}
-			}).setNeutralButton(R.string.cancel, null)
-				.setTitle(R.string.edit_build_prompt_save_title)
-				.setMessage(R.string.edit_build_prompt_save_message);
-		    
-		    alertDialog.show();
+            showSaveChangesBeforeExitPrompt();
 		} else {
 			finish();
 		}
 	}
-	
-	/** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
+
+    private void showSaveChangesBeforeExitPrompt() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.edit_build_prompt_save_title)
+                .content(R.string.edit_build_prompt_save_message)
+                .positiveText(R.string.save)
+                .onPositive(new SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        saveResult();
+                    }
+                })
+                .negativeText(R.string.discard)
+                .onNegative(new SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        showMessage(R.string.edit_build_discarded_changes);
+                        finish();
+                    }
+                })
+                .neutralText(R.string.cancel)
+                .show();
+    }
+
+    /** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
 	private EditBuildInfoFragment findInfoFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 		return (EditBuildInfoFragment) fm.findFragmentByTag(FragmentUtils.makeFragmentName(mPager.getId(), 0));
@@ -542,14 +551,19 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	}
 	
 	/** Convenience function to build and show a yes/no dialog */
-	public static void showConfirmationDialog(Context c, int titleRes, int messageRes,
-			OnClickListener positiveAction, OnClickListener negativeAction) {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(c);
-    	builder.setTitle(titleRes)
-    		.setMessage(messageRes)
-    		.setPositiveButton(android.R.string.yes, positiveAction)
-			.setNegativeButton(android.R.string.no, negativeAction)
-			.show();
+	public static void showConfirmationDialog(Context context,
+                                              @StringRes int titleRes,
+                                              @StringRes int messageRes,
+                                              final SingleButtonCallback positiveAction,
+                                              final SingleButtonCallback negativeAction) {
+        new MaterialDialog.Builder(context)
+                .title(titleRes)
+                .content(messageRes)
+                .positiveText(android.R.string.yes)
+                .onPositive(positiveAction)
+                .negativeText(android.R.string.no)
+                .onNegative(negativeAction)
+                .show();
 	}
 
     /**
