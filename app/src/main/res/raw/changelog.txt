@@ -21,11 +21,10 @@
   <body>
 $ 2.6.0
   % Version 2.6.0
-  _ DATE
+  _ 2017-03-11
     * Portuguese language support added - Thanks <b>CaioLopes</b> and <b>GetLoc147</b>
-    * Fixed playback time wrapping in build player
-    * Material Dialogs
-    * Bug fixes
+    * Material Design improvements
+    * Fixes for playback timer text and build editor
 $ 2.5.0
   % Version 2.5.0
   _ 2017-02-19
