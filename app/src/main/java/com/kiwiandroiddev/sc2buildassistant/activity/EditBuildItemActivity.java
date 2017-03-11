@@ -53,7 +53,6 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	private String mMainItemID;			// required
 	private String mTargetItemID;		// can be none/null (build item might not need a target)
 
-//    @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.dlg_unit_button) ImageButton mUnitButton;
     @InjectView(R.id.dlg_target_button) ImageButton mTargetButton;
     @InjectView(R.id.dlg_clear_target_button) Button mClearTargetButton;
@@ -70,10 +69,6 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
         ButterKnife.inject(this);
 
 		setTitle(R.string.dlg_edit_item_title);
-
-//		setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(true);
-//        getSupportActionBar().setTitle(R.string.dlg_edit_item_title);
 
         mUnitButton.setOnClickListener(this);
         mTargetButton.setOnClickListener(this);

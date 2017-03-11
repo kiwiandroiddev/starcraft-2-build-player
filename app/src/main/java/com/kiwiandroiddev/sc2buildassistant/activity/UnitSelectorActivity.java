@@ -37,7 +37,6 @@ public class UnitSelectorActivity extends AppCompatActivity {
 
     private ItemTypePagerAdapter mPagerAdapter;
 
-//    @InjectView(R.id.toolbar) Toolbar mToolbar;
 	@InjectView(R.id.pager) ViewPager mPager;
 	
 	@Override
@@ -47,10 +46,6 @@ public class UnitSelectorActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
 		setTitle(R.string.dlg_select_item_title);
-
-//        setSupportActionBar(mToolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(true);
-//        getSupportActionBar().setTitle(R.string.dlg_select_item_title);
 
 		ItemType defaultItemType = null;
         if (savedInstanceState == null) {
