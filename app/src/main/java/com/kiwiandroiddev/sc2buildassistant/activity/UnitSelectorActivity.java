@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,7 +37,7 @@ public class UnitSelectorActivity extends AppCompatActivity {
 
     private ItemTypePagerAdapter mPagerAdapter;
 
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
+//    @InjectView(R.id.toolbar) Toolbar mToolbar;
 	@InjectView(R.id.pager) ViewPager mPager;
 	
 	@Override
@@ -47,9 +46,11 @@ public class UnitSelectorActivity extends AppCompatActivity {
 		setContentView(R.layout.dialog_item_selector);
         ButterKnife.inject(this);
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(R.string.dlg_select_item_title);
+		setTitle(R.string.dlg_select_item_title);
+
+//        setSupportActionBar(mToolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(true);
+//        getSupportActionBar().setTitle(R.string.dlg_select_item_title);
 
 		ItemType defaultItemType = null;
         if (savedInstanceState == null) {

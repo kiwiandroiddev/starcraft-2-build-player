@@ -3,6 +3,7 @@ package com.kiwiandroiddev.sc2buildassistant.activity.dialog;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,7 +12,7 @@ import android.widget.EditText;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
 
-public class InsertLinkDialog extends Activity {
+public class InsertLinkDialog extends AppCompatActivity {
 	
 	// start and end cursor positions to be passed back to calling
 	// activity unchanged (for convenience of replacing existing selection)
@@ -31,13 +32,19 @@ public class InsertLinkDialog extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.dialog_insert_link);
+
 		this.setTitle(R.string.dlg_insert_link_title);
 		
 		mLabel = (EditText) findViewById(R.id.labelEditText);
 		mUrl = (EditText) findViewById(R.id.urlEditText);
-		
+
+		initLabelField();
+		initUrlField();
+		initOkCancelButtons();
+	}
+
+	private void initLabelField() {
 		if (getIntent().getExtras().containsKey(KEY_LABEL)) {
 			String label = getIntent().getStringExtra(KEY_LABEL);
 			if (label != null && !label.matches("")) {
@@ -45,31 +52,25 @@ public class InsertLinkDialog extends Activity {
 				mUrl.requestFocus();
 			}
 		}
-		
+	}
+
+	private void initUrlField() {
 		if (getIntent().getExtras().containsKey(KEY_URL)) {
 			String url = getIntent().getStringExtra(KEY_URL);
 			if (url != null && !url.matches(""))
 				mUrl.setText(getIntent().getStringExtra(KEY_URL));
 		}
-		
+	}
+
+	private void initOkCancelButtons() {
 		Button okBtn = (Button) findViewById(R.id.okButton);
 		okBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// ..
-				Intent data = new Intent();
-				data.putExtra(EXTRA_LINK_HTML, buildHtml());
-				
-				if (getIntent().hasExtra(KEY_START))
-					data.putExtra(EXTRA_START, getIntent().getExtras().getInt(KEY_START));
-				if (getIntent().hasExtra(KEY_END))
-					data.putExtra(EXTRA_END, getIntent().getExtras().getInt(KEY_END));
-				
-				setResult(Activity.RESULT_OK, data);
-				InsertLinkDialog.this.finish();
+				finishWithFormattedLink();
 			}
 		});
-		
+
 		Button cancelBtn = (Button) findViewById(R.id.cancelButton);
 		cancelBtn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -78,14 +79,26 @@ public class InsertLinkDialog extends Activity {
 			}
 		});
 	}
-	
+
+	private void finishWithFormattedLink() {
+		Intent data = new Intent();
+		data.putExtra(EXTRA_LINK_HTML, buildHtml());
+
+		if (getIntent().hasExtra(KEY_START))
+            data.putExtra(EXTRA_START, getIntent().getExtras().getInt(KEY_START));
+		if (getIntent().hasExtra(KEY_END))
+            data.putExtra(EXTRA_END, getIntent().getExtras().getInt(KEY_END));
+
+		setResult(Activity.RESULT_OK, data);
+		finish();
+	}
+
 	private String buildHtml() {
-		String html = "<a href=\""
+		return "<a href=\""
 				+ mUrl.getText().toString()
 				+ "\">"
 				+ mLabel.getText().toString()
 				+ "</a>";
-		return html;
 	}
 	
     @Override

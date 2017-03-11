@@ -16,7 +16,9 @@
         <item name="android:windowBackground">@color/grey_900</item>
     </style>
 
-    <style name="StarCraftDialogTheme" parent="StarCraftTheme.NoActionBar" >
-
+    <style name="StarCraftDialogTheme" parent="Theme.AppCompat.Dialog" >
+        <item name="colorPrimary">@color/grey_1000</item>
+        <item name="colorPrimaryDark">@color/grey_1000</item>
+        <item name="android:windowBackground">@color/grey_900</item>
     </style>
 </resources>

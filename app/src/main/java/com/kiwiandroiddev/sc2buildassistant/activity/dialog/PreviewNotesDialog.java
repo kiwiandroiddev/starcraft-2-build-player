@@ -1,7 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.activity.dialog;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.R;
 
-public class PreviewNotesDialog extends Activity {
+public class PreviewNotesDialog extends AppCompatActivity {
 	
 	public static final String KEY_NOTES_HTML = "mNotesHtml";
 	
