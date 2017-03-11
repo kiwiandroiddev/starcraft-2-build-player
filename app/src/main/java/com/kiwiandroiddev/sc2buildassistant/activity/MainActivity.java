@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void showChangelogIfNeeded() {
         ChangeLog cl = new ChangeLog(this);
         if (cl.firstRun()) {
-            cl.getLogDialog().show();
+            cl.showLogDialog();
         }
     }
 

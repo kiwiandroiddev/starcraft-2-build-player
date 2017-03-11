@@ -97,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
             changelogPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     ChangeLog cl = new ChangeLog(getActivity());
-                    cl.getFullLogDialog().show();
+                    cl.showFullLogDialog();
                     return true;
                 }
             });
