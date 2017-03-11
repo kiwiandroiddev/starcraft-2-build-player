@@ -1,8 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -10,10 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
@@ -141,7 +142,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference resetPref = (Preference)findPreference("pref_restore_database");
             resetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
-                    doResetDatabase();
+                    confirmResetDatabase();
                     return true;
                 }
             });
@@ -226,52 +227,54 @@ public class SettingsActivity extends AppCompatActivity {
          * Handles wiping all build orders from the internal sqlite database and reloading
          * the standard build orders
          */
-        private void doResetDatabase() {
-            // confirm with user as this is operation deletes user data
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.dlg_confirm_db_reset_title)
-                    .setMessage(R.string.dlg_confirm_db_reset_message)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        private void confirmResetDatabase() {
+            new MaterialDialog.Builder(getActivity())
+                    .title(R.string.dlg_confirm_db_reset_title)
+                    .content(R.string.dlg_confirm_db_reset_message)
+                    .positiveText(android.R.string.yes)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO DI candidate if I've ever seen one
-                            DbAdapter db = ((MyApplication)getActivity().getApplicationContext()).getDb();
-                            db.clear();
-                            final boolean forceLoad = true;
-
-                            StandardBuildsService.getLoadStandardBuildsIntoDBObservable(getActivity(), forceLoad)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new Observer<Integer>() {
-                                        @Override
-                                        public void onNext(Integer percent) {
-                                            Timber.d("percent = " + percent);
-                                        }
-
-                                        @Override
-                                        public void onCompleted() {
-//                                            hideLoadingAnim();
-                                            JsonBuildService.notifyBuildProviderObservers(getActivity());
-                                            Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            Toast.makeText(getActivity(),
-                                                    String.format(getString(R.string.error_loading_std_builds),
-                                                            e.getMessage()),
-                                                    Toast.LENGTH_LONG).show();
-                                            Timber.e("LoadStandardBuildsTask returned an exception: ", e);
-
-                                            // Report this error for analysis
-                                            EasyTrackerUtils.sendNonFatalException(getActivity(), e);
-                                        }
-                                    });
-
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            doResetDatabase();
                         }
                     })
-                    .setNegativeButton(android.R.string.no, null)
+                    .negativeText(android.R.string.no)
                     .show();
+        }
+
+        private void doResetDatabase() {
+            // TODO DI candidate if I've ever seen one
+            DbAdapter db = ((MyApplication)getActivity().getApplicationContext()).getDb();
+            db.clear();
+            final boolean forceLoad = true;
+
+            StandardBuildsService.getLoadStandardBuildsIntoDBObservable(getActivity(), forceLoad)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Integer>() {
+                        @Override
+                        public void onNext(Integer percent) {
+                            Timber.d("percent = " + percent);
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            JsonBuildService.notifyBuildProviderObservers(getActivity());
+                            Toast.makeText(getActivity(), R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Toast.makeText(getActivity(),
+                                    String.format(getString(R.string.error_loading_std_builds),
+                                            e.getMessage()),
+                                    Toast.LENGTH_LONG).show();
+                            Timber.e("LoadStandardBuildsTask returned an exception: ", e);
+
+                            // Report this error for analysis
+                            EasyTrackerUtils.sendNonFatalException(getActivity(), e);
+                        }
+                    });
         }
     }
 
