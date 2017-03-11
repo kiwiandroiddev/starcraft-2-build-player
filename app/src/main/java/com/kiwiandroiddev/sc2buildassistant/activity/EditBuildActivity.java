@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -429,35 +432,37 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 	 * The user is attempting to exit the activity without explicitly saving the build
 	 */
 	private void doExit() {
-		// check if the user has made changes to the build (whether new or existing)
-			// if so, prompt them to save changes
-			// if not, just finish
-
 		if (userMadeChanges()) {
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-		    alertDialog.setPositiveButton(R.string.save, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					saveResult();
-				}
-			}).setNegativeButton(R.string.discard, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					showMessage(R.string.edit_build_discarded_changes);
-					finish();
-				}
-			}).setNeutralButton(R.string.cancel, null)
-				.setTitle(R.string.edit_build_prompt_save_title)
-				.setMessage(R.string.edit_build_prompt_save_message);
-		    
-		    alertDialog.show();
+            showSaveChangesBeforeExitPrompt();
 		} else {
 			finish();
 		}
 	}
-	
-	/** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
+
+    private void showSaveChangesBeforeExitPrompt() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.edit_build_prompt_save_title)
+                .content(R.string.edit_build_prompt_save_message)
+                .positiveText(R.string.save)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        saveResult();
+                    }
+                })
+                .negativeText(R.string.discard)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        showMessage(R.string.edit_build_discarded_changes);
+                        finish();
+                    }
+                })
+                .neutralText(R.string.cancel)
+                .show();
+    }
+
+    /** may be null if the fragment hasn't been created yet (meaning the user hasn't swiped over to it so far) */
 	private EditBuildInfoFragment findInfoFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 		return (EditBuildInfoFragment) fm.findFragmentByTag(FragmentUtils.makeFragmentName(mPager.getId(), 0));
