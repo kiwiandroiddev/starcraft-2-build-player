@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/brief_root"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/brief_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,8 +18,7 @@
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            >
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <TextView
                 android:id="@+id/buildName"
@@ -31,16 +29,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/primary_text_dark"
                 android:transitionName="buildName"
-                tools:text="Build Order Title"/>
+                tools:text="Build Order Title" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/brief_nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.kiwiandroiddev.sc2buildassistant.util.FABAwareScrollingViewBehavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -49,8 +48,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/screen_edge_padding"
                 android:paddingRight="@dimen/screen_edge_padding">
@@ -63,11 +62,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
                         android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/brief_source_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/brief_buildSubTitle"
@@ -75,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="16sp"
-                        tools:text="Liquidpedia"/>
+                        tools:text="Liquidpedia" />
 
                 </LinearLayout>
 
@@ -89,11 +88,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
                         android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/brief_author_label"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/brief_author"
@@ -101,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="16sp"
-                        tools:text="Artanis"/>
+                        tools:text="Artanis" />
                 </LinearLayout>
 
                 <TextView
@@ -109,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc."/>
+                    tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc." />
 
                 <!-- prevent adview from stealing focus and auto-scrolling when it loads -->
                 <FrameLayout
@@ -123,8 +122,7 @@
                         android:layout_height="64dp"
                         android:layout_gravity="center_horizontal"
                         app:adSize="BANNER"
-                        app:adUnitId="a150b967e3b02cd"
-                        />
+                        app:adUnitId="a150b967e3b02cd" />
 
                 </FrameLayout>
 
@@ -135,12 +133,19 @@
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_brief_play_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_media_play" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_brief_play_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_media_play" />
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
