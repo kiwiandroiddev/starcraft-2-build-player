@@ -10,10 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.DrawableRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -70,6 +72,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_buildNotes) TextView mNotesView;
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
+    @InjectView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
     @InjectView(R.id.ad) AdView mAdView;
 
     // TODO temp!
@@ -150,13 +153,64 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         displayBasicInfo();
         initAdBanner();
         trackBriefView();
+        initScrollView();
     }
 
     private void initSystemUiVisibility() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (!sharedPref.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+        makeNavigationBarTranslucentIfPossible();
+    }
+
+    private void initScrollView() {
+        NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.brief_nested_scroll_view);
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                int dy = (scrollY - oldScrollY);
+                if (dy > 0) {
+                    onScrollDownBrief();
+                } else {
+                    onScrollUpBrief();
+                }
+            }
+        });
+    }
+
+    private void onScrollDownBrief() {
+        mPlayButton.hide();
+        hideSystemNavigationBar();
+    }
+
+    private void onScrollUpBrief() {
+        mPlayButton.show();
+        showSystemNavigationBar();
+    }
+
+    private void hideSystemNavigationBar() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    private void showSystemNavigationBar() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    private void makeNavigationBarTranslucentIfPossible() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 
@@ -319,7 +373,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         } else {
             mAuthorLayout.setVisibility(View.GONE);
         }
-//        Timber.d(TAG, "time to load = " + (SystemClock.uptimeMillis() - mStartTime) + " ms");
     }
 
     @Override
