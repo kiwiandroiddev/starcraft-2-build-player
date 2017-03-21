@@ -138,10 +138,7 @@ public class BuildPlayer implements Serializable {
 		
 		if (!mWasStopped && mStopped) {
 			// playing -> stopped
-			mCurrentGameTime = 0;
-			mSeekOffset = (mStartTime * 1000);
-			mBuildPointer = 0;
-			mPaused = false;	// reset paused state if true
+			resetPlaybackState();
 			
 			// fire onStopped() event
 			for (BuildPlayerEventListener listener : mListeners)
@@ -188,7 +185,18 @@ public class BuildPlayer implements Serializable {
 		for (BuildPlayerEventListener listener : mListeners)
 			listener.onIterate(gameTimeToShowListeners);
 	}
-	
+
+	private void resetPlaybackState() {
+		mCurrentGameTime = 0;
+		mSeekOffset = (mStartTime * 1000);
+		mBuildPointer = 0;
+		mPaused = false;	// reset paused state if true
+
+		// TODO write test to justify these two lines
+		mRefTime = 0;
+		mOldBuildPointer = 0;
+	}
+
 	public void setTimeMultiplier(double factor) {
 		if (factor != mTimeMultiplier) {
 			mTimeMultiplier = factor;
@@ -305,9 +313,6 @@ public class BuildPlayer implements Serializable {
 	 * user to build them.
 	 */
 	private void doBuildAlerts() {
-//		if (buildFinished())
-//			return;
-		
 		// update build item pointer (possibly backwards)
 		findNewNextUnit();
 		
@@ -329,5 +334,76 @@ public class BuildPlayer implements Serializable {
 			mOldBuildPointer++;
 		}
 	}
-	
+
+	@Override
+	public String toString() {
+		return "BuildPlayer{" +
+				"mStopped=" + mStopped +
+				", mPaused=" + mPaused +
+				", mCurrentGameTime=" + mCurrentGameTime +
+				", mTimeMultiplier=" + mTimeMultiplier +
+				", mBuildPointer=" + mBuildPointer +
+				", mRefTime=" + mRefTime +
+				", mSeekOffset=" + mSeekOffset +
+				", mAlertOffset=" + mAlertOffset +
+				", mStartTime=" + mStartTime +
+				", mOldBuildPointer=" + mOldBuildPointer +
+				", mWasPaused=" + mWasPaused +
+				", mWasStopped=" + mWasStopped +
+				", mMultiplierChanged=" + mMultiplierChanged +
+				", mStartTimeChanged=" + mStartTimeChanged +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		BuildPlayer that = (BuildPlayer) o;
+
+		if (mStopped != that.mStopped) return false;
+		if (mPaused != that.mPaused) return false;
+		if (Double.compare(that.mCurrentGameTime, mCurrentGameTime) != 0) return false;
+		if (Double.compare(that.mTimeMultiplier, mTimeMultiplier) != 0) return false;
+		if (mBuildPointer != that.mBuildPointer) return false;
+		if (mRefTime != that.mRefTime) return false;
+		if (mSeekOffset != that.mSeekOffset) return false;
+		if (mAlertOffset != that.mAlertOffset) return false;
+		if (mStartTime != that.mStartTime) return false;
+		if (mOldBuildPointer != that.mOldBuildPointer) return false;
+		if (mWasPaused != that.mWasPaused) return false;
+		if (mWasStopped != that.mWasStopped) return false;
+		if (mMultiplierChanged != that.mMultiplierChanged) return false;
+		if (mStartTimeChanged != that.mStartTimeChanged) return false;
+		if (mListeners != null ? !mListeners.equals(that.mListeners) : that.mListeners != null)
+			return false;
+		return mItems != null ? mItems.equals(that.mItems) : that.mItems == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = mListeners != null ? mListeners.hashCode() : 0;
+		result = 31 * result + (mItems != null ? mItems.hashCode() : 0);
+		result = 31 * result + (mStopped ? 1 : 0);
+		result = 31 * result + (mPaused ? 1 : 0);
+		temp = Double.doubleToLongBits(mCurrentGameTime);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(mTimeMultiplier);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + mBuildPointer;
+		result = 31 * result + (int) (mRefTime ^ (mRefTime >>> 32));
+		result = 31 * result + (int) (mSeekOffset ^ (mSeekOffset >>> 32));
+		result = 31 * result + mAlertOffset;
+		result = 31 * result + mStartTime;
+		result = 31 * result + mOldBuildPointer;
+		result = 31 * result + (mWasPaused ? 1 : 0);
+		result = 31 * result + (mWasStopped ? 1 : 0);
+		result = 31 * result + (mMultiplierChanged ? 1 : 0);
+		result = 31 * result + (mStartTimeChanged ? 1 : 0);
+		return result;
+	}
 }
