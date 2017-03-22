@@ -191,10 +191,9 @@ public class BuildPlayer implements Serializable {
 		mSeekOffset = (mStartTime * 1000);
 		mBuildPointer = 0;
 		mPaused = false;	// reset paused state if true
-
-		// TODO write test to justify these two lines
 		mRefTime = 0;
 		mOldBuildPointer = 0;
+		mStartTimeChanged = true;	// fake change event to force initialization
 	}
 
 	public void setTimeMultiplier(double factor) {

@@ -19,20 +19,20 @@ public class BuildItem implements Serializable {
 	public BuildItem() {
 	}
 	
-	public BuildItem(int time, String unit) {
-		mTime = time;
+	public BuildItem(int timeInSeconds, String unit) {
+		mTime = timeInSeconds;
 		mUnit = unit;
 		mCount = 1;
 	}
 	
-	public BuildItem(int time, String unit, int count) {
-		mTime = time;
+	public BuildItem(int timeInSeconds, String unit, int count) {
+		mTime = timeInSeconds;
 		mUnit = unit;
 		mCount = count;
 	}
 	
-	public BuildItem(int time, String unit, int count, String target, String text, String voice) {
-		mTime = time;
+	public BuildItem(int timeInSeconds, String unit, int count, String target, String text, String voice) {
+		mTime = timeInSeconds;
 		mUnit = unit;
 		mCount = count;
 		mTarget = target;
