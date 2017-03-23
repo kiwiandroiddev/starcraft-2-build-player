@@ -37,6 +37,7 @@ import com.google.analytics.tracking.android.StandardExceptionParser;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
+import com.kiwiandroiddev.sc2buildassistant.data.RealCurrentTimeProvider;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
@@ -150,7 +151,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
 //        	Log.w(this.toString(), "saved buildplayer found, player = " + savedPlayer + ", numListeners = " + savedPlayer.getNumListeners());
         } else {
-        	mBuildPlayer = new BuildPlayer(mBuild.getItems());
+        	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
         }
         mBuildPlayer.registerListener(this);
         

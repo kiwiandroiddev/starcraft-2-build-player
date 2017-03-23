@@ -4,7 +4,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Encapsulates the low-level logic of playing back a build order. Objects
@@ -19,8 +19,9 @@ public class BuildPlayer implements Serializable {
 	
 	private static final long serialVersionUID = 5709010570800905185L;
 	
-	private ArrayList<BuildPlayerEventListener> mListeners = new ArrayList<>();
-	private ArrayList<BuildItem> mItems;
+	private List<BuildPlayerEventListener> mListeners = new ArrayList<>();
+	private CurrentTimeProvider mCurrentTimeProvider;
+	private List<BuildItem> mItems;
 	private boolean mStopped = true;
 	private boolean mPaused = false;			// implicitly: playing = (!mStopped && !mPaused)
 	private double mCurrentGameTime = 0f;		// milliseconds of game time (not real time!)
@@ -42,7 +43,8 @@ public class BuildPlayer implements Serializable {
 	// Public methods
 	//=========================================================================
 	
-	public BuildPlayer(ArrayList<BuildItem> items) {
+	public BuildPlayer(CurrentTimeProvider currentTimeProvider, List<BuildItem> items) {
+		mCurrentTimeProvider = currentTimeProvider;
 		mItems = items;
 	}
 	
@@ -72,10 +74,6 @@ public class BuildPlayer implements Serializable {
 	
 	public boolean isPaused() {
 		return mPaused;
-	}
-	
-	public int getNumItems() {
-		return mItems.size();
 	}
 
 	/*
@@ -172,7 +170,7 @@ public class BuildPlayer implements Serializable {
 		
 		long gameTimeToShowListeners;
 		if (this.isPlaying()) {
-			long currentTime = new Date().getTime();
+			long currentTime = mCurrentTimeProvider.getTime();
 			mCurrentGameTime = (currentTime - mRefTime) * mTimeMultiplier + mSeekOffset;
 			gameTimeToShowListeners = (long)mCurrentGameTime;
 			doBuildAlerts();	// see if user should be told to build something
@@ -254,7 +252,7 @@ public class BuildPlayer implements Serializable {
 	//=========================================================================
 
 	private void updateReferencePoint() {
-		mRefTime = new Date().getTime();
+		mRefTime = mCurrentTimeProvider.getTime();
 	}
 	
 	/*
