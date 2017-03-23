@@ -1,5 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
+import android.support.annotation.NonNull;
+
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.io.Serializable;
@@ -43,7 +45,7 @@ public class BuildPlayer implements Serializable {
 	// Public methods
 	//=========================================================================
 	
-	public BuildPlayer(CurrentTimeProvider currentTimeProvider, List<BuildItem> items) {
+	public BuildPlayer(@NonNull CurrentTimeProvider currentTimeProvider, @NonNull List<BuildItem> items) {
 		mCurrentTimeProvider = currentTimeProvider;
 		mItems = items;
 	}
@@ -335,7 +337,9 @@ public class BuildPlayer implements Serializable {
 	@Override
 	public String toString() {
 		return "BuildPlayer{" +
-				"mStopped=" + mStopped +
+				"mCurrentTimeProvider=" + mCurrentTimeProvider +
+				", mItems=" + mItems +
+				", mStopped=" + mStopped +
 				", mPaused=" + mPaused +
 				", mCurrentGameTime=" + mCurrentGameTime +
 				", mTimeMultiplier=" + mTimeMultiplier +
@@ -375,7 +379,8 @@ public class BuildPlayer implements Serializable {
 		if (mStartTimeChanged != that.mStartTimeChanged) return false;
 		if (mListeners != null ? !mListeners.equals(that.mListeners) : that.mListeners != null)
 			return false;
-		return mItems != null ? mItems.equals(that.mItems) : that.mItems == null;
+		if (!mCurrentTimeProvider.equals(that.mCurrentTimeProvider)) return false;
+		return mItems.equals(that.mItems);
 
 	}
 
@@ -384,7 +389,8 @@ public class BuildPlayer implements Serializable {
 		int result;
 		long temp;
 		result = mListeners != null ? mListeners.hashCode() : 0;
-		result = 31 * result + (mItems != null ? mItems.hashCode() : 0);
+		result = 31 * result + mCurrentTimeProvider.hashCode();
+		result = 31 * result + mItems.hashCode();
 		result = 31 * result + (mStopped ? 1 : 0);
 		result = 31 * result + (mPaused ? 1 : 0);
 		temp = Double.doubleToLongBits(mCurrentGameTime);
