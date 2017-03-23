@@ -63,15 +63,20 @@ dependencies {
     compile "com.google.firebase:firebase-ads:${rootProject.ext.firebaseVersion}"
     compile "com.google.firebase:firebase-crash:${rootProject.ext.firebaseVersion}"
 
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'io.reactivex:rxandroid:0.25.0'
-    compile 'com.jakewharton:butterknife:6.0.0'
-    compile 'com.f2prateek.dart:dart:1.1.0'
-    compile 'com.jakewharton.timber:timber:3.0.2'
-    compile 'com.karumi:dexter:2.2.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'org.assertj:assertj-core:1.7.0'
+    compile(
+            'com.google.code.gson:gson:2.7',
+            'io.reactivex:rxandroid:0.25.0',
+            'com.jakewharton:butterknife:6.0.0',
+            'com.f2prateek.dart:dart:1.1.0',
+            'com.jakewharton.timber:timber:3.0.2',
+            'com.karumi:dexter:2.2.2'
+    )
+
+    testCompile(
+            'junit:junit:4.12',
+            'org.mockito:mockito-core:1.9.5',
+            'org.assertj:assertj-core:1.7.0'
+    )
 }
 
 apply plugin: 'com.google.gms.google-services'

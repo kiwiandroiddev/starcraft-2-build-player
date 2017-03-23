@@ -1,10 +1,12 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
+import android.support.annotation.NonNull;
+
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Encapsulates the low-level logic of playing back a build order. Objects
@@ -19,8 +21,9 @@ public class BuildPlayer implements Serializable {
 	
 	private static final long serialVersionUID = 5709010570800905185L;
 	
-	private ArrayList<BuildPlayerEventListener> mListeners = new ArrayList<>();
-	private ArrayList<BuildItem> mItems;
+	private List<BuildPlayerEventListener> mListeners = new ArrayList<>();
+	private CurrentTimeProvider mCurrentTimeProvider;
+	private List<BuildItem> mItems;
 	private boolean mStopped = true;
 	private boolean mPaused = false;			// implicitly: playing = (!mStopped && !mPaused)
 	private double mCurrentGameTime = 0f;		// milliseconds of game time (not real time!)
@@ -42,7 +45,8 @@ public class BuildPlayer implements Serializable {
 	// Public methods
 	//=========================================================================
 	
-	public BuildPlayer(ArrayList<BuildItem> items) {
+	public BuildPlayer(@NonNull CurrentTimeProvider currentTimeProvider, @NonNull List<BuildItem> items) {
+		mCurrentTimeProvider = currentTimeProvider;
 		mItems = items;
 	}
 	
@@ -72,10 +76,6 @@ public class BuildPlayer implements Serializable {
 	
 	public boolean isPaused() {
 		return mPaused;
-	}
-	
-	public int getNumItems() {
-		return mItems.size();
 	}
 
 	/*
@@ -138,10 +138,7 @@ public class BuildPlayer implements Serializable {
 		
 		if (!mWasStopped && mStopped) {
 			// playing -> stopped
-			mCurrentGameTime = 0;
-			mSeekOffset = (mStartTime * 1000);
-			mBuildPointer = 0;
-			mPaused = false;	// reset paused state if true
+			resetPlaybackState();
 			
 			// fire onStopped() event
 			for (BuildPlayerEventListener listener : mListeners)
@@ -175,7 +172,7 @@ public class BuildPlayer implements Serializable {
 		
 		long gameTimeToShowListeners;
 		if (this.isPlaying()) {
-			long currentTime = new Date().getTime();
+			long currentTime = mCurrentTimeProvider.getTime();
 			mCurrentGameTime = (currentTime - mRefTime) * mTimeMultiplier + mSeekOffset;
 			gameTimeToShowListeners = (long)mCurrentGameTime;
 			doBuildAlerts();	// see if user should be told to build something
@@ -188,7 +185,17 @@ public class BuildPlayer implements Serializable {
 		for (BuildPlayerEventListener listener : mListeners)
 			listener.onIterate(gameTimeToShowListeners);
 	}
-	
+
+	private void resetPlaybackState() {
+		mCurrentGameTime = 0;
+		mSeekOffset = (mStartTime * 1000);
+		mBuildPointer = 0;
+		mPaused = false;	// reset paused state if true
+		mRefTime = 0;
+		mOldBuildPointer = 0;
+		mStartTimeChanged = true;	// fake change event to force initialization
+	}
+
 	public void setTimeMultiplier(double factor) {
 		if (factor != mTimeMultiplier) {
 			mTimeMultiplier = factor;
@@ -247,7 +254,7 @@ public class BuildPlayer implements Serializable {
 	//=========================================================================
 
 	private void updateReferencePoint() {
-		mRefTime = new Date().getTime();
+		mRefTime = mCurrentTimeProvider.getTime();
 	}
 	
 	/*
@@ -305,9 +312,6 @@ public class BuildPlayer implements Serializable {
 	 * user to build them.
 	 */
 	private void doBuildAlerts() {
-//		if (buildFinished())
-//			return;
-		
 		// update build item pointer (possibly backwards)
 		findNewNextUnit();
 		
@@ -329,5 +333,80 @@ public class BuildPlayer implements Serializable {
 			mOldBuildPointer++;
 		}
 	}
-	
+
+	@Override
+	public String toString() {
+		return "BuildPlayer{" +
+				"mCurrentTimeProvider=" + mCurrentTimeProvider +
+				", mItems=" + mItems +
+				", mStopped=" + mStopped +
+				", mPaused=" + mPaused +
+				", mCurrentGameTime=" + mCurrentGameTime +
+				", mTimeMultiplier=" + mTimeMultiplier +
+				", mBuildPointer=" + mBuildPointer +
+				", mRefTime=" + mRefTime +
+				", mSeekOffset=" + mSeekOffset +
+				", mAlertOffset=" + mAlertOffset +
+				", mStartTime=" + mStartTime +
+				", mOldBuildPointer=" + mOldBuildPointer +
+				", mWasPaused=" + mWasPaused +
+				", mWasStopped=" + mWasStopped +
+				", mMultiplierChanged=" + mMultiplierChanged +
+				", mStartTimeChanged=" + mStartTimeChanged +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		BuildPlayer that = (BuildPlayer) o;
+
+		if (mStopped != that.mStopped) return false;
+		if (mPaused != that.mPaused) return false;
+		if (Double.compare(that.mCurrentGameTime, mCurrentGameTime) != 0) return false;
+		if (Double.compare(that.mTimeMultiplier, mTimeMultiplier) != 0) return false;
+		if (mBuildPointer != that.mBuildPointer) return false;
+		if (mRefTime != that.mRefTime) return false;
+		if (mSeekOffset != that.mSeekOffset) return false;
+		if (mAlertOffset != that.mAlertOffset) return false;
+		if (mStartTime != that.mStartTime) return false;
+		if (mOldBuildPointer != that.mOldBuildPointer) return false;
+		if (mWasPaused != that.mWasPaused) return false;
+		if (mWasStopped != that.mWasStopped) return false;
+		if (mMultiplierChanged != that.mMultiplierChanged) return false;
+		if (mStartTimeChanged != that.mStartTimeChanged) return false;
+		if (mListeners != null ? !mListeners.equals(that.mListeners) : that.mListeners != null)
+			return false;
+		if (!mCurrentTimeProvider.equals(that.mCurrentTimeProvider)) return false;
+		return mItems.equals(that.mItems);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = mListeners != null ? mListeners.hashCode() : 0;
+		result = 31 * result + mCurrentTimeProvider.hashCode();
+		result = 31 * result + mItems.hashCode();
+		result = 31 * result + (mStopped ? 1 : 0);
+		result = 31 * result + (mPaused ? 1 : 0);
+		temp = Double.doubleToLongBits(mCurrentGameTime);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(mTimeMultiplier);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + mBuildPointer;
+		result = 31 * result + (int) (mRefTime ^ (mRefTime >>> 32));
+		result = 31 * result + (int) (mSeekOffset ^ (mSeekOffset >>> 32));
+		result = 31 * result + mAlertOffset;
+		result = 31 * result + mStartTime;
+		result = 31 * result + mOldBuildPointer;
+		result = 31 * result + (mWasPaused ? 1 : 0);
+		result = 31 * result + (mWasStopped ? 1 : 0);
+		result = 31 * result + (mMultiplierChanged ? 1 : 0);
+		result = 31 * result + (mStartTimeChanged ? 1 : 0);
+		return result;
+	}
 }
