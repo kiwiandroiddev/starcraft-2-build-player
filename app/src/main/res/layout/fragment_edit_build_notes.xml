@@ -32,8 +32,8 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="@dimen/notes_format_tools_bar_width"
-        android:layout_height="40dp"
-        android:layout_gravity="top|right" >
+        android:layout_height="@dimen/notes_format_tools_bar_height"
+        android:layout_gravity="top|end" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                 android:id="@+id/h1Button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="H1"
+                android:text="@string/edit_build_notes_button_format_h1"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -54,28 +54,28 @@
                 android:id="@+id/h2Button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="H2"
+                android:text="@string/edit_build_notes_button_format_h2"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/h3Button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="H3"
+                android:text="@string/edit_build_notes_button_format_h3"
                 android:textSize="10sp" />
 
             <Button
                 android:id="@+id/aButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="A"
+                android:text="@string/edit_build_notes_button_format_a"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/boldButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="B"
+                android:text="@string/edit_build_notes_button_format_b"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -83,14 +83,14 @@
                 android:id="@+id/PButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="P"
+                android:text="@string/edit_build_notes_button_format_p"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/brButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:text="br"
+                android:text="@string/edit_build_notes_button_format_br"
                 android:textSize="12sp" />
         </LinearLayout>
     </HorizontalScrollView>

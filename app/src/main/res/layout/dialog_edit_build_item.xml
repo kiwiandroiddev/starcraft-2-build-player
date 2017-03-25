@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/relativeLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -94,7 +95,7 @@
                 android:gravity="center_vertical|right"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="1"
+                tools:text="1"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
             <EditText
@@ -120,7 +121,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="-24dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/gameitem_barracks_small" />
+                tools:src="@drawable/gameitem_barracks_small" />
 
 <!--             <EditText -->
 <!--                 android:id="@+id/dlg_supply" -->
@@ -144,7 +145,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="-24dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/gameitem_scv_small" />
+                tools:src="@drawable/gameitem_scv_small" />
 
             <EditText
                 android:id="@+id/dlg_minutes"
@@ -169,7 +170,7 @@
                 android:gravity="center_vertical|right"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="49"
+                tools:text="49"
                 android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
             <EditText
@@ -202,7 +203,7 @@
                 android:layout_alignBaseline="@+id/dlg_seconds"
                 android:layout_alignBottom="@+id/dlg_seconds"
                 android:layout_toLeftOf="@+id/dlg_seconds"
-                android:text=":"
+                android:text="@string/dlg_minutes_seconds_separator"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <Button
