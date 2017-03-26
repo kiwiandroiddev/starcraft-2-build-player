@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_media_play" />
+            app:srcCompat="@drawable/ic_media_play_48dp" />
 
     </FrameLayout>
 

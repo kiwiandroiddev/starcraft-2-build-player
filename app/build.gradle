@@ -13,6 +13,8 @@ android {
         versionName "2.6.0"
         setProperty("archivesBaseName", "kiwiandroiddev-sc2buildassistant-$versionName")
 
+        vectorDrawables.useSupportLibrary = true
+
         testApplicationId "com.kiwiandroiddev.sc2buildassistant.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
