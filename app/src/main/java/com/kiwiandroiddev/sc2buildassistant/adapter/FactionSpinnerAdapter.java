@@ -71,7 +71,6 @@ public class FactionSpinnerAdapter extends BaseAdapter implements SpinnerAdapter
 	private View getView(int position, View convertView, ViewGroup parent, int viewResId) {
 		View row = convertView;
 		if (row == null) {
-//			LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(viewResId, parent, false);
 		}
@@ -84,7 +83,7 @@ public class FactionSpinnerAdapter extends BaseAdapter implements SpinnerAdapter
 			icon.setImageResource(sFactionIcons[position]);
 		} else {
 			if (position == 0) {
-				name.setText("Any");
+				name.setText(R.string.race_any);
 			} else {
 				name.setText(DbAdapter.getFactionName(Faction.values()[position-1]));
 				icon.setImageResource(sFactionIcons[position-1]);

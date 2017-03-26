@@ -4,8 +4,8 @@
     <dimen name="inter_widget_padding">4dp</dimen>
     <dimen name="dlg_build_item_vertical_margin">34dp</dimen>
     <dimen name="notes_format_tools_bar_width">160dp</dimen>
+    <dimen name="notes_format_tools_bar_height">40dp</dimen>
     <dimen name="unit_icon_size">62px</dimen>
-    <dimen name="ad_banner_height">50dp</dimen>
     <dimen name="activity_playback_seekbar_height">40dp</dimen>
 
     <dimen name="material_list_item_height">72dp</dimen>

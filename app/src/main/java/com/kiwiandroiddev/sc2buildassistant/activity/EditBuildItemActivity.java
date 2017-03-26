@@ -87,9 +87,9 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	        	item.setTime(extras.getInt(KEY_DEFAULT_TIME, 0));
 	        }
 	        	
-	        mMinutes.setText("" + item.getTime() / 60);
-	        mSeconds.setText("" + item.getTime() % 60);
-	        mCount.setText("" + item.getCount());
+	        mMinutes.setText(String.format("%d", item.getTime() / 60));
+	        mSeconds.setText(String.format("%d", item.getTime() % 60));
+	        mCount.setText(String.format("%d", item.getCount()));
 	        mCustomText.setText(item.getText());
 	        mCustomSpeech.setText(item.getVoice());
 	        mMainItemID = item.getGameItemID();
@@ -204,15 +204,12 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	
 	// Helpers
 	private int getIntFromEditText(EditText edit, int defaultIfNull) throws NumberFormatException {
-//		Timber.d(this.toString(), "edit.getText() = " + edit.getText());
 		String text = edit.getText().toString();
 		if (text.matches("")) {
-//			Timber.d(this.toString(), "  text is empty, returning " + defaultIfNull);
 			return defaultIfNull;
 		}
-		
-		int value = Integer.parseInt(text);
-		return value;
+
+		return Integer.parseInt(text);
 	}
 
 	@Override
@@ -220,11 +217,9 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 		DbAdapter db = ((MyApplication) getApplicationContext()).getDb();
 		switch (v.getId()) {
 		case R.id.dlg_unit_button:
-//			Timber.d(this.toString(), "unit button click");
 			showUnitSelector(R.id.dlg_unit_button, db.getItemType(mMainItemID));	// stub
 			break;
 		case R.id.dlg_target_button:
-//			Timber.d(this.toString(), "target button click");
 			showUnitSelector(R.id.dlg_target_button, db.getItemType(mTargetItemID));
 			break;
 //		default:

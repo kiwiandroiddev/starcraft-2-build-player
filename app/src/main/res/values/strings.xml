@@ -17,6 +17,7 @@
 	<string name="playback_stop">Stop</string>
 	<string name="playback_play">Play</string>
 	<string name="playback_pause">Pause</string>
+	<string name="playback_time_current_total_separator" translatable="false">/</string>
 	<string name="pref_game_speed">Game Speed</string>
 	<string name="pref_game_speed_default" translatable="false">4</string>
 	<string name="pref_early_warning">Alert time offset</string>
@@ -71,6 +72,8 @@
 	<string name="add_build_footer">Add Build&#8230;</string>
 	<string name="brief_source_label">Source:</string>
 	<string name="brief_author_label">Author:</string>
+
+	<!-- Build editor -->
 	<string name="edit_build_new_title">New Build</string>
 	<string name="edit_build_edit_title">Edit Build</string>
 	<string name="edit_build_info_title">Info</string>
@@ -93,6 +96,13 @@
 	<string name="edit_build_save_successful">Build saved</string>
 	<string name="edit_build_prompt_save_title">Save changes?</string>
 	<string name="edit_build_prompt_save_message">You\'ve made some changes to this build - would you like to save them?</string>
+	<string name="edit_build_notes_button_format_h1" translatable="false">H1</string>
+	<string name="edit_build_notes_button_format_h2" translatable="false">H2</string>
+	<string name="edit_build_notes_button_format_h3" translatable="false">H3</string>
+	<string name="edit_build_notes_button_format_a" translatable="false">A</string>
+	<string name="edit_build_notes_button_format_b" translatable="false">B</string>
+	<string name="edit_build_notes_button_format_p" translatable="false">P</string>
+	<string name="edit_build_notes_button_format_br" translatable="false">br</string>
 	<string name="dlg_edit_item_title">Edit Item</string>
 	<string name="dlg_select_item_title">Select Unit/Upgrade/Ability</string>
 	<string name="item_type_unit">Unit</string>
@@ -104,7 +114,11 @@
 	<string name="desc_unit_icon">Icon of the unit, structure, upgrade or ability</string>
 	<string name="deleted_items_x_N">Deleted %1$s x%2$d</string>
 	<string name="deleted_item">Deleted %1$s</string>
+	<string name="edit_build_item_count_template" translatable="false">x%1$d</string>
+	<string name="edit_build_item_on_target_template">on %s</string>
+	<string name="edit_build_item_time_template" translatable="false">%02d:%02d</string>
 	<string name="undo">Undo</string>
+
 	<string name="permission_popup_write_storage_denied_for_exporting">External storage access is needed to export builds</string>
 	<string name="permission_popup_read_storage_denied_for_importing">External storage access is needed to import builds</string>
 	<string name="permission_popup_settings">Settings</string>
@@ -118,7 +132,8 @@
 	<string name="dlg_custom_text_label">Custom text</string>
 	<string name="dlg_custom_speech_label">Custom speech</string>
 	<string name="dlg_clear_label">Clear</string>
-		
+	<string name="dlg_minutes_seconds_separator" translatable="false">:</string>
+
 	<!-- Preview Notes dialog -->
 	<string name="dlg_preview_notes_title">Notes Preview</string>
 	
@@ -359,5 +374,6 @@
 	<string name="gameitem_ventral_sacs">Ventral Sacs</string>
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
+	<string name="build_row_vs_race_template">vs. %s</string>
 
 </resources>
