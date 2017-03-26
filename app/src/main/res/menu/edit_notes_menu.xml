@@ -2,7 +2,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_preview"
         android:title="@string/menu_preview"
-        android:icon="@drawable/ic_action_preview"
+        android:icon="@drawable/ic_preview_24dp"
         android:orderInCategory="90"
         app:showAsAction="ifRoom|withText" />
 </menu>

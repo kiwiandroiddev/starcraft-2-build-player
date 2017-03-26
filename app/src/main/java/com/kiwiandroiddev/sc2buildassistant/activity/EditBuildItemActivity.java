@@ -41,7 +41,7 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	private static final String KEY_MAIN_ITEM_ID = "MainItemID";
 	private static final String KEY_TARGET_ITEM_ID = "TargetItemID";
 	
-	private static final int NO_ITEM_ICON = R.drawable.stat_notify_disabled;
+	private static final int NO_ITEM_ICON = R.drawable.ic_disabled_24dp;
 	
 	private Faction mFaction;		// current faction for the build order, used to limit unit selection
 	
