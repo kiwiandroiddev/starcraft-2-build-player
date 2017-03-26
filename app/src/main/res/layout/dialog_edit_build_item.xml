@@ -123,20 +123,6 @@
                 android:scaleType="centerInside"
                 tools:src="@drawable/gameitem_barracks_small" />
 
-<!--             <EditText -->
-<!--                 android:id="@+id/dlg_supply" -->
-<!--                 android:layout_width="64dp" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_alignBaseline="@+id/TextView02" -->
-<!--                 android:layout_alignBottom="@+id/TextView02" -->
-<!--                 android:layout_alignParentRight="true" -->
-<!--                 android:ems="10" -->
-<!--                 android:gravity="center_vertical|right" -->
-<!--                 android:inputType="number" -->
-<!--                 android:selectAllOnFocus="true" -->
-<!--                 android:text="9" -->
-<!--                 android:textAppearance="?android:attr/textAppearanceSmallInverse" /> -->
-
             <ImageButton
                 android:id="@+id/dlg_unit_button"
                 android:layout_width="64dp"

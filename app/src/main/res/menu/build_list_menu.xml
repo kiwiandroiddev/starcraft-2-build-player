@@ -2,12 +2,12 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_new_build"
         android:title="@string/menu_new_build"
-        android:icon="@drawable/ic_menu_btn_add"
+        android:icon="@drawable/ic_add_24dp"
         android:orderInCategory="110"
         app:showAsAction="never" />
     <item android:id="@+id/menu_import_build"
         android:title="@string/menu_import_build"
-        android:icon="@drawable/ic_menu_btn_add"
+        android:icon="@drawable/ic_add_24dp"
         android:orderInCategory="111"
         app:showAsAction="never" />
     <item android:id="@+id/menu_settings"
