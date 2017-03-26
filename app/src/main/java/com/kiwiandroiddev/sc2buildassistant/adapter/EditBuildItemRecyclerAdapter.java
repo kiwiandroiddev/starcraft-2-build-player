@@ -34,9 +34,11 @@ public class EditBuildItemRecyclerAdapter
 
     private static final int BUILD_ROW_TYPE = 0;
     private static final int FOOTER_ROW_TYPE = 1;
+    private static final int NUM_FOOTER_ITEMS = 1;
     private static final String OUT_OF_POSITION_INDICATOR_CHANGE_PAYLOAD = "outOfPositionIndicatorChange";
 
     private final DbAdapter mDb;
+    private Context mContext;
     private final OnStartDragListener mOnStartDragListener;
     private final OnBuildItemClickedListener mOnBuildItemClickedListener;
     private final OnBuildItemRemovedListener mOnBuildItemRemovedListener;
@@ -47,6 +49,7 @@ public class EditBuildItemRecyclerAdapter
                                         OnBuildItemClickedListener onBuildItemClickedListener,
                                         OnBuildItemRemovedListener onBuildItemRemovedListener,
                                         ArrayList<BuildItem> buildItems) {
+        mContext = context;
         mOnStartDragListener = onStartDragListener;
         mOnBuildItemClickedListener = onBuildItemClickedListener;
         mOnBuildItemRemovedListener = onBuildItemRemovedListener;
@@ -105,7 +108,7 @@ public class EditBuildItemRecyclerAdapter
 
         // display unit count (if something other than 1)
         if (item.getCount() > 1) {
-            holder.count.setText("x" + item.getCount());    // TODO localise this
+            holder.count.setText(mContext.getString(R.string.edit_build_item_count_template, item.getCount()));
             holder.count.setVisibility(View.VISIBLE);
         } else {
             holder.count.setVisibility(View.GONE);
@@ -115,8 +118,8 @@ public class EditBuildItemRecyclerAdapter
         if (item.getTarget() == null || item.getTarget().matches("")) {
             holder.targetLabel.setVisibility(View.GONE);
         } else {
-            String s = mDb.getNameString(item.getTarget());
-            holder.targetLabel.setText("on " + s);      // TODO localise this
+            String targetName = mDb.getNameString(item.getTarget());
+            holder.targetLabel.setText(mContext.getString(R.string.edit_build_item_on_target_template, targetName));
             holder.targetLabel.setVisibility(View.VISIBLE);
         }
 
@@ -125,7 +128,7 @@ public class EditBuildItemRecyclerAdapter
 
         // show the unit's time in the build queue
         int timeSec = item.getTime();
-        holder.time.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
+        holder.time.setText(mContext.getString(R.string.edit_build_item_time_template, timeSec / 60, timeSec % 60));
 
         holder.setOutOfOrderIndicatorVisibility(itemIsOutOfPositionBasedOnTime(position));
 
@@ -174,7 +177,7 @@ public class EditBuildItemRecyclerAdapter
 
     @Override
     public int getItemCount() {
-        return mBuildItems.size() + 1 /*footer*/;
+        return mBuildItems.size() + NUM_FOOTER_ITEMS;
     }
 
     @Override
