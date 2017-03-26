@@ -66,7 +66,7 @@ dependencies {
     compile "com.google.firebase:firebase-crash:${rootProject.ext.firebaseVersion}"
 
     compile(
-            'com.google.code.gson:gson:2.7',
+            'com.google.code.gson:gson:2.4',
             'io.reactivex:rxandroid:0.25.0',
             'com.jakewharton:butterknife:6.0.0',
             'com.f2prateek.dart:dart:1.1.0',
