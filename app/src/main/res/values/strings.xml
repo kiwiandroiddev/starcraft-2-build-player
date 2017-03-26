@@ -72,6 +72,8 @@
 	<string name="add_build_footer">Add Build&#8230;</string>
 	<string name="brief_source_label">Source:</string>
 	<string name="brief_author_label">Author:</string>
+
+	<!-- Build editor -->
 	<string name="edit_build_new_title">New Build</string>
 	<string name="edit_build_edit_title">Edit Build</string>
 	<string name="edit_build_info_title">Info</string>
@@ -112,7 +114,11 @@
 	<string name="desc_unit_icon">Icon of the unit, structure, upgrade or ability</string>
 	<string name="deleted_items_x_N">Deleted %1$s x%2$d</string>
 	<string name="deleted_item">Deleted %1$s</string>
+	<string name="edit_build_item_count_template" translatable="false">x%1$d</string>
+	<string name="edit_build_item_on_target_template">on %s</string>
+	<string name="edit_build_item_time_template" translatable="false">%02d:%02d</string>
 	<string name="undo">Undo</string>
+
 	<string name="permission_popup_write_storage_denied_for_exporting">External storage access is needed to export builds</string>
 	<string name="permission_popup_read_storage_denied_for_importing">External storage access is needed to import builds</string>
 	<string name="permission_popup_settings">Settings</string>
@@ -368,5 +374,6 @@
 	<string name="gameitem_ventral_sacs">Ventral Sacs</string>
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
+	<string name="build_row_vs_race_template">vs. %s</string>
 
 </resources>

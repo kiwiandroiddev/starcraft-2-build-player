@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -394,50 +396,46 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
 
         public BuildAdapter(Context context, Cursor cursor) {
             mBuildViewModelList = new ArrayList<>();
-
             if (!cursor.moveToFirst()) {
                 return;
             }
 
             do {
-                long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
-
-                String buildName = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_NAME));
-
-                String dateStr = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_CREATED));
-                String formattedDateStr = "";
-                if (!TextUtils.isEmpty(dateStr)) {
-                    Date date;
-                    try {
-                        date = DbAdapter.DATE_FORMAT.parse(dateStr);
-                        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
-                        formattedDateStr = df.format(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                int vsFactionId = cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_VS_FACTION_ID));
-                final String factionName = vsFactionId == 0 ? context.getString(R.string.race_any) :
-                        context.getString(DbAdapter.getFactionName(vsFactionId));
-                String vsRace = "vs. " + factionName;
-
-                BuildViewModel viewModel = new BuildViewModel(buildId, buildName, formattedDateStr, vsRace);
-                mBuildViewModelList.add(viewModel);
+                mBuildViewModelList.add(getBuildViewModelAtCursor(cursor));
             } while (cursor.moveToNext());
+        }
+
+        @NonNull
+        private BuildViewModel getBuildViewModelAtCursor(Cursor cursor) {
+            long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
+
+            String buildName = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_NAME));
+
+            String dateStr = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_CREATED));
+            String formattedDateStr = "";
+            if (!TextUtils.isEmpty(dateStr)) {
+                Date date;
+                try {
+                    date = DbAdapter.DATE_FORMAT.parse(dateStr);
+                    DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
+                    formattedDateStr = df.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            int vsFactionId = cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_VS_FACTION_ID));
+            @StringRes int vsFactionStringId = (vsFactionId == 0) ? R.string.race_any : DbAdapter.getFactionName(vsFactionId);
+            String vsRaceFormatted = getString(R.string.build_row_vs_race_template, getString(vsFactionStringId));
+
+            return new BuildViewModel(buildId, buildName, formattedDateStr, vsRaceFormatted);
         }
 
         @Override
         public BuildViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == BUILD_ROW_TYPE) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.build_row, parent, false);
-                return new BuildViewHolder(view);
-            } else {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.spacer_row, parent, false);
-                return new BuildViewHolder(view);
-            }
+            @LayoutRes int itemLayout = (viewType == BUILD_ROW_TYPE) ? R.layout.build_row : R.layout.spacer_row;
+            View view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
+            return new BuildViewHolder(view);
         }
 
         @Override
