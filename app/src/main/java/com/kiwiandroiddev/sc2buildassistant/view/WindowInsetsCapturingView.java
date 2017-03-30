@@ -10,7 +10,12 @@ import android.view.View;
  * Created by matt on 28/03/17.
  */
 public class WindowInsetsCapturingView extends View {
-    private Rect insets;
+
+    public interface OnCapturedWindowInsetsListener {
+        void onCapturedWindowInsets(Rect insets);
+    }
+
+    private OnCapturedWindowInsetsListener listener;
 
     public WindowInsetsCapturingView(Context context) {
         super(context);
@@ -24,13 +29,26 @@ public class WindowInsetsCapturingView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        this.insets = new Rect(insets.left, insets.top, insets.right, insets.bottom);
-        return super.fitSystemWindows(insets);
+    public void setOnCapturedWindowInsetsListener(OnCapturedWindowInsetsListener listener) {
+        this.listener = listener;
     }
 
-    public Rect getInsets() {
-        return insets;
+    public void clearOnCapturedWindowInsetsListener() {
+        this.listener = null;
     }
+
+    @Override
+    public boolean getFitsSystemWindows() {
+        return true;
+    }
+
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        if (listener != null) {
+            Rect capturedInsets = new Rect(insets.left, insets.top, insets.right, insets.bottom);
+            listener.onCapturedWindowInsets(capturedInsets);
+        }
+        return false;
+    }
+
 }

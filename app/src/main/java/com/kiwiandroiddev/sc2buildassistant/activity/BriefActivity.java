@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +25,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.f2prateek.dart.Dart;
@@ -39,6 +43,8 @@ import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView;
+import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCapturedWindowInsetsListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +80,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_author) TextView mAuthorText;
     @InjectView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
     @InjectView(R.id.ad) AdView mAdView;
+    @InjectView(R.id.brief_window_insets_capturing_view) WindowInsetsCapturingView mWindowInsetsCapturingView;
+    @InjectView(R.id.brief_content_layout) ViewGroup mBriefContentLayout;
 
     // TODO temp!
     @InjectView(R.id.buildName) TextView mBuildNameText;
@@ -90,6 +98,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         sColumns.add(DbAdapter.KEY_DESCRIPTION);
         sColumns.add(DbAdapter.KEY_AUTHOR);
     }
+
+    private boolean mToolbarAnimating = false;
 
     @DrawableRes
     public static int getBackgroundDrawable(Faction race) {
@@ -154,6 +164,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         initAdBanner();
         trackBriefView();
         initScrollView();
+        ensureBriefContentIsNotHiddenBySystemBars();
     }
 
     private void initSystemUiVisibility() {
@@ -184,11 +195,38 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void onScrollDownBrief() {
         mPlayButton.hide();
+
+        if (!mToolbarAnimating) {
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_out_to_top);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mToolbarAnimating = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mToolbarAnimating = false;
+                    mToolbar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mToolbar.startAnimation(
+                    animation);
+        }
+
         hideSystemNavigationBar();
     }
 
     private void onScrollUpBrief() {
         mPlayButton.show();
+
+        mToolbar.setVisibility(View.VISIBLE);
+
         showSystemNavigationBar();
     }
 
@@ -246,6 +284,16 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
                         .alpha(1.0f)
                         .setInterpolator(new FastOutSlowInInterpolator())
                         .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+            }
+        });
+    }
+
+    private void ensureBriefContentIsNotHiddenBySystemBars() {
+        mWindowInsetsCapturingView.setOnCapturedWindowInsetsListener(new OnCapturedWindowInsetsListener() {
+            @Override
+            public void onCapturedWindowInsets(Rect insets) {
+                mBriefContentLayout.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+                mWindowInsetsCapturingView.clearOnCapturedWindowInsetsListener();
             }
         });
     }
