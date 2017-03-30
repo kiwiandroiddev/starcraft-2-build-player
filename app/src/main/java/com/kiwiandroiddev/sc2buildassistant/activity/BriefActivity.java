@@ -180,15 +180,15 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void initScrollView() {
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.brief_nested_scroll_view);
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        nestedScrollView.setOnScrollChangeListener(new OnScrollDirectionChangedListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int dy = (scrollY - oldScrollY);
-                if (dy > 0) {
-                    onScrollDownBrief();
-                } else {
-                    onScrollUpBrief();
-                }
+            public void onStartScrollingDown() {
+                onScrollDownBrief();
+            }
+
+            @Override
+            public void onStartScrollingUp() {
+                onScrollUpBrief();
             }
         });
     }
