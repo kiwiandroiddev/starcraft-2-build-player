@@ -1,23 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/brief_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
+        android:id="@+id/brief_window_insets_capturing_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/brief_nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/screen_edge_reading_content_padding"
+        android:paddingRight="@dimen/screen_edge_reading_content_padding"
+        >
+
+        <LinearLayout
+            android:id="@+id/brief_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- toolbar spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="@string/brief_source_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/brief_buildSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp"
+                    tools:text="Liquidpedia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/brief_author_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="@string/brief_author_label"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/brief_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp"
+                    tools:text="Artanis" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/brief_buildNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc." />
+
+            <!-- prevent adview from stealing focus and auto-scrolling when it loads -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/ad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:adSize="BANNER"
+                    app:adUnitId="a150b967e3b02cd" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <TextView
@@ -33,111 +135,6 @@
 
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/brief_nested_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/screen_edge_padding"
-                android:paddingRight="@dimen/screen_edge_padding">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:text="@string/brief_source_label"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/brief_buildSubTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"
-                        tools:text="Liquidpedia" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/brief_author_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginRight="4dp"
-                        android:text="@string/brief_author_label"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/brief_author"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="16sp"
-                        tools:text="Artanis" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/brief_buildNotes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc." />
-
-                <!-- prevent adview from stealing focus and auto-scrolling when it loads -->
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants">
-
-                    <com.google.android.gms.ads.AdView
-                        android:id="@+id/ad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        app:adSize="BANNER"
-                        app:adUnitId="a150b967e3b02cd" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <!-- todo add custom text to toolbar then set transitionname -->
-
-        </FrameLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/activity_brief_play_action_button"
             android:layout_width="wrap_content"
@@ -148,4 +145,4 @@
 
     </FrameLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>
