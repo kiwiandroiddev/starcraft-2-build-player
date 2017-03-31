@@ -40,7 +40,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
-import com.kiwiandroiddev.sc2buildassistant.util.SimpleAnimatorListener;
+import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimatorListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,7 +197,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
             mButtonIsOrWillBeVisible = true;
         } else if (!makeVisible && mButtonIsOrWillBeVisible) {
             mButtonAppearAnimation.removeAllListeners();
-            mButtonAppearAnimation.addListener(new SimpleAnimatorListener() {
+            mButtonAppearAnimation.addListener(new NoOpAnimatorListener() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mAddButton.setVisibility(View.GONE);

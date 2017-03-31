@@ -9,7 +9,7 @@ import android.animation.Animator.AnimatorListener;
  *
  * Created by matt on 25/10/15.
  */
-public class SimpleAnimatorListener implements AnimatorListener {
+public class NoOpAnimatorListener implements AnimatorListener {
     @Override
     public void onAnimationStart(Animator animation) {
 
