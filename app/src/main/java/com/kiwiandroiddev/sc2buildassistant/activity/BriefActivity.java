@@ -43,6 +43,7 @@ import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCapturedWindowInsetsListener;
 
@@ -99,8 +100,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         sColumns.add(DbAdapter.KEY_AUTHOR);
     }
 
-    private boolean mToolbarAnimating = false;
-
     @DrawableRes
     public static int getBackgroundDrawable(Faction race) {
         return sRaceBgMap.get(race);
@@ -152,7 +151,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initSystemUiVisibility();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brief);
         ButterKnife.inject(this);
@@ -178,6 +176,12 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         makeNavigationBarTranslucentIfPossible();
     }
 
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
     private void initScrollView() {
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.brief_nested_scroll_view);
         nestedScrollView.setOnScrollChangeListener(new OnScrollDirectionChangedListener() {
@@ -195,39 +199,36 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void onScrollDownBrief() {
         mPlayButton.hide();
-
-        if (!mToolbarAnimating) {
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_out_to_top);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    mToolbarAnimating = true;
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mToolbarAnimating = false;
-                    mToolbar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-            mToolbar.startAnimation(
-                    animation);
-        }
-
+        hideToolbar();
         hideSystemNavigationBar();
     }
 
     private void onScrollUpBrief() {
         mPlayButton.show();
-
-        mToolbar.setVisibility(View.VISIBLE);
-
+        showToolbar();
         showSystemNavigationBar();
+    }
+
+    private void hideToolbar() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_out_to_top);
+        animation.setAnimationListener(new NoOpAnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mToolbar.setVisibility(View.GONE);
+            }
+        });
+        mToolbar.startAnimation(animation);
+    }
+
+    private void showToolbar() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_in_from_top);
+        animation.setAnimationListener(new NoOpAnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mToolbar.setVisibility(View.VISIBLE);
+            }
+        });
+        mToolbar.startAnimation(animation);
     }
 
     private void hideSystemNavigationBar() {
@@ -241,7 +242,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     private void showSystemNavigationBar() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private void makeNavigationBarTranslucentIfPossible() {
@@ -258,12 +259,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         } else {
             Dart.inject(this, savedInstanceState);
         }
-    }
-
-    private void initToolbar() {
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void startLoadingBriefFromDb() {
