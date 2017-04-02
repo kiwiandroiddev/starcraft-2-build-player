@@ -19,6 +19,13 @@
     </style>
   </head>
   <body>
+$ 2.6.5
+  % Version 2.6.5
+  _ 2017-04-01
+    * Distraction-free reading mode
+    * More Material icons
+    * Fixed inconsistent playback issue
+    * Crash from TTS engine on some Samsung devices should be resolved
 $ 2.6.0
   % Version 2.6.0
   _ 2017-03-11
