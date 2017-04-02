@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @InjectView(R.id.loading_bar) ProgressBar mLoadingBar;
     @InjectView(R.id.toolbar) Toolbar mToolbar;
     @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
+    @InjectView(R.id.ad_frame) ViewGroup mAdFrame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void initAdBanner() {
-        AdView adView = (AdView) findViewById(R.id.ad);
+        AdView adView = new AdView(this);
+        mAdFrame.addView(adView);
         initSlideInOnLoadAnimation(adView);
         AdLoader.loadAdForRealUsers(adView);
     }

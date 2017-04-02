@@ -1,6 +1,5 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -56,14 +55,15 @@
             android:layout_width="256dp"
             android:layout_height="16dp"
             android:layout_centerInParent="true" />
+
     </RelativeLayout>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ad"
+    <!-- prevent adview from stealing focus and auto-scrolling when it loads -->
+    <FrameLayout
+        android:id="@+id/ad_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        app:adSize="BANNER"
-        app:adUnitId="a150b967e3b02cd" />
+        android:descendantFocusability="blocksDescendants" />
 
 </android.support.design.widget.CoordinatorLayout>

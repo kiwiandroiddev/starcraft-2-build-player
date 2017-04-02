@@ -80,7 +80,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
     @InjectView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
-    @InjectView(R.id.ad) AdView mAdView;
+    @InjectView(R.id.ad_frame) ViewGroup mAdFrame;
     @InjectView(R.id.brief_window_insets_capturing_view) WindowInsetsCapturingView mWindowInsetsCapturingView;
     @InjectView(R.id.brief_content_layout) ViewGroup mBriefContentLayout;
 
@@ -266,8 +266,10 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void initAdBanner() {
-        AdLoader.loadAdForRealUsers(mAdView);
-        fadeInAdOnLoad(mAdView);
+        AdView adView = new AdView(this);
+        mAdFrame.addView(adView);
+        AdLoader.loadAdForRealUsers(adView);
+        fadeInAdOnLoad(adView);
     }
 
     private void fadeInAdOnLoad(final AdView adView) {
