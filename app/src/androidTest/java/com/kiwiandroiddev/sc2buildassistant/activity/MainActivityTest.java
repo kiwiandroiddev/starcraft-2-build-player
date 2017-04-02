@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.activity;
 
 
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -33,20 +34,75 @@ public class MainActivityTest {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        trySleep(4000);
+        trySleep(2000);
 
-        onView(withText("OK")).perform(click());
+        dismissChangelogIfNeeded();
+
+        openExpansionSpinner();
+
+        // take screenshot here...
+
+        selectLotvExpansionFromSpinner();
 
         trySleep(1000);
 
+        selectProtossTab();
+
+        trySleep(1000);
+
+        // should be 1 Gate FE
         clickOnBuildListItem(0);
+
+        trySleep(1000);
+
+        // take screenshot here...
+
+        selectPlayFAB();
+
+        trySleep(1000);
+
+        selectPlayPauseControl();
+
+        trySleep(6000);
+
+        // take screenshot here of pylon overlay
     }
 
-    private void trySleep(int millis) {
+    private void selectPlayPauseControl() {
+        onView(withId(R.id.playPauseButton)).perform(click());
+    }
+
+    private void selectPlayFAB() {
+        onView(withId(R.id.activity_brief_play_action_button)).perform(click());
+    }
+
+    private void selectProtossTab() {
+        onView(withText(R.string.race_protoss)).perform(click());
+    }
+
+    private void selectLotvExpansionFromSpinner() {
+        onView(withText(R.string.expansion_lotv)).perform(click());
+    }
+
+    private void openExpansionSpinner() {
+        ViewInteraction appCompatSpinner = onView(
+                allOf(withId(R.id.toolbar_expansion_spinner),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatSpinner.perform(click());
+    }
+
+    private void dismissChangelogIfNeeded() {
         try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            ViewInteraction mDButton = onView(
+                    allOf(withId(R.id.md_buttonDefaultPositive),
+                            withParent(allOf(withId(R.id.md_root),
+                                    withParent(withId(android.R.id.content)))),
+                            isDisplayed()));
+            mDButton.perform(click());
+            trySleep(1000);
+        } catch (NoMatchingViewException e) {
+            // ignore
         }
     }
 
@@ -57,6 +113,14 @@ public class MainActivityTest {
                                 withParent(withId(R.id.activity_main_root_view)))),
                         isDisplayed()));
         recyclerView.perform(actionOnItemAtPosition(position, click()));
+    }
+
+    private void trySleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
