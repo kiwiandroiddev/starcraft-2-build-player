@@ -12,12 +12,14 @@
     <string name="menu_move_item_down">Déplacer vers le bas</string>
     <string name="menu_delete_item">Supprimer</string>
     <string name="menu_export_build">Exporter</string>
-    <string name="menu_import_build">Importer un build#8230;</string>
+    <string name="menu_import_build">Importer un build&#8230;</string>
     <string name="menu_preview">Avant-première</string>
 	<string name="playback_stop">Arrêter</string>
 	<string name="playback_play">Jouer</string>
 	<string name="playback_pause">Pause</string>
+	
 	<string name="pref_game_speed">Vitesse du jeu</string>
+	
 	<string name="pref_early_warning">Alerte précoce</string>
 	<string name="pref_early_warning_summary">Vous bénéficierez d\'une alerte de %1$d secondes avant chaque construction</string>
 	<string name="pref_start_time">Temps de démarrage par défaut</string>
@@ -47,6 +49,7 @@
 	<string name="race_any">Tout</string>
 	<string name="expansion_wol">Wings of Liberty</string>
 	<string name="expansion_hots">Heart of the Swarm</string>
+	<string name="expansion_lotv">Legacy of the Void</string>
 	<string name="error_loading_std_builds">Erreur séquences de construction de chargement: %1$s</string>
 	<string name="dlg_tts_install_prompt">La fonctionnalité Text-to-Speech n\'a pas été trouvé. Installer maintenant?</string>
 	<string name="dlg_yes">Oui</string>
@@ -69,6 +72,8 @@
 	<string name="add_build_footer">Ajouter construire&#8230;</string>
 	<string name="brief_source_label">Source: </string>
 	<string name="brief_author_label">Auteur: </string>
+
+	<!-- Build editor -->
 	<string name="edit_build_new_title">Nouveau build</string>
 	<string name="edit_build_edit_title">Editer le build</string>
 	<string name="edit_build_info_title">Infos</string>
@@ -87,9 +92,17 @@
 	<string name="edit_build_not_well_ordered_error">S\'il vous plaît assurez-vous que les articles sont classés par heure!</string>
 	<string name="edit_build_title_already_taken_error">Ce titre est déjà en cours d\'utilisation, en choisir un autre s\'il vous plaît</string>
 	<string name="edit_build_discarded_changes">Vos modifications ont été rejetées</string>
+	<string name="edit_build_save_in_progress">Salvateur...</string>
 	<string name="edit_build_save_successful">Build sauvegardé</string>
 	<string name="edit_build_prompt_save_title">Enregistrer modifications ?</string>
 	<string name="edit_build_prompt_save_message">Vous avez fait quelques changements. Aimeriez-vous pour les sauver?</string>
+	
+	
+	
+	
+	
+	
+	
 	<string name="dlg_edit_item_title">Editer l\'objet</string>
 	<string name="dlg_select_item_title">Sélectionner l\'unité, mise à niveau ou la capacité</string>
 	<string name="item_type_unit">Unité</string>
@@ -99,7 +112,17 @@
 	<string name="item_type_note">Divers</string>
 	<string name="desc_drag_handle">Appuyez sur cette cible de réordonner les éléments build</string>
 	<string name="desc_unit_icon">Icône de l\'appareil, la structure, mise à niveau ou la capacité</string>
+	<string name="deleted_items_x_N">%1$s supprimé x%2$d</string>
+	<string name="deleted_item">%1$s supprimé</string>
 	
+	<string name="edit_build_item_on_target_template">Sur %s</string>
+	
+	<string name="undo">Annuler</string>
+
+	<string name="permission_popup_write_storage_denied_for_exporting">L\'accès au stockage externe est nécessaire pour exporter des builds</string>
+	<string name="permission_popup_read_storage_denied_for_importing">L\'accès au stockage externe est nécessaire pour importer des builds</string>
+	<string name="permission_popup_settings">Paramètres</string>
+
 	<!-- Edit item dialog -->
 	<string name="dlg_item_label">Item</string>
 	<string name="dlg_amount_label">Quantité</string>
@@ -109,7 +132,8 @@
 	<string name="dlg_custom_text_label">Texte personnalisé</string>
 	<string name="dlg_custom_speech_label">Discours personnalisé</string>
 	<string name="dlg_clear_label">Effacer</string>
-		
+	
+
 	<!-- Preview Notes dialog -->
 	<string name="dlg_preview_notes_title">Avant-première</string>
 	
@@ -173,6 +197,7 @@
 	<string name="gameitem_combat_shield">Bouclier de combat</string>
 	<string name="gameitem_command_center">Centre de Commandement</string>
 	<string name="gameitem_concussion_shells">Obus incapacitants</string>
+	
 	<string name="gameitem_durable_materials">Matériaux durables</string>
 	<string name="gameitem_engineering_bay">Centre Technique</string>
 	<string name="gameitem_factory">Usine</string>
@@ -182,6 +207,7 @@
 	<string name="gameitem_hellbat">Nettoyeur</string>
 	<string name="gameitem_hellion">Tourmenteur</string>
 	<string name="gameitem_hi_sec_auto_tracking">Ciblage auto. haute sécurité</string>
+	
 	<string name="gameitem_infantry_armor_level1">Armures Infanterie niveau 1</string>
 	<string name="gameitem_infantry_armor_level2">Armures Infanterie niveau 2</string>
 	<string name="gameitem_infantry_armor_level3">Armures Infanterie niveau 3</string>
@@ -189,6 +215,7 @@
 	<string name="gameitem_infantry_weapons_level2">Armes Infanterie niveau 2</string>
 	<string name="gameitem_infantry_weapons_level3">Armes Infanterie niveau 3</string>
 	<string name="gameitem_infernal_preigniter">Amorce Infernale</string>
+	
 	<string name="gameitem_marauder">Maraudeur</string>
 	<string name="gameitem_marine">Marine</string>
 	<string name="gameitem_medivac">Médivac</string>
@@ -226,6 +253,7 @@
 	<string name="gameitem_air_weapons_level1">Armes aériennes - Niv. 1</string>
 	<string name="gameitem_air_weapons_level2">Armes aériennes - Niv. 2</string>
 	<string name="gameitem_air_weapons_level3">Armes aériennes - Niv. 3</string>
+	
 	<string name="gameitem_archon">Archonte</string>
 	<string name="gameitem_assimilator">Assimilateur</string>
 	<string name="gameitem_blink">Transfert</string>
@@ -236,6 +264,7 @@
 	<string name="gameitem_cybernetics_core">Noyau cybernétique</string>
 	<string name="gameitem_dark_shrine">Sanctuaire noir</string>
 	<string name="gameitem_dark_templar">Templier noir</string>
+	
 	<string name="gameitem_extended_thermal_lance">Thermolance étendue</string>
 	<string name="gameitem_fleet_beacon">Balise de la flotte</string>
 	<string name="gameitem_forge">Forge</string>
@@ -312,6 +341,8 @@
 	<string name="gameitem_infestation_pit">Fosse d\'infestation </string>
 	<string name="gameitem_infestor">Infestateur </string>
 	<string name="gameitem_lair">Terrier </string>
+	
+	
 	<string name="gameitem_melee_attacks_level1">Attaque de Mêlée Niveau 1</string>
 	<string name="gameitem_melee_attacks_level2">Attaque de Mêlée Niveau 2</string>
 	<string name="gameitem_melee_attacks_level3">Attaque de Mêlée Niveau 3</string>
@@ -328,6 +359,7 @@
 	<string name="gameitem_pathogen_glands">Glandes Pathogènes</string>
 	<string name="gameitem_pneumatized_carapace">Carapace pneumatique</string>
 	<string name="gameitem_queen">Reine</string>
+	
 	<string name="gameitem_roach">Cafard</string>
 	<string name="gameitem_roach_warren">Terrier de Cafard</string>
 	<string name="gameitem_spawn_larvae">Générer des larves</string>
@@ -342,5 +374,6 @@
 	<string name="gameitem_ventral_sacs">Poches ventrales</string>
 	<string name="gameitem_viper">Vipère</string>
 	<string name="gameitem_zergling">Zergling</string>
-	
+	<string name="build_row_vs_race_template">contre %s</string>
+
 </resources>
