@@ -36,7 +36,6 @@ import com.f2prateek.dart.InjectExtra;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -268,8 +267,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void initAdBanner() {
         AdView adView = new AdView(this);
-        adView.setAdUnitId(getString(R.string.admob_banner_ad_unit_id));
-        adView.setAdSize(AdSize.SMART_BANNER);
         mAdFrame.addView(adView);
         AdLoader.loadAdForRealUsers(adView);
         fadeInAdOnLoad(adView);
