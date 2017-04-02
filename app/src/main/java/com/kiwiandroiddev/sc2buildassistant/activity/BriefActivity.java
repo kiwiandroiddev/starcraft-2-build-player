@@ -36,6 +36,7 @@ import com.f2prateek.dart.InjectExtra;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.R;
@@ -80,7 +81,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @InjectView(R.id.brief_author_layout) View mAuthorLayout;
     @InjectView(R.id.brief_author) TextView mAuthorText;
     @InjectView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
-    @InjectView(R.id.ad) AdView mAdView;
+    @InjectView(R.id.ad_frame) ViewGroup mAdFrame;
     @InjectView(R.id.brief_window_insets_capturing_view) WindowInsetsCapturingView mWindowInsetsCapturingView;
     @InjectView(R.id.brief_content_layout) ViewGroup mBriefContentLayout;
 
@@ -266,8 +267,12 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void initAdBanner() {
-        AdLoader.loadAdForRealUsers(mAdView);
-        fadeInAdOnLoad(mAdView);
+        AdView adView = new AdView(this);
+        adView.setAdUnitId(getString(R.string.admob_banner_ad_unit_id));
+        adView.setAdSize(AdSize.SMART_BANNER);
+        mAdFrame.addView(adView);
+        AdLoader.loadAdForRealUsers(adView);
+        fadeInAdOnLoad(adView);
     }
 
     private void fadeInAdOnLoad(final AdView adView) {
