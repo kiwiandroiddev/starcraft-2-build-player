@@ -6,21 +6,33 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -44,11 +56,11 @@ public class MainActivityTest {
 
         selectLotvExpansionFromSpinner();
 
-        trySleep(1000);
+        trySleep(500);
 
-        selectProtossTab();
+        clickProtossText();
 
-        trySleep(1000);
+        trySleep(500);
 
         // should be 1 Gate FE
         clickOnBuildListItem(0);
@@ -66,6 +78,97 @@ public class MainActivityTest {
         trySleep(6000);
 
         // take screenshot here of pylon overlay
+
+        selectSettingsButton();
+
+        trySleep(500);
+        // take screenshot of settings
+
+        pressBack();
+        pressBack();
+        pressBack();
+
+        selectNewBuildFromOverflow();
+
+        trySleep(500);
+
+        closeSoftKeyboard();
+
+        openFactionSpinner();
+        trySleep(500);
+        // take screenshot of new build screen
+
+        clickProtossText();
+
+        selectEditItemsTab();
+
+        selectNewBuildItemButton();
+
+        swipeLeftInPager();
+        swipeLeftInPager();
+        trySleep(500);
+        // take screenshot of upgrades
+
+        pressBack();
+
+        selectEditInfoTab();
+
+        openFactionSpinner();
+
+        clickTerranText();
+
+        selectEditItemsTab();
+
+        selectNewBuildItemButton();
+        swipeLeftInPager();
+        selectReactor();
+        trySleep(500);
+    }
+
+    private void selectReactor() {
+        onView(withContentDescription(R.string.gameitem_reactor)).perform(click());
+    }
+
+    private void selectItemAtPositionInGridView(int position) {
+        onView(anyOf(nthChildOf(withId(R.id.gridview), position))).perform(click());
+    }
+
+    private void clickTerranText() {
+        onView(withText(R.string.race_terran)).perform(click());
+    }
+
+    private void selectEditInfoTab() {
+        onView(withText(R.string.edit_build_info_title)).perform(click());
+    }
+
+    private void swipeLeftInPager() {
+        onView(withId(R.id.pager)).perform(swipeLeft());
+    }
+
+    private void selectNewBuildItemButton() {
+        onView(withId(R.id.edit_build_activity_add_button)).perform(click());
+    }
+
+    private void selectEditItemsTab() {
+        onView(withText(R.string.edit_build_items_title)).perform(click());
+    }
+
+    private void openFactionSpinner() {
+        onView(withId(R.id.edit_faction_spinner)).perform(click());
+    }
+
+    private void selectNewBuildFromOverflow() {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        onView(withText(R.string.menu_new_build)).perform(click());
+    }
+
+    private void selectSettingsButton() {
+        onView(withId(R.id.menu_settings)).perform(click());
+    }
+
+    private void selectEditButton() {
+        onView(withId(R.id.menu_edit_build)).perform(click());
     }
 
     private void selectPlayPauseControl() {
@@ -76,7 +179,7 @@ public class MainActivityTest {
         onView(withId(R.id.activity_brief_play_action_button)).perform(click());
     }
 
-    private void selectProtossTab() {
+    private void clickProtossText() {
         onView(withText(R.string.race_protoss)).perform(click());
     }
 
@@ -121,6 +224,25 @@ public class MainActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with "+childPosition+" child view of type parentMatcher");
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view.getParent() instanceof ViewGroup)) {
+                    return parentMatcher.matches(view.getParent());
+                }
+
+                ViewGroup group = (ViewGroup) view.getParent();
+                return parentMatcher.matches(view.getParent()) && group.getChildAt(childPosition).equals(view);
+            }
+        };
     }
 
 }

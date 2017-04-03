@@ -2,6 +2,8 @@ package com.kiwiandroiddev.sc2buildassistant.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +29,30 @@ public class UnitIconAdapter extends BaseAdapter {
     private Context mContext;
     
     // using linked hash to preserve key insertion order (so items appear ordered by name)
-    private LinkedHashMap<Long, Integer> mItemIDToIconMap;   
-    
+    private LinkedHashMap<Long, IconWithDescription> mItemIDToIconMap;
+
+    private static class IconWithDescription {
+        @DrawableRes final int iconDrawable;
+        @StringRes final int contentDescription;
+
+        private IconWithDescription(int iconDrawable, int contentDescription) {
+            this.iconDrawable = iconDrawable;
+            this.contentDescription = contentDescription;
+        }
+    }
+
     // TODO: allow filtering items by expansion level as well, this will mean large changes to
     // the database though
     public UnitIconAdapter(Context c, Faction factionFilter, ItemType itemTypeFilter) {
         mContext = c;
-        
-        // fetch IDs of items to display (stub)
         DbAdapter db = ((MyApplication) c.getApplicationContext()).getDb();
         Cursor cursor = db.fetchItemIDsMatching(factionFilter, itemTypeFilter);
-        mItemIDToIconMap = new LinkedHashMap<Long, Integer>(50);
+        mItemIDToIconMap = new LinkedHashMap<Long, IconWithDescription>(50);
         while (cursor.moveToNext()) {
         	long row_id = cursor.getLong(0);
-        	mItemIDToIconMap.put(row_id, db.getSmallIcon(db.getItemUniqueName(row_id)));
+            String itemUniqueName = db.getItemUniqueName(row_id);
+            IconWithDescription iconWithDescription = new IconWithDescription(db.getSmallIcon(itemUniqueName), db.getName(itemUniqueName));
+            mItemIDToIconMap.put(row_id, iconWithDescription);
         }
         cursor.close();
     }
@@ -49,7 +61,7 @@ public class UnitIconAdapter extends BaseAdapter {
     	return mItemIDToIconMap.size();
     }
 
-    public Object getItem(int position) {
+    public IconWithDescription getItem(int position) {
         return mItemIDToIconMap.get(getItemId(position));
     }
 
@@ -57,10 +69,9 @@ public class UnitIconAdapter extends BaseAdapter {
         return (Long) mItemIDToIconMap.keySet().toArray()[position];
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
+        if (convertView == null) {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(pxToDp(64, mContext), pxToDp(64, mContext)));
             imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -69,12 +80,13 @@ public class UnitIconAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        //imageView.setImageResource(mThumbIds[position]);
-        imageView.setImageResource((Integer) getItem(position));
+        IconWithDescription iconWithDescription = getItem(position);
+        imageView.setImageResource(iconWithDescription.iconDrawable);
+        imageView.setContentDescription(mContext.getString(iconWithDescription.contentDescription));
         return imageView;
     }
     
-    public static int pxToDp(int pixels, Context context) {
+    private static int pxToDp(int pixels, Context context) {
     	return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels,
     			context.getResources().getDisplayMetrics());
     }
