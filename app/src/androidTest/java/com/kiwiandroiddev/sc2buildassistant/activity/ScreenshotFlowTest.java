@@ -14,9 +14,14 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import tools.fastlane.screengrab.Screengrab;
+import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
+import tools.fastlane.screengrab.locale.LocaleTestRule;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
@@ -25,6 +30,7 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -36,13 +42,17 @@ import static org.hamcrest.Matchers.anyOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class ScreenshotFlowTest {
 
     @Rule
     public ActivityTestRule<SplashActivity> mActivityTestRule = new ActivityTestRule<>(SplashActivity.class);
 
+    @ClassRule public static final LocaleTestRule localeTestRule = new LocaleTestRule();
+
     @Test
     public void mainActivityTest() {
+        Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
+
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -53,6 +63,7 @@ public class MainActivityTest {
         openExpansionSpinner();
 
         // take screenshot here...
+        Screengrab.screenshot("main");
 
         selectLotvExpansionFromSpinner();
 
@@ -68,6 +79,7 @@ public class MainActivityTest {
         trySleep(1000);
 
         // take screenshot here...
+        Screengrab.screenshot("brief");
 
         selectPlayFAB();
 
@@ -78,11 +90,13 @@ public class MainActivityTest {
         trySleep(6000);
 
         // take screenshot here of pylon overlay
+        Screengrab.screenshot("player");
 
         selectSettingsButton();
 
         trySleep(500);
         // take screenshot of settings
+        Screengrab.screenshot("settings");
 
         pressBack();
         pressBack();
@@ -97,6 +111,7 @@ public class MainActivityTest {
         openFactionSpinner();
         trySleep(500);
         // take screenshot of new build screen
+        Screengrab.screenshot("buildInfo");
 
         clickProtossText();
 
@@ -108,6 +123,8 @@ public class MainActivityTest {
         swipeLeftInPager();
         trySleep(500);
         // take screenshot of upgrades
+
+        Screengrab.screenshot("unitSelection");
 
         pressBack();
 
@@ -122,7 +139,34 @@ public class MainActivityTest {
         selectNewBuildItemButton();
         swipeLeftInPager();
         selectReactor();
-        trySleep(500);
+
+        enterMinutes("3");
+        enterSeconds("40");
+
+        selectTargetUnitButton();
+        swipeLeftInPager();
+        selectBarracks();
+
+        Screengrab.screenshot("itemEditor");
+
+//        trySleep(1000);
+        // take screenshot of item editor dialog
+    }
+
+    private void selectBarracks() {
+        onView(withContentDescription(R.string.gameitem_barracks)).perform(click());
+    }
+
+    private void selectTargetUnitButton() {
+        onView(withId(R.id.dlg_target_button)).perform(click());
+    }
+
+    private void enterSeconds(String seconds) {
+        onView(withId(R.id.dlg_seconds)).perform(typeText(seconds));
+    }
+
+    private void enterMinutes(String minutes) {
+        onView(withId(R.id.dlg_minutes)).perform(typeText(minutes));
     }
 
     private void selectReactor() {
