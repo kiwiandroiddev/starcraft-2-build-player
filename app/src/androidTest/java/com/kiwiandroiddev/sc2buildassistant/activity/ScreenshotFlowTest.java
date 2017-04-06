@@ -6,14 +6,9 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.kiwiandroiddev.sc2buildassistant.R;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,8 +33,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
 
+/**
+ * TODO: apply Page Object pattern
+ */
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ScreenshotFlowTest {
@@ -62,7 +59,6 @@ public class ScreenshotFlowTest {
 
         openExpansionSpinner();
 
-        // take screenshot here...
         Screengrab.screenshot("main");
 
         selectLotvExpansionFromSpinner();
@@ -78,7 +74,6 @@ public class ScreenshotFlowTest {
 
         trySleep(1000);
 
-        // take screenshot here...
         Screengrab.screenshot("brief");
 
         selectPlayFAB();
@@ -89,13 +84,12 @@ public class ScreenshotFlowTest {
 
         trySleep(6000);
 
-        // take screenshot here of pylon overlay
         Screengrab.screenshot("player");
 
         selectSettingsButton();
 
         trySleep(500);
-        // take screenshot of settings
+
         Screengrab.screenshot("settings");
 
         pressBack();
@@ -110,7 +104,7 @@ public class ScreenshotFlowTest {
 
         openFactionSpinner();
         trySleep(500);
-        // take screenshot of new build screen
+
         Screengrab.screenshot("buildInfo");
 
         clickProtossText();
@@ -122,7 +116,6 @@ public class ScreenshotFlowTest {
         swipeLeftInPager();
         swipeLeftInPager();
         trySleep(500);
-        // take screenshot of upgrades
 
         Screengrab.screenshot("unitSelection");
 
@@ -148,9 +141,6 @@ public class ScreenshotFlowTest {
         selectBarracks();
 
         Screengrab.screenshot("itemEditor");
-
-//        trySleep(1000);
-        // take screenshot of item editor dialog
     }
 
     private void selectBarracks() {
@@ -171,10 +161,6 @@ public class ScreenshotFlowTest {
 
     private void selectReactor() {
         onView(withContentDescription(R.string.gameitem_reactor)).perform(click());
-    }
-
-    private void selectItemAtPositionInGridView(int position) {
-        onView(anyOf(nthChildOf(withId(R.id.gridview), position))).perform(click());
     }
 
     private void clickTerranText() {
@@ -209,10 +195,6 @@ public class ScreenshotFlowTest {
 
     private void selectSettingsButton() {
         onView(withId(R.id.menu_settings)).perform(click());
-    }
-
-    private void selectEditButton() {
-        onView(withId(R.id.menu_edit_build)).perform(click());
     }
 
     private void selectPlayPauseControl() {
@@ -268,25 +250,6 @@ public class ScreenshotFlowTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("with "+childPosition+" child view of type parentMatcher");
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                if (!(view.getParent() instanceof ViewGroup)) {
-                    return parentMatcher.matches(view.getParent());
-                }
-
-                ViewGroup group = (ViewGroup) view.getParent();
-                return parentMatcher.matches(view.getParent()) && group.getChildAt(childPosition).equals(view);
-            }
-        };
     }
 
 }

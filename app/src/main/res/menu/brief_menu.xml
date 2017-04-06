@@ -4,7 +4,7 @@
         android:title="@string/menu_edit_build"
         android:icon="@drawable/ic_edit_24dp"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item android:id="@+id/menu_settings"
           android:title="@string/menu_settings"
           android:icon="@drawable/ic_settings_24dp"
