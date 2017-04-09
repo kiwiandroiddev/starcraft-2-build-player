@@ -62,11 +62,12 @@ import butterknife.InjectView;
  * Displays visual and audio alerts when build items are reached during playback.
  * A BuildPlayer object is used to handle the low-level playback logic; this
  * activity handles the playback UI.
- * 
+ *
+ * Credit for timer code: http://kristjansson.us/?p=1010
+ *
  * @author matt
  *
  */
-// credit for timer code: http://kristjansson.us/?p=1010
 public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChangeListener, OnInitListener,
 														  OnSharedPreferenceChangeListener, BuildPlayerEventListener {
 
@@ -208,8 +209,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // This is called when the Home (Up) button is pressed
-                // in the Action Bar.
                 finish();
         }
 
@@ -233,7 +232,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	@Override
 	public void onStop() {
-//		Log.w(this.toString(), "onStop() called, mBuildPlayer = " + mBuildPlayer);
 		super.onStop();
 		mHandler.removeCallbacks(mUpdateTimeTask);
     	EasyTracker.getInstance(this).activityStop(this);
@@ -242,20 +240,16 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onPause() {
 		super.onPause();
-//		Log.w(this.toString(), "onPause() called");
 		mHandler.removeCallbacks(mUpdateTimeTask);
 	}
 	
 	@Override
 	public void onResume() {
-//		Log.w(this.toString(), "onResume() called, mBuildPlayer = " + mBuildPlayer);
 		super.onResume();
 		mBuildPlayer.removeListeners();
 		mBuildPlayer.registerListener(this);
 		mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 0);
-        
-        // init preferences
 	}
 	
 	@Override
@@ -263,16 +257,13 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		mBuildPlayer.removeListeners();
 		outState.putSerializable(KEY_BUILD_PLAYER_OBJECT, mBuildPlayer);
 		super.onSaveInstanceState(outState);
-//		Log.w(this.toString(), "onSaveInstanceState() called, outState = " + outState);
 	}
 	
 	@Override
 	protected void onDestroy() {
-//		Timber.d("destroy", "onDestroy() called");
 		if (mTts != null) {
 			mTts.stop();
 			mTts.shutdown();
-//			Timber.d("destroy", "TTS Destroyed");
 		}
 		super.onDestroy();
 	}
@@ -287,7 +278,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			mBuildPlayer.removeListeners();
 			mBuildPlayer.registerListener(this);
 		}
-//		Log.w(this.toString(), "onRestoreInstanceState() called, player = " + player);
 	}
 	
 	//=========================================================================
@@ -330,15 +320,26 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	//=========================================================================
 	// Text to Speech finished initializing callback
 	//=========================================================================
-	
+
+	/** should be called only after TTS availability has been confirmed */
+	private void initTTS() {
+		mTts = new TextToSpeech(this, this);
+	}
+
 	@Override
 	public void onInit(int status) {
+		if (mTts == null) {
+			EasyTrackerUtils.sendNonFatalException(this,
+					new IllegalStateException("TTS field somehow null in TTS onInit callback"));
+			return;
+		}
+
 		// text to speech engine ready
 		mTtsReady = true;
-		
+
 		Locale currentLocale = Locale.getDefault();
 		final String lang = currentLocale.getLanguage();
-		
+
 		// Do we currently have enough translated strings for the language?
 		// TODO fix this shit... oh god.
 		boolean haveTranslations = (
@@ -348,7 +349,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 				lang.matches("pt"));
 
 		if (haveTranslations) {
-			int langAvailable = mTts.isLanguageAvailable(currentLocale); 
+			int langAvailable = mTts.isLanguageAvailable(currentLocale);
 			if (langAvailable == TextToSpeech.LANG_AVAILABLE ||
 				langAvailable == TextToSpeech.LANG_COUNTRY_AVAILABLE ||
 				langAvailable == TextToSpeech.LANG_COUNTRY_VAR_AVAILABLE) {
@@ -360,11 +361,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		// TODO inform the user that TTS data isn't available for their language, and what
 		// they can do to get it etc.
 		mTts.setLanguage(Locale.US);
-	}
-	
-	/** should be called only after TTS availability has been confirmed */
-	private void initTTS() {
-		mTts = new TextToSpeech(this, this);
 	}
 
 	//=========================================================================
