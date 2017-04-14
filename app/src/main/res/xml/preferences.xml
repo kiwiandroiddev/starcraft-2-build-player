@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/lib/com.kiwiandroiddev.sc2buildassistant"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <PreferenceCategory 
+
+    <PreferenceCategory
         android:title="@string/pref_player_category_title"
         android:key="pref_key_player_category">
-        
+
 	    <ListPreference
 	        android:key="pref_game_speed"
 	        android:title="@string/pref_game_speed"
@@ -13,7 +13,7 @@
 	        android:entries="@array/pref_game_speed_text"
 	        android:entryValues="@array/pref_game_speed_values"
 	        android:defaultValue="@string/pref_game_speed_default" />
-	
+
 	    <com.kiwiandroiddev.sc2buildassistant.view.NumberPickerPreference
 	            android:key="pref_early_warning"
 	            android:title="@string/pref_early_warning"
@@ -21,7 +21,7 @@
 	            app:defaultValue="5"
 	            app:startRange="0"
 	            app:endRange="60" />
-	    
+
 	    <com.kiwiandroiddev.sc2buildassistant.view.NumberPickerPreference
 	            android:key="pref_start_time"
 	            android:title="@string/pref_start_time"
@@ -29,61 +29,67 @@
 	            app:defaultValue="15"
 	            app:startRange="0"
 	            app:endRange="9999" />
-    
+
     </PreferenceCategory>
-    
-    <PreferenceCategory 
+
+    <PreferenceCategory
         android:title="@string/pref_general_category_title"
         android:key="pref_key_general_category">
-	    
+
         <CheckBoxPreference
             android:title="@string/pref_show_status_bar_title"
             android:key="pref_show_status_bar"
             android:summary="@string/pref_show_status_bar_summary"
             android:defaultValue="false" />
-        
+
+		<CheckBoxPreference
+			android:key="pref_show_ads"
+			android:title="@string/pref_show_ads_title"
+			android:summary="@string/pref_show_ads_summary"
+			android:defaultValue="true" />
+
     </PreferenceCategory>
-    
-    <PreferenceCategory 
+
+    <PreferenceCategory
         android:title="@string/pref_about_category_title"
         android:key="pref_key_about_category">
-	
+
         <Preference
             android:title="@string/pref_changelog_title"
             android:key="pref_changelog" />
-        
+
         <Preference
             android:title="@string/pref_rate_this_app_title"
             android:key="pref_rate_this_app"
             android:summary="@string/pref_rate_this_app_summary" />
-        
+
         <!--<Preference-->
             <!--android:title="@string/pref_upgrade_to_pro_title"-->
             <!--android:key="pref_upgrade_to_pro"-->
             <!--android:summary="@string/pref_upgrade_to_pro_summary" />-->
-        
+
         <Preference
             android:title="@string/pref_translate_title"
             android:key="pref_translate"
             android:summary="@string/pref_translate_summary" />
-        
+
         <CheckBoxPreference
             android:title="@string/pref_tracking_title"
             android:key="pref_tracking_enabled"
             android:summary="@string/pref_tracking_summary"
             android:defaultValue="true" />
-        
+
     </PreferenceCategory>
-    
-    <PreferenceCategory 
+
+    <PreferenceCategory
         android:title="@string/pref_database_category_title"
         android:key="pref_key_database_category">
-	    
+
 	    <Preference
             android:title="@string/pref_restore_database_title"
             android:key="pref_restore_database"
             android:summary="@string/pref_restore_database_summary" />
-	    
+
     </PreferenceCategory>
-    
+
 </PreferenceScreen>
