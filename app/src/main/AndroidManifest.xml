@@ -44,7 +44,7 @@
             android:theme="@style/StarCraftTheme.NoActionBar" />
         <activity android:name=".activity.PlaybackActivity" />
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".feature.settings.view.SettingsActivity"
             android:label="@string/menu_settings" />
         <activity
             android:name=".activity.BriefActivity"

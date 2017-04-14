@@ -46,6 +46,7 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.RaceFragmentPagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
@@ -70,7 +71,8 @@ import timber.log.Timber;
  *
  * @author matt
  */
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     public static final int REQUEST_OPEN = 2;            // open file request code for importing builds
     private static final String KEY_EXPANSION_CHOICE = "com.kiwiandroiddev.sc2buildassistant.ExpansionChoice";
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onCreate(Bundle savedInstanceState) {
 //    	Debug.startMethodTracing("sc2main");
 
-        SharedPreferences sharedPrefs = getDefaultSharedPreferences();
+        SharedPreferences sharedPrefs = getSharedPreferences();
         if (!sharedPrefs.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
             // hides status bar on Android 4.0+, on Android 2.3.x status bar is already hidden from the app theme...
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        initAdBanner();
+        setAdBannerVisibilityBasedOnCurrentPreference();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -127,19 +129,51 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         loadStandardBuilds();
         initRaceFragmentPagerAndExpansionSpinner(savedInstanceState);
         showChangelogIfNeeded();
-
+        registerSelfAsPreferenceChangeListener();
         //Debug.stopMethodTracing();	// sc2main
     }
 
-    private void initAdBanner() {
-        AdView adView = new AdView(this);
-        mAdFrame.addView(adView);
-        initSlideInOnLoadAnimation(adView);
-        AdLoader.loadAdForRealUsers(adView);
+    private void registerSelfAsPreferenceChangeListener() {
+        getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
-    private SharedPreferences getDefaultSharedPreferences() {
+    private SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(SettingsActivity.KEY_SHOW_ADS)) {
+            setAdBannerVisibilityBasedOnCurrentPreference();
+        }
+    }
+
+    private void setAdBannerVisibilityBasedOnCurrentPreference() {
+        if (shouldShowAds()) {
+            showAdBanner();
+        } else {
+            hideAdBanner();
+        }
+    }
+
+    private boolean shouldShowAds() {
+        SharedPreferences sharedPref = getSharedPreferences();
+        return sharedPref.getBoolean(SettingsActivity.KEY_SHOW_ADS, true);
+    }
+
+    private void showAdBanner() {
+        mAdFrame.setVisibility(View.VISIBLE);
+
+        if (mAdFrame.getChildCount() == 0) {
+            AdView adView = new AdView(this);
+            mAdFrame.addView(adView);
+            initSlideInOnLoadAnimation(adView);
+            AdLoader.loadAdForRealUsers(adView);
+        }
+    }
+
+    private void hideAdBanner() {
+        mAdFrame.setVisibility(View.GONE);
     }
 
     // slide ad banner in from the bottom when it loads (rather than popping)
@@ -429,12 +463,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private int getSavedExpansionSelection() {
-        return getDefaultSharedPreferences()
+        return getSharedPreferences()
                 .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, DEFAULT_EXPANSION_SELECTION.ordinal());
     }
 
     private int getSavedFactionSelection() {
-        return getDefaultSharedPreferences()
+        return getSharedPreferences()
                 .getInt(SettingsActivity.KEY_FACTION_SELECTION, DEFAULT_FACTION_SELECTION.ordinal());
     }
 

@@ -45,6 +45,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.domain.GameSpeeds;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
 
@@ -176,7 +177,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         
         // Initialize spinner to choose playback speed (Slower, Slow, Normal, Fast, Faster)
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-//        Log.w(this.toString(), "sharedPref identity = " + sharedPref.toString());
         sharedPref.registerOnSharedPreferenceChangeListener(this);		// notify this activity when settings change
         		
 		// hacky: initialize buildplayer with stored preferences

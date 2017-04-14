@@ -43,6 +43,7 @@ import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCapturedWindowInsetsListener;
@@ -63,7 +64,7 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final HashMap<Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
@@ -159,15 +160,54 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         initToolbar();
         startLoadingBriefFromDb();
         displayBasicInfo();
-        initAdBanner();
+        setAdBannerVisibilityBasedOnCurrentPreference();
         trackBriefView();
         initScrollView();
         ensureBriefContentIsNotHiddenBySystemBars();
+        registerSelfAsPreferenceChangeListener();
+    }
+
+    private void registerSelfAsPreferenceChangeListener() {
+        getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(SettingsActivity.KEY_SHOW_ADS)) {
+            setAdBannerVisibilityBasedOnCurrentPreference();
+        }
+    }
+
+    private void setAdBannerVisibilityBasedOnCurrentPreference() {
+        if (shouldShowAds()) {
+            showAdBanner();
+        } else {
+            hideAdBanner();
+        }
+    }
+
+    private boolean shouldShowAds() {
+        SharedPreferences sharedPref = getSharedPreferences();
+        return sharedPref.getBoolean(SettingsActivity.KEY_SHOW_ADS, true);
+    }
+
+    private void showAdBanner() {
+        mAdFrame.setVisibility(View.VISIBLE);
+
+        if (mAdFrame.getChildCount() == 0) {
+            AdView adView = new AdView(this);
+            mAdFrame.addView(adView);
+            AdLoader.loadAdForRealUsers(adView);
+            fadeInAdOnLoad(adView);
+        }
+    }
+
+    private void hideAdBanner() {
+        mAdFrame.setVisibility(View.GONE);
     }
 
     private void initSystemUiVisibility() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!sharedPref.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
+        if (!getSharedPreferences().getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
             getWindow().setFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -265,11 +305,8 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         getSupportLoaderManager().initLoader(0, null, this);
     }
 
-    private void initAdBanner() {
-        AdView adView = new AdView(this);
-        mAdFrame.addView(adView);
-        AdLoader.loadAdForRealUsers(adView);
-        fadeInAdOnLoad(adView);
+    private SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     private void fadeInAdOnLoad(final AdView adView) {
@@ -305,6 +342,16 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onStop() {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterSelfAsPreferenceChangeListener();
+    }
+
+    private void unregisterSelfAsPreferenceChangeListener() {
+        getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -354,10 +401,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         i.putExtra(KEY_BUILD_ID, mBuildId);
         startActivity(i);
     }
-
-    //=========================================================================
-    // Android lifecycle methods
-    //=========================================================================
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

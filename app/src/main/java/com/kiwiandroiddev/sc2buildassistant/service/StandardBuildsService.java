@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
