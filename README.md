@@ -20,7 +20,14 @@ This app turns your Android phone into your own personal StarCraft II coach, giv
 Screenshots
 -----------
 
-![App screenshot](https://lh3.googleusercontent.com/wH0L1n872xuXFvBJ5HC3vq5rXq8gbpqv562KknTP-fsVdsuIeOTbLZXgjbQ1k3zqrh9g=h900-rw?raw=true)
+![Builds list screenshot](https://lh3.googleusercontent.com/wH0L1n872xuXFvBJ5HC3vq5rXq8gbpqv562KknTP-fsVdsuIeOTbLZXgjbQ1k3zqrh9g=h900-rw?raw=true)
+![Player screenshot](https://lh3.googleusercontent.com/UD1cyyNC2Az1Rc6Ya7sABwGX2n1X_FjECzy468sF4JbIybz8HXYTmInvhSc4QP9d9ME=h900-rw?raw=true)
+![Build brief screenshot](https://lh3.googleusercontent.com/akqksJigH1KkoeZvY125wM7iRrSThYEnQcg7jI9I5dDJcL-tDBnb_jSkzp4flYOfdg=h900-rwraw=true)
+
+Download
+--------
+
+[![Google Play link](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.kiwiandroiddev.sc2buildassistant&utm_source=github&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 
 Libraries Used
 --------------
@@ -28,14 +35,12 @@ Libraries Used
 ### Production
 
 * Appcompat, Support Library (Design, v4, RecyclerView)
-* Material Dialogs
-* Firebase
-* Google Analytics
 * Butterknife
 * Timber
+* Material Dialogs
 * Dexter
 * Dart
-* RxJava + RxAndroid
+* RxJava, RxAndroid
 
 ### Testing
 
@@ -70,9 +75,9 @@ Contributing
 
 ### Development
 
-Contributions are more than welcome. If you're a developer looking to ways to contribute, check out the issues page for open bugs.
+Contributions are more than welcome. If you're a developer looking to ways to contribute, as a first stop you could check out the issues page for open bugs.
  
-If you have an idea for a new feature you'd like to work on, please open an Issue for it just in case it's something I have already started on.
+If you have an idea for a new feature you'd like to work on, please open an Issue for it just in case it's something I've already started on.
 
 ### Translations
 
