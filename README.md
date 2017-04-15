@@ -27,23 +27,17 @@ Screenshots
 Libraries Used
 --------------
 
-### Production
-
-* Appcompat, Support Library (Design, v4, RecyclerView)
-* Butterknife
-* Timber
-* Material Dialogs
-* Dexter
-* Dart
-* RxJava, RxAndroid
-
-### Testing
-
-* Mockito
-* AssertJ
-* Espresso
-* Fastlane Screengrab
-
+* [Appcompat, Support Library (Design, v4, RecyclerView)](https://developer.android.com/topic/libraries/support-library/features.html)
+* [Butterknife](https://github.com/JakeWharton/butterknife)
+* [Timber](https://github.com/JakeWharton/timber)
+* [Material Dialogs](https://github.com/afollestad/material-dialogs)
+* [Dexter](https://github.com/Karumi/Dexter)
+* [Dart](https://github.com/f2prateek/dart)
+* [RxJava](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [Mockito](https://github.com/mockito/mockito)
+* [AssertJ](https://github.com/joel-costigliola/assertj-core)
+* [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/)
+* [Fastlane Screengrab](https://github.com/fastlane/fastlane/tree/master/screengrab)
 
 Warning to Developers
 ---------------------
