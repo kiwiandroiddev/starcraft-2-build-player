@@ -24,11 +24,6 @@ Screenshots
 ![Player screenshot](https://lh3.googleusercontent.com/UD1cyyNC2Az1Rc6Ya7sABwGX2n1X_FjECzy468sF4JbIybz8HXYTmInvhSc4QP9d9ME=h900-rw?raw=true)
 ![Build brief screenshot](https://lh3.googleusercontent.com/akqksJigH1KkoeZvY125wM7iRrSThYEnQcg7jI9I5dDJcL-tDBnb_jSkzp4flYOfdg=h900-rwraw=true)
 
-Download
---------
-
-[![Google Play link](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.kiwiandroiddev.sc2buildassistant&utm_source=github&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
-
 Libraries Used
 --------------
 
@@ -85,25 +80,43 @@ You can contribute translations to the crowd-sourced translations project here: 
 
 Consider opening an Issue if you have fully translated a language and would like to get it into the next release.
 
+Download
+--------
+
+<p align="center">
+<a href='https://play.google.com/store/apps/details?id=com.kiwiandroiddev.sc2buildassistant&utm_source=github&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+</p>
 
 Disclaimer
 ----------
 
-StarCraft® II: Wings of Liberty™
-©2010 Blizzard Entertainment, Inc. All rights reserved. Wings of Liberty is a trademark, and StarCraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
-
-StarCraft® II: Heart of the Swarm®
-©2013 Blizzard Entertainment, Inc. All rights reserved. Heart of the Swarm and StarCraft are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
-
-Content from Team Liquid (http://wiki.teamliquid.net/) licensed under CC-BY-SA.
-
-Content from GosuBuilds (http://www.gosubuilds.com/) used with permission.
-
-Content from Zergology (http://zergology.tumblr.com/) used with permission.
+    StarCraft® II: Wings of Liberty™
+    ©2010 Blizzard Entertainment, Inc. All rights reserved. Wings of Liberty is a trademark, and StarCraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
+    
+    StarCraft® II: Heart of the Swarm®
+    ©2013 Blizzard Entertainment, Inc. All rights reserved. Heart of the Swarm and StarCraft are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
+    
+    Content from Team Liquid (http://wiki.teamliquid.net/) licensed under CC-BY-SA.
+    
+    Content from GosuBuilds (http://www.gosubuilds.com/) used with permission.
+    
+    Content from Zergology (http://zergology.tumblr.com/) used with permission.
+    
+    Google Play and the Google Play logo are trademarks of Google Inc.
 
 License
 -------
 
-```
-MIT
-```
+    Copyright 2017 Matt Clarke
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+       http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
