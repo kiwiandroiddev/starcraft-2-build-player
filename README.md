@@ -49,7 +49,7 @@ as a reference. While I would recommend this as a good way to grasp the fundamen
 it's not the best formula for building a robust, testable app that can be easily extended with new features over time.
 
 This project has no real architecture to speak of and its implementation is tightly coupled to the Android framework.
-As such is mostly untestable and untested.
+As such it is mostly untestable and untested.
 
 What I'm trying to say is: if you're looking for the source code of a real-world app to use as a reference for building your own
 app, you've come to the wrong place :)
@@ -64,15 +64,15 @@ Contributing
 
 ### Development
 
-Contributions are more than welcome. If you're a developer looking to ways to contribute, as a first stop you could check out the issues page for open bugs.
+Contributions are more than welcome. If you're a developer looking for ways to contribute, as a first stop you could check out the issues page for open bugs.
  
-If you have an idea for a new feature you'd like to work on, please open an Issue for it just in case it's something I've already started on.
+If you have an idea for a new feature you'd like to work on, please open an issue for it just in case it's something I've already started on.
 
 ### Translations
 
 You can contribute translations to the crowd-sourced translations project here: http://www.getlocalization.com/sc2buildplayer/
 
-Consider opening an Issue if you have fully translated a language and would like to get it into the next release.
+Consider opening an issue if you have fully translated a language and would like to get it into the next release.
 
 Download
 --------
