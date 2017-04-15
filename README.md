@@ -22,6 +22,29 @@ Screenshots
 
 ![App screenshot](https://lh3.googleusercontent.com/wH0L1n872xuXFvBJ5HC3vq5rXq8gbpqv562KknTP-fsVdsuIeOTbLZXgjbQ1k3zqrh9g=h900-rw?raw=true)
 
+Libraries Used
+--------------
+
+### Production
+
+* Appcompat, Support Library (Design, v4, RecyclerView)
+* Material Dialogs
+* Firebase
+* Google Analytics
+* Butterknife
+* Timber
+* Dexter
+* Dart
+* RxJava + RxAndroid
+
+### Testing
+
+* Mockito
+* AssertJ
+* Espresso
+* Fastlane Screengrab
+
+
 Warning to Developers
 ---------------------
 
@@ -34,10 +57,48 @@ it's not the best formula for building a robust, testable app that can be easily
 This project has no real architecture to speak of and its implementation is tightly coupled to the Android framework.
 As such is mostly untestable and untested.
 
-What I'm trying to say is if you're looking for the source code of a real-world app to use as a reference for building your own
-app, you've come to the wrong place.
+What I'm trying to say is: if you're looking for the source code of a real-world app to use as a reference for building your own
+app, you've come to the wrong place :)
 
 Instead I'd recommend reading up on the MVP pattern and Clean Architecture for Android. Here's a classic article on the topic,
 including sample code:
 
 https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
+
+Contributing
+------------
+
+### Development
+
+Contributions are more than welcome. If you're a developer looking to ways to contribute, check out the issues page for open bugs.
+ 
+If you have an idea for a new feature you'd like to work on, please open an Issue for it just in case it's something I have already started on.
+
+### Translations
+
+You can contribute translations to the crowd-sourced translations project here: http://www.getlocalization.com/sc2buildplayer/
+
+Consider opening an Issue if you have fully translated a language and would like to get it into the next release.
+
+
+Disclaimer
+----------
+
+StarCraft® II: Wings of Liberty™
+©2010 Blizzard Entertainment, Inc. All rights reserved. Wings of Liberty is a trademark, and StarCraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
+
+StarCraft® II: Heart of the Swarm®
+©2013 Blizzard Entertainment, Inc. All rights reserved. Heart of the Swarm and StarCraft are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
+
+Content from Team Liquid (http://wiki.teamliquid.net/) licensed under CC-BY-SA.
+
+Content from GosuBuilds (http://www.gosubuilds.com/) used with permission.
+
+Content from Zergology (http://zergology.tumblr.com/) used with permission.
+
+License
+-------
+
+```
+MIT
+```
