@@ -4,7 +4,8 @@ From the Play Store:
 
 This app turns your Android phone into your own personal StarCraft II coach, giving you visual and audio reminders for buildings, units and upgrades as you play, for your chosen race and strategy.
 
-**Features**
+Features
+--------
 
 * Play like a pro by receiving reminders of complex build orders as you play
 * 50 build orders included in version 2.6.5, including 4 builds for the new Legacy of the Void expansion
