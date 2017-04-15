@@ -22,7 +22,7 @@ Screenshots
 
 ![Builds list screenshot](https://lh3.googleusercontent.com/wH0L1n872xuXFvBJ5HC3vq5rXq8gbpqv562KknTP-fsVdsuIeOTbLZXgjbQ1k3zqrh9g=h900-rw?raw=true)
 ![Player screenshot](https://lh3.googleusercontent.com/UD1cyyNC2Az1Rc6Ya7sABwGX2n1X_FjECzy468sF4JbIybz8HXYTmInvhSc4QP9d9ME=h900-rw?raw=true)
-![Build brief screenshot](https://lh3.googleusercontent.com/akqksJigH1KkoeZvY125wM7iRrSThYEnQcg7jI9I5dDJcL-tDBnb_jSkzp4flYOfdg=h900-rwraw=true)
+![Build brief screenshot](https://lh3.googleusercontent.com/akqksJigH1KkoeZvY125wM7iRrSThYEnQcg7jI9I5dDJcL-tDBnb_jSkzp4flYOfdg=h900-rw?raw=true)
 
 Libraries Used
 --------------
