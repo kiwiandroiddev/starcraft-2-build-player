@@ -30,7 +30,7 @@
 	<string name="pref_restore_database_summary">Stellt Standard-Datenbank wieder her. VORSICHT: Alle eigenen Builds gehen verloren</string>
 	<string name="pref_restore_database_succeeded">Datenbank wurde zurückgesetzt</string>
 	<string name="pref_about_category_title">Über</string>
-	<string name="pref_changelog_title">Changelog zeigen %#8230;</string>
+	<string name="pref_changelog_title">Changelog zeigen &#8230;</string>
 	<string name="pref_rate_this_app_title">Diese App bewerten</string>
 	<string name="pref_rate_this_app_summary">Gib uns Rückmeldung, um bei der Verbesserung dieser App zu helfen</string>
 	<string name="pref_upgrade_to_pro_title">Pro-Version kaufen</string>
