@@ -11,8 +11,6 @@ import com.google.analytics.tracking.android.EasyTracker;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    public static final String TRANSLATE_URL = "http://www.getlocalization.com/sc2buildplayer/";
-
     public static final String KEY_GAME_SPEED = "pref_game_speed";
     public static final String KEY_EARLY_WARNING = "pref_early_warning";
     public static final String KEY_START_TIME = "pref_start_time";
