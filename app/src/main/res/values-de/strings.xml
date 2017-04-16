@@ -1,0 +1,379 @@
+<resources>
+    <string name="app_name">SC2 Build Spieler</string>
+    <string name="save">Speichern</string>
+    <string name="discard">Verwerfen</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_rate">Diese App bewerten</string>
+    <string name="menu_play_build">Build abspielen</string>
+    <string name="menu_new_build">Neuer Build</string>
+    <string name="menu_edit_build">Bearbeiten</string>
+    <string name="menu_delete_build">Löschen</string>
+    <string name="menu_move_item_up">Nach oben verschieben</string>
+    <string name="menu_move_item_down">Nach unten verschieben</string>
+    <string name="menu_delete_item">Löschen</string>
+    <string name="menu_export_build">Exportieren</string>
+    <string name="menu_import_build">Build&#8230; importieren</string>
+    <string name="menu_preview">Vorschau</string>
+	<string name="playback_stop">Stop</string>
+	<string name="playback_play">Abspielen</string>
+	<string name="playback_pause">Pause</string>
+	
+	<string name="pref_game_speed">Spielgeschwindigkeit</string>
+	
+	<string name="pref_early_warning">Benachrichtigungs-Offset</string>
+	<string name="pref_early_warning_summary">Du wirst %1$d Spielsekunden vorher über Aktionen informiert</string>
+	<string name="pref_start_time">Standard-Startzeit</string>
+	<string name="pref_start_time_summary">Build startet nach %1$d Spielsekunden (erhöhen um dir Zeit zum z.b. Mineralien abbauen zu geben)</string>
+	<string name="pref_player_category_title">Spieler</string>
+	<string name="pref_database_category_title">Datenbank</string>
+	<string name="pref_restore_database_title">Datenbank zurücksetzen </string>
+	<string name="pref_restore_database_summary">Stellt Standard-Datenbank wieder her. VORSICHT: Alle eigenen Builds gehen verloren</string>
+	<string name="pref_restore_database_succeeded">Datenbank wurde zurückgesetzt</string>
+	<string name="pref_about_category_title">Über</string>
+	<string name="pref_changelog_title">Changelog zeigen &#8230;</string>
+	<string name="pref_rate_this_app_title">Diese App bewerten</string>
+	<string name="pref_rate_this_app_summary">Gib uns Rückmeldung, um bei der Verbesserung dieser App zu helfen</string>
+	<string name="pref_upgrade_to_pro_title">Pro-Version kaufen</string>
+	<string name="pref_upgrade_to_pro_summary">Werbefrei und mit mehr Funktionen</string>
+	<string name="pref_tracking_title">Verbessere diese App</string>
+	<string name="pref_tracking_summary">Erlaube die Übertragung anonymisierter Daten, um bei der Verbesserung dieser App zu helfen</string>
+	<string name="pref_general_category_title">General</string>
+	<string name="pref_show_status_bar_title">Statusleiste anzeigen</string>
+	<string name="pref_show_status_bar_summary">Benötigt Neustart um Änderungen zu übernehmen </string>
+	<string name="pref_translate_title">Übersetzen</string>
+	<string name="pref_translate_summary">Helfe den Text in dieser App in deine Sprache zu übersetzen </string>
+	<string name="numberpicker_units_label">Spielsekunde(n)</string>
+	<string name="race_terran">Terraner</string>
+	<string name="race_protoss">Protoss</string>
+	<string name="race_zerg">Zerg</string>
+	<string name="race_any">Alle</string>
+	<string name="expansion_wol">Wings of Liberty</string>
+	<string name="expansion_hots">Heart of the Swarm</string>
+	<string name="expansion_lotv">Legacy of the Void</string>
+	<string name="error_loading_std_builds">Es gab einen Fehler beim Laden der Standart Builds: %1$s</string>
+	<string name="dlg_tts_install_prompt">Text-to-Speech-Unterstützung nicht gefunden. Jetzt installieren?</string>
+	<string name="dlg_yes">Ja</string>
+	<string name="dlg_no">Nein</string>
+	<string name="dlg_no_market_error">Fehler: Play Store konnte nicht geöffnet werden.</string>
+	<string name="dlg_game_speed_alert">Spielgeschwindigkeit: %1$s</string>
+	<string name="dlg_confirm_db_reset_title">Datenbank zurücksetzen?</string>
+	<string name="dlg_confirm_db_reset_message">Warnung: Das wird alle selbst erstellten Builds und/oder Veränderungen an den Standart Builds dauerhaft löschen</string>
+	<string name="dlg_confirm_delete_build_title">Lösche Aufbau?</string>
+	<string name="dlg_confirm_delete_build_message">Warnung: Das wird das Build dauerhaft löschen, solange du kein Backup gemacht hast</string>
+	<string name="dlg_enter_filename_title">Gebe den Datei Titel ein</string>
+	<string name="dlg_enter_filename_message">Gebe den Dateinamen für das Build ein:</string>
+	<string name="dlg_invalid_filename">Falscher Datei Name!</string>
+	
+	
+	<string name="dlg_confirm_change_faction_title">Fraktion ändern? </string>
+	<string name="dlg_confirm_change_faction_message">Das wird alle existierende Build Items löschen!</string>
+	<string name="error_unknown_author">Unspezifizierte Quelle</string>
+	<string name="error_couldnt_create_builds_dir">Fehler: konnte das Verzeichnis %1$s nicht erstellen. Ist deine Sd Karte voll?</string>
+	<string name="add_build_footer">Build &#8230; hinzufügen</string>
+	<string name="brief_source_label">Herkunft:</string>
+	<string name="brief_author_label">Autor:</string>
+
+	<!-- Build editor -->
+	<string name="edit_build_new_title">Neuer Build</string>
+	<string name="edit_build_edit_title">Build editieren</string>
+	<string name="edit_build_info_title">Info</string>
+	<string name="edit_build_notes_title">Notizen</string>
+	<string name="edit_build_items_title">Gegenstände</string>
+	<string name="edit_build_vs">Gegen </string>
+	<string name="edit_build_title_hint">Titel</string>
+	<string name="edit_build_author_hint">Autor</string>
+	
+	<string name="edit_build_source_title_hint">Quellen Titel (z.B. "Liquipedia")</string>
+	<string name="edit_build_notes_hint">Notiz (HTML erlaubt)</string>
+	
+	<string name="edit_build_invalid_time_message">Bitte gebe eine gültige Zeit ein</string>
+	
+	<string name="edit_build_no_title_error">Bitte gebe einen gültigen Build Titel ein</string>
+	
+	<string name="edit_build_title_already_taken_error">Dieser Titel wird schon benutzt, bitte Suche dir einen anderen aus</string>
+	
+	
+	<string name="edit_build_save_successful">Aufbau gespeichert</string>
+	<string name="edit_build_prompt_save_title">Änderungen speichern?</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<string name="item_type_structure">Struktur</string>
+	<string name="item_type_upgrade">Upgrade</string>
+	
+	
+	
+	<string name="desc_unit_icon">Zeichen für die Einheit, Struktur, Upgrade oder Fähigkeit</string>
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+
+	<!-- Edit item dialog -->
+	
+	
+	<string name="dlg_time_label">Zeit </string>
+	
+	
+	
+	
+	
+	
+
+	<!-- Preview Notes dialog -->
+	<string name="dlg_preview_notes_title">Notizen Vorschau</string>
+	
+	<!-- Insert Link dialog -->
+	<string name="dlg_insert_link_title">Link eingeben</string>
+	<string name="label_hint">Link Text</string>
+	
+	
+	<!-- Changelog -->
+	
+    
+    <string name="changelog_ok_button">OK</string>
+    
+	
+    <!-- File Dialog -->
+    
+    
+    <string name="nnew">Neu</string>
+    <string name="select">Auswählen</string>
+    
+    <string name="cancel">Abbrechen</string>
+    <string name="create">Speichern</string>
+    <string name="no_data">Keine Daten</string>
+    <string name="err">Fehler</string>
+    
+    <!-- Action Verbs -->
+    <!--   Generic (fallback)   -->
+    
+    
+    
+    <string name="verb_ability_generic">Benutze </string>
+    <string name="verb_note_generic">Notiz</string>
+    <!--   Zerg   -->
+    
+    
+    
+    <!--   Protoss   -->
+    
+    
+   
+    <!-- sentence templates for build item alerts -->
+    
+    <string name="sentence_structure_singular_with_target">{verb} {count} {item} auf {target}</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Game Items -->
+	<string name="gameitem_note">Notiz</string>
+	
+	<string name="gameitem_armory">Waffenlager</string>
+	<string name="gameitem_banshee">Banshee</string>
+	<string name="gameitem_barracks">Kaserne</string>
+	<string name="gameitem_battlecruiser">Schwerer Kreuzer</string>
+	<string name="gameitem_bunker">Bunker</string>
+	<string name="gameitem_cloak">Tarnfeld</string>
+	<string name="gameitem_combat_shield">Kampfschild</string>
+	<string name="gameitem_command_center">Kommandozentrale</string>
+	<string name="gameitem_concussion_shells">Schockmunition</string>
+	
+	<string name="gameitem_durable_materials">Langlebige Materialien</string>
+	<string name="gameitem_engineering_bay">Maschinendock</string>
+	<string name="gameitem_factory">Fabrik</string>
+	<string name="gameitem_fusion_core">Fusionskern</string>
+	<string name="gameitem_ghost">Ghost</string>
+	<string name="gameitem_ghost_academy">Ghost Akademie</string>
+	<string name="gameitem_hellbat">Feuerfresser</string>
+	<string name="gameitem_hellion">Hellion</string>
+	<string name="gameitem_hi_sec_auto_tracking">Automatische Hochsicherheits-Verfolgung</string>
+	
+	<string name="gameitem_infantry_armor_level1">Infanteriepanzerung 1</string>
+	<string name="gameitem_infantry_armor_level2">Infanteriepanzerung 2</string>
+	<string name="gameitem_infantry_armor_level3">Infanteriepanzerung 3</string>
+	<string name="gameitem_infantry_weapons_level1">Infanteriewaffen 1</string>
+	<string name="gameitem_infantry_weapons_level2">Infanteriewaffen 2</string>
+	<string name="gameitem_infantry_weapons_level3">Infanteriewaffen 3</string>
+	<string name="gameitem_infernal_preigniter">Infernales Zündsystem</string>
+	
+	<string name="gameitem_marauder">Marodeur</string>
+	<string name="gameitem_marine">Marine</string>
+	<string name="gameitem_medivac">Medivac</string>
+	<string name="gameitem_missile_turret">Raketenturm</string>
+	<string name="gameitem_mule">MULE heranrufen</string>
+	<string name="gameitem_orbital_command">Satelliten Zentrale</string>
+	<string name="gameitem_planetary_fortress">Planetare Festung</string>
+	<string name="gameitem_raven">Raven</string>
+	<string name="gameitem_reactor">Reaktor</string>
+	<string name="gameitem_reaper">Rächer</string>
+	<string name="gameitem_refinery">Raffinerie</string>
+	<string name="gameitem_scv">WBF</string>
+	<string name="gameitem_seeker_missile">Zielsuchende Rakete</string>
+	<string name="gameitem_sensor_tower">Sensorturm</string>
+	<string name="gameitem_siege_mode">Belagerungsmodus</string>
+	<string name="gameitem_siege_tank">Belagerungspanzer</string>
+	<string name="gameitem_starport">Raumhafen</string>
+	<string name="gameitem_stim_pack">Stimpack</string>
+	<string name="gameitem_supply_depot">Versorgungsdepot</string>
+	<string name="gameitem_tech_lab">Tech Labor</string>
+	<string name="gameitem_thor">Thor</string>
+	
+	<string name="gameitem_vehicle_plating_level1">Level 1 Upgrade für Fahrzeugpanzerung</string>
+	<string name="gameitem_vehicle_plating_level2">Level 2 Upgrade für Fahrzeugpanzerung</string>
+	<string name="gameitem_vehicle_plating_level3">Level 3 Upgrade für Fahrzeugpanzerung</string>
+	<string name="gameitem_vehicle_weapons_level1">Level 1 Upgrade für Fahrzeugwaffen</string>
+	<string name="gameitem_vehicle_weapons_level2">Level 2 Upgrade für Fahrzeugwaffen </string>
+	<string name="gameitem_vehicle_weapons_level3">Level 3 Upgrade für Fahrzeugwaffen </string>
+	<string name="gameitem_viking">Viking</string>
+	<string name="gameitem_widow_mine">Arachnomine</string>
+	
+	<string name="gameitem_air_armor_level1">Level 1 Upgrade für Schiffspanzerung</string>
+	<string name="gameitem_air_armor_level2">Level 2 Upgrade für Schiffspanzerung</string>
+	<string name="gameitem_air_armor_level3">Level 3 Upgrade für Schiffspanzerung</string>
+	<string name="gameitem_air_weapons_level1">Level 1 Upgrade für Schiffswaffen </string>
+	<string name="gameitem_air_weapons_level2">Level 2 Upgrade für Schiffswaffen </string>
+	<string name="gameitem_air_weapons_level3">Level 3 Upgrade für Schiffswaffen </string>
+	
+	<string name="gameitem_archon">Archon</string>
+	<string name="gameitem_assimilator">Assimilator</string>
+	<string name="gameitem_blink">Transit</string>
+	<string name="gameitem_carrier">Träger</string>
+	<string name="gameitem_charge">Aufladen</string>
+	<string name="gameitem_chrono_boost">Zeitschleife</string>
+	<string name="gameitem_colossus">Koloss</string>
+	<string name="gameitem_cybernetics_core">Kybernetik Kern</string>
+	<string name="gameitem_dark_shrine">Dunkler Schrein</string>
+	<string name="gameitem_dark_templar">Dunkler Templer</string>
+	
+	<string name="gameitem_extended_thermal_lance">Verbesserte Thermo Lanze</string>
+	<string name="gameitem_fleet_beacon">Flottensignalgeber</string>
+	<string name="gameitem_forge">Schmiede</string>
+	<string name="gameitem_gateway">Warpknoten</string>
+	
+	
+	
+	<string name="gameitem_ground_armor_level1">Level 1 Upgrade für Infanteriepanzerung</string>
+	<string name="gameitem_ground_armor_level2">Level 2 Upgrade für Infanteriepanzerung</string>
+	<string name="gameitem_ground_armor_level3">Level 3 Upgrade für Infanteriepanzerung</string>
+	<string name="gameitem_ground_weapons_level1">Level 1 Upgrade für Infanteriewaffen</string>
+	<string name="gameitem_ground_weapons_level2">Level 1 Upgrade für Infanteriewaffen 2</string>
+	<string name="gameitem_ground_weapons_level3">Level 1 Upgrade für Infanteriewaffen</string>
+	<string name="gameitem_hallucination">Halluzination</string>
+	<string name="gameitem_high_templar">Höher Templer</string>
+	<string name="gameitem_immortal">Unsterblicher</string>
+	<string name="gameitem_khaydarin_amulet">Khaydarin Amulett</string>
+	<string name="gameitem_mothership">Mutterschiff</string>
+	<string name="gameitem_mothership_core">Mutterschiffkern</string>
+	<string name="gameitem_nexus">Nexus</string>
+	<string name="gameitem_observer">Beobachter</string>
+	<string name="gameitem_oracle">Orakel</string>
+	<string name="gameitem_phoenix">Phönix</string>
+	
+	<string name="gameitem_photon_cannon">Photonen Kanone</string>
+	<string name="gameitem_probe">Drohne</string>
+	<string name="gameitem_psi_storm">Psi Sturm</string>
+	<string name="gameitem_pylon">Pylon</string>
+	<string name="gameitem_robotics_bay">Roboterdock</string>
+	<string name="gameitem_robotics_facility">Roboterfabrik</string>
+	<string name="gameitem_sentry">Protektor</string>
+	<string name="gameitem_shields_level1">Level 1 Upgrade für Schilde</string>
+	<string name="gameitem_shields_level2">Level 2 Upgrade für Schilde</string>
+	<string name="gameitem_shields_level3">Level 3 Upgrade für Schilde</string>
+	<string name="gameitem_stalker">Hetzter</string>
+	<string name="gameitem_stargate">Raumportal</string>
+	<string name="gameitem_tempest">Tempest</string>
+	<string name="gameitem_templar_archives">Templer Archiv</string>
+	<string name="gameitem_transform_to_gateway">Zu Warpknoten transformieren</string>
+	<string name="gameitem_transform_to_warp_gate">Zu Warptor transformieren</string>
+	<string name="gameitem_twilight_council">Zirkel des Zwielichts</string>
+	<string name="gameitem_void_ray">Phasengleiter</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</resources>
