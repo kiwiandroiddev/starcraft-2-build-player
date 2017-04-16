@@ -16,6 +16,7 @@ import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsPresenter;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService;
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog;
@@ -82,7 +83,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         // track this event as it's something we want the user to do (a "goal" in analytics speak)
         EasyTrackerUtils.sendEvent(getActivity(), "ui_action", "menu_select", "translate_option", null);
 
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SettingsActivity.TRANSLATE_URL));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SettingsPresenter.Companion.getTRANSLATE_URL()));
         startActivity(browserIntent);
     }
 
