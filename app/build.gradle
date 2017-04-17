@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.jakewharton.hugo'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -51,6 +52,10 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
@@ -67,6 +72,7 @@ dependencies {
     compile "com.google.firebase:firebase-crash:${rootProject.ext.firebaseVersion}"
 
     compile(
+            "com.google.dagger:dagger:$dagger2_version",
             'com.google.code.gson:gson:2.4',
             'io.reactivex:rxandroid:0.25.0',
             'com.jakewharton:butterknife:6.0.0',
@@ -75,11 +81,23 @@ dependencies {
             'com.karumi:dexter:2.2.2'
     )
 
+    provided "org.glassfish:javax.annotation:$java_annotation_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+
     testCompile(
             'junit:junit:4.12',
             'org.mockito:mockito-core:1.9.5',
             'org.assertj:assertj-core:1.7.0'
     )
+
+    // workaround for "Error:Conflict with dependency 'com.google.code.findbugs:jsr305' in
+    // project ':app'. Resolved versions for app (3.0.1) and test app (2.0.1) differ.
+    // See http://g.co/androidstudio/app-test-app-conflict for details."
+    android {
+        configurations.all {
+            resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+        }
+    }
 
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
