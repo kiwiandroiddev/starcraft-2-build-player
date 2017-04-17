@@ -19,6 +19,10 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
         this.view = view
     }
 
+    fun detachView() {
+        this.view = null
+    }
+
     fun showChangelogSelected() {
         navigator.openFullChangelog()
     }
