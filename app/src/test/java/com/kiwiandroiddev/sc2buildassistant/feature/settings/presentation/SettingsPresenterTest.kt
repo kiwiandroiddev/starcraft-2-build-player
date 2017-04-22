@@ -57,7 +57,7 @@ internal class SettingsPresenterTest {
     fun translateSelected_opensTranslateUrl() {
         presenter.translateSelected()
 
-        verify(mockNavigator).openUrl(SettingsPresenter.TRANSLATE_URL)
+        verify(mockNavigator).openTranslationPage()
     }
 
     @Test
