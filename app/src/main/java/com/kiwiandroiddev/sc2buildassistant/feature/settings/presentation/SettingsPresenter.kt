@@ -9,10 +9,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabas
 class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
                         val navigator: SettingsNavigator) {
 
-    companion object {
-        val TRANSLATE_URL = "http://www.getlocalization.com/sc2buildplayer/"
-    }
-
     private var view: SettingsView? = null
 
     fun attachView(view: SettingsView) {
@@ -32,7 +28,7 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
     }
 
     fun translateSelected() {
-        navigator.openUrl(TRANSLATE_URL)
+        navigator.openTranslationPage()
     }
 
     fun resetDatabaseSelected() {
