@@ -25,9 +25,11 @@ import timber.log.Timber;
  *
  * Created by matt on 17/07/15.
  */
-public class StandardBuildsService {
+public final class StandardBuildsService {
 	private static final int BUILD_FILES_VERSION = 49;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
+
+	private StandardBuildsService() {}
 
 	/**
 	 * Returns an observable on the progress of loading stock build orders into the local SQLite DB.
@@ -87,18 +89,12 @@ public class StandardBuildsService {
         	doUpdateBuilds(c, db, oldVersion, newVersion);
 
         	ArrayList<Build> stdBuilds = fetchStandardBuilds(c);
-        	//Timber.d(TAG, "in loadStandardBuildsIntoDB(), stdBuilds = " + stdBuilds);
         	db.addOrReplaceBuilds(stdBuilds, listener);
 
         	if (outOfDate) {
 				updateBuildsVersion(c);
 			}
         }
-	}
-
-	// TODO make private
-	public static void loadStandardBuildsIntoDB(Context c, boolean forceLoad) throws IOException {
-		loadStandardBuildsIntoDB(c, forceLoad, null);
 	}
 
 	/**
@@ -127,7 +123,6 @@ public class StandardBuildsService {
 					db.deleteBuild(name);
 				}
 			}
-			//db.deleteBuild("YoDa's Reaper FE into Widow Mine Drop (vs. Terran)");	// stub
 		}
 	}
 
@@ -167,12 +162,4 @@ public class StandardBuildsService {
 		return prefs.getInt(SettingsActivity.KEY_BUILDS_VERSION, -1);
 	}
 
-	/**
-	 * @return true if user's saved builds version is different to the current builds version constant,
-	 * meaning one or more of the standard build files has been updated
-	 */
-//    private static boolean buildsOutOfDate(Context c) {
-//    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-//    	return (prefs.getInt(SettingsActivity.KEY_BUILDS_VERSION, -1) != BuildListActivity.BUILD_FILES_VERSION);
-//    }
 }
