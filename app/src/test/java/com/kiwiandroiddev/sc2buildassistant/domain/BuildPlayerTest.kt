@@ -30,7 +30,7 @@ class BuildPlayerTest {
 
     private fun initPlayerWithItems(items: List<BuildItem>) {
         player = BuildPlayer(mockCurrentTimeProvider, items)
-        player.registerListener(mockBuildPlayerEventListener)
+        player.setListener(mockBuildPlayerEventListener)
     }
 
     @Test
@@ -79,6 +79,36 @@ class BuildPlayerTest {
     }
 
     @Test
+    fun registerListener_alreadyPlaying_listenerInitialisedWithOnPlayEvent() {
+        player.play()
+
+        player.setListener(mockBuildPlayerEventListener)
+
+        verify(mockBuildPlayerEventListener).onBuildPlay()
+    }
+
+    @Test
+    fun registerListener_playerStopped_listenerInitialisedWithOnStoppedEvent() {
+        player.setListener(mockBuildPlayerEventListener)
+
+        verify(mockBuildPlayerEventListener).onBuildStopped()
+    }
+
+    @Test
+    fun clearListener_playbackStartsAfterListenerCleared_listenerDoesNotReceiveEvent() {
+        initPlayerWithItems(listOf(
+                BuildItem(120, "pylon"),
+                BuildItem(150, "gateway")
+        ))
+
+        player.clearListener()
+        player.play()
+        player.iterate()
+
+        verify(mockBuildPlayerEventListener, never()).onBuildPlay()
+    }
+
+    @Test
     fun playThenStop_buildPlayerStateShouldBeTheSameAsBeforePlaybackStarted() {
         initPlayerWithItems(listOf(
                 BuildItem(120, "pylon"),
@@ -116,7 +146,7 @@ class BuildPlayerTest {
         val firstItem = BuildItem(15, "probe")
         val secondItem = BuildItem(140, "pylon")
         initPlayerWithItems(listOf(firstItem, secondItem))
-        player.alertOffset = 0
+        player.alertOffsetInGameSeconds = 0
 
         `when`(mockCurrentTimeProvider.time).thenReturn(0L)
         player.play()
@@ -133,7 +163,7 @@ class BuildPlayerTest {
         val firstItem = BuildItem(15, "probe")
         val secondItem = BuildItem(140, "pylon")
         initPlayerWithItems(listOf(firstItem, secondItem))
-        player.alertOffset = 5
+        player.alertOffsetInGameSeconds = 5
 
         `when`(mockCurrentTimeProvider.time).thenReturn(0L)
         player.play()
