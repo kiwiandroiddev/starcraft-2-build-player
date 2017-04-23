@@ -42,7 +42,7 @@
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/StarCraftTheme.NoActionBar" />
-        <activity android:name=".activity.PlaybackActivity" />
+        <activity android:name=".feature.player.view.PlaybackActivity" />
         <activity
             android:name=".feature.settings.view.SettingsActivity"
             android:label="@string/menu_settings" />
