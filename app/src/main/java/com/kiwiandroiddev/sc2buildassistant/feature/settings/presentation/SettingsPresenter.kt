@@ -1,13 +1,13 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
-
-/**
- * Copyright © 2017. Orion Health. All rights reserved.
- */
+import io.reactivex.Scheduler
+import io.reactivex.observers.DisposableCompletableObserver
 
 class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
-                        val navigator: SettingsNavigator) {
+                        val navigator: SettingsNavigator,
+                        val executionScheduler: Scheduler,
+                        val viewResultScheduler: Scheduler) {
 
     private var view: SettingsView? = null
 
@@ -36,7 +36,18 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
     }
 
     fun confirmResetDatabaseSelected() {
-        resetDatabaseUseCase.resetDatabase().subscribe()
+        resetDatabaseUseCase.resetDatabase()
+                .subscribeOn(executionScheduler)
+                .observeOn(viewResultScheduler)
+                .subscribe(object : DisposableCompletableObserver() {
+                    override fun onComplete() {
+                        view?.showResetDatabaseSuccess()
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        view?.showResetDatabaseError()
+                    }
+                })
     }
 
 }

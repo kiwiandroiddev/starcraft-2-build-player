@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl
 
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ClearDatabaseUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.LoadStandardBuildsIntoDatabaseUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
 import io.reactivex.Completable
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations
 
 class ResetDatabaseUseCaseImplTest {
 
-    @Mock lateinit var mockClearDatabaseUseCase: ClearDatabaseUseCase
+    @Mock lateinit var mockClearDatabaseAgent: ClearDatabaseAgent
     @Mock lateinit var mockLoadStandardBuildsIntoDatabaseUseCase: LoadStandardBuildsIntoDatabaseUseCase
 
     lateinit var testObserver: TestObserver<Void>
@@ -28,14 +28,14 @@ class ResetDatabaseUseCaseImplTest {
         testObserver = TestObserver.create()
 
         resetDatabaseUseCase = ResetDatabaseUseCaseImpl(
-                mockClearDatabaseUseCase,
+                mockClearDatabaseAgent,
                 mockLoadStandardBuildsIntoDatabaseUseCase)
 
         initDefaultMockBehaviours()
     }
 
     private fun initDefaultMockBehaviours() {
-        `when`(mockClearDatabaseUseCase.clear()).thenReturn(Completable.complete())
+        `when`(mockClearDatabaseAgent.clear()).thenReturn(Completable.complete())
         `when`(mockLoadStandardBuildsIntoDatabaseUseCase.loadBuilds())
                 .thenReturn(Observable.just(100))
     }
@@ -56,7 +56,7 @@ class ResetDatabaseUseCaseImplTest {
 
     @Test
     fun resetDatabase_clearDatabaseFails_shouldFail() {
-        `when`(mockClearDatabaseUseCase.clear())
+        `when`(mockClearDatabaseAgent.clear())
                 .thenReturn(Completable.error(RuntimeException("IO error")))
 
         resetDatabase()

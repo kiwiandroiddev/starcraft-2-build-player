@@ -17,7 +17,6 @@ import javax.inject.Inject
  * Copyright © 2017. Orion Health. All rights reserved.
  */
 class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {
-
     @Inject lateinit var settingsPresenter: SettingsPresenter
 
     override fun onCreate(paramBundle: Bundle?) {
@@ -123,10 +122,18 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
                 .show()
     }
 
-//    private fun doResetDatabase() {
-//        // TODO DI candidate if I've ever seen one
-//        val db = (activity.applicationContext as MyApplication).db
+    override fun showResetDatabaseError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showResetDatabaseSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 //        db!!.clear()
+//        val db = (activity.applicationContext as MyApplication).db
+//        // TODO DI candidate if I've ever seen one
+//    private fun doResetDatabase() {
 //        val forceLoad = true
 //
 //        StandardBuildsService.getLoadStandardBuildsIntoDBObservable(activity, forceLoad)

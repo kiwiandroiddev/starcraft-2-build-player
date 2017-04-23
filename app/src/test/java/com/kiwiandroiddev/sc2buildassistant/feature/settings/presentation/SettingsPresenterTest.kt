@@ -2,17 +2,18 @@ package com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
 import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import io.reactivex.plugins.RxJavaPlugins
 
-/**
- * Copyright © 2017. Orion Health. All rights reserved.
- */
+
 internal class SettingsPresenterTest {
 
     @Mock lateinit var mockView: SettingsView
@@ -25,7 +26,11 @@ internal class SettingsPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = SettingsPresenter(mockResetDatabaseUseCase, mockNavigator)
+        presenter = SettingsPresenter(
+                resetDatabaseUseCase = mockResetDatabaseUseCase,
+                navigator = mockNavigator,
+                executionScheduler = Schedulers.trampoline(),
+                viewResultScheduler = Schedulers.trampoline())
 
         initDefaultMockBehaviors()
     }
@@ -82,5 +87,25 @@ internal class SettingsPresenterTest {
         assertThat(resetTriggered).isTrue()
     }
 
+    @Test
+    fun confirmResetDatabase_errorOccurs_showsErrorInView() {
+        `when`(mockResetDatabaseUseCase.resetDatabase())
+                .thenReturn(Completable.error(RuntimeException("IO error")))
+        presenter.attachView(mockView)
+
+        presenter.confirmResetDatabaseSelected()
+
+        verify(mockView).showResetDatabaseError()
+    }
+
+    @Test
+    fun confirmResetDatabaseSelected_noErrors_showsSuccessInView() {
+        `when`(mockResetDatabaseUseCase.resetDatabase()).thenReturn(Completable.complete())
+        presenter.attachView(mockView)
+
+        presenter.confirmResetDatabaseSelected()
+
+        verify(mockView).showResetDatabaseSuccess()
+    }
 }
 
