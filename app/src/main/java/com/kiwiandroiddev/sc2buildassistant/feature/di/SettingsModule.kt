@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.di
 
+import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.LoadStandardBuildsIntoDatabaseUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
@@ -22,12 +23,13 @@ class SettingsModule {
     @Provides
     @Singleton
     fun provideSettingsPresenter(resetDatabaseUseCase: ResetDatabaseUseCase,
-                                 navigator: SettingsNavigator): SettingsPresenter =
+                                 navigator: SettingsNavigator,
+                                 errorReporter: ErrorReporter): SettingsPresenter =
             SettingsPresenter(
                     resetDatabaseUseCase = resetDatabaseUseCase,
                     navigator = navigator,
-                    executionScheduler = Schedulers.io(),
-                    viewResultScheduler = AndroidSchedulers.mainThread())
+                    errorReporter = errorReporter,
+                    viewResultScheduler = AndroidSchedulers.mainThread(), executionScheduler = Schedulers.io())
 
     @Provides
     @Singleton
