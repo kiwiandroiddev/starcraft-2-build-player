@@ -16,6 +16,11 @@ import org.mockito.MockitoAnnotations
  */
 class BuildPlayerTest {
 
+    companion object {
+        val TEST_ITEM_1 = BuildItem(15, "probe")
+        val TEST_ITEM_2 = BuildItem(140, "pylon")
+    }
+
     @Mock lateinit var mockBuildPlayerEventListener: BuildPlayerEventListener
     @Mock lateinit var mockCurrentTimeProvider: CurrentTimeProvider
 
@@ -26,11 +31,22 @@ class BuildPlayerTest {
         MockitoAnnotations.initMocks(this)
 
         player = BuildPlayer(mockCurrentTimeProvider, emptyList())
+        player.alertOffsetInGameSeconds = 0
+
+        initDefaultMockBehaviours()
+    }
+
+    private fun initDefaultMockBehaviours() {
+        `when`(mockCurrentTimeProvider.time).thenReturn(0L)
     }
 
     private fun initPlayerWithItems(items: List<BuildItem>) {
         player = BuildPlayer(mockCurrentTimeProvider, items)
         player.setListener(mockBuildPlayerEventListener)
+    }
+
+    private fun setCurrentTimeToGameSeconds(gameSeconds: Int) {
+        `when`(mockCurrentTimeProvider.time).thenReturn(gameSeconds * 1000L)
     }
 
     @Test
@@ -41,13 +57,13 @@ class BuildPlayerTest {
     @Test
     fun getDuration_2buildItems_durationIsTimeOfLastItem() {
         initPlayerWithItems(listOf(
-                BuildItem(120, "pylon"),
-                BuildItem(150, "gateway")
+                TEST_ITEM_1,
+                TEST_ITEM_2
         ))
 
         val duration = player.duration
 
-        assertThat(duration).isEqualTo(150)
+        assertThat(duration).isEqualTo(TEST_ITEM_2.time)
     }
 
     @Test
@@ -97,8 +113,8 @@ class BuildPlayerTest {
     @Test
     fun clearListener_playbackStartsAfterListenerCleared_listenerDoesNotReceiveEvent() {
         initPlayerWithItems(listOf(
-                BuildItem(120, "pylon"),
-                BuildItem(150, "gateway")
+                TEST_ITEM_1,
+                TEST_ITEM_2
         ))
 
         player.clearListener()
@@ -111,8 +127,8 @@ class BuildPlayerTest {
     @Test
     fun playThenStop_buildPlayerStateShouldBeTheSameAsBeforePlaybackStarted() {
         initPlayerWithItems(listOf(
-                BuildItem(120, "pylon"),
-                BuildItem(150, "gateway")
+                TEST_ITEM_1,
+                TEST_ITEM_2
         ))
         val stateBeforePlay = player.toString()
 
@@ -127,59 +143,50 @@ class BuildPlayerTest {
 
     @Test
     fun iterate_pastTimeOfFirstItem_listenerIsNotifiedToBuildFirstItem() {
-        val firstItem = BuildItem(15, "probe")
-        val secondItem = BuildItem(140, "pylon")
-        initPlayerWithItems(listOf(firstItem, secondItem))
+        initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
 
-        `when`(mockCurrentTimeProvider.time).thenReturn(0L)
         player.play()
         player.iterate()
-        `when`(mockCurrentTimeProvider.time).thenReturn(30 * 1000L)
+        setCurrentTimeToGameSeconds(30)
 
         player.iterate()
 
-        verify(mockBuildPlayerEventListener).onBuildThisNow(firstItem, 0)
+        verify(mockBuildPlayerEventListener).onBuildThisNow(TEST_ITEM_1, 0)
     }
 
     @Test
     fun iterate_zeroAlertTimeOffsetAndAtTimeOfFirstItem_listenerIsNotifiedToBuildFirstItem() {
-        val firstItem = BuildItem(15, "probe")
-        val secondItem = BuildItem(140, "pylon")
-        initPlayerWithItems(listOf(firstItem, secondItem))
+        initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
         player.alertOffsetInGameSeconds = 0
 
-        `when`(mockCurrentTimeProvider.time).thenReturn(0L)
         player.play()
         player.iterate()
-        `when`(mockCurrentTimeProvider.time).thenReturn(15 * 1000L)
+        setCurrentTimeToGameSeconds(15)
 
         player.iterate()
 
-        verify(mockBuildPlayerEventListener).onBuildThisNow(firstItem, 0)
+        verify(mockBuildPlayerEventListener).onBuildThisNow(TEST_ITEM_1, 0)
     }
 
     @Test
     fun iterate_fiveSecondsAlertTimeOffsetAndAtSixSecondsBeforeFirstItem_listenerIsNotNotifiedToBuildFirstItem() {
-        val firstItem = BuildItem(15, "probe")
-        val secondItem = BuildItem(140, "pylon")
-        initPlayerWithItems(listOf(firstItem, secondItem))
+        initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
         player.alertOffsetInGameSeconds = 5
 
-        `when`(mockCurrentTimeProvider.time).thenReturn(0L)
         player.play()
         player.iterate()
-        `when`(mockCurrentTimeProvider.time).thenReturn(9 * 1000L)
+        setCurrentTimeToGameSeconds(9)
 
         player.iterate()
 
-        verify(mockBuildPlayerEventListener, never()).onBuildThisNow(firstItem, 0)
+        verify(mockBuildPlayerEventListener, never()).onBuildThisNow(TEST_ITEM_1, 0)
     }
 
     @Test
     fun setBuildItemFilter_filterOutEverything_durationIsZero() {
         initPlayerWithItems(listOf(
-                BuildItem(15, "probe"),
-                BuildItem(140, "pylon")))
+                TEST_ITEM_1,
+                TEST_ITEM_2))
 
         player.setBuildItemFilter { item -> false }
 
@@ -187,10 +194,22 @@ class BuildPlayerTest {
     }
 
     @Test
+    fun clearBuildItemFilter_initiallyFiltersOutEverything_durationIsTimeOfLastItem() {
+        initPlayerWithItems(listOf(
+                TEST_ITEM_1,
+                TEST_ITEM_2))
+        player.setBuildItemFilter { item -> false }
+
+        player.clearBuildItemFilter()
+
+        assertThat(player.duration).isEqualTo(140)
+    }
+
+    @Test
     fun setBuildItemFilter_filterNothing_durationIsTimeOfLastItem() {
         initPlayerWithItems(listOf(
-                BuildItem(15, "probe"),
-                BuildItem(140, "pylon")))
+                TEST_ITEM_1,
+                TEST_ITEM_2))
 
         player.setBuildItemFilter { item -> true }
 
@@ -200,12 +219,39 @@ class BuildPlayerTest {
     @Test
     fun setBuildItemFilter_filterLastItem_durationIsTimeOfSecondToLastItem() {
         initPlayerWithItems(listOf(
-                BuildItem(15, "probe"),
-                BuildItem(140, "pylon")))
+                TEST_ITEM_1,
+                TEST_ITEM_2))
 
         player.setBuildItemFilter { item -> item.gameItemID != "pylon" }
 
         assertThat(player.duration).isEqualTo(15)
+    }
+
+    @Test
+    fun iterate_pastTimeOfFilteredFirstItem_listenerIsNotNotifiedToBuildFirstItem() {
+        initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
+        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
+
+        player.play()
+        player.iterate()
+        setCurrentTimeToGameSeconds(15)
+        player.iterate()
+
+        verify(mockBuildPlayerEventListener, never()).onBuildThisNow(TEST_ITEM_1, 0)
+    }
+
+    @Test
+    fun iterate_filterChangedSinceLastIteration_listenerNotifiedThatBuildItemsHaveChanged() {
+        initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
+        player.play()
+        player.iterate()
+        setCurrentTimeToGameSeconds(5)
+        reset(mockBuildPlayerEventListener)
+
+        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
+        player.iterate()
+
+        verify(mockBuildPlayerEventListener).onBuildItemsChanged(listOf(TEST_ITEM_2))
     }
 
 }

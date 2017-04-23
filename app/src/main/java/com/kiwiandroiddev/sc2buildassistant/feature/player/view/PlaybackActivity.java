@@ -51,8 +51,11 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivi
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
@@ -493,6 +496,11 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	}
 
 	@Override
+	public void onBuildItemsChanged(@NotNull List<? extends BuildItem> newBuildItems) {
+		// TODO
+	}
+
+	@Override
 	public void onIterate(long newGameTimeMs) {
 //		Log.w(this.toString(), "onIterate() called with " + newGameTime);
 		long timeSec = newGameTimeMs / 1000;
@@ -629,4 +637,5 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 				null
 		);
 	}
+
 }
