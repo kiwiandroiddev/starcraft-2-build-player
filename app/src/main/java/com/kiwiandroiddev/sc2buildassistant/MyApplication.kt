@@ -10,9 +10,13 @@ import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationModule
 import com.kiwiandroiddev.sc2buildassistant.feature.di.DaggerApplicationComponent
 import com.kiwiandroiddev.sc2buildassistant.feature.navigation.RegisteredActivityNavigator
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsFragment
+import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService
+import io.reactivex.Completable
 
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -24,13 +28,12 @@ import javax.inject.Inject
 
  * @author matt
  */
-class MyApplication : Application() {
-
+class MyApplication : Application(), ClearDatabaseAgent {
     @Inject lateinit var registeredActivityNavigator: RegisteredActivityNavigator
 
     private lateinit var graph: ApplicationComponent
-    private var mDb: DbAdapter? = null
 
+    private var mDb: DbAdapter? = null
     override fun onCreate() {
         super.onCreate()
 
@@ -84,7 +87,9 @@ class MyApplication : Application() {
     }
 
     private fun initDependencyInjection() {
-        graph = DaggerApplicationComponent.builder().build()
+        graph = DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(app = this))
+                .build()
         graph.inject(this)
     }
 
@@ -101,4 +106,11 @@ class MyApplication : Application() {
 
     fun inject(target: SettingsFragment) =
             graph.inject(target)
+
+    override fun clear(): Completable =
+            Completable.fromAction {
+                db!!.clear()
+                JsonBuildService.notifyBuildProviderObservers(this)
+            }
+
 }

@@ -9,6 +9,8 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.Settin
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 /**
@@ -21,7 +23,11 @@ class SettingsModule {
     @Singleton
     fun provideSettingsPresenter(resetDatabaseUseCase: ResetDatabaseUseCase,
                                  navigator: SettingsNavigator): SettingsPresenter =
-            SettingsPresenter(resetDatabaseUseCase, navigator)
+            SettingsPresenter(
+                    resetDatabaseUseCase = resetDatabaseUseCase,
+                    navigator = navigator,
+                    executionScheduler = Schedulers.io(),
+                    viewResultScheduler = AndroidSchedulers.mainThread())
 
     @Provides
     @Singleton

@@ -147,8 +147,8 @@ public final class JsonBuildService {
      *
      * TODO out-of-place in this file? Nothing to do with JSON
      */
-    public static void notifyBuildProviderObservers(Context c) {
+    public static void notifyBuildProviderObservers(Context context) {
 		Uri buildTableUri = Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER);
-		c.getContentResolver().notifyChange(buildTableUri, null);
+		context.getContentResolver().notifyChange(buildTableUri, null);
     }
 }
