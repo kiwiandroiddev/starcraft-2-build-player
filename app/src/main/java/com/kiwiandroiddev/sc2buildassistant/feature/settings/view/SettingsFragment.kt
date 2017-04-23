@@ -133,36 +133,4 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
         Toast.makeText(activity, R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show()
     }
 
-//        db!!.clear()
-//        val db = (activity.applicationContext as MyApplication).db
-//        // TODO DI candidate if I've ever seen one
-//    private fun doResetDatabase() {
-//        val forceLoad = true
-//
-//        StandardBuildsService.getLoadStandardBuildsIntoDBObservable(activity, forceLoad)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(object : Observer<Int> {
-//                    override fun onNext(percent: Int?) {
-//                        Timber.d("percent = " + percent!!)
-//                    }
-//
-//                    override fun onCompleted() {
-//                        JsonBuildService.notifyBuildProviderObservers(activity)
-//                        Toast.makeText(activity, R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        Toast.makeText(activity,
-//                                String.format(getString(R.string.error_loading_std_builds),
-//                                        e.message),
-//                                Toast.LENGTH_LONG).show()
-//                        Timber.e("LoadStandardBuildsTask returned an exception: ", e)
-//
-//                        // Report this error for analysis
-//                        EasyTrackerUtils.sendNonFatalException(activity, e)
-//                    }
-//                })
-//    }
-
 }

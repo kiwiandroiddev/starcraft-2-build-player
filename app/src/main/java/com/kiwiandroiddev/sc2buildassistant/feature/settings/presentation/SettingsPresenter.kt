@@ -46,7 +46,7 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
                     }
 
                     override fun onError(error: Throwable) {
-                        view?.showResetDatabaseError("IO error")
+                        view?.showResetDatabaseError(error.message ?: "")
                         errorReporter.trackNonFatalError(error)
                     }
                 })
