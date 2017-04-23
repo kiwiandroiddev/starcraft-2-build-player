@@ -1,13 +1,15 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.di
 
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl.ClearDatabaseUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ClearDatabaseUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.LoadStandardBuildsIntoDatabaseUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl.ResetDatabaseUseCaseImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsPresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Completable
+import io.reactivex.Observable
 import javax.inject.Singleton
 
 /**
@@ -24,8 +26,9 @@ class SettingsModule {
 
     @Provides
     @Singleton
-    fun provideResetDatabaseUseCase(clearDatabaseUseCase: ClearDatabaseUseCase): ResetDatabaseUseCase =
-            ResetDatabaseUseCaseImpl(clearDatabaseUseCase)
+    fun provideResetDatabaseUseCase(clearDatabaseUseCase: ClearDatabaseUseCase,
+                                    loadStandardBuildsIntoDatabaseUseCase: LoadStandardBuildsIntoDatabaseUseCase): ResetDatabaseUseCase =
+            ResetDatabaseUseCaseImpl(clearDatabaseUseCase, loadStandardBuildsIntoDatabaseUseCase)
 
     // TODO stub
     @Provides
@@ -33,6 +36,15 @@ class SettingsModule {
     fun provideClearDatabaseUseCase(): ClearDatabaseUseCase =
             object : ClearDatabaseUseCase {
                 override fun clear(): Completable = Completable.complete()
+            }
+
+    @Provides
+    @Singleton
+    fun provideLoadStandardBuildsIntoDatabaseUseCase(): LoadStandardBuildsIntoDatabaseUseCase =
+            object : LoadStandardBuildsIntoDatabaseUseCase {
+                override fun loadBuilds(): Observable<Int> =
+                        Observable.just(100)
+
             }
 
 }
