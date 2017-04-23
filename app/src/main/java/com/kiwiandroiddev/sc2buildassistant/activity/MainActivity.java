@@ -59,9 +59,9 @@ import java.io.File;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import hugo.weaving.DebugLog;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         StandardBuildsService.getLoadStandardBuildsIntoDBObservable(this, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Integer>() {
+                .subscribe(new DisposableObserver<Integer>() {
                     @Override
                     public void onStart() {
                         showLoadingAnim();
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
 
                     @Override
-                    public void onCompleted() {
+                    public void onComplete() {
                         hideLoadingAnim();
                         JsonBuildService.notifyBuildProviderObservers(MainActivity.this);
                     }

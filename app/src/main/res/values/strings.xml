@@ -42,8 +42,8 @@
 	<string name="pref_show_status_bar_summary">Requires restart to take effect</string>
 	<string name="pref_translate_title">Translate</string>
 	<string name="pref_translate_summary">Help translate text in this app to your language</string>
-	<string name="pref_show_ads_title">Show ads</string>
-	<string name="pref_show_ads_summary">Support the app developer by displaying ad banners</string>
+	<string name="pref_show_ads_title">Advertisements</string>
+	<string name="pref_show_ads_summary">Support development of the app by displaying ad banners</string>
 	<string name="numberpicker_units_label">in-game seconds</string>
 	<string name="race_terran">Terran</string>
 	<string name="race_protoss">Protoss</string>

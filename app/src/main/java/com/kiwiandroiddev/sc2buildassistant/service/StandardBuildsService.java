@@ -4,19 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
+import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
 import timber.log.Timber;
 
 /**
@@ -25,9 +27,11 @@ import timber.log.Timber;
  *
  * Created by matt on 17/07/15.
  */
-public class StandardBuildsService {
+public final class StandardBuildsService {
 	private static final int BUILD_FILES_VERSION = 49;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
+
+	private StandardBuildsService() {}
 
 	/**
 	 * Returns an observable on the progress of loading stock build orders into the local SQLite DB.
@@ -39,26 +43,26 @@ public class StandardBuildsService {
 	 * @return observable on load progress (percentage)
 	 */
 	public static Observable<Integer> getLoadStandardBuildsIntoDBObservable(final Context c, final boolean forceLoad) {
-		return Observable.create(new Observable.OnSubscribe<Integer>() {
+		return Observable.create(new ObservableOnSubscribe<Integer>() {
 			@Override
-			public void call(final Subscriber<? super Integer> observer) {
+			public void subscribe(@NonNull final ObservableEmitter<Integer> emitter) throws Exception {
 				try {
-					if (!observer.isUnsubscribed()) {
+					if (!emitter.isDisposed()) {
 						loadStandardBuildsIntoDB(c, forceLoad, new DbAdapter.ProgressListener() {
 							@Override
 							public void onProgressUpdate(int percent) {
-								if (!observer.isUnsubscribed()) {
-									observer.onNext(percent);
+								if (!emitter.isDisposed()) {
+									emitter.onNext(percent);
 								}
 							}
 						});
-						observer.onCompleted();
+						emitter.onComplete();
 					}
 				} catch (Exception e) {
-					observer.onError(e);
+					emitter.onError(e);
 				}
 			}
-		}).onBackpressureBuffer();
+		});
 	}
 
 	/**
@@ -87,18 +91,12 @@ public class StandardBuildsService {
         	doUpdateBuilds(c, db, oldVersion, newVersion);
 
         	ArrayList<Build> stdBuilds = fetchStandardBuilds(c);
-        	//Timber.d(TAG, "in loadStandardBuildsIntoDB(), stdBuilds = " + stdBuilds);
         	db.addOrReplaceBuilds(stdBuilds, listener);
 
         	if (outOfDate) {
 				updateBuildsVersion(c);
 			}
         }
-	}
-
-	// TODO make private
-	public static void loadStandardBuildsIntoDB(Context c, boolean forceLoad) throws IOException {
-		loadStandardBuildsIntoDB(c, forceLoad, null);
 	}
 
 	/**
@@ -127,7 +125,6 @@ public class StandardBuildsService {
 					db.deleteBuild(name);
 				}
 			}
-			//db.deleteBuild("YoDa's Reaper FE into Widow Mine Drop (vs. Terran)");	// stub
 		}
 	}
 
@@ -167,12 +164,4 @@ public class StandardBuildsService {
 		return prefs.getInt(SettingsActivity.KEY_BUILDS_VERSION, -1);
 	}
 
-	/**
-	 * @return true if user's saved builds version is different to the current builds version constant,
-	 * meaning one or more of the standard build files has been updated
-	 */
-//    private static boolean buildsOutOfDate(Context c) {
-//    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-//    	return (prefs.getInt(SettingsActivity.KEY_BUILDS_VERSION, -1) != BuildListActivity.BUILD_FILES_VERSION);
-//    }
 }
