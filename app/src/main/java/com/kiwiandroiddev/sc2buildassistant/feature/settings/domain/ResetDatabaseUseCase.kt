@@ -1,7 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain
 
-import rx.Observable
+import io.reactivex.Completable
 
 interface ResetDatabaseUseCase {
-    fun resetDatabase(): Observable<Void>
+    fun resetDatabase(): Completable
 }

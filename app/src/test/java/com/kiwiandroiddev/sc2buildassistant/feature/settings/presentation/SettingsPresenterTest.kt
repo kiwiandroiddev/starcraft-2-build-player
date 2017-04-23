@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
+import io.reactivex.Completable
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -8,7 +9,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import rx.Observable
 
 /**
  * Copyright © 2017. Orion Health. All rights reserved.
@@ -31,7 +31,7 @@ internal class SettingsPresenterTest {
     }
 
     private fun initDefaultMockBehaviors() {
-        `when`(mockResetDatabaseUseCase.resetDatabase()).thenReturn(Observable.just<Void>(null))
+        `when`(mockResetDatabaseUseCase.resetDatabase()).thenReturn(Completable.complete())
     }
 
     @Test
@@ -73,7 +73,7 @@ internal class SettingsPresenterTest {
     fun confirmResetDatabaseSelected_resetDatabaseUseCaseTriggered() {
         var resetTriggered = false
         `when`(mockResetDatabaseUseCase.resetDatabase()).thenReturn(
-                Observable.just<Void>(null).doOnNext { resetTriggered = true }
+                Completable.complete().doOnComplete { resetTriggered = true }
         )
         presenter.attachView(mockView)
 

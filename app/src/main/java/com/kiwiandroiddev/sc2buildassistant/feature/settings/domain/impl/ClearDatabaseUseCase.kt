@@ -1,7 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl
 
-import rx.Observable
+import io.reactivex.Completable
 
 interface ClearDatabaseUseCase {
-    fun clear(): Observable<Void>
+    fun clear(): Completable
 }
