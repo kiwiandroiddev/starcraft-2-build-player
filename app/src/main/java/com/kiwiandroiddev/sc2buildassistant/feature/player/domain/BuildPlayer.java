@@ -45,7 +45,8 @@ public class BuildPlayer implements Serializable {
 	// Public methods
 	//=========================================================================
 	
-	public BuildPlayer(@NonNull CurrentTimeProvider currentTimeProvider, @NonNull List<BuildItem> items) {
+	public BuildPlayer(@NonNull CurrentTimeProvider currentTimeProvider,
+					   @NonNull List<BuildItem> items) {
 		mCurrentTimeProvider = currentTimeProvider;
 		mItems = items;
 	}
