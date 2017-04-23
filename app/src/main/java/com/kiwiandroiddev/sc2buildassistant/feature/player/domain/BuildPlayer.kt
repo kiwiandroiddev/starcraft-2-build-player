@@ -63,14 +63,11 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         get() = mItems.filter(buildItemFilter ?: { _ -> true })
 
     /*
-         * Return duration of this build order in seconds
-         * (i.e. returns the timestamp of last unit or building in build order)
-         */
+     * Return duration of this build order in seconds
+     * (i.e. returns the timestamp of last unit or building in build order)
+     */
     val duration: Int
-        get() {
-            // NOTE: assumes build items are already sorted from first->last build time
-            return filteredItems.lastOrNull()?.time ?: 0
-        }
+        get() = filteredItems.lastOrNull()?.time ?: 0       // NOTE: assumes build items are already sorted from first->last build time
 
     val isPlaying: Boolean
         get() = !isStopped && !isPaused
@@ -78,13 +75,14 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
     fun setListener(newListener: BuildPlayerEventListener) {
         mListener = newListener
 
-        // initialize the new listener's state (make this optional?)
-        with (newListener) {
-            when {
-                isPlaying -> onBuildPlay()
-                isStopped -> onBuildStopped()
-                isPaused  -> onBuildPaused()
-            }
+        newListener.initFromCurrentPlayerState()
+    }
+
+    private fun BuildPlayerEventListener.initFromCurrentPlayerState() {
+        when {
+            isPlaying -> onBuildPlay()
+            isStopped -> onBuildStopped()
+            isPaused -> onBuildPaused()
         }
     }
 
