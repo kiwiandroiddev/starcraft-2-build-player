@@ -90,6 +90,8 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
      * Advances playback of build, fires build events to listeners if appropriate.
      */
     fun iterate() {
+        mListener?.onBuildItemsChanged(mItems.filter(buildItemFilter ?: { true }))
+
         if (!isStopped && buildFinished()) {
             isStopped = true
             // fire onBuildFinished() event
@@ -202,6 +204,35 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
     }
 
     /*
+     * checks if the user should be building/training any new units
+     * since the last update (call to iterate()), and if so, tells the
+     * user to build them.
+     */
+    private fun doBuildAlerts() {
+        // update build item pointer (possibly backwards)
+        findNewNextUnit()
+
+        // has the user seeked back in time?
+        if (mOldBuildPointer > mBuildPointer) {
+            mOldBuildPointer = mBuildPointer
+        }
+
+        // If the build pointer has increased in value since last time,
+        // we need to tell the user to build one or more units
+        // If the user has seeked back in time, this loop has no effect
+        while (mOldBuildPointer < mBuildPointer) {
+            // TODO: we don't really want to call this if the user has seeked far ahead
+            // (to prevent a barrage of build orders)
+            val item = mItems[mOldBuildPointer]
+
+            if (buildItemFilter?.invoke(item) ?: true)
+                mListener?.onBuildThisNow(item, mOldBuildPointer)
+
+            mOldBuildPointer++
+        }
+    }
+
+    /*
      * Moves the build item pointer with respect to current playback time.
      * Changes in item pointer position are picked up elsewhere (iterate())
      * and translated into alerts for the user.
@@ -248,38 +279,14 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         }
     }
 
-    /*
-     * checks if the user should be building/training any new units
-     * since the last update (call to iterate()), and if so, tells the
-     * user to build them.
-     */
-    private fun doBuildAlerts() {
-        // update build item pointer (possibly backwards)
-        findNewNextUnit()
-
-        // has the user seeked back in time?
-        if (mOldBuildPointer > mBuildPointer) {
-            mOldBuildPointer = mBuildPointer
-        }
-
-        // If the build pointer has increased in value since last time,
-        // we need to tell the user to build one or more units
-        // If the user has seeked back in time, this loop has no effect
-        while (mOldBuildPointer < mBuildPointer) {
-            // TODO: we don't really want to call this if the user has seeked far ahead
-            // (to prevent a barrage of build orders)
-            val item = mItems[mOldBuildPointer]
-
-            mListener?.onBuildThisNow(item, mOldBuildPointer)
-
-            mOldBuildPointer++
-        }
-    }
-
     private var buildItemFilter: ((BuildItem) -> Boolean)? = null
 
     fun setBuildItemFilter(predicate: (BuildItem) -> Boolean) {
         buildItemFilter = predicate
+    }
+
+    fun clearBuildItemFilter() {
+        buildItemFilter = null
     }
 
 }
