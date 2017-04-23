@@ -14,9 +14,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivi
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils
 import javax.inject.Inject
 
-/**
- * Copyright © 2017. Orion Health. All rights reserved.
- */
 class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {
     @Inject lateinit var settingsPresenter: SettingsPresenter
 
