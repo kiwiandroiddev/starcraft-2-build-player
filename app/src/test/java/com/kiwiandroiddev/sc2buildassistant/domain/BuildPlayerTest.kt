@@ -175,4 +175,37 @@ class BuildPlayerTest {
         verify(mockBuildPlayerEventListener, never()).onBuildThisNow(firstItem, 0)
     }
 
+    @Test
+    fun setBuildItemFilter_filterOutEverything_durationIsZero() {
+        initPlayerWithItems(listOf(
+                BuildItem(15, "probe"),
+                BuildItem(140, "pylon")))
+
+        player.setBuildItemFilter { item -> false }
+
+        assertThat(player.duration).isEqualTo(0)
+    }
+
+    @Test
+    fun setBuildItemFilter_filterNothing_durationIsTimeOfLastItem() {
+        initPlayerWithItems(listOf(
+                BuildItem(15, "probe"),
+                BuildItem(140, "pylon")))
+
+        player.setBuildItemFilter { item -> true }
+
+        assertThat(player.duration).isEqualTo(140)
+    }
+
+    @Test
+    fun setBuildItemFilter_filterLastItem_durationIsTimeOfSecondToLastItem() {
+        initPlayerWithItems(listOf(
+                BuildItem(15, "probe"),
+                BuildItem(140, "pylon")))
+
+        player.setBuildItemFilter { item -> item.gameItemID != "pylon" }
+
+        assertThat(player.duration).isEqualTo(15)
+    }
+
 }
