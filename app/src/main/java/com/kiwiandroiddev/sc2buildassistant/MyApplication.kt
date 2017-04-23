@@ -4,7 +4,6 @@ package com.kiwiandroiddev.sc2buildassistant
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-
 import com.google.analytics.tracking.android.GoogleAnalytics
 import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
@@ -17,7 +16,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterfac
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsFragment
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService
 import io.reactivex.Completable
-
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import javax.inject.Inject

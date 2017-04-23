@@ -88,7 +88,7 @@ internal class SettingsPresenterTest {
     }
 
     @Test
-    fun confirmResetDatabase_errorOccurs_showsErrorInView() {
+    fun confirmResetDatabase_errorOccurs_showsErrorMessageInView() {
         val errorMessage = "IO error"
         `when`(mockResetDatabaseUseCase.resetDatabase())
                 .thenReturn(Completable.error(RuntimeException(errorMessage)))
@@ -97,6 +97,29 @@ internal class SettingsPresenterTest {
         presenter.confirmResetDatabaseSelected()
 
         verify(mockView).showResetDatabaseError(errorMessage)
+    }
+
+    @Test
+    fun confirmResetDatabase_differentErrorOccurs_showsErrorMessageInView() {
+        val errorMessage = "Unknown error"
+        `when`(mockResetDatabaseUseCase.resetDatabase())
+                .thenReturn(Completable.error(RuntimeException(errorMessage)))
+        presenter.attachView(mockView)
+
+        presenter.confirmResetDatabaseSelected()
+
+        verify(mockView).showResetDatabaseError(errorMessage)
+    }
+
+    @Test
+    fun confirmResetDatabase_errorWithNoMessageOccurs_showsEmptyErrorMessageInView() {
+        `when`(mockResetDatabaseUseCase.resetDatabase())
+                .thenReturn(Completable.error(RuntimeException()))
+        presenter.attachView(mockView)
+
+        presenter.confirmResetDatabaseSelected()
+
+        verify(mockView).showResetDatabaseError("")
     }
 
     @Test
