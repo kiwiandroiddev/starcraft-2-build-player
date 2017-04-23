@@ -157,7 +157,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         } else {
         	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
         }
-        mBuildPlayer.registerListener(this);
+        mBuildPlayer.setListener(this);
         
         int buildDuration = mBuildPlayer.getDuration();
         mMaxTimeText.setText(String.format("%02d:%02d", buildDuration / 60, buildDuration % 60));
@@ -248,15 +248,14 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onResume() {
 		super.onResume();
-		mBuildPlayer.removeListeners();
-		mBuildPlayer.registerListener(this);
+		mBuildPlayer.setListener(this);
 		mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 0);
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		mBuildPlayer.removeListeners();
+		mBuildPlayer.clearListener();
 		outState.putSerializable(KEY_BUILD_PLAYER_OBJECT, mBuildPlayer);
 		super.onSaveInstanceState(outState);
 	}
@@ -277,8 +276,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		BuildPlayer player = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
 		if (player != null) {
 			mBuildPlayer = player;
-			mBuildPlayer.removeListeners();
-			mBuildPlayer.registerListener(this);
+			mBuildPlayer.setListener(this);
 		}
 	}
 	
@@ -380,10 +378,10 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			int choice = Integer.parseInt(prefs.getString(key, "4"));
 			gameSpeedChanged(choice);
 		} else if (key.equals(SettingsActivity.KEY_EARLY_WARNING)) {
-			mBuildPlayer.setAlertOffset(prefs.getInt(key, 0)); 		// TODO: centralise default values
+			mBuildPlayer.setAlertOffsetInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
 		} else if (key.equals(SettingsActivity.KEY_START_TIME)) {
 //			Log.w(this.toString(), "start time changed");
-			mBuildPlayer.setStartTime(prefs.getInt(key, 0)); 		// TODO: centralise default values
+			mBuildPlayer.setStartTimeInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
 		}
 	}
 	
@@ -495,9 +493,9 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	}
 
 	@Override
-	public void onIterate(long newGameTime) {
+	public void onIterate(long newGameTimeMs) {
 //		Log.w(this.toString(), "onIterate() called with " + newGameTime);
-		long timeSec = newGameTime / 1000;
+		long timeSec = newGameTimeMs / 1000;
 	
 		// TODO: extract time formatting helper function
 		mTimerText.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
