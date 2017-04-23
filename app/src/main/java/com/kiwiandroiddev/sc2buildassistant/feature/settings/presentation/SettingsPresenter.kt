@@ -1,13 +1,14 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation
 
+import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
 import io.reactivex.Scheduler
 import io.reactivex.observers.DisposableCompletableObserver
 
 class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
                         val navigator: SettingsNavigator,
-                        val executionScheduler: Scheduler,
-                        val viewResultScheduler: Scheduler) {
+                        val errorReporter: ErrorReporter,
+                        val viewResultScheduler: Scheduler, val executionScheduler: Scheduler) {
 
     private var view: SettingsView? = null
 
@@ -44,8 +45,9 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
                         view?.showResetDatabaseSuccess()
                     }
 
-                    override fun onError(e: Throwable?) {
+                    override fun onError(error: Throwable) {
                         view?.showResetDatabaseError("IO error")
+                        errorReporter.trackNonFatalError(error)
                     }
                 })
     }

@@ -6,9 +6,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Copyright © 2017. Orion Health. All rights reserved.
- */
 @Module
 class NavigationModule {
 

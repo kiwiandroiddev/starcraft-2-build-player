@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation
 
+import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
@@ -11,11 +12,11 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
-
 internal class SettingsPresenterTest {
 
     @Mock lateinit var mockView: SettingsView
     @Mock lateinit var mockNavigator: SettingsNavigator
+    @Mock lateinit var mockErrorReporter: ErrorReporter
     @Mock lateinit var mockResetDatabaseUseCase: ResetDatabaseUseCase
 
     lateinit var presenter: SettingsPresenter
@@ -27,6 +28,7 @@ internal class SettingsPresenterTest {
         presenter = SettingsPresenter(
                 resetDatabaseUseCase = mockResetDatabaseUseCase,
                 navigator = mockNavigator,
+                errorReporter = mockErrorReporter,
                 executionScheduler = Schedulers.trampoline(),
                 viewResultScheduler = Schedulers.trampoline())
 
@@ -95,6 +97,18 @@ internal class SettingsPresenterTest {
         presenter.confirmResetDatabaseSelected()
 
         verify(mockView).showResetDatabaseError(errorMessage)
+    }
+
+    @Test
+    fun confirmResetDatabase_errorOccurs_nonFatalErrorReported() {
+        val error = RuntimeException("IO error")
+        `when`(mockResetDatabaseUseCase.resetDatabase())
+                .thenReturn(Completable.error(error))
+        presenter.attachView(mockView)
+
+        presenter.confirmResetDatabaseSelected()
+
+        verify(mockErrorReporter).trackNonFatalError(error)
     }
 
     @Test
