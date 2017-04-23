@@ -1,5 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = '1.1.1'
+    ext.dagger2_version = '2.10'
+    ext.java_annotation_version = '10.0-b28'
+    ext.rxjava_version = '2.0.9'
+    ext.rxandroid_version = '2.0.1'
+
     repositories {
         jcenter()
     }
@@ -7,6 +13,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
         classpath 'com.google.gms:google-services:3.0.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

@@ -15,7 +15,6 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,9 +29,13 @@ import timber.log.Timber;
  *
  * Created by matt on 17/07/15.
  */
-public class JsonBuildService {
+public final class JsonBuildService {
 
     public static final String BUILDS_DIR = "sc2_builds";
+
+    private JsonBuildService() {
+        // don't instantiate me
+    }
 
     /**
      * Helper to write a build object as a JSON file to the builds directory on external storage
@@ -40,8 +43,7 @@ public class JsonBuildService {
      * @param filename output filename without parent directory (e.g. "6pool.json")
      * @param build Build object to serialize
      */
-    public static void writeBuildToJsonFile(String filename, Build build) throws IOException, FileNotFoundException {
-        // use GSON to serialize it to a JSON string
+    public static void writeBuildToJsonFile(String filename, Build build) throws IOException {
         ArrayList<Build> list = new ArrayList<Build>();
         list.add(build);
 
@@ -142,9 +144,11 @@ public class JsonBuildService {
 
     /**
      * Notify observers of buildprovider's build table that its contents have changed
+     *
+     * TODO out-of-place in this file? Nothing to do with JSON
      */
-    public static void notifyBuildProviderObservers(Context c) {
+    public static void notifyBuildProviderObservers(Context context) {
 		Uri buildTableUri = Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER);
-		c.getContentResolver().notifyChange(buildTableUri, null);
+		context.getContentResolver().notifyChange(buildTableUri, null);
     }
 }
