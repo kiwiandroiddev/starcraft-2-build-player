@@ -4,19 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
+import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
 import timber.log.Timber;
 
 /**
@@ -41,26 +43,26 @@ public final class StandardBuildsService {
 	 * @return observable on load progress (percentage)
 	 */
 	public static Observable<Integer> getLoadStandardBuildsIntoDBObservable(final Context c, final boolean forceLoad) {
-		return Observable.create(new Observable.OnSubscribe<Integer>() {
+		return Observable.create(new ObservableOnSubscribe<Integer>() {
 			@Override
-			public void call(final Subscriber<? super Integer> observer) {
+			public void subscribe(@NonNull final ObservableEmitter<Integer> emitter) throws Exception {
 				try {
-					if (!observer.isUnsubscribed()) {
+					if (!emitter.isDisposed()) {
 						loadStandardBuildsIntoDB(c, forceLoad, new DbAdapter.ProgressListener() {
 							@Override
 							public void onProgressUpdate(int percent) {
-								if (!observer.isUnsubscribed()) {
-									observer.onNext(percent);
+								if (!emitter.isDisposed()) {
+									emitter.onNext(percent);
 								}
 							}
 						});
-						observer.onCompleted();
+						emitter.onComplete();
 					}
 				} catch (Exception e) {
-					observer.onError(e);
+					emitter.onError(e);
 				}
 			}
-		}).onBackpressureBuffer();
+		});
 	}
 
 	/**

@@ -1,22 +1,19 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl
 
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.ResetDatabaseUseCase
+import io.reactivex.Completable
+import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import rx.Observable
-import rx.observers.TestSubscriber
 
-/**
- * Copyright © 2017. Orion Health. All rights reserved.
- */
 class ResetDatabaseUseCaseImplTest {
 
     @Mock lateinit var mockClearDatabaseUseCase: ClearDatabaseUseCase
 
-    lateinit var testSubscriber: TestSubscriber<Void>
+    lateinit var testObserver: TestObserver<Void>
 
     lateinit var resetDatabaseUseCase: ResetDatabaseUseCase
 
@@ -24,39 +21,37 @@ class ResetDatabaseUseCaseImplTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        testSubscriber = TestSubscriber()
+        testObserver = TestObserver.create()
 
         resetDatabaseUseCase = ResetDatabaseUseCaseImpl(mockClearDatabaseUseCase)
     }
 
     @Test
     fun resetDatabase_clearDatabaseWillSucceed_completesWithNoErrors() {
-        `when`(mockClearDatabaseUseCase.clear()).thenReturn(Observable.just(null))
-        
+        `when`(mockClearDatabaseUseCase.clear()).thenReturn(Completable.complete())
+
         resetDatabase()
 
-        with(testSubscriber) {
+        with(testObserver) {
             assertNoErrors()
-            assertCompleted()
-            assertValue(null)
+            assertComplete()
         }
     }
 
     @Test
     fun resetDatabase_clearDatabaseFails_shouldFail() {
-        `when`(mockClearDatabaseUseCase.clear()).thenReturn(Observable.error(RuntimeException("IO error")))
+        `when`(mockClearDatabaseUseCase.clear()).thenReturn(Completable.error(RuntimeException("IO error")))
 
         resetDatabase()
 
-        with(testSubscriber) {
+        with(testObserver) {
             assertError(RuntimeException::class.java)
-            assertNotCompleted()
-            assertNoValues()
+            assertNotComplete()
         }
     }
 
     private fun resetDatabase() {
-        resetDatabaseUseCase.resetDatabase().subscribe(testSubscriber)
+        resetDatabaseUseCase.resetDatabase().subscribe(testObserver)
     }
 }
 
