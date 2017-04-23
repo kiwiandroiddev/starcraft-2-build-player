@@ -18,7 +18,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
     companion object {
         private const val serialVersionUID = 5709010570800905185L
     }
-    
+
     private var mListener: BuildPlayerEventListener? = null
 
     var isStopped = true
@@ -61,10 +61,10 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
      */
     val duration: Int
         get() {
-            if (mItems.size == 0) {
-                return 0        // silently fail
-            }
-            return mItems[mItems.size - 1].time     // NOTE: assumes build items are already sorted from first->last build time
+            val filteredItems = mItems.filter(buildItemFilter ?: { _ -> true })
+
+            // NOTE: assumes build items are already sorted from first->last build time
+            return filteredItems.lastOrNull()?.time ?: 0
         }
 
     val isPlaying: Boolean
@@ -274,6 +274,12 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
 
             mOldBuildPointer++
         }
+    }
+
+    private var buildItemFilter: ((BuildItem) -> Boolean)? = null
+
+    fun setBuildItemFilter(predicate: (BuildItem) -> Boolean) {
+        buildItemFilter = predicate
     }
 
 }
