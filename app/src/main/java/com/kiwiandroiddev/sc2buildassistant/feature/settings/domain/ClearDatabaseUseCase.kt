@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.impl
+package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain
 
 import io.reactivex.Completable
 
