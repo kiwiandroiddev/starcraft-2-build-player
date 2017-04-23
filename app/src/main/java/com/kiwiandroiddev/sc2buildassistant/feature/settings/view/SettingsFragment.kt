@@ -3,6 +3,7 @@ package com.kiwiandroiddev.sc2buildassistant.feature.settings.view
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.analytics.tracking.android.GoogleAnalytics
 import com.kiwiandroiddev.sc2buildassistant.MyApplication
@@ -122,12 +123,14 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
                 .show()
     }
 
-    override fun showResetDatabaseError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showResetDatabaseError(detailedError: String) {
+        Toast.makeText(activity,
+                String.format(getString(R.string.error_loading_std_builds), detailedError),
+                Toast.LENGTH_LONG).show()
     }
 
     override fun showResetDatabaseSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(activity, R.string.pref_restore_database_succeeded, Toast.LENGTH_SHORT).show()
     }
 
 //        db!!.clear()

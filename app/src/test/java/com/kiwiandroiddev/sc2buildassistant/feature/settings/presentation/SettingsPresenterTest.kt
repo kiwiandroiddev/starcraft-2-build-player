@@ -5,13 +5,11 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import io.reactivex.plugins.RxJavaPlugins
 
 
 internal class SettingsPresenterTest {
@@ -89,13 +87,14 @@ internal class SettingsPresenterTest {
 
     @Test
     fun confirmResetDatabase_errorOccurs_showsErrorInView() {
+        val errorMessage = "IO error"
         `when`(mockResetDatabaseUseCase.resetDatabase())
-                .thenReturn(Completable.error(RuntimeException("IO error")))
+                .thenReturn(Completable.error(RuntimeException(errorMessage)))
         presenter.attachView(mockView)
 
         presenter.confirmResetDatabaseSelected()
 
-        verify(mockView).showResetDatabaseError()
+        verify(mockView).showResetDatabaseError(errorMessage)
     }
 
     @Test
