@@ -23,6 +23,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
 
     var isStopped = true
         private set
+
     var isPaused = false
         private set                             // implicitly: playing = (!mStopped && !mPaused)
 
@@ -48,21 +49,25 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
             mStartTimeChanged = true
         }
 
+    private var buildItemFilter: ((BuildItem) -> Boolean)? = null
+
     // the following are used for state change tracking in iterate()
     private var mOldBuildPointer = 0
     private var mWasPaused = false
     private var mWasStopped = true
     private var mMultiplierChanged = false
     private var mStartTimeChanged = true    // fake change event to force initialization
+    private var mFilterChanged = false
+
+    private val filteredItems: List<BuildItem>
+        get() = mItems.filter(buildItemFilter ?: { _ -> true })
 
     /*
-     * Return duration of this build order in seconds
-     * (i.e. returns the timestamp of last unit or building in build order)
-     */
+         * Return duration of this build order in seconds
+         * (i.e. returns the timestamp of last unit or building in build order)
+         */
     val duration: Int
         get() {
-            val filteredItems = mItems.filter(buildItemFilter ?: { _ -> true })
-
             // NOTE: assumes build items are already sorted from first->last build time
             return filteredItems.lastOrNull()?.time ?: 0
         }
@@ -74,12 +79,13 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         mListener = newListener
 
         // initialize the new listener's state (make this optional?)
-        if (this.isPlaying)
-            newListener.onBuildPlay()
-        else if (this.isStopped)
-            newListener.onBuildStopped()
-        else if (this.isPaused)
-            newListener.onBuildPaused()
+        with (newListener) {
+            when {
+                isPlaying -> onBuildPlay()
+                isStopped -> onBuildStopped()
+                isPaused  -> onBuildPaused()
+            }
+        }
     }
 
     fun clearListener() {
@@ -90,7 +96,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
      * Advances playback of build, fires build events to listeners if appropriate.
      */
     fun iterate() {
-        mListener?.onBuildItemsChanged(mItems.filter(buildItemFilter ?: { true }))
+        notifyFilterChangedIfNeeded()
 
         if (!isStopped && buildFinished()) {
             isStopped = true
@@ -155,6 +161,13 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         mListener?.onIterate(gameTimeToShowListeners)
     }
 
+    private fun notifyFilterChangedIfNeeded() {
+        if (mFilterChanged) {
+            mListener?.onBuildItemsChanged(filteredItems)
+            mFilterChanged = false
+        }
+    }
+
     private fun resetPlaybackState() {
         mCurrentGameTime = 0.0
         mSeekOffsetMs = (startTimeInGameSeconds * 1000).toLong()
@@ -192,11 +205,20 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
     }
 
     /*
-     * the build being finished is defined as the build pointer pointing past the
+     * The build being finished is defined as the build pointer pointing past the
      * end of the build item array
      */
     fun buildFinished(): Boolean {
-        return mBuildPointer >= mItems.size || mItems.isEmpty()        // should probably raise an error in this condition
+        if (mBuildPointer >= mItems.size || mItems.isEmpty() || filteredItems.isEmpty())
+            return true
+
+        return noMoreFilteredBuildItemsRemaining()
+    }
+
+    private fun noMoreFilteredBuildItemsRemaining(): Boolean {
+        val currentUnfilteredItem = mItems[mBuildPointer]
+        val lastFilteredItem = filteredItems.last()
+        return currentUnfilteredItem.time > lastFilteredItem.time
     }
 
     private fun updateReferencePoint() {
@@ -212,7 +234,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         // update build item pointer (possibly backwards)
         findNewNextUnit()
 
-        // has the user seeked back in time?
+        // did the user seek back in time?
         if (mOldBuildPointer > mBuildPointer) {
             mOldBuildPointer = mBuildPointer
         }
@@ -224,9 +246,11 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
             // TODO: we don't really want to call this if the user has seeked far ahead
             // (to prevent a barrage of build orders)
             val item = mItems[mOldBuildPointer]
-
-            if (buildItemFilter?.invoke(item) ?: true)
-                mListener?.onBuildThisNow(item, mOldBuildPointer)
+            val itemPassesFilter = buildItemFilter?.invoke(item) ?: true
+            if (itemPassesFilter) {
+                val filteredItemPosition = filteredItems.indexOf(item)
+                mListener?.onBuildThisNow(item, filteredItemPosition)
+            }
 
             mOldBuildPointer++
         }
@@ -279,13 +303,13 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         }
     }
 
-    private var buildItemFilter: ((BuildItem) -> Boolean)? = null
-
     fun setBuildItemFilter(predicate: (BuildItem) -> Boolean) {
+        mFilterChanged = true
         buildItemFilter = predicate
     }
 
     fun clearBuildItemFilter() {
+        mFilterChanged = true
         buildItemFilter = null
     }
 
