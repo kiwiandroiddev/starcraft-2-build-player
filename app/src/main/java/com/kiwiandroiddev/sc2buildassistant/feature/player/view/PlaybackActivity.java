@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.activity;
+package com.kiwiandroiddev.sc2buildassistant.feature.player.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -36,13 +36,15 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
+import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.data.RealCurrentTimeProvider;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
-import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayer;
-import com.kiwiandroiddev.sc2buildassistant.domain.BuildPlayerEventListener;
-import com.kiwiandroiddev.sc2buildassistant.domain.GameSpeeds;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayer;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayerEventListener;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.GameSpeeds;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;

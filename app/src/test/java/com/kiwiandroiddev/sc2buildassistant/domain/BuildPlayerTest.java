@@ -1,6 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayer;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayerEventListener;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.CurrentTimeProvider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +26,10 @@ public class BuildPlayerTest {
 
     BuildPlayer player;
 
-    @Mock BuildPlayerEventListener mockBuildPlayerEventListener;
-    @Mock CurrentTimeProvider mockCurrentTimeProvider;
+    @Mock
+    BuildPlayerEventListener mockBuildPlayerEventListener;
+    @Mock
+    CurrentTimeProvider mockCurrentTimeProvider;
 
     @Before
     public void setUp() throws Exception {

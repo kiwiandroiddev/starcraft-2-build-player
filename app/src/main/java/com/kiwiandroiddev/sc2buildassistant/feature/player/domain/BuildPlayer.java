@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.domain;
+package com.kiwiandroiddev.sc2buildassistant.feature.player.domain;
 
 import android.support.annotation.NonNull;
 

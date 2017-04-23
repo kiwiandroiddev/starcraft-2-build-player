@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.domain;
+package com.kiwiandroiddev.sc2buildassistant.feature.player.domain;
 
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;

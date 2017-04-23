@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.domain;
+package com.kiwiandroiddev.sc2buildassistant.feature.player.domain;
 
 /**
  * Created by matt on 23/03/17.
