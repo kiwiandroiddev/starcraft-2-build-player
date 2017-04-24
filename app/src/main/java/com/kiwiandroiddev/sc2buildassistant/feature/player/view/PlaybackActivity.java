@@ -64,7 +64,6 @@ import java.util.Queue;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import kotlin.jvm.functions.Function1;
-import timber.log.Timber;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -88,6 +87,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	private DbAdapter mDb;
 	private Handler mHandler = new Handler();
 	private Queue<Integer> mPendingAlerts;		// values are indices of build items in the build
+    private BuildItemRecyclerAdapter buildItemAdapter;
 
     private View mTimerTextContainer;
 	private TextView mMaxTimeText;
@@ -161,13 +161,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
         } else {
         	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
-            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
-                @Override
-                public Boolean invoke(BuildItem buildItem) {
-                    // TODO temp
-                    return !(buildItem.getGameItemID().equals("probe") || buildItem.getGameItemID().equals("scv"));
-                }
-            });
         }
         mBuildPlayer.setListener(this);
         
@@ -201,13 +194,13 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         mBuildItemRecyclerView.setHasFixedSize(true);
         mBuildItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        BuildItemRecyclerAdapter buildItemRecyclerAdapter = new BuildItemRecyclerAdapter(this);
-        buildItemRecyclerAdapter.setBuildItems(mBuild.getItems());
-        mBuildItemRecyclerView.setAdapter(buildItemRecyclerAdapter);
+        buildItemAdapter = new BuildItemRecyclerAdapter(this);
+        buildItemAdapter.setBuildItems(mBuild.getItems());
+        mBuildItemRecyclerView.setAdapter(buildItemAdapter);
     }
 
     private void initSeekbar(int buildDuration) {
-        mSeekBar.setMax(buildDuration);	// NOTE: progress bar units are seconds!
+        mSeekBar.setMax(buildDuration);	    // NOTE: progress bar units are seconds!
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
@@ -223,6 +216,10 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+				break;
+			case R.id.menu_toggle_worker_filter:
+				toggleWorkerAlerts();
+				break;
         }
 
     	// use the same options menu as the main activity
@@ -232,6 +229,20 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			return true;
 		}
     }
+
+	private void toggleWorkerAlerts() {
+        if (mBuildPlayer.getBuildItemFilter() != null) {
+            mBuildPlayer.clearBuildItemFilter();
+        } else {
+            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
+                @Override
+                public Boolean invoke(BuildItem buildItem) {
+                    // TODO temp
+                    return !(buildItem.getGameItemID().equals("probe") || buildItem.getGameItemID().equals("scv"));
+                }
+            });
+        }
+	}
 
 	//=========================================================================
 	// Android life cycle methods
@@ -391,7 +402,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		} else if (key.equals(SettingsActivity.KEY_EARLY_WARNING)) {
 			mBuildPlayer.setAlertOffsetInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
 		} else if (key.equals(SettingsActivity.KEY_START_TIME)) {
-//			Log.w(this.toString(), "start time changed");
 			mBuildPlayer.setStartTimeInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
 		}
 	}
@@ -421,7 +431,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	private void doVoiceAlert(BuildItem item) {
 		if (mTtsReady) {
 			// TODO: check for custom speech attached to build item
-//			String speech = "Build " + item.getCount() + " " + mDb.getNameString(item.getGameItemID()) + ".";
 			String speech = this.getVoiceMessage(item);
 			mTts.speak(speech, TextToSpeech.QUEUE_ADD, null);
 		}
@@ -446,13 +455,11 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	    AnimatorSet set = new AnimatorSet();
 	    set.playTogether(animation1);
-//	    set.playTogether(animation1, animation2);
 	    set.start();
 	    set.addListener(new AnimatorListenerAdapter() {
 	      @Override
 	      public void onAnimationEnd(Animator animation) {
 	    	  mPendingAlerts.remove();
-//	          Log.w("test", "anim finished");
 	          handleVisualAlerts();
 	      }
 	    });
@@ -461,7 +468,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onBuildPlay() {
 		mStopButton.setEnabled(true);
-//		mPlayPauseButton.setText(PlaybackActivity.this.getString(R.string.playback_pause));
 		Drawable replacer = getResources().getDrawable(R.drawable.pause_button_drawable);
 		mPlayPauseButton.setImageDrawable(replacer);
 		mPlayPauseButton.invalidate();
@@ -470,7 +476,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	@Override
 	public void onBuildPaused() {
-//		mPlayPauseButton.setText(PlaybackActivity.this.getString(R.string.playback_play));
 		Drawable replacer = getResources().getDrawable(R.drawable.play_button_drawable);
 		mPlayPauseButton.setImageDrawable(replacer);
 		mPlayPauseButton.invalidate();
@@ -479,7 +484,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onBuildStopped() {
 		mStopButton.setEnabled(false);
-//		mPlayPauseButton.setText(PlaybackActivity.this.getString(R.string.playback_play));
 		Drawable replacer = getResources().getDrawable(R.drawable.play_button_drawable);
 		mPlayPauseButton.setImageDrawable(replacer);
 		mPlayPauseButton.invalidate();
@@ -487,7 +491,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	@Override
 	public void onBuildResumed() {
-//		mPlayPauseButton.setText(PlaybackActivity.this.getString(R.string.playback_pause));
 		Drawable replacer = getResources().getDrawable(R.drawable.pause_button_drawable);
 		mPlayPauseButton.setImageDrawable(replacer);
 		mPlayPauseButton.invalidate();
@@ -495,9 +498,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	@Override
 	public void onBuildFinished() {
-		// TODO: need to localise
 		if (mTtsReady) {
-			mTts.speak("Build order finished.", TextToSpeech.QUEUE_ADD, null);
+			mTts.speak(getString(R.string.playback_build_finished), TextToSpeech.QUEUE_ADD, null);
 		}
 		setKeepScreenOn(false);
 		trackPlaybackFinished();
@@ -505,18 +507,15 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
 	@Override
 	public void onBuildItemsChanged(@NotNull List<? extends BuildItem> newBuildItems) {
-		// TODO
-		Timber.d("on build items changed to = " + newBuildItems);
+        buildItemAdapter.setBuildItems(newBuildItems);
 	}
 
 	@Override
 	public void onIterate(long newGameTimeMs) {
-//		Log.w(this.toString(), "onIterate() called with " + newGameTime);
 		long timeSec = newGameTimeMs / 1000;
 	
 		// TODO: extract time formatting helper function
 		mTimerText.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60));
-	//	mTimerText.setText(String.valueOf(mCurrentGameTime/1000.0));
 		if (!mUserIsSeeking) {
 			mSeekBar.setProgress((int)timeSec);
 		}

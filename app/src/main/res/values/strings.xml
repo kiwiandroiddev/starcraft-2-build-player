@@ -18,6 +18,7 @@
 	<string name="playback_play">Play</string>
 	<string name="playback_pause">Pause</string>
 	<string name="playback_time_current_total_separator" translatable="false">/</string>
+	<string name="playback_build_finished">Build order finished.</string>
 	<string name="pref_game_speed">Game Speed</string>
 	<string name="pref_game_speed_default" translatable="false">4</string>
 	<string name="pref_early_warning">Alert time offset</string>
