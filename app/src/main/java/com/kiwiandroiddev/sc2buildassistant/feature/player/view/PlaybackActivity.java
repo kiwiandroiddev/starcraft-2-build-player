@@ -16,6 +16,8 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +26,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -38,15 +39,15 @@ import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
 import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
-import com.kiwiandroiddev.sc2buildassistant.adapter.BuildItemAdapter;
 import com.kiwiandroiddev.sc2buildassistant.data.RealCurrentTimeProvider;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.GameSpeeds;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.view.adapter.BuildItemRecyclerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
@@ -62,6 +63,8 @@ import java.util.Queue;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import kotlin.jvm.functions.Function1;
+import timber.log.Timber;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -89,7 +92,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
     private View mTimerTextContainer;
 	private TextView mMaxTimeText;
 	private TextView mTimerText;
-    @InjectView(R.id.buildListView) ListView mBuildListView;
+    @InjectView(R.id.buildItemRecyclerView) RecyclerView mBuildItemRecyclerView;
 	@InjectView(R.id.playPauseButton) ImageButton mPlayPauseButton;
 	@InjectView(R.id.stopButton) ImageButton mStopButton;
 	@InjectView(R.id.seekBar) SeekBar mSeekBar;
@@ -147,7 +150,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		initTTS();
 
         // fetch the build object from database associated with ID we were passed
-        long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
+        final long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
         DbAdapter db = new DbAdapter(this);
         db.open();
         mBuild = db.fetchBuild(buildId);
@@ -156,27 +159,25 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         // create build player object from build passed in intent
         if (savedInstanceState != null && savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT) != null) {
 			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
-//        	Log.w(this.toString(), "saved buildplayer found, player = " + savedPlayer + ", numListeners = " + savedPlayer.getNumListeners());
         } else {
         	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
+            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
+                @Override
+                public Boolean invoke(BuildItem buildItem) {
+                    // TODO temp
+                    return !(buildItem.getGameItemID().equals("probe") || buildItem.getGameItemID().equals("scv"));
+                }
+            });
         }
         mBuildPlayer.setListener(this);
         
         int buildDuration = mBuildPlayer.getDuration();
         mMaxTimeText.setText(String.format("%02d:%02d", buildDuration / 60, buildDuration % 60));
-        
-        mSeekBar.setMax(buildDuration);	// NOTE: progress bar units are seconds!
-        mSeekBar.setOnSeekBarChangeListener(this);
-        
-        // populate list view with build items
-        BuildItemAdapter bAdapter = new BuildItemAdapter(this,
-        		R.layout.build_item_row, mBuild.getItems());
 
-        // Add spacer to list so transparent seekbar doesn't obscure last build item
-        mBuildListView.addFooterView(getFooterView(), null, false);     // false = not selectable
+        initSeekbar(buildDuration);
 
-        mBuildListView.setAdapter(bAdapter);
-        
+        initBuildItemList();
+
         // keep screen from sleeping until the build has played through
         setKeepScreenOn(true);
         
@@ -185,22 +186,29 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         sharedPref.registerOnSharedPreferenceChangeListener(this);		// notify this activity when settings change
         		
 		// hacky: initialize buildplayer with stored preferences
-        this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_GAME_SPEED);
-		this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_EARLY_WARNING);
-		this.onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_START_TIME);
+        onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_GAME_SPEED);
+		onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_EARLY_WARNING);
+		onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_START_TIME);
 		
 		// timer start
         mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 0);
         
         trackPlaybackView();
-        
-        // sc2play
-//    	Debug.stopMethodTracing();
 	}
 
-    private View getFooterView() {
-        return getLayoutInflater().inflate(R.layout.activity_playback_spacer_row, null, false);
+    private void initBuildItemList() {
+        mBuildItemRecyclerView.setHasFixedSize(true);
+        mBuildItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        BuildItemRecyclerAdapter buildItemRecyclerAdapter = new BuildItemRecyclerAdapter(this);
+        buildItemRecyclerAdapter.setBuildItems(mBuild.getItems());
+        mBuildItemRecyclerView.setAdapter(buildItemRecyclerAdapter);
+    }
+
+    private void initSeekbar(int buildDuration) {
+        mSeekBar.setMax(buildDuration);	// NOTE: progress bar units are seconds!
+        mSeekBar.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -228,7 +236,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	//=========================================================================
 	// Android life cycle methods
 	//=========================================================================
-	
+
     @Override
     public void onStart() {
     	super.onStart();
@@ -427,7 +435,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		int itemPos = mPendingAlerts.element();
 		BuildItem item = mBuild.getItems().get(itemPos);
 		
-		mBuildListView.setSelection(itemPos);
+		mBuildItemRecyclerView.smoothScrollToPosition(itemPos);
 		
 		mOverlayText.setText(getTextMessage(item));
 		mOverlayIcon.setImageResource(mDb.getLargeIcon(item.getGameItemID()));
@@ -498,6 +506,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onBuildItemsChanged(@NotNull List<? extends BuildItem> newBuildItems) {
 		// TODO
+		Timber.d("on build items changed to = " + newBuildItems);
 	}
 
 	@Override
@@ -524,8 +533,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	}
 	
 	private void setKeepScreenOn(boolean flag) {
-		if (mBuildListView != null)
-			mBuildListView.setKeepScreenOn(flag);
+		if (mBuildItemRecyclerView != null)
+			mBuildItemRecyclerView.setKeepScreenOn(flag);
 	}
 	
 	/**
