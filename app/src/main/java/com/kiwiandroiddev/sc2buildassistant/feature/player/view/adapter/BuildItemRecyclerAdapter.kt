@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.player.view.adapter
 
 import android.content.Context
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +21,16 @@ class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Buil
 
     private val database: DbAdapter by lazy { (context.applicationContext as MyApplication).db!! }
 
-    var buildItems: List<BuildItem>? = null
+    var buildItems: List<BuildItem> = emptyList()
         set(value) {
+            val diffCallback = BuildItemDiffCallback(buildItems, value)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
+
             field = value
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
 
-    override fun getItemCount() = buildItems?.size ?: 0
+    override fun getItemCount() = buildItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildItemViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -50,7 +54,7 @@ class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Buil
     }
 
     private fun itemViewModelForPosition(position: Int) =
-            buildItems!![position].mapToViewModel()
+            buildItems[position].mapToViewModel()
 
     private fun BuildItem.mapToViewModel(): BuildItemViewModel {
         var itemName = database.getNameString(gameItemID)
