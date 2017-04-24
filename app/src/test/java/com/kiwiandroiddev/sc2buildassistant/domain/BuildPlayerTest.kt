@@ -211,7 +211,7 @@ class BuildPlayerTest {
                 TEST_ITEM_1,
                 TEST_ITEM_2))
 
-        player.setBuildItemFilter { _ -> false }
+        player.buildItemFilter = { _ -> false }
 
         assertThat(player.duration).isEqualTo(0)
     }
@@ -221,7 +221,7 @@ class BuildPlayerTest {
         initPlayerWithItems(listOf(
                 TEST_ITEM_1,
                 TEST_ITEM_2))
-        player.setBuildItemFilter { _ -> false }
+        player.buildItemFilter = { _ -> false }
 
         player.clearBuildItemFilter()
 
@@ -234,7 +234,7 @@ class BuildPlayerTest {
                 TEST_ITEM_1,
                 TEST_ITEM_2))
 
-        player.setBuildItemFilter { _ -> true }
+        player.buildItemFilter = { _ -> true }
 
         assertThat(player.duration).isEqualTo(140)
     }
@@ -245,7 +245,7 @@ class BuildPlayerTest {
                 TEST_ITEM_1,
                 TEST_ITEM_2))
 
-        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_2.gameItemID }
+        player.buildItemFilter = { item -> item.gameItemID != TEST_ITEM_2.gameItemID }
 
         assertThat(player.duration).isEqualTo(15)
     }
@@ -253,7 +253,7 @@ class BuildPlayerTest {
     @Test
     fun iterate_pastTimeOfFilteredFirstItem_listenerIsNotNotifiedToBuildFirstItem() {
         initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
-        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
+        player.buildItemFilter = { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
         player.play()
         player.iterate()
         setCurrentTimeToGameSeconds(15)
@@ -266,7 +266,7 @@ class BuildPlayerTest {
     @Test
     fun iterate_pastTimeOfSecondItemAndFirstItemFiltered_listenerIsNotifiedToBuildSecondItemAtIndexZero() {
         initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
-        player.setBuildItemFilter { item -> item != TEST_ITEM_1 }
+        player.buildItemFilter = { item -> item != TEST_ITEM_1 }
         player.play()
         player.iterate()
         setCurrentTimeToGameSeconds(150)
@@ -284,7 +284,7 @@ class BuildPlayerTest {
         setCurrentTimeToGameSeconds(5)
         reset(mockBuildPlayerEventListener)
 
-        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
+        player.buildItemFilter = { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
         player.iterate()
 
         verify(mockBuildPlayerEventListener).onBuildItemsChanged(listOf(TEST_ITEM_2))
@@ -298,7 +298,7 @@ class BuildPlayerTest {
         setCurrentTimeToGameSeconds(5)
         reset(mockBuildPlayerEventListener)
 
-        player.setBuildItemFilter { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
+        player.buildItemFilter = { item -> item.gameItemID != TEST_ITEM_1.gameItemID }
         player.iterate()
         player.iterate()
 
@@ -308,7 +308,7 @@ class BuildPlayerTest {
     @Test
     fun iterate_filterClearedSinceLastIteration_listenerNotifiedThatBuildItemsHaveChanged() {
         initPlayerWithItems(listOf(TEST_ITEM_1, TEST_ITEM_2))
-        player.setBuildItemFilter { _ -> false }
+        player.buildItemFilter = { _ -> false }
         player.play()
         player.iterate()
         setCurrentTimeToGameSeconds(5)
@@ -329,7 +329,7 @@ class BuildPlayerTest {
         player.iterate()
         reset(mockBuildPlayerEventListener)
 
-        player.setBuildItemFilter { _ -> false }
+        player.buildItemFilter = { _ -> false }
         player.iterate()
 
         verify(mockBuildPlayerEventListener).onBuildFinished()
@@ -344,7 +344,7 @@ class BuildPlayerTest {
         player.iterate()
         reset(mockBuildPlayerEventListener)
 
-        player.setBuildItemFilter { it != TEST_ITEM_2 }
+        player.buildItemFilter = { it != TEST_ITEM_2 }
         player.iterate()
 
         verify(mockBuildPlayerEventListener).onBuildFinished()

@@ -49,7 +49,12 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
             mStartTimeChanged = true
         }
 
-    private var buildItemFilter: ((BuildItem) -> Boolean)? = null
+    var buildItemFilter: ((BuildItem) -> Boolean)? = null
+        get() = field
+        set(predicate) {
+            mFilterChanged = true
+            field = predicate
+        }
 
     // the following are used for state change tracking in iterate()
     private var mOldBuildPointer = 0
@@ -299,11 +304,6 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
 
             nextItem = mItems[mBuildPointer]
         }
-    }
-
-    fun setBuildItemFilter(predicate: (BuildItem) -> Boolean) {
-        mFilterChanged = true
-        buildItemFilter = predicate
     }
 
     fun clearBuildItemFilter() {

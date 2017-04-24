@@ -11,6 +11,7 @@ import com.kiwiandroiddev.sc2buildassistant.MyApplication
 import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem
+import com.kiwiandroiddev.sc2buildassistant.feature.player.presentation.model.BuildItemViewModel
 
 /**
  * Created by Matt Clarke on 24/04/17.
@@ -25,6 +26,8 @@ class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Buil
             notifyDataSetChanged()
         }
 
+    override fun getItemCount() = buildItems?.size ?: 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildItemViewHolder {
         val inflater = LayoutInflater.from(context)
         val itemView = inflater.inflate(R.layout.build_item_row, parent, false)
@@ -32,30 +35,34 @@ class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Buil
     }
 
     override fun onBindViewHolder(holder: BuildItemViewHolder, position: Int) {
-        val item = buildItems!![position]
-        var itemName = database.getNameString(item.getGameItemID())
-        if (item.getCount() > 1)
-            itemName = itemName + " x" + item.getCount()        // TODO localise
-
-        holder.name.setText(itemName)        // stub
-
-        // find and display small icon for unit (will display a placeholder if no icon was found)
-        holder.icon.setImageResource(database.getSmallIcon(item.getGameItemID()))
-
-        // show the unit's time in the build queue
-        val timeSec = item.time
-        holder.time.setText(String.format("%02d:%02d", timeSec / 60, timeSec % 60))     // TODO extract
-    }
-
-    override fun getItemCount(): Int {
-        val count = buildItems?.size ?: 0
-        return count
+        val viewModel = itemViewModelForPosition(position)
+        with(holder) {
+            name.text = viewModel.name
+            time.text = viewModel.time
+            icon.setImageResource(viewModel.iconResId)
+        }
     }
 
     class BuildItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.unit_label) as TextView
         val time: TextView = itemView.findViewById(R.id.time_label) as TextView
         val icon: ImageView = itemView.findViewById(R.id.unit_icon) as ImageView
+    }
+
+    private fun itemViewModelForPosition(position: Int) =
+            buildItems!![position].mapToViewModel()
+
+    private fun BuildItem.mapToViewModel(): BuildItemViewModel {
+        var itemName = database.getNameString(gameItemID)
+        if (count > 1)
+            itemName = itemName + " x" + count        // TODO localise
+
+        val formattedTime = String.format("%02d:%02d", time / 60, time % 60)
+
+        // find and display small icon for unit (will display a placeholder if no icon was found)
+        val iconResId = database.getSmallIcon(gameItemID)
+
+        return BuildItemViewModel(itemName, formattedTime, iconResId)
     }
 
 }
