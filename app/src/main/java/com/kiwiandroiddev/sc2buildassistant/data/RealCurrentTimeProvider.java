@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.data;
 
-import com.kiwiandroiddev.sc2buildassistant.domain.CurrentTimeProvider;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.CurrentTimeProvider;
 
 import java.io.Serializable;
 import java.util.Date;

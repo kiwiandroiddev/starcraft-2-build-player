@@ -14,6 +14,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_GAME_SPEED = "pref_game_speed";
     public static final String KEY_EARLY_WARNING = "pref_early_warning";
     public static final String KEY_START_TIME = "pref_start_time";
+    public static final String KEY_ENABLE_WORKER_ALERTS = "pref_worker_alerts_enabled";
     public static final String KEY_BUILDS_VERSION = "_builds_version";
     public static final String KEY_EXPANSION_SELECTION = "_expansion_selection";
     public static final String KEY_FACTION_SELECTION = "_faction_selection";

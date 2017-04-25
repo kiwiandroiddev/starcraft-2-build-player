@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.domain;
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.GameSpeeds;
 
 import org.junit.Test;
 
