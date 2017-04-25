@@ -194,7 +194,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         mBuildItemRecyclerView.setHasFixedSize(true);
         mBuildItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        buildItemAdapter = new BuildItemRecyclerAdapter(this);
+        buildItemAdapter = new BuildItemRecyclerAdapter(this, R.layout.activity_playback_spacer_row);
         buildItemAdapter.setBuildItems(mBuild.getItems());
         mBuildItemRecyclerView.setAdapter(buildItemAdapter);
     }
