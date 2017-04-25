@@ -1,6 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.player.view.adapter
 
 import android.content.Context
+import android.support.annotation.LayoutRes
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,7 +18,15 @@ import com.kiwiandroiddev.sc2buildassistant.feature.player.presentation.model.Bu
 /**
  * Created by Matt Clarke on 24/04/17.
  */
-class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<BuildItemRecyclerAdapter.BuildItemViewHolder>() {
+class BuildItemRecyclerAdapter(val context: Context,
+                               @LayoutRes val footerLayoutId: Int) : RecyclerView.Adapter<BuildItemRecyclerAdapter.RowViewHolder>() {
+
+    companion object {
+        private val BUILD_ITEM_ROW_TYPE = 0
+        private val FOOTER_ROW_TYPE = 1
+
+        private val NUM_FOOTER_ITEMS = 1
+    }
 
     private val database: DbAdapter by lazy { (context.applicationContext as MyApplication).db!! }
 
@@ -30,27 +39,47 @@ class BuildItemRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Buil
             diffResult.dispatchUpdatesTo(this)
         }
 
-    override fun getItemCount() = buildItems.size
+    override fun getItemCount() = buildItems.size + NUM_FOOTER_ITEMS
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildItemViewHolder {
+    override fun getItemViewType(position: Int) =
+        if (position < buildItems.size) BUILD_ITEM_ROW_TYPE else FOOTER_ROW_TYPE
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
         val inflater = LayoutInflater.from(context)
-        val itemView = inflater.inflate(R.layout.build_item_row, parent, false)
-        return BuildItemViewHolder(itemView)
-    }
 
-    override fun onBindViewHolder(holder: BuildItemViewHolder, position: Int) {
-        val viewModel = itemViewModelForPosition(position)
-        with(holder) {
-            name.text = viewModel.name
-            time.text = viewModel.time
-            icon.setImageResource(viewModel.iconResId)
+        if (viewType == BUILD_ITEM_ROW_TYPE) {
+            val itemView = inflater.inflate(R.layout.build_item_row, parent, false)
+            return RowViewHolder.BuildItemViewHolder(itemView)
+        } else {
+            val itemView = inflater.inflate(footerLayoutId, parent, false)
+            return RowViewHolder.FooterItemViewHolder(itemView)
         }
     }
 
-    class BuildItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.unit_label) as TextView
-        val time: TextView = itemView.findViewById(R.id.time_label) as TextView
-        val icon: ImageView = itemView.findViewById(R.id.unit_icon) as ImageView
+    override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
+        when(holder) {
+            is RowViewHolder.BuildItemViewHolder -> {
+                val viewModel = itemViewModelForPosition(position)
+                with(holder) {
+                    name.text = viewModel.name
+                    time.text = viewModel.time
+                    icon.setImageResource(viewModel.iconResId)
+                }
+            }
+            is RowViewHolder.FooterItemViewHolder -> return
+        }
+    }
+
+    sealed class RowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        class BuildItemViewHolder(itemView: View) : RowViewHolder(itemView) {
+            val name: TextView = itemView.findViewById(R.id.unit_label) as TextView
+            val time: TextView = itemView.findViewById(R.id.time_label) as TextView
+            val icon: ImageView = itemView.findViewById(R.id.unit_icon) as ImageView
+        }
+
+        class FooterItemViewHolder(itemView: View) : RowViewHolder(itemView)
+
     }
 
     private fun itemViewModelForPosition(position: Int) =
