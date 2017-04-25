@@ -86,7 +86,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	private BuildPlayer mBuildPlayer;
 	private DbAdapter mDb;
 	private Handler mHandler = new Handler();
-	private Queue<Integer> mPendingAlerts;		// values are indices of build items in the build
+	private Queue<BuildItem> mPendingAlerts;		// values are indices of build items in the build
     private BuildItemRecyclerAdapter buildItemAdapter;
 
     private View mTimerTextContainer;
@@ -140,7 +140,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         MyApplication app = (MyApplication) getApplication();
         mDb = app.getDb();
         
-        mPendingAlerts = new LinkedList<Integer>();
+        mPendingAlerts = new LinkedList<>();
 
         mTimerText = (TextView)mTimerTextContainer.findViewById(R.id.timerText);
         mMaxTimeText = (TextView)mTimerTextContainer.findViewById(R.id.maxTimeText);
@@ -421,36 +421,42 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	
 	@Override
 	public void onBuildThisNow(BuildItem item, int itemPos) {
-		doVoiceAlert(item);
-		mPendingAlerts.add(itemPos);
-		if (mPendingAlerts.size() == 1) {
-			handleVisualAlerts();
-		}
+		queueVoiceAlert(item);
+		queueVisualAlert(item);
 	}
-	
-	private void doVoiceAlert(BuildItem item) {
+
+	private void queueVoiceAlert(BuildItem item) {
 		if (mTtsReady) {
 			// TODO: check for custom speech attached to build item
 			String speech = this.getVoiceMessage(item);
 			mTts.speak(speech, TextToSpeech.QUEUE_ADD, null);
 		}
 	}
-	
-	private void handleVisualAlerts() {
+
+	private void queueVisualAlert(BuildItem item) {
+		mPendingAlerts.add(item);
+		if (mPendingAlerts.size() == 1) {
+			handlePendingVisualAlerts();
+		}
+	}
+
+	private void handlePendingVisualAlerts() {
 		if (mPendingAlerts.size() == 0)
 			return;
 		
 		// get build item off the end of the queue
-		int itemPos = mPendingAlerts.element();
-		BuildItem item = mBuild.getItems().get(itemPos);
-		
-		mBuildItemRecyclerView.smoothScrollToPosition(itemPos);
+		BuildItem item = mPendingAlerts.element();
+
+		int indexOfBuildItem = buildItemAdapter.getBuildItems().indexOf(item);
+		if (indexOfBuildItem != -1)
+			mBuildItemRecyclerView.smoothScrollToPosition(indexOfBuildItem);
 		
 		mOverlayText.setText(getTextMessage(item));
 		mOverlayIcon.setImageResource(mDb.getLargeIcon(item.getGameItemID()));
 		
         mOverlayContainer.setVisibility(View.VISIBLE);
-		ObjectAnimator animation1 = ObjectAnimator.ofFloat(mOverlayContainer, "alpha", 0f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 0f);
+		ObjectAnimator animation1 = ObjectAnimator.ofFloat(mOverlayContainer, "alpha",
+				0f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 0f);
 	    animation1.setDuration(5000);
 
 	    AnimatorSet set = new AnimatorSet();
@@ -460,7 +466,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	      @Override
 	      public void onAnimationEnd(Animator animation) {
 	    	  mPendingAlerts.remove();
-	          handleVisualAlerts();
+	          handlePendingVisualAlerts();
 	      }
 	    });
 	}
