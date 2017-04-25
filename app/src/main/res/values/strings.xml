@@ -18,6 +18,7 @@
 	<string name="playback_play">Play</string>
 	<string name="playback_pause">Pause</string>
 	<string name="playback_time_current_total_separator" translatable="false">/</string>
+	<string name="playback_build_finished">Build order finished.</string>
 	<string name="pref_game_speed">Game Speed</string>
 	<string name="pref_game_speed_default" translatable="false">4</string>
 	<string name="pref_early_warning">Alert time offset</string>
@@ -377,5 +378,7 @@
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
 	<string name="build_row_vs_race_template">vs. %s</string>
+    <string name="pref_worker_alerts_enabled_title">Worker Alerts</string>
+	<string name="pref_worker_alerts_enabled_summary">Enable SCV, Probe and Drone alerts</string>
 
 </resources>
