@@ -62,7 +62,6 @@ import java.util.Queue;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import kotlin.jvm.functions.Function1;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -388,15 +387,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         if (workerAlertsEnabled) {
             mBuildPlayer.clearBuildItemFilter();
         } else {
-            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
-                @Override
-                public Boolean invoke(BuildItem buildItem) {
-                    // TODO temp
-                    return !(buildItem.getGameItemID().equals("probe") ||
-                            buildItem.getGameItemID().equals("drone") ||
-                            buildItem.getGameItemID().equals("scv"));
-                }
-            });
+            mBuildPlayer.setBuildItemFilter(new WorkerItemFilter());
         }
     }
 
