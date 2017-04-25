@@ -19,6 +19,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
         private const val serialVersionUID = 5709010570800905185L
     }
 
+    // FIXME: this isn't serializable - will throw IOException if non-null on serialize
     private var mListener: BuildPlayerEventListener? = null
 
     var isStopped = true
@@ -49,6 +50,7 @@ class BuildPlayer(private val mCurrentTimeProvider: CurrentTimeProvider,
             mStartTimeChanged = true
         }
 
+    // FIXME: this isn't serializable - will throw IOException if non-null on serialize
     var buildItemFilter: ((BuildItem) -> Boolean)? = null
         get() = field
         set(predicate) {
