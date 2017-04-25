@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -146,8 +145,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         mMaxTimeText = (TextView)mTimerTextContainer.findViewById(R.id.maxTimeText);
         mOverlayContainer.setVisibility(View.INVISIBLE);
 
-        // Try to init TTS engine
-		initTTS();
+		initTextToSpeechEngine();
 
         // fetch the build object from database associated with ID we were passed
         final long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
@@ -156,14 +154,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         mBuild = db.fetchBuild(buildId);
         db.close();
         
-        // create build player object from build passed in intent
-        if (savedInstanceState != null && savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT) != null) {
-			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
-        } else {
-        	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
-        }
-        mBuildPlayer.setListener(this);
-        
+        initOrRestoreBuildPlayer(savedInstanceState);
+
         int buildDuration = mBuildPlayer.getDuration();
         mMaxTimeText.setText(String.format("%02d:%02d", buildDuration / 60, buildDuration % 60));
 
@@ -189,6 +181,14 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         
         trackPlaybackView();
 	}
+
+    private void initOrRestoreBuildPlayer(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT) != null) {
+			mBuildPlayer = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
+        } else {
+        	mBuildPlayer = new BuildPlayer(new RealCurrentTimeProvider(), mBuild.getItems());
+        }
+    }
 
     private void initBuildItemList() {
         mBuildItemRecyclerView.setHasFixedSize(true);
@@ -278,6 +278,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		mBuildPlayer.clearListener();
+        mBuildPlayer.clearBuildItemFilter();
 		outState.putSerializable(KEY_BUILD_PLAYER_OBJECT, mBuildPlayer);
 		super.onSaveInstanceState(outState);
 	}
@@ -290,18 +291,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 		}
 		super.onDestroy();
 	}
-	
-	@Override
-	protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		// is listener invalid?
-		BuildPlayer player = (BuildPlayer)savedInstanceState.getSerializable(KEY_BUILD_PLAYER_OBJECT);
-		if (player != null) {
-			mBuildPlayer = player;
-			mBuildPlayer.setListener(this);
-		}
-	}
-	
+
 	//=========================================================================
 	// Callbacks from layout XML widgets
 	//=========================================================================
@@ -344,7 +334,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	//=========================================================================
 
 	/** should be called only after TTS availability has been confirmed */
-	private void initTTS() {
+	private void initTextToSpeechEngine() {
 		mTts = new TextToSpeech(this, this);
 	}
 
