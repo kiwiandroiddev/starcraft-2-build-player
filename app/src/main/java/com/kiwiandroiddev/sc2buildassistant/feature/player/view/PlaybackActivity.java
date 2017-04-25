@@ -138,7 +138,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         // get a reference to global DB instance to get drawable resources for build items, etc.
         MyApplication app = (MyApplication) getApplication();
         mDb = app.getDb();
-        
+        mDb.open();
+
         mPendingAlerts = new LinkedList<>();
 
         mTimerText = (TextView)mTimerTextContainer.findViewById(R.id.timerText);
@@ -149,11 +150,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
         // fetch the build object from database associated with ID we were passed
         final long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
-        DbAdapter db = new DbAdapter(this);
-        db.open();
-        mBuild = db.fetchBuild(buildId);
-        db.close();
-        
+        mBuild = mDb.fetchBuild(buildId);
+
         initOrRestoreBuildPlayer(savedInstanceState);
 
         int buildDuration = mBuildPlayer.getDuration();
@@ -167,7 +165,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         setKeepScreenOn(true);
         
         // Initialize spinner to choose playback speed (Slower, Slow, Normal, Fast, Faster)
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPref = getDefaultSharedPreferences();
         sharedPref.registerOnSharedPreferenceChangeListener(this);		// notify this activity when settings change
         		
 		// hacky: initialize buildplayer with stored preferences
@@ -195,13 +193,16 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         mBuildItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         buildItemAdapter = new BuildItemRecyclerAdapter(this, R.layout.activity_playback_spacer_row);
-        buildItemAdapter.setBuildItems(mBuild.getItems());
         mBuildItemRecyclerView.setAdapter(buildItemAdapter);
     }
 
     private void initSeekbar(int buildDuration) {
         mSeekBar.setMax(buildDuration);	    // NOTE: progress bar units are seconds!
         mSeekBar.setOnSeekBarChangeListener(this);
+    }
+
+    private SharedPreferences getDefaultSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -217,9 +218,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
             case android.R.id.home:
                 finish();
 				break;
-			case R.id.menu_toggle_worker_filter:
-				toggleWorkerAlerts();
-				break;
         }
 
     	// use the same options menu as the main activity
@@ -229,20 +227,6 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			return true;
 		}
     }
-
-	private void toggleWorkerAlerts() {
-        if (mBuildPlayer.getBuildItemFilter() != null) {
-            mBuildPlayer.clearBuildItemFilter();
-        } else {
-            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
-                @Override
-                public Boolean invoke(BuildItem buildItem) {
-                    // TODO temp
-                    return !(buildItem.getGameItemID().equals("probe") || buildItem.getGameItemID().equals("scv"));
-                }
-            });
-        }
-	}
 
 	//=========================================================================
 	// Android life cycle methods
@@ -270,6 +254,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 	@Override
 	public void onResume() {
 		super.onResume();
+        updateWorkerAlertFilterFromCurrentSetting(getDefaultSharedPreferences());
 		mBuildPlayer.setListener(this);
 		mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 0);
@@ -393,10 +378,29 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 			mBuildPlayer.setAlertOffsetInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
 		} else if (key.equals(SettingsActivity.KEY_START_TIME)) {
 			mBuildPlayer.setStartTimeInGameSeconds(prefs.getInt(key, 0)); 		// TODO: centralise default values
-		}
+		} else if (key.equals(SettingsActivity.KEY_ENABLE_WORKER_ALERTS)) {
+            updateWorkerAlertFilterFromCurrentSetting(prefs);
+        }
 	}
-	
-	private void gameSpeedChanged(int gameSpeedIndex) {
+
+    private void updateWorkerAlertFilterFromCurrentSetting(SharedPreferences prefs) {
+        boolean workerAlertsEnabled = prefs.getBoolean(SettingsActivity.KEY_ENABLE_WORKER_ALERTS, true);
+        if (workerAlertsEnabled) {
+            mBuildPlayer.clearBuildItemFilter();
+        } else {
+            mBuildPlayer.setBuildItemFilter(new Function1<BuildItem, Boolean>() {
+                @Override
+                public Boolean invoke(BuildItem buildItem) {
+                    // TODO temp
+                    return !(buildItem.getGameItemID().equals("probe") ||
+                            buildItem.getGameItemID().equals("drone") ||
+                            buildItem.getGameItemID().equals("scv"));
+                }
+            });
+        }
+    }
+
+    private void gameSpeedChanged(int gameSpeedIndex) {
 		mBuildPlayer.setTimeMultiplier(
 				GameSpeeds.getMultiplierForGameSpeed(gameSpeedIndex, mBuild.getExpansion())
 		);

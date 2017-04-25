@@ -378,5 +378,7 @@
 	<string name="gameitem_viper">Viper</string>
 	<string name="gameitem_zergling">Zergling</string>
 	<string name="build_row_vs_race_template">vs. %s</string>
+    <string name="pref_worker_alerts_enabled_title">Worker Alerts</string>
+	<string name="pref_worker_alerts_enabled_summary">Enable SCV, Probe and Drone alerts</string>
 
 </resources>

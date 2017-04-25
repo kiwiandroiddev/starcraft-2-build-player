@@ -30,6 +30,12 @@
             app:endRange="9999"
             app:startRange="0" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_worker_alerts_enabled"
+            android:summary="@string/pref_worker_alerts_enabled_summary"
+            android:title="@string/pref_worker_alerts_enabled_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

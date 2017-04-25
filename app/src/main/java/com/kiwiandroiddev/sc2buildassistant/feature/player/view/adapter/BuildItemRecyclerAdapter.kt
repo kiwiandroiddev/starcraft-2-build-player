@@ -32,11 +32,16 @@ class BuildItemRecyclerAdapter(val context: Context,
 
     var buildItems: List<BuildItem> = emptyList()
         set(value) {
-            val diffCallback = BuildItemDiffCallback(buildItems, value)
-            val diffResult = DiffUtil.calculateDiff(diffCallback)
+            if (field.isEmpty()) {
+                field = value
+                notifyDataSetChanged()
+            } else {
+                val diffCallback = BuildItemDiffCallback(buildItems, value)
+                val diffResult = DiffUtil.calculateDiff(diffCallback)
 
-            field = value
-            diffResult.dispatchUpdatesTo(this)
+                field = value
+                diffResult.dispatchUpdatesTo(this)
+            }
         }
 
     override fun getItemCount() = buildItems.size + NUM_FOOTER_ITEMS

@@ -95,10 +95,10 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
         prefs.registerOnSharedPreferenceChangeListener(this)
 
         // hack: initialize summaries - manual call to callback
-        val keys = arrayOf(SettingsActivity.KEY_GAME_SPEED, SettingsActivity.KEY_EARLY_WARNING, SettingsActivity.KEY_START_TIME)
-        for (key in keys) {
-            this.onSharedPreferenceChanged(prefs, key)
-        }
+        listOf(SettingsActivity.KEY_GAME_SPEED,
+                SettingsActivity.KEY_EARLY_WARNING,
+                SettingsActivity.KEY_START_TIME)
+                .forEach { key -> onSharedPreferenceChanged(prefs, key) }
 
         settingsPresenter.attachView(this)
     }
