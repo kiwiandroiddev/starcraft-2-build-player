@@ -1,0 +1,183 @@
+[
+  {
+    "mCreated": "2017-04-26 21:15:06",
+    "mExpansion": "LOTV",
+    "mFaction": "ZERG",
+    "mModified": "2017-04-26 21:15:06",
+    "mName": "Hatchery First into Mass Queens (Pool-First)",
+    "mSource": "<a href=\"http://wiki.teamliquid.net/starcraft2/Hatchery_First_into_Mass-Queen_(vs._Terran)\">Liquipedia</a>",
+    "mNotes": "<html><h2>Overview</h2>
+
+<p>A standard opening against Zerg and Terran to maximize Larva and Drone production. It is a build to defend 2-rax into double Medivac drop in a ZvT. The Terran will most likely open with a Reaper FE.</p>
+
+<p>It is most likely to produce Drones until 4:30, because the two Medivacs will leave the Terran base at 4:40 and hit at ~5:10 depending on the size of the map.</p>
+
+<p>Before choosing a follow-up, like a Roach Warren or Baneling Nest to defend further aggression, like fast Hellbats.</p>
+
+<p>The first two Overlords are to scout the closest possible spawn positions, later to poke into the opposing main (stay as close as possible to the cliff edges) for tech or a quick glance at the opposing unit count.</p>
+
+<h2>Goal</h2>
+
+<p>Start a Hatchery first and time Zerglings to defend a Reaper pressure/harassment for Queens to finish. You should not lose any Drones to the drop.</p>
+
+<p><a href=\"https://www.youtube.com/watch?v=yPMEHs6_VVY\">2016 WCS Global Finals Grand FINAL Dark vs ByuN Game #5</a></p>
+
+<h2>Basic Build Order</h2>
+
+<p>This build can be played on every 4-player map and most 2-player maps as well.</p>
+
+<h3>17-Hatch</h3>
+<p>
+13 Overlord <b>[1]</b><br />
+17 Hatchery<br />
+18 Extractor <b>[2]</b><br />
+17 Pool<br />
+21 Overlord<br />
+21 @100 gas start Metabolic Boost<br />
+@100% Hatchery add two Queens<br />
+33 At the next 100 gas start Pneumatized Carapace<br />
+42 Hatchery<br />
+</p>
+<p>
+<b>[1]</b> You should only Drone-scout, if your opponent is likely to play Proxy-Rax<br />
+<b>[2]</b> 3 Drones<br />
+</p>
+
+<p>If a Map is known for Proxy-Rax or 3-Rax-Reaper, you should open with \"Pool-First\".</p>
+
+<h3>Pool-First</h3>
+<p>
+13 Overlord<br />
+17 Extractor <b>[1]</b><br />
+17 Pool<br />
+18 Hatchery<br />
+19 @100% Pool add one Queen<br />
+21 Two Zerglings<br />
+22 @100 Gas start Metabolic Boost<br />
+22 @100 Minerals Overlord<br />
+@100% Queen: Inject and move the Queen to your natural<br />
+33 At the next 100 Gas start Pneumatized Carapace<br />
+42 Hatchery<br />
+</p>
+<p><b>[1]</b> 3 Drones</p>
+
+<h2>Notes</h2>
+
+<p>
+ - HatchFirst: You will not get supply-blocked at 22/22, if you start your second Hatchery ASAP. If your Hatchery is delayed, an Overlord at 21 is too late.<br />
+ - Dark scouts the Natural at around 30 Supply. If a Bunker is missing, you might do damage with some Speedlings.<br />
+ - Stop at 44 Drones and produce Queens and Zerglings non-stop afterwards.<br />
+ - You should have 32+ Army Supply and at least 5 to 8 Queens to defend the 16 Marines.<br />
+</p>
+
+<h2>Scouting</h2>
+
+<p>The Pneumatized Carapace (Overlord speed) upgrade is very important for this build, because Scouting is very important to identify the double Medivac drop. Otherwise, the Zerg player might build too many Drones and just die to the attack.</p>
+
+<p>Pneumatized Carapace finishes at ~3:30 (see Dark vs ByuN below) and it will also help to identify where the drop is heading.</p>
+
+<p>Your Speedlings should be at the \"drop point\" to engage the Marines immediately and the Queens should focus the Medivacs.</p>
+
+<h2>Timings</h2>
+
+<p>
+- 30 Supply (~2:40): Dark scout the front with an Overlord<br />
+- 49 Supply (~3:43): Zerg flies an Overlord (with speed) into the Terran's Main<br />
+</p>
+
+<h2>Execution</h2>
+
+<p>Your Creep (spread) should be very good, because you have to defend any of your bases. Therefore all bases should be connected with Creep, when the Terran attack commences.</p>
+
+<p>It is very important to hit your Injects on time, because otherwise you will not have enough Drones and Zerglings.</p>
+
+<p>In lower leagues, the Terran oftentimes will drop into your economy. Take the Watchtowers, spread your Overlords and look at the Minimap as often as you can.</p>
+
+<p>In the game between Dark and ByuN, Dark anticipates a Drop and kills a Medivac with his Queens.</p>
+<h2>Replays and VODs</h2>
+
+<h3>Dark vs Byun</h3>
+
+<p><a href=\"http://lotv.spawningtool.com/23543/\">Replay</a></p>
+<p>Dark researches Ovi-Speed early on. He identifies the <a href=\"https://www.youtube.com/watch?v=yPMEHs6_VVY&t=214\">double Medivac drop at 3:45</a> using one Overlord to scout the Stim timing and the fast Starport. Note: <a href=\"https://www.youtube.com/watch?v=lN-SxSmnmyY\">LowKo makes an analysis of this game, too.</a></p>
+    ",
+    "mVsFaction": "TERRAN",
+    "mItems": [
+      {
+        "mCount": 1,
+        "mTime": 12,
+        "mUnit": "overlord"
+      },
+      {
+        "mCount": 1,
+        "mTime": 44,
+        "mUnit": "extractor"
+      },
+      {
+        "mCount": 1,
+        "mTime": 49,
+        "mUnit": "spawning_pool"
+      },
+      {
+        "mCount": 1,
+        "mTime": 78,
+        "mUnit": "hatchery"
+      },
+      {
+        "mCount": 1,
+        "mTime": 96,
+        "mUnit": "queen"
+      },
+      {
+        "mCount": 2,
+        "mTime": 101,
+        "mUnit": "zergling"
+      },
+      {
+        "mCount": 1,
+        "mTime": 106,
+        "mUnit": "metabolic_boost"
+      },
+      {
+        "mCount": 1,
+        "mTime": 112,
+        "mUnit": "overlord"
+      },
+      {
+        "mCount": 1,
+        "mTime": 131,
+        "mUnit": "queen"
+      },
+      {
+        "mCount": 1,
+        "mTime": 150,
+        "mUnit": "queen"
+      },
+      {
+        "mCount": 1,
+        "mTime": 154,
+        "mUnit": "overlord"
+      },
+      {
+        "mCount": 1,
+        "mTime": 167,
+        "mUnit": "pneumatized_carapace"
+      },
+      {
+        "mCount": 2,
+        "mTime": 173,
+        "mUnit": "zergling"
+      },
+      {
+        "mCount": 1,
+        "mTime": 193,
+        "mUnit": "overlord"
+      },
+      {
+        "mCount": 1,
+        "mTime": 209,
+        "mUnit": "hatchery"
+      }
+    ]
+  }
+]
