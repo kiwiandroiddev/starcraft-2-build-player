@@ -28,7 +28,7 @@ import timber.log.Timber;
  * Created by matt on 17/07/15.
  */
 public final class StandardBuildsService {
-	private static final int BUILD_FILES_VERSION = 49;	// tracks changes to build JSON files in assets/
+	private static final int BUILD_FILES_VERSION = 50;	// tracks changes to build JSON files in assets/
 	private static final String ASSETS_BUILDS_DIR = "builds";
 
 	private StandardBuildsService() {}
