@@ -38,6 +38,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 import com.kiwiandroiddev.sc2buildassistant.util.FragmentUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimatorListener;

@@ -6,11 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import com.kiwiandroiddev.sc2buildassistant.R
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsNavigator
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils
 
-class RegisteredActivityNavigator : SettingsNavigator {
+class RegisteredActivityNavigator : SettingsNavigator, BriefNavigator {
 
     companion object {
         val TRANSLATE_URL = "http://www.getlocalization.com/sc2buildplayer/"
@@ -58,6 +59,10 @@ class RegisteredActivityNavigator : SettingsNavigator {
 
     private fun Activity.openUrl(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    }
+
+    override fun onPlayBuild(buildId: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

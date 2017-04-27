@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.activity;
+package com.kiwiandroiddev.sc2buildassistant.feature.brief.view;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -38,11 +38,17 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
+import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
+import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
+import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener;
 import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter;
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.view.PlaybackActivity;
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener;
@@ -51,6 +57,8 @@ import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCap
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -65,10 +73,13 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        SharedPreferences.OnSharedPreferenceChangeListener, BriefView {
 
     private static final HashMap<Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
+
+    @Inject BriefPresenter mPresenter;
 
     @InjectExtra(KEY_BUILD_ID) long mBuildId;
     @InjectExtra(KEY_FACTION_ENUM) Faction mFaction;
@@ -153,7 +164,10 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initSystemUiVisibility();
+
         super.onCreate(savedInstanceState);
+        ((MyApplication) getApplication()).inject(this);
+
         setContentView(R.layout.activity_brief);
         ButterKnife.inject(this);
 
@@ -166,6 +180,14 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         initScrollView();
         ensureBriefContentIsNotHiddenBySystemBars();
         registerSelfAsPreferenceChangeListener();
+    }
+
+    private void initIntentParameterFields(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            Dart.inject(this);
+        } else {
+            Dart.inject(this, savedInstanceState);
+        }
     }
 
     private void registerSelfAsPreferenceChangeListener() {
@@ -294,14 +316,6 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    private void initIntentParameterFields(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            Dart.inject(this);
-        } else {
-            Dart.inject(this, savedInstanceState);
-        }
-    }
-
     private void startLoadingBriefFromDb() {
         getSupportLoaderManager().initLoader(0, null, this);
     }
@@ -337,6 +351,18 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onStart() {
         super.onStart();
         EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.attachView(this, 2);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.detachView();
     }
 
     @Override

@@ -8,9 +8,10 @@ import com.google.analytics.tracking.android.GoogleAnalytics
 import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
-import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationComponent
-import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationModule
-import com.kiwiandroiddev.sc2buildassistant.feature.di.DaggerApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.di.ApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.di.ApplicationModule
+import com.kiwiandroiddev.sc2buildassistant.di.DaggerApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefActivity
 import com.kiwiandroiddev.sc2buildassistant.feature.navigation.RegisteredActivityNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsFragment
@@ -103,6 +104,9 @@ class MyApplication : Application(), ClearDatabaseAgent {
         }
 
     fun inject(target: SettingsFragment) =
+            graph.inject(target)
+
+    fun inject(target: BriefActivity) =
             graph.inject(target)
 
     override fun clear(): Completable =

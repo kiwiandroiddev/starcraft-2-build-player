@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.feature.di.qualifiers
+package com.kiwiandroiddev.sc2buildassistant.di.qualifiers
 
 import java.lang.annotation.Documented
 import javax.inject.Qualifier

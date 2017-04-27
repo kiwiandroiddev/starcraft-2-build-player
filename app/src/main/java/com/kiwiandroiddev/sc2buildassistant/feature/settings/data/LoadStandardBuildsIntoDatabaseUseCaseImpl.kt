@@ -1,7 +1,7 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.settings.data
 
 import android.content.Context
-import com.kiwiandroiddev.sc2buildassistant.feature.di.qualifiers.ApplicationContext
+import com.kiwiandroiddev.sc2buildassistant.di.qualifiers.ApplicationContext
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.LoadStandardBuildsIntoDatabaseUseCase
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService
 import com.kiwiandroiddev.sc2buildassistant.service.StandardBuildsService

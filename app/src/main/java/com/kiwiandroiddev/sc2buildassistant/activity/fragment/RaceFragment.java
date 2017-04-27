@@ -40,7 +40,7 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity;
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
