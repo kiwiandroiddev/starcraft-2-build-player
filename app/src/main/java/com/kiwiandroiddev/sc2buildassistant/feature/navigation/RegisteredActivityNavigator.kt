@@ -6,7 +6,10 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import com.kiwiandroiddev.sc2buildassistant.R
+import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity
+import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
+import com.kiwiandroiddev.sc2buildassistant.feature.player.view.PlaybackActivity
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsNavigator
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils
@@ -62,7 +65,19 @@ class RegisteredActivityNavigator : SettingsNavigator, BriefNavigator {
     }
 
     override fun onPlayBuild(buildId: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        activity?.apply {
+            val i = Intent(this, PlaybackActivity::class.java)
+            i.putExtra(KEY_BUILD_ID, buildId)
+            startActivity(i)
+        }
+    }
+
+    override fun onEditBuild(buildId: Long) {
+        activity?.apply {
+            val i = Intent(this, EditBuildActivity::class.java)
+            i.putExtra(KEY_BUILD_ID, buildId)
+            startActivity(i)
+        }
     }
 
 }

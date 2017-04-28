@@ -40,7 +40,6 @@ import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener;
 import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
@@ -49,7 +48,6 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter;
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView;
-import com.kiwiandroiddev.sc2buildassistant.feature.player.view.PlaybackActivity;
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView;
@@ -356,7 +354,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this, 2);
+        mPresenter.attachView(this, mBuildId);
     }
 
     @Override
@@ -394,9 +392,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
             finishCompat();
             return true;
         } else if (item.getItemId() == R.id.menu_edit_build) {
-            Intent i = new Intent(this, EditBuildActivity.class);
-            i.putExtra(KEY_BUILD_ID, mBuildId);
-            startActivity(i);
+            mPresenter.onEditBuildSelected();
             return true;
         }
 
@@ -424,9 +420,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @OnClick(R.id.activity_brief_play_action_button)
     public void playBuild() {
-        Intent i = new Intent(this, PlaybackActivity.class);
-        i.putExtra(KEY_BUILD_ID, mBuildId);
-        startActivity(i);
+        mPresenter.onPlayBuildSelected();
     }
 
     @Override

@@ -24,7 +24,7 @@ class BriefPresenterTest {
     }
 
     @Test(expected = IllegalStateException::class)
-    fun onPlayBuildSelected_noAttachedView_shouldThrowIllegalArgumentException() {
+    fun onPlayBuildSelected_noViewAttached_shouldThrowIllegalStateException() {
         presenter.onPlayBuildSelected()
     }
 
@@ -45,4 +45,27 @@ class BriefPresenterTest {
 
         verify(mockNavigator).onPlayBuild(2)
     }
+
+    @Test(expected = IllegalStateException::class)
+    fun detachView_afterAttachThenPerformAction_shouldThrowIllegalStateException() {
+        presenter.attachView(mockView, 1)
+
+        presenter.detachView()
+        presenter.onPlayBuildSelected()
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun onEditBuildSelected_noViewAttached_shouldThrowIllegalStateException() {
+        presenter.onEditBuildSelected()
+    }
+
+    @Test
+    fun onEditBuildSelected_viewAttached_shouldNavigateToEditorForBuildId() {
+        presenter.attachView(mockView, 1)
+
+        presenter.onEditBuildSelected()
+
+        verify(mockNavigator).onEditBuild(1)
+    }
+
 }

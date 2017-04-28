@@ -14,13 +14,19 @@ class BriefPresenter(val navigator: BriefNavigator) {
     }
 
     fun detachView() {
-
+        view = null
     }
 
     fun onPlayBuildSelected() {
         ensureViewAttached()
 
         navigator.onPlayBuild(buildId!!)
+    }
+
+    fun onEditBuildSelected() {
+        ensureViewAttached()
+
+        navigator.onEditBuild(buildId!!)
     }
 
     private fun ensureViewAttached() {
