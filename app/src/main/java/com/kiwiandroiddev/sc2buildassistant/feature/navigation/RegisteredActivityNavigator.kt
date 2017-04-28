@@ -11,6 +11,7 @@ import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.player.view.PlaybackActivity
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.presentation.SettingsNavigator
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity
 import com.kiwiandroiddev.sc2buildassistant.util.ChangeLog
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils
 
@@ -76,6 +77,13 @@ class RegisteredActivityNavigator : SettingsNavigator, BriefNavigator {
         activity?.apply {
             val i = Intent(this, EditBuildActivity::class.java)
             i.putExtra(KEY_BUILD_ID, buildId)
+            startActivity(i)
+        }
+    }
+
+    override fun onOpenSettings() {
+        activity?.apply {
+            val i = Intent(this, SettingsActivity::class.java)
             startActivity(i)
         }
     }

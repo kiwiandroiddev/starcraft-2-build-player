@@ -40,7 +40,6 @@ import com.google.android.gms.ads.AdView;
 import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.R;
-import com.kiwiandroiddev.sc2buildassistant.activity.MainActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener;
 import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
@@ -52,6 +51,8 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivi
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView;
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCapturedWindowInsetsListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -394,15 +395,12 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         } else if (item.getItemId() == R.id.menu_edit_build) {
             mPresenter.onEditBuildSelected();
             return true;
-        }
-
-        // use the same options menu as the main activity
-        boolean result = MainActivity.OnMenuItemSelected(this, item);
-        if (!result) {
-            return super.onOptionsItemSelected(item);
-        } else {
+        } else if (item.getItemId() == R.id.menu_settings) {
+            mPresenter.onSettingsSelected();
             return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -498,6 +496,11 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
                 MapBuilder.createEvent(
                         "brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null)
                         .build());
+    }
+
+    @Override
+    public void render(@NotNull BriefViewState viewState) {
+        // TODO
     }
 
 }
