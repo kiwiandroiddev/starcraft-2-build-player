@@ -363,7 +363,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
     private void setBackgroundImage(Faction faction) {
 		// set background graphic
 		mRootView.setBackgroundDrawable(
-                getResources().getDrawable(BriefActivity.getBackgroundDrawable(faction)));
+                getResources().getDrawable(BriefActivity.Companion.getBackgroundDrawable(faction)));
 	}
 	
 	/** 
