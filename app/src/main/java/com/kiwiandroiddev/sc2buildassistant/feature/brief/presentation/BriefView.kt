@@ -6,5 +6,6 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 interface BriefView {
     fun  render(viewState: BriefViewState)
 
-    data class BriefViewState(val showAds: Boolean)
+    data class BriefViewState(val showAds: Boolean,
+                              val showLoadError: Boolean)
 }

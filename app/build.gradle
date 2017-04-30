@@ -91,6 +91,11 @@ dependencies {
             'org.assertj:assertj-core:1.7.0'
     )
 
+    // Workaround to have mockito-kotlin work with kotlin 1.1 until the library author upgrades
+    testCompile("com.nhaarman:mockito-kotlin:1.4.0") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
     // workaround for "Error:Conflict with dependency 'com.google.code.findbugs:jsr305' in
     // project ':app'. Resolved versions for app (3.0.1) and test app (2.0.1) differ.
     // See http://g.co/androidstudio/app-test-app-conflict for details."

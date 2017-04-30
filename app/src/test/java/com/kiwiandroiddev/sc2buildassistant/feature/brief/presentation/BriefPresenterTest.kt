@@ -1,6 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetSettingsUseCase
+import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
@@ -8,14 +11,20 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import java.io.IOException
 
 /**
  * Created by Matt Clarke on 28/04/17.
  */
 class BriefPresenterTest {
 
+    companion object {
+        val TEST_BUILD = Build()
+    }
+
     @Mock lateinit var mockView: BriefView
     @Mock lateinit var mockNavigator: BriefNavigator
+    @Mock lateinit var mockGetBuildUseCase: GetBuildUseCase
     @Mock lateinit var mockGetSettingsUseCase: GetSettingsUseCase
 
     lateinit var presenter: BriefPresenter
@@ -24,12 +33,14 @@ class BriefPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = BriefPresenter(mockGetSettingsUseCase, mockNavigator)
+        presenter = BriefPresenter(mockGetBuildUseCase, mockGetSettingsUseCase, mockNavigator)
 
         setUpDefaultMockBehaviour()
     }
 
     private fun setUpDefaultMockBehaviour() {
+        `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
+                .thenReturn(Observable.just(TEST_BUILD))
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
     }
 
@@ -98,7 +109,7 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView).render(BriefView.BriefViewState(showAds = true))
+        verify(mockView).render(argThat { showAds })
     }
 
     @Test
@@ -107,7 +118,17 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView).render(BriefView.BriefViewState(showAds = false))
+        verify(mockView).render(argThat { !showAds })
+    }
+
+    @Test
+    fun onAttach_showAdSettingThrowsError_tellsViewNotToShowAds() {
+        `when`(mockGetSettingsUseCase.showAds())
+                .thenReturn(Observable.error(IOException("couldn't read ad setting from disk")))
+
+        presenter.attachView(mockView, 1)
+
+        verify(mockView, only()).render(BriefView.BriefViewState(false, false))
     }
 
     @Test
@@ -116,7 +137,7 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView).render(BriefView.BriefViewState(showAds = false))
+        verify(mockView).render(argThat { !showAds })
     }
 
     @Test
@@ -124,13 +145,13 @@ class BriefPresenterTest {
         val showAdsSettingSubject = BehaviorSubject.create<Boolean>()
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(showAdsSettingSubject)
         presenter.attachView(mockView, 1)
-        verify(mockView).render(BriefView.BriefViewState(showAds = false))
+        verify(mockView).render(argThat { !showAds })
 
         showAdsSettingSubject.onNext(true)
-        verify(mockView).render(BriefView.BriefViewState(showAds = true))
+        verify(mockView).render(argThat { showAds })
 
         showAdsSettingSubject.onNext(false)
-        verify(mockView).render(BriefView.BriefViewState(showAds = false))
+        verify(mockView).render(argThat { !showAds })
     }
 
     @Test
@@ -153,7 +174,27 @@ class BriefPresenterTest {
         presenter.attachView(mockView, 1)
         showAdsSettingSubject.onNext(true)
 
-        verify(mockView, times(1)).render(BriefView.BriefViewState(showAds = true))
+        verify(mockView, times(1)).render(argThat { showAds })
     }
-}
 
+    @Test
+    fun onAttach_noBuildForId_showsBuildLoadErrorInView() {
+        `when`(mockGetBuildUseCase.getBuild(1))
+                .thenReturn(Observable.error(IOException("couldn't load build")))
+
+        presenter.attachView(mockView, 1)
+
+        verify(mockView, atLeastOnce()).render(argThat { showLoadError })
+    }
+
+    @Test
+    fun onAttach_haveBuildForId_doesNotShowBuildLoadErrorInView() {
+        `when`(mockGetBuildUseCase.getBuild(1))
+                .thenReturn(Observable.just(TEST_BUILD))
+
+        presenter.attachView(mockView, 1)
+
+        verify(mockView, never()).render(argThat { showLoadError })
+    }
+
+}

@@ -288,20 +288,22 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finishCompat()
-            return true
-        } else if (item.itemId == R.id.menu_edit_build) {
-            presenter.onEditBuildSelected()
-            return true
-        } else if (item.itemId == R.id.menu_settings) {
-            presenter.onSettingsSelected()
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+            when (item.itemId) {
+                android.R.id.home -> {
+                    finishCompat()
+                    true
+                }
+                R.id.menu_edit_build -> {
+                    presenter.onEditBuildSelected()
+                    true
+                }
+                R.id.menu_settings -> {
+                    presenter.onSettingsSelected()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
 
     override fun onBackPressed() {
         finishCompat()
