@@ -30,7 +30,7 @@
             app:endRange="9999"
             app:startRange="0" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="pref_worker_alerts_enabled"
             android:summary="@string/pref_worker_alerts_enabled_summary"
@@ -42,13 +42,13 @@
         android:key="pref_key_general_category"
         android:title="@string/pref_general_category_title">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:key="pref_show_status_bar"
             android:summary="@string/pref_show_status_bar_summary"
             android:title="@string/pref_show_status_bar_title" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="pref_show_ads"
             android:summary="@string/pref_show_ads_summary"
@@ -74,7 +74,7 @@
             android:summary="@string/pref_translate_summary"
             android:title="@string/pref_translate_title" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="pref_tracking_enabled"
             android:summary="@string/pref_tracking_summary"
