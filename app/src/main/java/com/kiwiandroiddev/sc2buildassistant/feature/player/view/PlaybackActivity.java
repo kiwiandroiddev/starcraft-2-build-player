@@ -30,7 +30,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.f2prateek.dart.Dart;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
@@ -60,8 +59,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -89,13 +88,13 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
     private View mTimerTextContainer;
     private TextView mMaxTimeText;
     private TextView mTimerText;
-    @InjectView(R.id.buildItemRecyclerView) RecyclerView mBuildItemRecyclerView;
-    @InjectView(R.id.playPauseButton) ImageButton mPlayPauseButton;
-    @InjectView(R.id.stopButton) ImageButton mStopButton;
-    @InjectView(R.id.seekBar) SeekBar mSeekBar;
-    @InjectView(R.id.overlayIcon) ImageView mOverlayIcon;
-    @InjectView(R.id.overlayContainer) View mOverlayContainer;
-    @InjectView(R.id.overlayText) TextView mOverlayText;
+    @BindView(R.id.buildItemRecyclerView) RecyclerView mBuildItemRecyclerView;
+    @BindView(R.id.playPauseButton) ImageButton mPlayPauseButton;
+    @BindView(R.id.stopButton) ImageButton mStopButton;
+    @BindView(R.id.seekBar) SeekBar mSeekBar;
+    @BindView(R.id.overlayIcon) ImageView mOverlayIcon;
+    @BindView(R.id.overlayContainer) View mOverlayContainer;
+    @BindView(R.id.overlayText) TextView mOverlayText;
 
     private boolean mUserIsSeeking = false;
     private TextToSpeech mTts;
@@ -116,7 +115,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playback);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -146,7 +145,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         initTextToSpeechEngine();
 
         // fetch the build object from database associated with ID we were passed
-        final long buildId = Dart.get(getIntent().getExtras(), IntentKeys.KEY_BUILD_ID);
+        final long buildId = getIntent().getLongExtra(IntentKeys.KEY_BUILD_ID, 0);
         mBuild = mDb.fetchBuild(buildId);
 
         initOrRestoreBuildPlayer(savedInstanceState);

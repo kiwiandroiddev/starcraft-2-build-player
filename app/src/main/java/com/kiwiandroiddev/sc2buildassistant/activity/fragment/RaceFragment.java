@@ -485,7 +485,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
             // of both activities are defined with android:transitionName="buildName"
             ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(getActivity(),
-                            buildViewHolder.name, "buildName");
+                            buildViewHolder.name, getString(R.string.transition_build_name));
             // start the new activity
             getActivity().startActivity(i, options.toBundle());
         } else {

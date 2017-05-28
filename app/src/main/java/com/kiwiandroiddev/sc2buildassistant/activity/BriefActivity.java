@@ -31,8 +31,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.f2prateek.dart.Dart;
-import com.f2prateek.dart.InjectExtra;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.android.gms.ads.AdListener;
@@ -52,8 +50,8 @@ import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView.OnCap
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_BUILD_ID;
@@ -65,29 +63,30 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+public class BriefActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final HashMap<Faction, Integer> sRaceBgMap;
     private static final ArrayList<String> sColumns;
 
-    @InjectExtra(KEY_BUILD_ID) long mBuildId;
-    @InjectExtra(KEY_FACTION_ENUM) Faction mFaction;
-    @InjectExtra(KEY_EXPANSION_ENUM) Expansion mExpansion;
-    @InjectExtra(KEY_BUILD_NAME) String mBuildName;
+    private long mBuildId;
+    private Faction mFaction;
+    private Expansion mExpansion;
+    private String mBuildName;
 
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
-    @InjectView(R.id.brief_buildSubTitle) TextView mSubtitleView;
-    @InjectView(R.id.brief_root) View mRootView;
-    @InjectView(R.id.brief_buildNotes) TextView mNotesView;
-    @InjectView(R.id.brief_author_layout) View mAuthorLayout;
-    @InjectView(R.id.brief_author) TextView mAuthorText;
-    @InjectView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
-    @InjectView(R.id.ad_frame) ViewGroup mAdFrame;
-    @InjectView(R.id.brief_window_insets_capturing_view) WindowInsetsCapturingView mWindowInsetsCapturingView;
-    @InjectView(R.id.brief_content_layout) ViewGroup mBriefContentLayout;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.brief_buildSubTitle) TextView mSubtitleView;
+    @BindView(R.id.brief_root) View mRootView;
+    @BindView(R.id.brief_buildNotes) TextView mNotesView;
+    @BindView(R.id.brief_author_layout) View mAuthorLayout;
+    @BindView(R.id.brief_author) TextView mAuthorText;
+    @BindView(R.id.activity_brief_play_action_button) FloatingActionButton mPlayButton;
+    @BindView(R.id.ad_frame) ViewGroup mAdFrame;
+    @BindView(R.id.brief_window_insets_capturing_view) WindowInsetsCapturingView mWindowInsetsCapturingView;
+    @BindView(R.id.brief_content_layout) ViewGroup mBriefContentLayout;
 
     // TODO temp!
-    @InjectView(R.id.buildName) TextView mBuildNameText;
+    @BindView(R.id.buildName) TextView mBuildNameText;
 
     static {
         sRaceBgMap = new HashMap<Faction, Integer>();
@@ -136,12 +135,12 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         i.putExtra(KEY_BUILD_NAME, buildName);
 
         if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
             // create the transition animation - the views in the layouts
             // of both activities are defined with android:transitionName="buildName"
             ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(callingActivity,
-                            sharedBuildNameTextView, "buildName");
+                            sharedBuildNameTextView,
+                            callingActivity.getString(R.string.transition_build_name));
 
             // start the new activity
             callingActivity.startActivity(i, options.toBundle());
@@ -155,7 +154,7 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
         initSystemUiVisibility();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brief);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         initIntentParameterFields(savedInstanceState);
         initToolbar();
@@ -296,9 +295,15 @@ public class BriefActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void initIntentParameterFields(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            Dart.inject(this);
+            mBuildId = getIntent().getLongExtra(KEY_BUILD_ID, 0);
+            mFaction = (Faction) getIntent().getSerializableExtra(KEY_FACTION_ENUM);
+            mExpansion = (Expansion) getIntent().getSerializableExtra(KEY_EXPANSION_ENUM);
+            mBuildName = getIntent().getStringExtra(KEY_BUILD_NAME);
         } else {
-            Dart.inject(this, savedInstanceState);
+            mBuildId = savedInstanceState.getLong(KEY_BUILD_ID, 0);
+            mFaction = (Faction) savedInstanceState.getSerializable(KEY_FACTION_ENUM);
+            mExpansion = (Expansion) savedInstanceState.getSerializable(KEY_EXPANSION_ENUM);
+            mBuildName = savedInstanceState.getString(KEY_BUILD_NAME);
         }
     }
 

@@ -20,20 +20,20 @@ import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
-import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.EditBuildItemRecyclerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemClickedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnBuildItemRemovedListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.OnStartDragListener;
 import com.kiwiandroiddev.sc2buildassistant.adapter.SimpleItemTouchCallback;
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Provides a UI for displaying a list of ordered build items that the user can edit.
@@ -57,7 +57,7 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	private ArrayList<BuildItem> mWorkingList;
     private Snackbar mItemDeletedSnackbar;
 
-    @InjectView(R.id.fragment_edit_build_items_list_view) RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_edit_build_items_list_view) RecyclerView mRecyclerView;
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +99,7 @@ public class EditBuildItemsFragment extends Fragment implements OnStartDragListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_edit_build_items, container, false);
-        ButterKnife.inject(this, v);
+        ButterKnife.bind(this, v);
 
         // can be left open from info and notes editor fragments
         hideKeyboard();

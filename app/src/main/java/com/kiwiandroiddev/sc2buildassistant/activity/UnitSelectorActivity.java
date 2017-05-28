@@ -11,8 +11,8 @@ import com.kiwiandroiddev.sc2buildassistant.adapter.ItemTypePagerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -37,13 +37,13 @@ public class UnitSelectorActivity extends AppCompatActivity {
 
     private ItemTypePagerAdapter mPagerAdapter;
 
-	@InjectView(R.id.pager) ViewPager mPager;
+	@BindView(R.id.pager) ViewPager mPager;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_item_selector);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
 		setTitle(R.string.dlg_select_item_title);
 

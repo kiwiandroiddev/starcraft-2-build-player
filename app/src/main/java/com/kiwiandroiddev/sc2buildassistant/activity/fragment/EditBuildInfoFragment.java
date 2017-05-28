@@ -16,14 +16,14 @@ import android.widget.TextView;
 import com.kiwiandroiddev.sc2buildassistant.R;
 import com.kiwiandroiddev.sc2buildassistant.activity.BuildEditorTabView;
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.adapter.ExpansionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.adapter.FactionSpinnerAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Fragment for editing the basic information of a build order
@@ -44,13 +44,13 @@ public class EditBuildInfoFragment extends Fragment implements BuildEditorTabVie
 	
 	private EditBuildInfoListener mCallback;
 
-	@InjectView(R.id.edit_expansion_spinner) Spinner mExpansionSpinner;
-	@InjectView(R.id.edit_faction_spinner) Spinner mFactionSpinner;
-	@InjectView(R.id.edit_vs_faction_spinner) Spinner mVsFactionSpinner;
-	@InjectView(R.id.edit_title) TextView mTitle;
-	@InjectView(R.id.edit_source_title) TextView mSourceTitle;
-	@InjectView(R.id.edit_source_url) TextView mSourceURL;
-	@InjectView(R.id.edit_author) TextView mAuthor;
+	@BindView(R.id.edit_expansion_spinner) Spinner mExpansionSpinner;
+	@BindView(R.id.edit_faction_spinner) Spinner mFactionSpinner;
+	@BindView(R.id.edit_vs_faction_spinner) Spinner mVsFactionSpinner;
+	@BindView(R.id.edit_title) TextView mTitle;
+	@BindView(R.id.edit_source_title) TextView mSourceTitle;
+	@BindView(R.id.edit_source_url) TextView mSourceURL;
+	@BindView(R.id.edit_author) TextView mAuthor;
 
 	public interface EditBuildInfoListener {
 		void onFactionSelectionChanged(Faction selection);
@@ -67,7 +67,7 @@ public class EditBuildInfoFragment extends Fragment implements BuildEditorTabVie
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		//Timber.d(TAG, "EditBuildInfoFragment.onCreateView() called with savedInstanceState = " + savedInstanceState);
 		View v = inflater.inflate(R.layout.fragment_edit_build_info, container, false);
-        ButterKnife.inject(this, v);
+        ButterKnife.bind(this, v);
 
 		// add spinner items
 		android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();

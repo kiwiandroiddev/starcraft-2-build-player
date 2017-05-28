@@ -45,8 +45,8 @@ import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimatorListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
@@ -76,11 +76,11 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
     private ObjectAnimator mButtonAppearAnimation;
     private boolean mButtonIsOrWillBeVisible;
 
-    @InjectView(R.id.edit_build_activity_root) View mRootView;
-    @InjectView(R.id.edit_build_activity_add_button) View mAddButton;
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
-    @InjectView(R.id.pager) ViewPager mPager;
-	@InjectView(R.id.tabs) TabLayout mTabLayout;
+    @BindView(R.id.edit_build_activity_root) View mRootView;
+    @BindView(R.id.edit_build_activity_add_button) View mAddButton;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.pager) ViewPager mPager;
+	@BindView(R.id.tabs) TabLayout mTabLayout;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class EditBuildActivity extends AppCompatActivity implements EditBuildInf
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_build);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // Get arguments sent by BuildListActivity - these will determine
         // if we should create a new build or edit an existing one

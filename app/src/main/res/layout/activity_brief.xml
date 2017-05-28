@@ -128,7 +128,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/primary_text_dark"
-                android:transitionName="buildName"
+                android:transitionName="@string/transition_build_name"
                 tools:text="Build Order Title" />
 
         </android.support.v7.widget.Toolbar>

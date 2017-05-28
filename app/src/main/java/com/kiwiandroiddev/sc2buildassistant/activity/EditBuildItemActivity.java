@@ -18,8 +18,8 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.BuildItem;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.ItemType;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -53,20 +53,20 @@ public class EditBuildItemActivity extends AppCompatActivity implements OnClickL
 	private String mMainItemID;			// required
 	private String mTargetItemID;		// can be none/null (build item might not need a target)
 
-    @InjectView(R.id.dlg_unit_button) ImageButton mUnitButton;
-    @InjectView(R.id.dlg_target_button) ImageButton mTargetButton;
-    @InjectView(R.id.dlg_clear_target_button) Button mClearTargetButton;
-    @InjectView(R.id.dlg_minutes) EditText mMinutes;
-    @InjectView(R.id.dlg_seconds) EditText mSeconds;
-    @InjectView(R.id.dlg_amount) EditText mCount;
-    @InjectView(R.id.dlg_custom_text) EditText mCustomText;
-    @InjectView(R.id.dlg_custom_speech) EditText mCustomSpeech;
+    @BindView(R.id.dlg_unit_button) ImageButton mUnitButton;
+    @BindView(R.id.dlg_target_button) ImageButton mTargetButton;
+    @BindView(R.id.dlg_clear_target_button) Button mClearTargetButton;
+    @BindView(R.id.dlg_minutes) EditText mMinutes;
+    @BindView(R.id.dlg_seconds) EditText mSeconds;
+    @BindView(R.id.dlg_amount) EditText mCount;
+    @BindView(R.id.dlg_custom_text) EditText mCustomText;
+    @BindView(R.id.dlg_custom_speech) EditText mCustomSpeech;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_edit_build_item);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
 		setTitle(R.string.dlg_edit_item_title);
 

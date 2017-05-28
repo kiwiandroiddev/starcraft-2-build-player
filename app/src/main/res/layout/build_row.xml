@@ -21,7 +21,7 @@
         style="@style/MaterialListItemPrimaryText"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:transitionName="buildName"
+        android:transitionName="@string/transition_build_name"
         tools:text="Build Order Title" />
 
     <LinearLayout
