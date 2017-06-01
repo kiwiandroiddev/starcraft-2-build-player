@@ -32,7 +32,6 @@ Libraries Used
 * [Timber](https://github.com/JakeWharton/timber)
 * [Material Dialogs](https://github.com/afollestad/material-dialogs)
 * [Dexter](https://github.com/Karumi/Dexter)
-* [Dart](https://github.com/f2prateek/dart)
 * [RxJava](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [Mockito](https://github.com/mockito/mockito)
 * [AssertJ](https://github.com/joel-costigliola/assertj-core)
@@ -46,18 +45,16 @@ This was originally released back in 2012 and is the first non-trivial Android a
 
 It was developed using mostly a trial-and-error process and Google's developer guide and sample apps
 as a reference. While I would recommend this as a good way to grasp the fundamentals of Android,
-it's not the best formula for building a robust, testable app that can be easily extended with new features over time.
+it's not the best formula for building a robust, testable or extensible app :)
 
-This project has no real architecture to speak of and its implementation is tightly coupled to the Android framework.
-As such it is mostly untestable and untested.
+TLDR: if you're looking for the source code of a real-world app to use as a reference for building your own
+app, you've come to the wrong place.
 
-What I'm trying to say is: if you're looking for the source code of a real-world app to use as a reference for building your own
-app, you've come to the wrong place :)
+Instead, I'd recommend doing some reading on the MVP pattern and Clean Architecture for Android apps. Here's a classic article on the topic,
+including sample code: https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
 
-Instead I'd recommend reading up on the MVP pattern and Clean Architecture for Android. Here's a classic article on the topic,
-including sample code:
-
-https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
+Google's Android Architecture Blueprints repository could also be worth checking out:
+https://github.com/googlesamples/android-architecture
 
 Contributing
 ------------
@@ -71,6 +68,8 @@ If you have an idea for a new feature you'd like to work on, please open an issu
 ### Translations
 
 You can contribute translations to the crowd-sourced translations project here: http://www.getlocalization.com/sc2buildplayer/
+
+Input from native speakers of all non-English languages for improving the grammar of spoken alerts (e.g. "Warp in 5 Zealots") is greatly needed.
 
 Consider opening an issue if you have fully translated a language and would like to get it into the next release.
 
