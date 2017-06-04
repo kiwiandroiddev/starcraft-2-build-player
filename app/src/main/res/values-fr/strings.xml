@@ -18,6 +18,7 @@
 	<string name="playback_play">Jouer</string>
 	<string name="playback_pause">Pause</string>
 	
+	<string name="playback_build_finished">Build terminée</string>
 	<string name="pref_game_speed">Vitesse du jeu</string>
 	
 	<string name="pref_early_warning">Alerte précoce</string>
@@ -42,6 +43,8 @@
 	<string name="pref_show_status_bar_summary">Nécessite redémarrer pour prendre effet</string>
 	<string name="pref_translate_title">Traduire</string>
 	<string name="pref_translate_summary">Aider à traduire le texte de cette application</string>
+	<string name="pref_show_ads_title">Annonces</string>
+	<string name="pref_show_ads_summary">Soutenir le développement de l\'application en affichant des bannières publicitaires</string>
 	<string name="numberpicker_units_label">temps de jeu</string>
 	<string name="race_terran">Terran</string>
 	<string name="race_protoss">Protoss</string>
@@ -162,7 +165,7 @@
     <!-- Action Verbs -->
     <!--   Generic (fallback)   -->
     <string name="verb_structure_generic">Construire</string>
-    <string name="verb_unit_generic">Le train</string>
+    <string name="verb_unit_generic">Produire</string>
     <string name="verb_upgrade_generic">Recherche</string>
     <string name="verb_ability_generic">Utilisez</string>
     <string name="verb_note_generic">Note</string>
@@ -197,7 +200,7 @@
 	<string name="gameitem_combat_shield">Bouclier de combat</string>
 	<string name="gameitem_command_center">Centre de Commandement</string>
 	<string name="gameitem_concussion_shells">Obus incapacitants</string>
-	
+	<string name="gameitem_cyclone">Cyclone</string>
 	<string name="gameitem_durable_materials">Matériaux durables</string>
 	<string name="gameitem_engineering_bay">Centre Technique</string>
 	<string name="gameitem_factory">Usine</string>
@@ -215,7 +218,7 @@
 	<string name="gameitem_infantry_weapons_level2">Armes Infanterie niveau 2</string>
 	<string name="gameitem_infantry_weapons_level3">Armes Infanterie niveau 3</string>
 	<string name="gameitem_infernal_preigniter">Amorce Infernale</string>
-	
+	<string name="gameitem_liberator">Croiseur</string>
 	<string name="gameitem_marauder">Maraudeur</string>
 	<string name="gameitem_marine">Marine</string>
 	<string name="gameitem_medivac">Médivac</string>
@@ -253,7 +256,7 @@
 	<string name="gameitem_air_weapons_level1">Armes aériennes - Niv. 1</string>
 	<string name="gameitem_air_weapons_level2">Armes aériennes - Niv. 2</string>
 	<string name="gameitem_air_weapons_level3">Armes aériennes - Niv. 3</string>
-	
+	<string name="gameitem_adept">Adepte</string>
 	<string name="gameitem_archon">Archonte</string>
 	<string name="gameitem_assimilator">Assimilateur</string>
 	<string name="gameitem_blink">Transfert</string>
@@ -264,7 +267,7 @@
 	<string name="gameitem_cybernetics_core">Noyau cybernétique</string>
 	<string name="gameitem_dark_shrine">Sanctuaire noir</string>
 	<string name="gameitem_dark_templar">Templier noir</string>
-	
+	<string name="gameitem_disruptor">Disrupteur</string>
 	<string name="gameitem_extended_thermal_lance">Thermolance étendue</string>
 	<string name="gameitem_fleet_beacon">Balise de la flotte</string>
 	<string name="gameitem_forge">Forge</string>
@@ -341,8 +344,8 @@
 	<string name="gameitem_infestation_pit">Fosse d\'infestation </string>
 	<string name="gameitem_infestor">Infestateur </string>
 	<string name="gameitem_lair">Terrier </string>
-	
-	
+	<string name="gameitem_lurker">Rôdeur</string>
+	<string name="gameitem_lurker_den">Terrier de Rôdeurs</string>
 	<string name="gameitem_melee_attacks_level1">Attaque de Mêlée Niveau 1</string>
 	<string name="gameitem_melee_attacks_level2">Attaque de Mêlée Niveau 2</string>
 	<string name="gameitem_melee_attacks_level3">Attaque de Mêlée Niveau 3</string>
@@ -359,7 +362,7 @@
 	<string name="gameitem_pathogen_glands">Glandes Pathogènes</string>
 	<string name="gameitem_pneumatized_carapace">Carapace pneumatique</string>
 	<string name="gameitem_queen">Reine</string>
-	
+	<string name="gameitem_ravager">Saccageur</string>
 	<string name="gameitem_roach">Cafard</string>
 	<string name="gameitem_roach_warren">Terrier de Cafard</string>
 	<string name="gameitem_spawn_larvae">Générer des larves</string>
@@ -374,6 +377,10 @@
 	<string name="gameitem_ventral_sacs">Poches ventrales</string>
 	<string name="gameitem_viper">Vipère</string>
 	<string name="gameitem_zergling">Zergling</string>
-	<string name="build_row_vs_race_template">contre %s</string>
+	<string name="build_row_vs_race_template">Vs. %s</string>
+    <string name="pref_worker_alerts_enabled_title">Alertes de travailleur</string>
+	<string name="pref_worker_alerts_enabled_summary">Activer les alertes SCV, Probe et Drone</string>
+
+	
 
 </resources>
