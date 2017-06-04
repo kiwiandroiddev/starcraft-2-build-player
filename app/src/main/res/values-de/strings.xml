@@ -18,6 +18,7 @@
 	<string name="playback_play">Abspielen</string>
 	<string name="playback_pause">Pause</string>
 	
+	<string name="playback_build_finished">Build fertig.</string>
 	<string name="pref_game_speed">Spielgeschwindigkeit</string>
 	
 	<string name="pref_early_warning">Benachrichtigungs-Offset</string>
@@ -42,6 +43,8 @@
 	<string name="pref_show_status_bar_summary">Benötigt Neustart um Änderungen zu übernehmen </string>
 	<string name="pref_translate_title">Übersetzen</string>
 	<string name="pref_translate_summary">Helfe den Text in dieser App in deine Sprache zu übersetzen </string>
+	<string name="pref_show_ads_title">Anzeigen</string>
+	<string name="pref_show_ads_summary">Unterstützung der Entwicklung der App durch Anzeigen von Werbebannern</string>
 	<string name="numberpicker_units_label">Spielsekunde(n)</string>
 	<string name="race_terran">Terraner</string>
 	<string name="race_protoss">Protoss</string>
@@ -374,6 +377,10 @@
 	
 	
 	
+	
+    <string name="pref_worker_alerts_enabled_title">Arbeiter Alarme</string>
+	<string name="pref_worker_alerts_enabled_summary">Aktivieren Sie SCV-, Sonden- und Drone-Alarme</string>
+
 	
 
 </resources>
