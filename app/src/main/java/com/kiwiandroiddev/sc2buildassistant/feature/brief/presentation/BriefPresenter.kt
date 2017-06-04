@@ -14,7 +14,10 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
                      val navigator: BriefNavigator) {
 
     companion object {
-        private val INITIAL_VIEW_STATE = BriefView.BriefViewState(showAds = false, showLoadError = false)
+        private val INITIAL_VIEW_STATE = BriefView.BriefViewState(
+                showAds = false,
+                showLoadError = false,
+                briefText = null)
     }
 
     private var view: BriefView? = null
@@ -30,11 +33,11 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
 
         val viewStateObservable: Observable<BriefView.BriefViewState> =
                 Observable.combineLatest(showAdsSetting, getBuild,
-                        BiFunction { showAds, build -> BriefView.BriefViewState(showAds, false) })
+                        BiFunction { showAds, build -> BriefView.BriefViewState(showAds, false, null) })
 
         disposable = viewStateObservable
                 .startWith(INITIAL_VIEW_STATE)
-                .onErrorReturn { BriefView.BriefViewState(showAds = false, showLoadError = true) }
+                .onErrorReturn { BriefView.BriefViewState(showAds = false, showLoadError = true, briefText = null) }
                 .distinct()
                 .subscribe { viewState -> view.render(viewState) }
     }

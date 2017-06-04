@@ -7,5 +7,6 @@ interface BriefView {
     fun  render(viewState: BriefViewState)
 
     data class BriefViewState(val showAds: Boolean,
-                              val showLoadError: Boolean)
+                              val showLoadError: Boolean,
+                              val briefText: String?)
 }

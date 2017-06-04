@@ -19,7 +19,7 @@ import java.io.IOException
 class BriefPresenterTest {
 
     companion object {
-        val TEST_BUILD = Build()
+        val TEST_BUILD = Build().apply { notes = "Build instructions here" }
     }
 
     @Mock lateinit var mockView: BriefView
@@ -128,7 +128,7 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView, only()).render(BriefView.BriefViewState(false, false))
+        verify(mockView, only()).render(BriefView.BriefViewState(false, false, null))
     }
 
     @Test
@@ -195,6 +195,16 @@ class BriefPresenterTest {
         presenter.attachView(mockView, 1)
 
         verify(mockView, never()).render(argThat { showLoadError })
+    }
+
+    @Test
+    fun onAttach_haveBuildForId_rendersBuildBriefInView() {
+        `when`(mockGetBuildUseCase.getBuild(1))
+                .thenReturn(Observable.just(TEST_BUILD))
+
+        presenter.attachView(mockView, 1)
+
+        verify(mockView).render(BriefView.BriefViewState(true, false, briefText = TEST_BUILD.notes))
     }
 
 }
