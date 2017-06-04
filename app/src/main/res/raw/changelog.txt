@@ -19,6 +19,14 @@
     </style>
   </head>
   <body>
+$ 2.6.6
+  % Version 2.6.6
+  _ 2017-06-4
+    * Initial Korean translations added
+    * Initial German translations added - Thanks <b>megaplayer35</b>
+    * New Zerg build for LotV - <b>Hatchery First into Mass Queens</b>
+    * New setting added - hide worker alerts
+    * <b>SC2 Build Player is now open source!</b> Check it out and <a href="https://github.com/kiwiandroiddev/sc2buildplayer/">contribute on github</a>
 $ 2.6.5
   % Version 2.6.5
   _ 2017-04-11
