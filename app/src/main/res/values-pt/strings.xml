@@ -18,6 +18,7 @@
 	<string name="playback_play">Começar</string>
 	<string name="playback_pause">Pausar</string>
 	
+	<string name="playback_build_finished">Pedidos de construção concluídas.</string>
 	<string name="pref_game_speed">Velocidade do Jogo</string>
 	
 	<string name="pref_early_warning">Atraso do tempo de alerta</string>
@@ -42,6 +43,8 @@
 	<string name="pref_show_status_bar_summary">Reinicie para concluir</string>
 	<string name="pref_translate_title">Tradução</string>
 	<string name="pref_translate_summary">Ajude a traduzir este aplicativo para a sua língua</string>
+	<string name="pref_show_ads_title">Anúncios</string>
+	<string name="pref_show_ads_summary">Apoie o desenvolvimento do aplicativo exibindo banners de anúncios</string>
 	<string name="numberpicker_units_label">Segundos no jogo</string>
 	<string name="race_terran">Terrano</string>
 	<string name="race_protoss">Protoss</string>
@@ -375,5 +378,9 @@
 	<string name="gameitem_viper">Víbora</string>
 	<string name="gameitem_zergling">Zergnídeo</string>
 	<string name="build_row_vs_race_template">vs. %s</string>
+    <string name="pref_worker_alerts_enabled_title">Alertas do trabalhador</string>
+	<string name="pref_worker_alerts_enabled_summary">Ativar alertas SCV, Probe e Drone</string>
+
+	
 
 </resources>
