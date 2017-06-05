@@ -11,8 +11,8 @@ android {
         applicationId "com.kiwiandroiddev.sc2buildassistant"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 265
-        versionName "2.6.5"
+        versionCode 266
+        versionName "2.6.6"
         setProperty("archivesBaseName", "kiwiandroiddev-sc2buildassistant-$versionName")
 
         vectorDrawables.useSupportLibrary = true
