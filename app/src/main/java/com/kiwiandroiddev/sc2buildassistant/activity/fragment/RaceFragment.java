@@ -8,9 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -18,11 +16,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -46,14 +42,12 @@ import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction;
+import com.kiwiandroiddev.sc2buildassistant.feature.buildlist.presentation.model.BuildViewModel;
+import com.kiwiandroiddev.sc2buildassistant.feature.buildlist.view.adapter.BuildAdapter;
+import com.kiwiandroiddev.sc2buildassistant.feature.buildlist.view.adapter.BuildViewHolder;
 import com.kiwiandroiddev.sc2buildassistant.service.JsonBuildService;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import hugo.weaving.DebugLog;
@@ -73,7 +67,7 @@ import static com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.KEY_FACTI
  *
  * @author matt
  */
-public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,BuildViewHolder.BuildViewHolderClickListener {
 
     private static Map<Faction, Integer> sIconByRace = new HashMap<>();
 
@@ -176,7 +170,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
     @DebugLog
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-        mAdapter = new BuildAdapter(getActivity(), cursor);
+        mAdapter = new BuildAdapter(getContext(), cursor, this);
         updateListAdapter();
     }
 
@@ -336,169 +330,40 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
         return input.replaceAll("[^\\dA-Za-z]+", "_");
     }
 
-    private final static class BuildViewModel {
-        public final long buildId;
-        public final String name;
-        public final String creationDate;
-        public final String vsRace;
-
-        public BuildViewModel(long buildId, String name, String creationDate, String vsRace) {
-            this.buildId = buildId;
-            this.name = name;
-            this.creationDate = creationDate;
-            this.vsRace = vsRace;
-        }
-    }
-
-    private final class BuildViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
-        public TextView name;
-        public TextView vsRace;
-        public TextView creationDate;
-        public BuildViewModel viewModel;
-
-        public BuildViewHolder(@NonNull View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.buildName);
-            vsRace = (TextView) itemView.findViewById(R.id.buildVsRace);
-            creationDate = (TextView) itemView.findViewById(R.id.buildCreationDate);
-        }
-
-        public void bindBuildViewModel(@NonNull BuildViewModel model) {
-            viewModel = model;
-            name.setText(model.name);
-            vsRace.setText(model.vsRace);
-            creationDate.setText(model.creationDate);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-
-        public void unbind() {
-            itemView.setOnClickListener(null);
-        }
-
-        @Override
-        public void onClick(View v) {
-            onBuildItemClicked(this);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            onBuildItemLongPressed(this);
-            return true;    // event handled
-        }
-    }
-
-    private class BuildAdapter extends RecyclerView.Adapter<BuildViewHolder> {
-        private static final int BUILD_ROW_TYPE = 0;
-        private static final int FOOTER_ROW_TYPE = 1;
-        List<BuildViewModel> mBuildViewModelList;
-
-        public BuildAdapter(Context context, Cursor cursor) {
-            mBuildViewModelList = new ArrayList<>();
-            if (!cursor.moveToFirst()) {
-                return;
-            }
-
-            do {
-                mBuildViewModelList.add(getBuildViewModelAtCursor(cursor));
-            } while (cursor.moveToNext());
-        }
-
-        @NonNull
-        private BuildViewModel getBuildViewModelAtCursor(Cursor cursor) {
-            long buildId = cursor.getLong(cursor.getColumnIndex(DbAdapter.KEY_BUILD_ORDER_ID));
-
-            String buildName = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_NAME));
-
-            String dateStr = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_CREATED));
-            String formattedDateStr = "";
-            if (!TextUtils.isEmpty(dateStr)) {
-                Date date;
-                try {
-                    date = DbAdapter.DATE_FORMAT.parse(dateStr);
-                    DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
-                    formattedDateStr = df.format(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            int vsFactionId = cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_VS_FACTION_ID));
-            @StringRes int vsFactionStringId = (vsFactionId == 0) ? R.string.race_any : DbAdapter.getFactionName(vsFactionId);
-            String vsRaceFormatted = getString(R.string.build_row_vs_race_template, getString(vsFactionStringId));
-
-            return new BuildViewModel(buildId, buildName, formattedDateStr, vsRaceFormatted);
-        }
-
-        @Override
-        public BuildViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            @LayoutRes int itemLayout = (viewType == BUILD_ROW_TYPE) ? R.layout.build_row : R.layout.spacer_row;
-            View view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-            return new BuildViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(BuildViewHolder viewHolder, int position) {
-            switch (getItemViewType(position)) {
-                case BUILD_ROW_TYPE:
-                    viewHolder.bindBuildViewModel(mBuildViewModelList.get(position));
-                    return;
-                case FOOTER_ROW_TYPE:
-                default:
-                    viewHolder.unbind();
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return mBuildViewModelList.size() + 1;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return position < mBuildViewModelList.size() ? BUILD_ROW_TYPE : FOOTER_ROW_TYPE;
-        }
-
-        @Override
-        public String toString() {
-            return "BuildAdapter{" +
-                    "mBuildViewModelList=" + mBuildViewModelList +
-                    '}';
-        }
-    }
-
-    private void onBuildItemClicked(BuildViewHolder buildViewHolder) {
+    @Override
+    public void onBuildClicked(BuildViewHolder buildViewHolder) {
         BuildViewModel model = buildViewHolder.viewModel;
 
         Intent i = new Intent(getActivity(), BriefActivity.class);
-        i.putExtra(KEY_BUILD_ID, model.buildId);    // pass build order record ID
+        i.putExtra(KEY_BUILD_ID, model.getBuildId());    // pass build order record ID
 
         // speed optimization - pass these so brief activity doesn't need to
         // requery them from the database and can display them instantly
         i.putExtra(KEY_FACTION_ENUM, mFaction);
         i.putExtra(KEY_EXPANSION_ENUM, mCurrentExpansion);
-        i.putExtra(KEY_BUILD_NAME, model.name);
+        i.putExtra(KEY_BUILD_NAME, model.getName());
 
         if (VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             // create the transition animation - the views in the layouts
             // of both activities are defined with android:transitionName="buildName"
             ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(getActivity(),
-                            buildViewHolder.name, getString(R.string.transition_build_name));
-            // start the new activity
+                    .makeSceneTransitionAnimation(
+                            getActivity(),
+                            buildViewHolder.nameText,
+                            getString(R.string.transition_build_name));
             getActivity().startActivity(i, options.toBundle());
         } else {
             getActivity().startActivity(i);
         }
     }
 
-    private void onBuildItemLongPressed(final BuildViewHolder buildViewHolder) {
+    @Override
+    public void onBuildLongClicked(final BuildViewHolder buildViewHolder) {
         Context context = getActivity();
         final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(new MaterialSimpleListAdapter.Callback() {
             @Override
             public void onMaterialListItemSelected(MaterialDialog dialog, int index, MaterialSimpleListItem item) {
-                long buildId = buildViewHolder.viewModel.buildId;
+                long buildId = buildViewHolder.viewModel.getBuildId();
                 switch (index) {
                     case 0:
                         editBuild(buildId);
@@ -527,7 +392,7 @@ public class RaceFragment extends Fragment implements LoaderManager.LoaderCallba
                 .build());
 
         new MaterialDialog.Builder(context)
-                .title(buildViewHolder.viewModel.name)
+                .title(buildViewHolder.viewModel.getName())
                 .adapter(adapter, null)
                 .show();
     }

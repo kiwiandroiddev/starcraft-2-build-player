@@ -8,7 +8,8 @@ import io.reactivex.observers.DisposableCompletableObserver
 class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
                         val navigator: SettingsNavigator,
                         val errorReporter: ErrorReporter,
-                        val viewResultScheduler: Scheduler, val executionScheduler: Scheduler) {
+                        val viewResultScheduler: Scheduler,
+                        val executionScheduler: Scheduler) {
 
     private var view: SettingsView? = null
 
