@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,13 +89,20 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
     private View mTimerTextContainer;
     private TextView mMaxTimeText;
     private TextView mTimerText;
-    @BindView(R.id.buildItemRecyclerView) RecyclerView mBuildItemRecyclerView;
-    @BindView(R.id.playPauseButton) ImageButton mPlayPauseButton;
-    @BindView(R.id.stopButton) ImageButton mStopButton;
-    @BindView(R.id.seekBar) SeekBar mSeekBar;
-    @BindView(R.id.overlayIcon) ImageView mOverlayIcon;
-    @BindView(R.id.overlayContainer) View mOverlayContainer;
-    @BindView(R.id.overlayText) TextView mOverlayText;
+    @BindView(R.id.buildItemRecyclerView)
+    RecyclerView mBuildItemRecyclerView;
+    @BindView(R.id.playPauseButton)
+    ImageButton mPlayPauseButton;
+    @BindView(R.id.stopButton)
+    ImageButton mStopButton;
+    @BindView(R.id.seekBar)
+    SeekBar mSeekBar;
+    @BindView(R.id.overlayIcon)
+    ImageView mOverlayIcon;
+    @BindView(R.id.overlayContainer)
+    View mOverlayContainer;
+    @BindView(R.id.overlayText)
+    TextView mOverlayText;
 
     private boolean mUserIsSeeking = false;
     private TextToSpeech mTts;
@@ -342,7 +350,8 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
                 lang.matches("en") ||
                         lang.matches("fr") ||
                         lang.matches("ru") ||
-                        lang.matches("pt"));
+                        lang.matches("pt") ||
+                        lang.matches("ko"));
 
         if (haveTranslations) {
             int langAvailable = mTts.isLanguageAvailable(currentLocale);
@@ -405,7 +414,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
     //=========================================================================
 
     @Override
-    public void onBuildThisNow(BuildItem item, int itemPos) {
+    public void onBuildThisNow(@NonNull BuildItem item, int itemPos) {
         queueVoiceAlert(item);
         queueVisualAlert(item);
     }
@@ -584,7 +593,7 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
             return itemName;    // compromise to prevent crash: just say item name
         }
 
-        Map<String, String> args = new HashMap<String, String>();
+        Map<String, String> args = new HashMap<>();
         args.put("item", itemName);
         args.put("verb", verb);
         args.put("count", "" + item.getCount() + (!voice ? "x" : ""));
