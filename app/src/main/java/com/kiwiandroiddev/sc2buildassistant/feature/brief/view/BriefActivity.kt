@@ -24,11 +24,9 @@ import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.InjectView
 import butterknife.OnClick
-import com.f2prateek.dart.Dart
-import com.f2prateek.dart.InjectExtra
 import com.google.analytics.tracking.android.EasyTracker
 import com.google.analytics.tracking.android.MapBuilder
 import com.google.android.gms.ads.AdListener
@@ -60,21 +58,21 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     @Inject lateinit var presenter: BriefPresenter
 
     private var mBuildId: Long = 0
-    @InjectExtra(KEY_FACTION_ENUM) lateinit var mFaction: Faction
-    @InjectExtra(KEY_EXPANSION_ENUM) lateinit var mExpansion: Expansion
-    @InjectExtra(KEY_BUILD_NAME) lateinit var mBuildName: String
+    private lateinit var mFaction: Faction
+    private lateinit var mExpansion: Expansion
+    private lateinit var mBuildName: String
 
-    @InjectView(R.id.toolbar) lateinit var mToolbar: Toolbar
-    @InjectView(R.id.brief_buildSubTitle) lateinit var mSubtitleView: TextView
-    @InjectView(R.id.brief_root) lateinit var mRootView: View
-    @InjectView(R.id.brief_buildNotes) lateinit var mNotesView: TextView
-    @InjectView(R.id.brief_author_layout) lateinit var mAuthorLayout: View
-    @InjectView(R.id.brief_author) lateinit var mAuthorText: TextView
-    @InjectView(R.id.activity_brief_play_action_button) lateinit var mPlayButton: FloatingActionButton
-    @InjectView(R.id.ad_frame) lateinit var mAdFrame: ViewGroup
-    @InjectView(R.id.brief_window_insets_capturing_view) lateinit var mWindowInsetsCapturingView: WindowInsetsCapturingView
-    @InjectView(R.id.brief_content_layout) lateinit var mBriefContentLayout: ViewGroup
-    @InjectView(R.id.buildName) lateinit var mBuildNameText: TextView
+    @BindView(R.id.toolbar) lateinit var mToolbar: Toolbar
+    @BindView(R.id.brief_buildSubTitle) lateinit var mSubtitleView: TextView
+    @BindView(R.id.brief_root) lateinit var mRootView: View
+    @BindView(R.id.brief_buildNotes) lateinit var mNotesView: TextView
+    @BindView(R.id.brief_author_layout) lateinit var mAuthorLayout: View
+    @BindView(R.id.brief_author) lateinit var mAuthorText: TextView
+    @BindView(R.id.activity_brief_play_action_button) lateinit var mPlayButton: FloatingActionButton
+    @BindView(R.id.ad_frame) lateinit var mAdFrame: ViewGroup
+    @BindView(R.id.brief_window_insets_capturing_view) lateinit var mWindowInsetsCapturingView: WindowInsetsCapturingView
+    @BindView(R.id.brief_content_layout) lateinit var mBriefContentLayout: ViewGroup
+    @BindView(R.id.buildName) lateinit var mBuildNameText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSystemUiVisibility()
@@ -83,7 +81,7 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         (application as MyApplication).inject(this)
 
         setContentView(R.layout.activity_brief)
-        ButterKnife.inject(this)
+        ButterKnife.bind(this)
 
         initIntentParameterFields(savedInstanceState)
         initToolbar()
@@ -98,11 +96,15 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
 
     private fun initIntentParameterFields(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            mBuildId = intent.extras.getLong(KEY_BUILD_ID)
-            Dart.inject(this)
+            mBuildId = intent.getLongExtra(KEY_BUILD_ID, 0)
+            mFaction = intent.getSerializableExtra(KEY_FACTION_ENUM) as Faction
+            mExpansion = intent.getSerializableExtra(KEY_EXPANSION_ENUM) as Expansion
+            mBuildName = intent.getStringExtra(KEY_BUILD_NAME)
         } else {
-            mBuildId = savedInstanceState.getLong(KEY_BUILD_ID)
-            Dart.inject(this, savedInstanceState)
+            mBuildId = savedInstanceState.getLong(KEY_BUILD_ID, 0)
+            mFaction = savedInstanceState.getSerializable(KEY_FACTION_ENUM) as Faction
+            mExpansion = savedInstanceState.getSerializable(KEY_EXPANSION_ENUM) as Expansion
+            mBuildName = savedInstanceState.getString(KEY_BUILD_NAME)
         }
     }
 

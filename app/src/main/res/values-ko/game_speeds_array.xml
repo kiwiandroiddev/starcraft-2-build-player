@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_game_speed_text">
+        <item>가장 느린</item>
+        <item>느린</item>
+        <item>표준</item>
+        <item>빠른</item>
+        <item>가장 빠른</item>
+    </string-array>
+</resources>

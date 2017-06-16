@@ -56,8 +56,8 @@ import com.kiwiandroiddev.sc2buildassistant.util.SelectionMode;
 
 import java.io.File;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import hugo.weaving.DebugLog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private FragmentManager mManager;
     private int mPreviousFactionChoice;
 
-    @InjectView(R.id.activity_main_root_view) ViewGroup mRootView;
-    @InjectView(R.id.pager) ViewPager mPager;
-    @InjectView(R.id.loading_panel) View mLoadingLayout;
-    @InjectView(R.id.loading_spinner) ProgressBar mLoadingSpinner;
-    @InjectView(R.id.loading_bar) ProgressBar mLoadingBar;
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
-    @InjectView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
-    @InjectView(R.id.ad_frame) ViewGroup mAdFrame;
+    @BindView(R.id.activity_main_root_view) ViewGroup mRootView;
+    @BindView(R.id.pager) ViewPager mPager;
+    @BindView(R.id.loading_panel) View mLoadingLayout;
+    @BindView(R.id.loading_spinner) ProgressBar mLoadingSpinner;
+    @BindView(R.id.loading_bar) ProgressBar mLoadingBar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar_expansion_spinner) Spinner mToolbarExpansionSpinner;
+    @BindView(R.id.ad_frame) ViewGroup mAdFrame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setAdBannerVisibilityBasedOnCurrentPreference();
 

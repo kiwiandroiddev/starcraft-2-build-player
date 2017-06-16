@@ -57,9 +57,11 @@ public class ScreenshotFlowTest {
 
         dismissChangelogIfNeeded();
 
+        Screengrab.screenshot("main");
+
         openExpansionSpinner();
 
-        Screengrab.screenshot("main");
+        Screengrab.screenshot("mainExpansions");
 
         selectLotvExpansionFromSpinner();
 

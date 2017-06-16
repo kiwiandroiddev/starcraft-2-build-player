@@ -1,0 +1,386 @@
+<resources>
+    
+    <string name="save">저장</string>
+    <string name="discard">버리기</string>
+    <string name="menu_settings">설정</string>
+    <string name="menu_rate">이 앱을 평가 해주세요</string>
+    <string name="menu_play_build">빌드 재생</string>
+    <string name="menu_new_build">새로운 빌드</string>
+    <string name="menu_edit_build">편집</string>
+    <string name="menu_delete_build">삭제</string>
+    <string name="menu_move_item_up">위로 이동</string>
+    <string name="menu_move_item_down">아래로 이동</string>
+    <string name="menu_delete_item">삭제</string>
+    <string name="menu_export_build">내보내기</string>
+    <string name="menu_import_build">빌드 가져 오기 &#8230;</string>
+    <string name="menu_preview">시연</string>
+	<string name="playback_stop">정지</string>
+	<string name="playback_play">재생</string>
+	<string name="playback_pause">정지</string>
+	
+	<string name="playback_build_finished">빌드 오더 완료</string>
+	<string name="pref_game_speed">게임 속도</string>
+	
+	<string name="pref_early_warning">경고 시간 오프셋</string>
+	<string name="pref_early_warning_summary">빌드 아이템 경고 %1$d 초 전 경고가 주어집니다.</string>
+	<string name="pref_start_time">기본 시작 시간</string>
+	<string name="pref_start_time_summary">빌드가 %1$d 초 만에 시작됩니다 (작업자 마이닝 시간 등을 늘리십시오).</string>
+	<string name="pref_player_category_title">플레이어</string>
+	<string name="pref_database_category_title">데이터 베이스</string>
+	<string name="pref_restore_database_title">데이터베이스 초기화</string>
+	<string name="pref_restore_database_summary">표준 빌드 오더를 복원합니다. 경고 : 모든 사용자 데이터가 손실됩니다!</string>
+	<string name="pref_restore_database_succeeded">데이터베이스가 재설정되었습니다.</string>
+	<string name="pref_about_category_title">정보</string>
+	<string name="pref_changelog_title">변경 로그보기 &#8230;</string>
+	<string name="pref_rate_this_app_title">이 앱을 평가 해주세요</string>
+	<string name="pref_rate_this_app_summary">이 앱을 개선하고 홍보하는 데 도움이되는 피드백 제공</string>
+	
+	
+	<string name="pref_tracking_title">이 앱 개선</string>
+	<string name="pref_tracking_summary">이 앱을 더 잘 만들 수 있도록 익명화 된 사용 데이터 전송 허용</string>
+	<string name="pref_general_category_title">일반</string>
+	<string name="pref_show_status_bar_title">상태 표시 줄 표시</string>
+	<string name="pref_show_status_bar_summary">다시 시작해야 적용됩니다.</string>
+	<string name="pref_translate_title">옮기다</string>
+	<string name="pref_translate_summary">이 응용 프로그램의 텍스트를 사용자의 언어로 번역하는 데 도움</string>
+	<string name="pref_show_ads_title">광고</string>
+	<string name="pref_show_ads_summary">광고 배너를 표시하여 앱 개발 지원</string>
+	<string name="numberpicker_units_label">경기 초</string>
+	<string name="race_terran">테란</string>
+	<string name="race_protoss">프로토스</string>
+	<string name="race_zerg">저그</string>
+	<string name="race_any">어떤</string>
+	<string name="expansion_wol">자유의 날개</string>
+	<string name="expansion_hots">뭉치의 심혼</string>
+	<string name="expansion_lotv">공허의 유산</string>
+	<string name="error_loading_std_builds">표준 빌드를로드하는 중에 오류가 발생했습니다 : %1$s</string>
+	<string name="dlg_tts_install_prompt">텍스트 음성 변환 지원을 찾을 수 없습니다. 지금 설치 하시겠습니까?</string>
+	<string name="dlg_yes">예</string>
+	<string name="dlg_no">아니요</string>
+	<string name="dlg_no_market_error">오류 : Play 스토어를 시작할 수 없습니다.</string>
+	<string name="dlg_game_speed_alert">게임 속도 : %1$s</string>
+	<string name="dlg_confirm_db_reset_title">데이터베이스 재설정?</string>
+	<string name="dlg_confirm_db_reset_message">경고 : 이렇게하면 맞춤 빌드 주문 및 / 또는 수정 한 표준 빌드가 영구적으로 삭제됩니다.</string>
+	<string name="dlg_confirm_delete_build_title">빌드 삭제?</string>
+	<string name="dlg_confirm_delete_build_message">이전에 백업하지 않은 경우 영구적으로 빌드가 삭제됩니다.</string>
+	<string name="dlg_enter_filename_title">파일 이름 입력</string>
+	<string name="dlg_enter_filename_message">빌드 파일 이름을 입력하십시오.</string>
+	<string name="dlg_invalid_filename">잘못된 파일 이름!</string>
+	<string name="dlg_wrote_file_to_dir">%1$s을 %2$s에 작성했습니다.</string>
+	<string name="dlg_couldnt_write_file">오류 : %1$s을 (를) 쓸 수 없습니다. 이유 : %2$s</string>
+	<string name="dlg_confirm_change_faction_title">진영을 변경 하시겠습니까?</string>
+	<string name="dlg_confirm_change_faction_message">이렇게하면 기존 빌드 항목이 모두 삭제됩니다!</string>
+	<string name="error_unknown_author">지정되지 않은 출처</string>
+	<string name="error_couldnt_create_builds_dir">오류 : %1$s 디렉토리를 만들 수 없습니다. SD 카드가 장착되어 있습니까?</string>
+	<string name="add_build_footer">빌드 추가 &#8230;</string>
+	<string name="brief_source_label">출처:</string>
+	<string name="brief_author_label">저자:</string>
+
+	<!-- Build editor -->
+	<string name="edit_build_new_title">새로운 빌드</string>
+	<string name="edit_build_edit_title">빌드 수정</string>
+	<string name="edit_build_info_title">정보</string>
+	<string name="edit_build_notes_title">노트</string>
+	<string name="edit_build_items_title">항목</string>
+	<string name="edit_build_vs">대</string>
+	<string name="edit_build_title_hint">제목</string>
+	<string name="edit_build_author_hint">작성자</string>
+	<string name="edit_build_source_url_hint">소스 URL (http:// &#8230;)</string>
+	<string name="edit_build_source_title_hint">소스 제목 (예 : \'Liquipedia\')</string>
+	<string name="edit_build_notes_hint">메모 (HTML 태그 허용)</string>
+	<string name="edit_build_add_item_footer">빌드 항목 추가 &#8230;</string>
+	<string name="edit_build_invalid_time_message">유효한 시간을 입력하십시오.</string>
+	<string name="edit_build_invalid_count_message">유효한 항목 수량을 입력하십시오.</string>
+	<string name="edit_build_no_title_error">빌드 제목을 입력하십시오.</string>
+	<string name="edit_build_not_well_ordered_error">빌드 아이템은 시간이 지남에 따라 주문됩니다!</string>
+	<string name="edit_build_title_already_taken_error">해당 제목은 이미 사용 중입니다. 다른 제목을 선택하십시오.</string>
+	<string name="edit_build_discarded_changes">취소 된 변경 사항</string>
+	<string name="edit_build_save_in_progress">절약…</string>
+	<string name="edit_build_save_successful">빌드 저장 됨</string>
+	<string name="edit_build_prompt_save_title">저장</string>
+	<string name="edit_build_prompt_save_message">이 빌드에 변경 사항을 저장 하시겠습니까?</string>
+	
+	
+	
+	
+	
+	
+	
+	<string name="dlg_edit_item_title">항목 편집</string>
+	<string name="dlg_select_item_title">단위 / 업그레이드 / 능력 선택</string>
+	<string name="item_type_unit">단위</string>
+	<string name="item_type_structure">구조</string>
+	<string name="item_type_upgrade">업그레이드</string>
+	<string name="item_type_ability">능력</string>
+	<string name="item_type_note">기타</string>
+	
+	<string name="desc_unit_icon">유닛, 구조, 업그레이드 또는 능력 아이콘</string>
+	<string name="deleted_items_x_N">%1$s x%2$d 삭제됨</string>
+	<string name="deleted_item">%1$s 삭제됨</string>
+	
+	<string name="edit_build_item_on_target_template">%s에</string>
+	
+	<string name="undo">끄르다</string>
+
+	<string name="permission_popup_write_storage_denied_for_exporting">빌드를 내보내려면 외부 저장소에 액세스해야합니다.</string>
+	<string name="permission_popup_read_storage_denied_for_importing">빌드를 임포트하려면 외부 저장 영역 액세스가 필요합니다.</string>
+	<string name="permission_popup_settings">설정</string>
+
+	<!-- Edit item dialog -->
+	<string name="dlg_item_label">목</string>
+	<string name="dlg_amount_label">양</string>
+	<string name="dlg_time_label">시각</string>
+	<string name="dlg_supply_label">공급</string>
+	<string name="dlg_target_label">목표</string>
+	<string name="dlg_custom_text_label">사용자 정의 텍스트</string>
+	<string name="dlg_custom_speech_label">맞춤 음성</string>
+	<string name="dlg_clear_label">명확한</string>
+	
+
+	<!-- Preview Notes dialog -->
+	<string name="dlg_preview_notes_title">메모 미리보기</string>
+	
+	<!-- Insert Link dialog -->
+	<string name="dlg_insert_link_title">링크 삽입</string>
+	<string name="label_hint">텍스트 링크</string>
+	<string name="url_hint">URL (http:// &#8230;)</string>
+	
+	<!-- Changelog -->
+	<string name="changelog_full_title">로그 변경</string>
+    <string name="changelog_title">새로운 기능</string>
+    <string name="changelog_ok_button">확인</string>
+    <string name="changelog_show_full">더&#8230;</string>
+	
+    <!-- File Dialog -->
+    <string name="location">위치</string>
+    <string name="cant_read_folder">폴더를 읽을 수 없습니다!</string>
+    <string name="nnew">신규</string>
+    <string name="select">선택</string>
+    <string name="file_name">파일 이름:</string>
+    <string name="cancel">취소</string>
+    <string name="create">저장</string>
+    <string name="no_data">자료 없음</string>
+    <string name="err">오류</string>
+    
+    <!-- Action Verbs -->
+    <!--   Generic (fallback)   -->
+    <string name="verb_structure_generic">세우다</string>
+    <string name="verb_unit_generic">기차</string>
+    <string name="verb_upgrade_generic">연구</string>
+    <string name="verb_ability_generic">용도</string>
+    <string name="verb_note_generic">노트</string>
+    <!--   Zerg   -->
+    
+    
+    
+    <!--   Protoss   -->
+    
+    
+   
+    <!-- sentence templates for build item alerts -->
+    <string name="sentence_structure_singular_no_target">{verb} {count} {item}</string>
+    <string name="sentence_structure_singular_with_target">{target} {count} {item} {verb}</string>
+    <string name="sentence_structure_plural_no_target">{verb} {count} {item}</string>
+    <string name="sentence_structure_plural_with_target">{target} {count} {item} {verb}</string>
+    <string name="sentence_unit_singular">{verb} {count} {item}</string>
+    <string name="sentence_unit_plural">{verb} {count} {item}</string>
+    <string name="sentence_upgrade">{verb} {item}</string>
+    <string name="sentence_ability_no_target">{verb} {item}</string>
+    <string name="sentence_ability_with_target">{target} {item} {verb} </string>
+    
+    <!-- Game Items -->
+	<string name="gameitem_note">기록</string>
+	
+	<string name="gameitem_armory">무기고</string>
+	<string name="gameitem_banshee">벤시</string>
+	<string name="gameitem_barracks">병영</string>
+	<string name="gameitem_battlecruiser">전투순양함</string>
+	<string name="gameitem_bunker">벙커</string>
+	<string name="gameitem_cloak">은폐</string>
+	<string name="gameitem_combat_shield">전투방패</string>
+	<string name="gameitem_command_center">사령부</string>
+	
+	<string name="gameitem_cyclone">사이클론</string>
+	
+	<string name="gameitem_engineering_bay">공학 연구소</string>
+	<string name="gameitem_factory">군수공장</string>
+	<string name="gameitem_fusion_core">융합로</string>
+	<string name="gameitem_ghost">유령</string>
+	<string name="gameitem_ghost_academy">유령 사관학교</string>
+	<string name="gameitem_hellbat">화염기갑병</string>
+	<string name="gameitem_hellion">화염차</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_infernal_preigniter">지옥불 조기점화기</string>
+	<string name="gameitem_liberator">해방선</string>
+	<string name="gameitem_marauder">불곰</string>
+	<string name="gameitem_marine">해병</string>
+	<string name="gameitem_medivac">의료선</string>
+	<string name="gameitem_missile_turret">미사일 포탑</string>
+	
+	<string name="gameitem_orbital_command">궤도 사령부</string>
+	<string name="gameitem_planetary_fortress">행성 요새</string>
+	<string name="gameitem_raven">밤까마귀</string>
+	<string name="gameitem_reactor">반응로</string>
+	<string name="gameitem_reaper">사신</string>
+	<string name="gameitem_refinery">정제소</string>
+	<string name="gameitem_scv">건설로봇</string>
+	
+	<string name="gameitem_sensor_tower">감지탑</string>
+	
+	<string name="gameitem_siege_tank">공성 전차</string>
+	<string name="gameitem_starport">우주공항</string>
+	
+	<string name="gameitem_supply_depot">보급고</string>
+	<string name="gameitem_tech_lab">기술실</string>
+	<string name="gameitem_thor">토르</string>
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_viking">바이킹</string>
+	<string name="gameitem_widow_mine">땅거미 지뢰</string>
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_adept">사도</string>
+	<string name="gameitem_archon">집정관</string>
+	<string name="gameitem_assimilator">융화소</string>
+	
+	<string name="gameitem_carrier">우주모함</string>
+	
+	
+	<string name="gameitem_colossus">거신</string>
+	<string name="gameitem_cybernetics_core">인공제어소</string>
+	<string name="gameitem_dark_shrine">암흑 성소</string>
+	<string name="gameitem_dark_templar">암흑 기사</string>
+	<string name="gameitem_disruptor">분열기</string>
+	
+	<string name="gameitem_fleet_beacon">함대 신호소</string>
+	<string name="gameitem_forge">제련소</string>
+	<string name="gameitem_gateway">관문</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_high_templar">고위 기사</string>
+	<string name="gameitem_immortal">불멸자</string>
+	
+	<string name="gameitem_mothership">모선</string>
+	<string name="gameitem_mothership_core">모선핵</string>
+	<string name="gameitem_nexus">연결체</string>
+	<string name="gameitem_observer">관측선</string>
+	<string name="gameitem_oracle">예언자</string>
+	<string name="gameitem_phoenix">불사조</string>
+	
+	<string name="gameitem_photon_cannon">광자포</string>
+	<string name="gameitem_probe">탐사정</string>
+	
+	<string name="gameitem_pylon">수정탑</string>
+	<string name="gameitem_robotics_bay">로봇공학 지원소</string>
+	<string name="gameitem_robotics_facility">로봇공학 시설</string>
+	<string name="gameitem_sentry">파수기</string>
+	
+	
+	
+	<string name="gameitem_stalker">추적자</string>
+	<string name="gameitem_stargate">우주관문</string>
+	<string name="gameitem_tempest">폭풍함</string>
+	<string name="gameitem_templar_archives">기사단 기록보관소</string>
+	
+	
+	<string name="gameitem_twilight_council">황혼 의회</string>
+	<string name="gameitem_void_ray">공허 포격기</string>
+	
+	<string name="gameitem_warp_gate_structure">차원 관문</string>
+	
+	<string name="gameitem_zealot">광전사</string>
+	
+	<string name="gameitem_baneling">맹독충</string>
+	<string name="gameitem_baneling_nest">맹독충 둥지</string>
+	<string name="gameitem_brood_lord">무리 군주</string>
+	
+	
+	<string name="gameitem_corruptor">타락귀</string>
+	<string name="gameitem_drone">일벌레</string>
+	
+	<string name="gameitem_evolution_chamber">진화장</string>
+	<string name="gameitem_extractor">추출장</string>
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_greater_spire">거대 둥지탑</string>
+	
+	
+	
+	
+	<string name="gameitem_hatchery">부화장</string>
+	<string name="gameitem_hive">군락</string>
+	<string name="gameitem_hydralisk">히드라리스크</string>
+	<string name="gameitem_hydralisk_den">히드라리스크 굴</string>
+	<string name="gameitem_infestation_pit">감염 구덩이</string>
+	<string name="gameitem_infestor">감염충</string>
+	<string name="gameitem_lair">번식지</string>
+	<string name="gameitem_lurker">가시지옥</string>
+	<string name="gameitem_lurker_den">가시지옥 굴</string>
+	
+	
+	
+	
+	
+	
+	
+	
+	<string name="gameitem_mutalisk">뮤탈리스크</string>
+	
+	
+	<string name="gameitem_overlord">대군주</string>
+	<string name="gameitem_overseer">감시군주</string>
+	
+	
+	<string name="gameitem_queen">여왕</string>
+	<string name="gameitem_ravager">궤멸충</string>
+	<string name="gameitem_roach">바퀴</string>
+	<string name="gameitem_roach_warren">바퀴 소굴</string>
+	
+	<string name="gameitem_spawning_pool">산란못</string>
+	<string name="gameitem_spine_crawler">가시 촉수</string>
+	<string name="gameitem_spire">둥지탑</string>
+	<string name="gameitem_spore_crawler">포자 촉수</string>
+	<string name="gameitem_swarm_host">군단 숙주</string>
+	
+	<string name="gameitem_ultralisk">울트라리스크</string>
+	<string name="gameitem_ultralisk_cavern">울트리리스크 동굴</string>
+	
+	<string name="gameitem_viper">살모사</string>
+	<string name="gameitem_zergling">저글링</string>
+	<string name="build_row_vs_race_template">대 %s</string>
+    <string name="pref_worker_alerts_enabled_title">근로자 알리미</string>
+	<string name="pref_worker_alerts_enabled_summary">SCV, 프로브 및 드론 경보 활성화</string>
+
+	
+
+</resources>
