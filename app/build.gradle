@@ -45,6 +45,8 @@ android {
 
         // Continue when errors are found in release builds (e.g. translation issues)
         abortOnError false
+
+        lintConfig file('lint.xml')
     }
 
     packagingOptions {
