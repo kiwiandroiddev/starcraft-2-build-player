@@ -51,25 +51,25 @@ class BriefPresenterTest {
 
     @Test
     fun onPlayBuildSelected_viewAttached_shouldNavigateToPlayerForBuildId() {
-        presenter.attachView(mockView, 1)
+        presenter.attachView(view = mockView, buildId = 1)
 
         presenter.onPlayBuildSelected()
 
-        verify(mockNavigator).onPlayBuild(1)
+        verify(mockNavigator).onPlayBuild(buildId = 1)
     }
 
     @Test
     fun onPlayBuildSelected_viewAttachedWithDifferentBuildId_shouldNavigateToPlayerForBuildId() {
-        presenter.attachView(mockView, 2)
+        presenter.attachView(view = mockView, buildId = 2)
 
         presenter.onPlayBuildSelected()
 
-        verify(mockNavigator).onPlayBuild(2)
+        verify(mockNavigator).onPlayBuild(buildId = 2)
     }
 
     @Test(expected = IllegalStateException::class)
     fun detachView_afterAttachThenPerformAction_shouldThrowIllegalStateException() {
-        presenter.attachView(mockView, 1)
+        presenter.attachView(view = mockView, buildId = 1)
 
         presenter.detachView()
         presenter.onPlayBuildSelected()
@@ -82,11 +82,11 @@ class BriefPresenterTest {
 
     @Test
     fun onEditBuildSelected_viewAttached_shouldNavigateToEditorForBuildId() {
-        presenter.attachView(mockView, 1)
+        presenter.attachView(view = mockView, buildId = 1)
 
         presenter.onEditBuildSelected()
 
-        verify(mockNavigator).onEditBuild(1)
+        verify(mockNavigator).onEditBuild(buildId = 1)
     }
 
     @Test(expected = IllegalStateException::class)
@@ -118,7 +118,8 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView).render(argThat { !showAds })
+        verify(mockView, atLeastOnce()).render(argThat { !showAds })
+        verify(mockView, never()).render(argThat { showAds })
     }
 
     @Test
@@ -128,7 +129,8 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView, only()).render(BriefView.BriefViewState(false, false, null))
+        verify(mockView, atLeastOnce()).render(argThat { !showAds })
+        verify(mockView, never()).render(argThat { showAds })
     }
 
     @Test
@@ -150,6 +152,7 @@ class BriefPresenterTest {
         showAdsSettingSubject.onNext(true)
         verify(mockView).render(argThat { showAds })
 
+        reset(mockView)
         showAdsSettingSubject.onNext(false)
         verify(mockView).render(argThat { !showAds })
     }

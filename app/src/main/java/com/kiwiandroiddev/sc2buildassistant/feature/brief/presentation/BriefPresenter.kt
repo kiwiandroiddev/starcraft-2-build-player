@@ -2,6 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetSettingsUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
@@ -14,7 +15,7 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
                      val navigator: BriefNavigator) {
 
     companion object {
-        private val INITIAL_VIEW_STATE = BriefView.BriefViewState(
+        private val INITIAL_VIEW_STATE = BriefViewState(
                 showAds = false,
                 showLoadError = false,
                 briefText = null)
@@ -31,13 +32,15 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
         val showAdsSetting = getSettingsUseCase.showAds().onErrorReturn { false }
         val getBuild = getBuildUseCase.getBuild(buildId)
 
-        val viewStateObservable: Observable<BriefView.BriefViewState> =
+        val viewStateObservable: Observable<BriefViewState> =
                 Observable.combineLatest(showAdsSetting, getBuild,
-                        BiFunction { showAds, build -> BriefView.BriefViewState(showAds, false, null) })
+                        BiFunction { showAds, build ->
+                            BriefViewState(showAds = showAds, showLoadError = false, briefText = build.notes)
+                        })
 
         disposable = viewStateObservable
                 .startWith(INITIAL_VIEW_STATE)
-                .onErrorReturn { BriefView.BriefViewState(showAds = false, showLoadError = true, briefText = null) }
+                .onErrorReturn { BriefViewState(showAds = false, showLoadError = true, briefText = null) }
                 .distinct()
                 .subscribe { viewState -> view.render(viewState) }
     }
