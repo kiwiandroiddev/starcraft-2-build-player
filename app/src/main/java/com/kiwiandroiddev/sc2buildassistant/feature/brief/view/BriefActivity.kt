@@ -3,16 +3,11 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.view
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.annotation.DrawableRes
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.CursorLoader
-import android.support.v4.content.Loader
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
@@ -30,7 +25,6 @@ import com.google.analytics.tracking.android.EasyTracker
 import com.google.analytics.tracking.android.MapBuilder
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdView
-import com.kiwiandroiddev.sc2buildassistant.BuildOrderProvider
 import com.kiwiandroiddev.sc2buildassistant.MyApplication
 import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*
@@ -52,7 +46,7 @@ import javax.inject.Inject
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>, BriefView {
+class BriefActivity : AppCompatActivity(), BriefView {
 
     @Inject lateinit var presenter: BriefPresenter
 
@@ -84,7 +78,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
 
         initIntentParameterFields(savedInstanceState)
         initToolbar()
-        startLoadingBriefFromDb()
         displayBasicInfo()
         trackBriefView()
         initScrollView()
@@ -189,10 +182,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         }
     }
 
-    private fun startLoadingBriefFromDb() {
-        supportLoaderManager.initLoader(0, null, this)
-    }
-
     private fun fadeInAdOnLoad(adView: AdView) {
         adView.alpha = 0.0f
         adView.adListener = object : AdListener() {
@@ -223,12 +212,36 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
 
     override fun render(viewState: BriefView.BriefViewState) {
         Timber.d("render $viewState")
-        // TODO
+
+        viewState.briefText?.let { briefText -> setNotes(briefText) }
 
         if (viewState.showAds) {
             showAdBanner()
         } else {
             hideAdBanner()
+        }
+    }
+
+    private fun setAuthor(author: String?) {
+        if (author != null) {
+            mAuthorLayout.visibility = View.VISIBLE
+            mAuthorText.text = author
+        } else {
+            mAuthorLayout.visibility = View.GONE
+        }
+    }
+
+    private fun setNotes(notes: String?) {
+        notes?.let { notes ->
+            mNotesView.text = Html.fromHtml(notes)
+            mNotesView.movementMethod = LinkMovementMethod.getInstance()
+        }
+    }
+
+    private fun setSource(source: String?) {
+        source?.let { source ->
+            mSubtitleView.text = Html.fromHtml(source)
+            mSubtitleView.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 
@@ -312,51 +325,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     private fun displayBasicInfo() {
         mBuildNameText.text = mBuildName
         mRootView.setBackgroundDrawable(resources.getDrawable(getBackgroundDrawable(mFaction)))
-    }
-
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
-        return CursorLoader(this,
-                Uri.withAppendedPath(BuildOrderProvider.BASE_URI, DbAdapter.TABLE_BUILD_ORDER), // table URI
-                sColumns.toTypedArray(), // columns to return
-                DbAdapter.KEY_BUILD_ORDER_ID + " = " + mBuildId, null, null)// select clause
-        // select args
-        // sort by
-    }
-
-    override fun onLoadFinished(loader: Loader<Cursor>, cursor: Cursor) {
-        cursor.moveToFirst()
-
-        val sourceIndex = sColumns.indexOf(DbAdapter.KEY_SOURCE)
-        val notesIndex = sColumns.indexOf(DbAdapter.KEY_DESCRIPTION)
-        val authorIndex = sColumns.indexOf(DbAdapter.KEY_AUTHOR)
-
-        val source = cursor.getString(sourceIndex)
-        val notes = cursor.getString(notesIndex)
-        val author = cursor.getString(authorIndex)
-
-        // just a textview as part of the main content - not the action bar subtitle!
-        if (source != null) {
-            mSubtitleView.text = Html.fromHtml(source)
-
-            // makes links clickable
-            mSubtitleView.movementMethod = LinkMovementMethod.getInstance()
-        }
-
-        if (notes != null) {
-            mNotesView.text = Html.fromHtml(notes)
-            mNotesView.movementMethod = LinkMovementMethod.getInstance()
-        }
-
-        if (author != null) {
-            mAuthorLayout.visibility = View.VISIBLE
-            mAuthorText.text = author
-        } else {
-            mAuthorLayout.visibility = View.GONE
-        }
-    }
-
-    override fun onLoaderReset(loader: Loader<Cursor>) {
-        // do nothing
     }
 
     /**
