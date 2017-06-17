@@ -88,12 +88,23 @@ public class Build implements Serializable {
 	public String getName() {
 		return mName;
 	}
-	
+
+	@Override
 	public String toString() {
-		// stub
-		return mName;
+		return "Build{" +
+				"mCreated=" + mCreated +
+				", mModified=" + mModified +
+				", mName='" + mName + '\'' +
+				", mNotes='" + mNotes + '\'' +
+				", mSource='" + mSource + '\'' +
+				", mAuthor='" + mAuthor + '\'' +
+				", mItems=" + mItems +
+				", mFaction=" + mFaction +
+				", mVsFaction=" + mVsFaction +
+				", mExpansion=" + mExpansion +
+				'}';
 	}
-	
+
 	public ArrayList<BuildItem> getItems() {
 		return mItems;
 	}

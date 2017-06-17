@@ -1,11 +1,11 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
+import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiFunction
 
 /**
  * Created by Matt Clarke on 28/04/17.
@@ -29,20 +29,56 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
         this.view = view
         this.buildId = buildId
 
-        val showAdsSetting = getSettingsUseCase.showAds().onErrorReturn { false }
-        val getBuild = getBuildUseCase.getBuild(buildId)
+        setupViewStateStream(view, buildId)
+    }
 
-        val viewStateObservable: Observable<BriefViewState> =
-                Observable.combineLatest(showAdsSetting, getBuild,
-                        BiFunction { showAds, build ->
-                            BriefViewState(showAds = showAds, showLoadError = false, briefText = build.notes)
-                        })
+    private sealed class Result {
+        data class ShowAdsResult(val showAds: Boolean) : Result()
+        sealed class LoadBuildResult : Result() {
+            data class Success(val build: Build) : LoadBuildResult()
+            data class LoadFailure(val cause: Throwable) : LoadBuildResult()
+        }
+    }
+
+    private fun setupViewStateStream(view: BriefView, buildId: Long) {
+        val allResults: Observable<Result> = Observable.merge(loadBuildResults(buildId), showAdResults())
+//                .doOnNext { log("allResults onNext = $it") }
+
+        val viewStateObservable = allResults.scan(INITIAL_VIEW_STATE) { lastViewState, result ->
+            when (result) {
+                is Result.ShowAdsResult ->
+                    lastViewState.copy(showAds = result.showAds)
+
+                is BriefPresenter.Result.LoadBuildResult.Success ->
+                    lastViewState.copy(briefText = result.build.notes)
+
+                is BriefPresenter.Result.LoadBuildResult.LoadFailure ->
+                    lastViewState.copy(showLoadError = true)
+            }
+        }
 
         disposable = viewStateObservable
-                .startWith(INITIAL_VIEW_STATE)
-                .onErrorReturn { BriefViewState(showAds = false, showLoadError = true, briefText = null) }
-                .distinct()
-                .subscribe { viewState -> view.render(viewState) }
+//                .doOnNext { log("onNext = $it") }
+                .subscribe(view::render)
+    }
+
+    private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
+            getBuildUseCase.getBuild(buildId)
+                .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
+                .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
+//                .doOnNext { log("buildResult onNext = $it") }
+
+    private fun showAdResults(): Observable<Result.ShowAdsResult> =
+            getSettingsUseCase.showAds()
+                .map { showAds -> Result.ShowAdsResult(showAds) }
+                .onErrorReturn { error ->
+                    error.printStackTrace()
+                    Result.ShowAdsResult(showAds = false)
+                }
+//                .doOnNext { log("showAdResult onNext = $it") }
+
+    private fun log(msg: String) {
+        System.out.println(msg)
     }
 
     fun detachView() {

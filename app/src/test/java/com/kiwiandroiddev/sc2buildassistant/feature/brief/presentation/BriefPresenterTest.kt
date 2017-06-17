@@ -139,7 +139,8 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1)
 
-        verify(mockView).render(argThat { !showAds })
+        verify(mockView, atLeastOnce()).render(argThat { !showAds })
+        verify(mockView, never()).render(argThat { showAds })
     }
 
     @Test
@@ -147,8 +148,10 @@ class BriefPresenterTest {
         val showAdsSettingSubject = BehaviorSubject.create<Boolean>()
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(showAdsSettingSubject)
         presenter.attachView(mockView, 1)
-        verify(mockView).render(argThat { !showAds })
+        verify(mockView, atLeastOnce()).render(argThat { !showAds })
+        verify(mockView, never()).render(argThat { showAds })
 
+        reset(mockView)
         showAdsSettingSubject.onNext(true)
         verify(mockView).render(argThat { showAds })
 
@@ -202,12 +205,12 @@ class BriefPresenterTest {
 
     @Test
     fun onAttach_haveBuildForId_rendersBuildBriefInView() {
-        `when`(mockGetBuildUseCase.getBuild(1))
+        `when`(mockGetBuildUseCase.getBuild(1L))
                 .thenReturn(Observable.just(TEST_BUILD))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView, 1L)
 
-        verify(mockView).render(BriefView.BriefViewState(true, false, briefText = TEST_BUILD.notes))
+        verify(mockView, atLeastOnce()).render(BriefView.BriefViewState(showAds = true, showLoadError = false, briefText = TEST_BUILD.notes))
     }
 
 }
