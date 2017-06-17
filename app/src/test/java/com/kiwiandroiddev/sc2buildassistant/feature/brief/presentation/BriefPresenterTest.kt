@@ -1,6 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
-import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
+import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.argThat
@@ -18,10 +18,6 @@ import java.io.IOException
  * Created by Matt Clarke on 28/04/17.
  */
 class BriefPresenterTest {
-
-    companion object {
-        val TEST_BUILD = Build().apply { notes = "Build instructions here" }
-    }
 
     @Mock lateinit var mockView: BriefView
     @Mock lateinit var mockNavigator: BriefNavigator
