@@ -34,6 +34,7 @@ class MyApplication : Application(), ClearDatabaseAgent {
     private lateinit var graph: ApplicationComponent
 
     private var mDb: DbAdapter? = null
+
     override fun onCreate() {
         super.onCreate()
 
@@ -98,11 +99,12 @@ class MyApplication : Application(), ClearDatabaseAgent {
         Dexter.initialize(this)
     }
 
-    val db: DbAdapter?
-        get() {
+    val db: DbAdapter
+        get() = synchronized(this) {
             if (mDb == null)
                 mDb = DbAdapter(applicationContext)
-            return mDb
+
+            mDb!!
         }
 
     fun inject(target: SettingsFragment) =
@@ -113,7 +115,7 @@ class MyApplication : Application(), ClearDatabaseAgent {
 
     override fun clear(): Completable =
             Completable.fromAction {
-                db!!.clear()
+                db.clear()
                 JsonBuildService.notifyBuildProviderObservers(this)
             }
 

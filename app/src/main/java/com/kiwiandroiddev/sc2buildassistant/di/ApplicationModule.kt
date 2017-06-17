@@ -2,6 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.di
 
 import android.content.Context
 import com.kiwiandroiddev.sc2buildassistant.MyApplication
+import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.di.qualifiers.ApplicationContext
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import dagger.Module
@@ -18,5 +19,9 @@ class ApplicationModule(val app: MyApplication) {
     @Provides
     @Singleton
     fun provideClearDatabaseAgent(): ClearDatabaseAgent = app
+
+    @Provides
+    @Singleton
+    fun provideDbAdapter(): DbAdapter = app.db
 
 }
