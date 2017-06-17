@@ -7,7 +7,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPres
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Singleton
 
 /**
@@ -26,8 +26,8 @@ class BriefModule {
     @Singleton
     fun provideGetBuildUseCase(): GetBuildUseCase =
         object : GetBuildUseCase {
-            override fun getBuild(buildId: Long): Observable<Build> =
-                    Observable.error(NotImplementedError())
+            override fun getBuild(buildId: Long): Single<Build> =
+                    Single.error(NotImplementedError())
         }
 
 }

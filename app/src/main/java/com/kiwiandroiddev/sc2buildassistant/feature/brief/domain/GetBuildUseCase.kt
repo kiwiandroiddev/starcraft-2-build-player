@@ -1,8 +1,8 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.domain
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface GetBuildUseCase {
-    fun getBuild(buildId: Long): Observable<Build>
+    fun getBuild(buildId: Long): Single<Build>
 }

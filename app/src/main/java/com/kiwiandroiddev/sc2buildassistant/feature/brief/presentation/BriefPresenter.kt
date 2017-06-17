@@ -2,8 +2,8 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 
@@ -63,7 +63,7 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
     }
 
     private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
-            getBuildUseCase.getBuild(buildId)
+            getBuildUseCase.getBuild(buildId).toObservable()
                 .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
                 .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
 //                .doOnNext { log("buildResult onNext = $it") }

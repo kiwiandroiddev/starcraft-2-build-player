@@ -5,6 +5,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
@@ -40,7 +41,7 @@ class BriefPresenterTest {
 
     private fun setUpDefaultMockBehaviour() {
         `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
-                .thenReturn(Observable.just(TEST_BUILD))
+                .thenReturn(Single.just(TEST_BUILD))
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
     }
 
@@ -186,7 +187,7 @@ class BriefPresenterTest {
     @Test
     fun onAttach_noBuildForId_showsBuildLoadErrorInView() {
         `when`(mockGetBuildUseCase.getBuild(1))
-                .thenReturn(Observable.error(IOException("couldn't load build")))
+                .thenReturn(Single.error(IOException("couldn't load build")))
 
         presenter.attachView(mockView, 1)
 
@@ -196,7 +197,7 @@ class BriefPresenterTest {
     @Test
     fun onAttach_haveBuildForId_doesNotShowBuildLoadErrorInView() {
         `when`(mockGetBuildUseCase.getBuild(1))
-                .thenReturn(Observable.just(TEST_BUILD))
+                .thenReturn(Single.just(TEST_BUILD))
 
         presenter.attachView(mockView, 1)
 
@@ -206,7 +207,7 @@ class BriefPresenterTest {
     @Test
     fun onAttach_haveBuildForId_rendersBuildBriefInView() {
         `when`(mockGetBuildUseCase.getBuild(1L))
-                .thenReturn(Observable.just(TEST_BUILD))
+                .thenReturn(Single.just(TEST_BUILD))
 
         presenter.attachView(mockView, 1L)
 
