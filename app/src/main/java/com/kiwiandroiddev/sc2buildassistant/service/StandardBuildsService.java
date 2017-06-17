@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import com.kiwiandroiddev.sc2buildassistant.MyApplication;
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter;
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build;
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.IOUtils;
 
 import java.io.IOException;
@@ -20,6 +19,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import timber.log.Timber;
+
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_BUILDS_VERSION;
 
 /**
  * Provides methods for initialising a local database with the set of stock build orders,
@@ -104,7 +105,7 @@ public final class StandardBuildsService {
 	 * This should be done after the standard builds on their SD card have been updated.
 	 */
 	private static void updateBuildsVersion(Context c) {
-		IOUtils.writeIntToSharedPrefs(c, SettingsActivity.KEY_BUILDS_VERSION, BUILD_FILES_VERSION);
+		IOUtils.writeIntToSharedPrefs(c, KEY_BUILDS_VERSION, BUILD_FILES_VERSION);
 	}
 
 	/**
@@ -161,7 +162,7 @@ public final class StandardBuildsService {
 	 */
 	private static int getStoredBuildsVersion(Context c) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
-		return prefs.getInt(SettingsActivity.KEY_BUILDS_VERSION, -1);
+		return prefs.getInt(KEY_BUILDS_VERSION, -1);
 	}
 
 }

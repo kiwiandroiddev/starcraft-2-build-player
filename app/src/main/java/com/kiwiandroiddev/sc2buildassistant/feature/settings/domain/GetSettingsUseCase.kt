@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.feature.brief.domain
+package com.kiwiandroiddev.sc2buildassistant.feature.settings.domain
 
 import io.reactivex.Observable
 

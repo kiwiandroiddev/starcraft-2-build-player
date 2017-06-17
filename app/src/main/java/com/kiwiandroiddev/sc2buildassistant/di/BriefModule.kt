@@ -2,9 +2,9 @@ package com.kiwiandroiddev.sc2buildassistant.di
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
@@ -29,13 +29,5 @@ class BriefModule {
             override fun getBuild(buildId: Long): Observable<Build> =
                     Observable.error(NotImplementedError())
         }
-
-    @Provides
-    @Singleton
-    fun provideGetSettingsUseCase(): GetSettingsUseCase =
-            object : GetSettingsUseCase {
-                override fun showAds(): Observable<Boolean> =
-                        Observable.just(true)
-            }
 
 }

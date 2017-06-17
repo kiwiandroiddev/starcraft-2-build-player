@@ -8,6 +8,7 @@ import com.google.analytics.tracking.android.GoogleAnalytics
 import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
+import com.kiwiandroiddev.sc2buildassistant.di.AndroidModule
 import com.kiwiandroiddev.sc2buildassistant.di.ApplicationComponent
 import com.kiwiandroiddev.sc2buildassistant.di.ApplicationModule
 import com.kiwiandroiddev.sc2buildassistant.di.DaggerApplicationComponent
@@ -88,6 +89,7 @@ class MyApplication : Application(), ClearDatabaseAgent {
     private fun initDependencyInjection() {
         graph = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(app = this))
+                .androidModule(AndroidModule(this))
                 .build()
         graph.inject(this)
     }

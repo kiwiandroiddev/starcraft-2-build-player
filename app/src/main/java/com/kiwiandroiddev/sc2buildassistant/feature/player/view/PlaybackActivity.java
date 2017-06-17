@@ -47,7 +47,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayer;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.BuildPlayerEventListener;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.domain.GameSpeeds;
 import com.kiwiandroiddev.sc2buildassistant.feature.player.view.adapter.BuildItemRecyclerAdapter;
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity;
 import com.kiwiandroiddev.sc2buildassistant.util.EasyTrackerUtils;
 import com.kiwiandroiddev.sc2buildassistant.util.MapFormat;
 
@@ -62,6 +61,11 @@ import java.util.Queue;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_EARLY_WARNING;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_ENABLE_WORKER_ALERTS;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_GAME_SPEED;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_START_TIME;
 
 /**
  * Provides the UI to play back, stop, pause and seek within a build order.
@@ -173,9 +177,9 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
         sharedPref.registerOnSharedPreferenceChangeListener(this);        // notify this activity when settings change
 
         // hacky: initialize buildplayer with stored preferences
-        onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_GAME_SPEED);
-        onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_EARLY_WARNING);
-        onSharedPreferenceChanged(sharedPref, SettingsActivity.KEY_START_TIME);
+        onSharedPreferenceChanged(sharedPref, KEY_GAME_SPEED);
+        onSharedPreferenceChanged(sharedPref, KEY_EARLY_WARNING);
+        onSharedPreferenceChanged(sharedPref, KEY_START_TIME);
 
         // timer start
         mHandler.removeCallbacks(mUpdateTimeTask);
@@ -379,20 +383,20 @@ public class PlaybackActivity extends AppCompatActivity implements OnSeekBarChan
      */
     public void onSharedPreferenceChanged(SharedPreferences prefs,
                                           String key) {
-        if (key.equals(SettingsActivity.KEY_GAME_SPEED)) {
+        if (key.equals(KEY_GAME_SPEED)) {
             int choice = Integer.parseInt(prefs.getString(key, "4"));
             gameSpeedChanged(choice);
-        } else if (key.equals(SettingsActivity.KEY_EARLY_WARNING)) {
+        } else if (key.equals(KEY_EARLY_WARNING)) {
             mBuildPlayer.setAlertOffsetInGameSeconds(prefs.getInt(key, 0));        // TODO: centralise default values
-        } else if (key.equals(SettingsActivity.KEY_START_TIME)) {
+        } else if (key.equals(KEY_START_TIME)) {
             mBuildPlayer.setStartTimeInGameSeconds(prefs.getInt(key, 0));        // TODO: centralise default values
-        } else if (key.equals(SettingsActivity.KEY_ENABLE_WORKER_ALERTS)) {
+        } else if (key.equals(KEY_ENABLE_WORKER_ALERTS)) {
             updateWorkerAlertFilterFromCurrentSetting(prefs);
         }
     }
 
     private void updateWorkerAlertFilterFromCurrentSetting(SharedPreferences prefs) {
-        boolean workerAlertsEnabled = prefs.getBoolean(SettingsActivity.KEY_ENABLE_WORKER_ALERTS, true);
+        boolean workerAlertsEnabled = prefs.getBoolean(KEY_ENABLE_WORKER_ALERTS, true);
         if (workerAlertsEnabled) {
             mBuildPlayer.clearBuildItemFilter();
         } else {

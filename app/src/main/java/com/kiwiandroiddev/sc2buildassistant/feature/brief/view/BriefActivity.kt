@@ -42,9 +42,11 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsActivity
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_ADS
+import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -113,7 +115,7 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == SettingsActivity.KEY_SHOW_ADS) {
+        if (key == KEY_SHOW_ADS) {
             setAdBannerVisibilityBasedOnCurrentPreference()
         }
     }
@@ -127,8 +129,7 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     }
 
     private fun shouldShowAds(): Boolean {
-        val sharedPref = sharedPreferences
-        return sharedPref.getBoolean(SettingsActivity.KEY_SHOW_ADS, true)
+        return sharedPreferences.getBoolean(KEY_SHOW_ADS, true)
     }
 
     private fun showAdBanner() {
@@ -147,7 +148,7 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     }
 
     private fun initSystemUiVisibility() {
-        if (!sharedPreferences.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
+        if (!sharedPreferences.getBoolean(KEY_SHOW_STATUS_BAR, false)) {
             window.setFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -398,6 +399,7 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     }
 
     override fun render(viewState: BriefView.BriefViewState) {
+        Timber.d("render $viewState")
         // TODO
     }
 

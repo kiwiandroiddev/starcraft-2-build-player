@@ -9,6 +9,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(
         ApplicationModule::class,
+        AndroidModule::class,
         NavigationModule::class,
         ErrorReporterModule::class,
         SettingsModule::class,
