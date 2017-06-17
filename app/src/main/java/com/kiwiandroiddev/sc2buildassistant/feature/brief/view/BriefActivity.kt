@@ -213,12 +213,15 @@ class BriefActivity : AppCompatActivity(), BriefView {
     override fun render(viewState: BriefView.BriefViewState) {
         Timber.d("render $viewState")
 
-        viewState.briefText?.let { briefText -> setNotes(briefText) }
+        with(viewState) {
+            briefText?.let { briefText -> setNotes(briefText) }
+            buildAuthor?.let { author -> setAuthor(author) }
+            buildSource?.let { source -> setSource(source) }
 
-        if (viewState.showAds) {
-            showAdBanner()
-        } else {
-            hideAdBanner()
+            when (showAds) {
+                true -> showAdBanner()
+                false -> hideAdBanner()
+            }
         }
     }
 

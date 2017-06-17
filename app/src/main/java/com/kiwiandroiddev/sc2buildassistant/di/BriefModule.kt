@@ -10,6 +10,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPres
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Singleton
 
 /**
@@ -23,7 +24,7 @@ class BriefModule {
     fun provideBriefPresenter(getBuildUseCase: GetBuildUseCase,
                               getSettingsUseCase: GetSettingsUseCase,
                               navigator: BriefNavigator) =
-            BriefPresenter(getBuildUseCase, getSettingsUseCase, navigator)
+            BriefPresenter(getBuildUseCase, getSettingsUseCase, navigator, AndroidSchedulers.mainThread())
 
     @Provides
     @Singleton

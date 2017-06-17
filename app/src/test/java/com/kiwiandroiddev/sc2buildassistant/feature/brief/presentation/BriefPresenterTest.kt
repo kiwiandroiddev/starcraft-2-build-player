@@ -6,6 +6,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsU
 import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +31,12 @@ class BriefPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = BriefPresenter(mockGetBuildUseCase, mockGetSettingsUseCase, mockNavigator)
+        presenter = BriefPresenter(
+                getBuildUseCase = mockGetBuildUseCase,
+                getSettingsUseCase = mockGetSettingsUseCase,
+                navigator = mockNavigator,
+                postExecutionScheduler = Schedulers.trampoline()
+        )
 
         setUpDefaultMockBehaviour()
     }
@@ -207,7 +213,15 @@ class BriefPresenterTest {
 
         presenter.attachView(mockView, 1L)
 
-        verify(mockView, atLeastOnce()).render(BriefView.BriefViewState(showAds = true, showLoadError = false, briefText = TEST_BUILD.notes))
+        verify(mockView, atLeastOnce()).render(
+                BriefView.BriefViewState(
+                        showAds = true,
+                        showLoadError = false,
+                        briefText = TEST_BUILD.notes,
+                        buildSource = TEST_BUILD.source,
+                        buildAuthor = TEST_BUILD.author
+                )
+        )
     }
 
 }

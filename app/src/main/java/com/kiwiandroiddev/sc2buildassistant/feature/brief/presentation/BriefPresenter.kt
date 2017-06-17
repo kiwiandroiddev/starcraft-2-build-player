@@ -5,6 +5,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 
 /**
@@ -12,13 +13,17 @@ import io.reactivex.disposables.Disposable
  */
 class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
                      val getSettingsUseCase: GetSettingsUseCase,
-                     val navigator: BriefNavigator) {
+                     val navigator: BriefNavigator,
+                     val postExecutionScheduler: Scheduler) {
 
     companion object {
         private val INITIAL_VIEW_STATE = BriefViewState(
                 showAds = false,
                 showLoadError = false,
-                briefText = null)
+                briefText = null,
+                buildSource = null,
+                buildAuthor = null
+        )
     }
 
     private var view: BriefView? = null
@@ -50,7 +55,7 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
                     lastViewState.copy(showAds = result.showAds)
 
                 is BriefPresenter.Result.LoadBuildResult.Success ->
-                    lastViewState.copy(briefText = result.build.notes)
+                    updatedViewStateWithBuildInfo(lastViewState, result.build)
 
                 is BriefPresenter.Result.LoadBuildResult.LoadFailure ->
                     lastViewState.copy(showLoadError = true)
@@ -59,22 +64,32 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
 
         disposable = viewStateObservable
 //                .doOnNext { log("onNext = $it") }
+                .observeOn(postExecutionScheduler)
                 .subscribe(view::render)
     }
 
+    private fun updatedViewStateWithBuildInfo(oldViewState: BriefViewState, build: Build): BriefViewState =
+            with(build) {
+                oldViewState.copy(
+                        briefText = notes,
+                        buildSource = source,
+                        buildAuthor = author
+                )
+            }
+
     private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
             getBuildUseCase.getBuild(buildId).toObservable()
-                .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
-                .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
+                    .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
+                    .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
 //                .doOnNext { log("buildResult onNext = $it") }
 
     private fun showAdResults(): Observable<Result.ShowAdsResult> =
             getSettingsUseCase.showAds()
-                .map { showAds -> Result.ShowAdsResult(showAds) }
-                .onErrorReturn { error ->
-                    error.printStackTrace()
-                    Result.ShowAdsResult(showAds = false)
-                }
+                    .map { showAds -> Result.ShowAdsResult(showAds) }
+                    .onErrorReturn { error ->
+                        error.printStackTrace()
+                        Result.ShowAdsResult(showAds = false)
+                    }
 //                .doOnNext { log("showAdResult onNext = $it") }
 
     private fun log(msg: String) {
