@@ -3,7 +3,6 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.view
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.content.SharedPreferences
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
@@ -42,7 +41,6 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
-import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_ADS
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
@@ -54,8 +52,7 @@ import javax.inject.Inject
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>,
-        SharedPreferences.OnSharedPreferenceChangeListener, BriefView {
+class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>, BriefView {
 
     @Inject lateinit var presenter: BriefPresenter
 
@@ -89,11 +86,9 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         initToolbar()
         startLoadingBriefFromDb()
         displayBasicInfo()
-        setAdBannerVisibilityBasedOnCurrentPreference()
         trackBriefView()
         initScrollView()
         ensureBriefContentIsNotHiddenBySystemBars()
-        registerSelfAsPreferenceChangeListener()
     }
 
     private fun initIntentParameterFields(savedInstanceState: Bundle?) {
@@ -110,45 +105,8 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         }
     }
 
-    private fun registerSelfAsPreferenceChangeListener() {
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == KEY_SHOW_ADS) {
-            setAdBannerVisibilityBasedOnCurrentPreference()
-        }
-    }
-
-    private fun setAdBannerVisibilityBasedOnCurrentPreference() {
-        if (shouldShowAds()) {
-            showAdBanner()
-        } else {
-            hideAdBanner()
-        }
-    }
-
-    private fun shouldShowAds(): Boolean {
-        return sharedPreferences.getBoolean(KEY_SHOW_ADS, true)
-    }
-
-    private fun showAdBanner() {
-        mAdFrame.visibility = View.VISIBLE
-
-        if (mAdFrame.childCount == 0) {
-            val adView = AdView(this)
-            mAdFrame.addView(adView)
-            AdLoader.loadAdForRealUsers(adView)
-            fadeInAdOnLoad(adView)
-        }
-    }
-
-    private fun hideAdBanner() {
-        mAdFrame.visibility = View.GONE
-    }
-
     private fun initSystemUiVisibility() {
-        if (!sharedPreferences.getBoolean(KEY_SHOW_STATUS_BAR, false)) {
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(KEY_SHOW_STATUS_BAR, false)) {
             window.setFlags(
                     WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -235,9 +193,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         supportLoaderManager.initLoader(0, null, this)
     }
 
-    private val sharedPreferences: SharedPreferences
-        get() = PreferenceManager.getDefaultSharedPreferences(this)
-
     private fun fadeInAdOnLoad(adView: AdView) {
         adView.alpha = 0.0f
         adView.adListener = object : AdListener() {
@@ -266,6 +221,32 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
         presenter.attachView(this, mBuildId)
     }
 
+    override fun render(viewState: BriefView.BriefViewState) {
+        Timber.d("render $viewState")
+        // TODO
+
+        if (viewState.showAds) {
+            showAdBanner()
+        } else {
+            hideAdBanner()
+        }
+    }
+
+    private fun showAdBanner() {
+        mAdFrame.visibility = View.VISIBLE
+
+        if (mAdFrame.childCount == 0) {
+            val adView = AdView(this)
+            mAdFrame.addView(adView)
+            AdLoader.loadAdForRealUsers(adView)
+            fadeInAdOnLoad(adView)
+        }
+    }
+
+    private fun hideAdBanner() {
+        mAdFrame.visibility = View.GONE
+    }
+
     override fun onPause() {
         super.onPause()
         presenter.detachView()
@@ -274,15 +255,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
     public override fun onStop() {
         super.onStop()
         EasyTracker.getInstance(this).activityStop(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterSelfAsPreferenceChangeListener()
-    }
-
-    private fun unregisterSelfAsPreferenceChangeListener() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -396,11 +368,6 @@ class BriefActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor>
                 MapBuilder.createEvent(
                         "brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null)
                         .build())
-    }
-
-    override fun render(viewState: BriefView.BriefViewState) {
-        Timber.d("render $viewState")
-        // TODO
     }
 
     companion object {
