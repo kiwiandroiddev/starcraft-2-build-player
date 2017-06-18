@@ -38,7 +38,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -48,12 +47,86 @@ import javax.inject.Inject
  */
 class BriefActivity : AppCompatActivity(), BriefView {
 
+    companion object {
+
+        val DEFAULT_INITIAL_VIEW_STATE = BriefView.BriefViewState(
+                showAds = false,
+                showLoadError = false,
+                briefText = null,
+                buildSource = null,
+                buildAuthor = null
+        )
+
+        private val KEY_VIEW_STATE = "com.kiwiandroiddev.sc2buildassistant.feature.brief.view.VIEW_STATE"
+
+        private val sRaceBgMap: HashMap<Faction, Int>
+        private val sColumns: ArrayList<String>
+
+        init {
+            sRaceBgMap = HashMap<Faction, Int>()
+            sRaceBgMap.put(Faction.TERRAN, R.drawable.terran_icon_blur_drawable)
+            sRaceBgMap.put(Faction.PROTOSS, R.drawable.protoss_icon_blur_drawable)
+            sRaceBgMap.put(Faction.ZERG, R.drawable.zerg_icon_blur_drawable)
+
+            // Columns from the build order table containing info we want to display
+            sColumns = ArrayList<String>()
+            sColumns.add(DbAdapter.KEY_SOURCE)
+            sColumns.add(DbAdapter.KEY_DESCRIPTION)
+            sColumns.add(DbAdapter.KEY_AUTHOR)
+        }
+
+        @DrawableRes
+        fun getBackgroundDrawable(race: Faction): Int {
+            return sRaceBgMap[race]!!
+        }
+
+        /**
+         * Starts a new BriefActivity for the given build details.
+         *
+         *
+         * Only the buildId is strictly needed, having other build fields passed in is a speed
+         * optimization - saves the new BriefActivity from having to refetch these itself using the
+         * build ID.
+         */
+        fun open(callingActivity: Activity,
+                 buildId: Long,
+                 faction: Faction,
+                 expansion: Expansion,
+                 buildName: String,
+                 sharedBuildNameTextView: TextView) {
+            val i = Intent(callingActivity, BriefActivity::class.java)
+            i.putExtra(KEY_BUILD_ID, buildId)    // pass build order record ID
+
+            // speed optimization - pass these so brief activity doesn't need to
+            // requery them from the database and can display them instantly
+            i.putExtra(KEY_FACTION_ENUM, faction)
+            i.putExtra(KEY_EXPANSION_ENUM, expansion)
+            i.putExtra(KEY_BUILD_NAME, buildName)
+
+            if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+                // create the transition animation - the views in the layouts
+                // of both activities are defined with android:transitionName="buildName"
+                val options = ActivityOptions
+                        .makeSceneTransitionAnimation(callingActivity,
+                                sharedBuildNameTextView, "buildName")
+
+                // start the new activity
+                callingActivity.startActivity(i, options.toBundle())
+            } else {
+                callingActivity.startActivity(i)
+            }
+        }
+    }
+
     @Inject lateinit var presenter: BriefPresenter
 
     private var mBuildId: Long = 0
     private lateinit var mFaction: Faction
     private lateinit var mExpansion: Expansion
     private lateinit var mBuildName: String
+
+    private var currentViewState = DEFAULT_INITIAL_VIEW_STATE
 
     @BindView(R.id.toolbar) lateinit var mToolbar: Toolbar
     @BindView(R.id.brief_buildSubTitle) lateinit var mSubtitleView: TextView
@@ -77,11 +150,20 @@ class BriefActivity : AppCompatActivity(), BriefView {
         ButterKnife.bind(this)
 
         initIntentParameterFields(savedInstanceState)
+        restoreViewStateFieldIfExists(savedInstanceState)
         initToolbar()
         displayBasicInfo()
         trackBriefView()
         initScrollView()
         ensureBriefContentIsNotHiddenBySystemBars()
+    }
+
+    private fun restoreViewStateFieldIfExists(savedInstanceState: Bundle?) {
+        savedInstanceState?.apply {
+            getSerializable(KEY_VIEW_STATE)?.let { viewState ->
+                currentViewState = viewState as BriefView.BriefViewState
+            }
+        }
     }
 
     private fun initIntentParameterFields(savedInstanceState: Bundle?) {
@@ -211,17 +293,29 @@ class BriefActivity : AppCompatActivity(), BriefView {
     }
 
     override fun render(viewState: BriefView.BriefViewState) {
-        Timber.d("render $viewState")
+        calculateAndApplyViewStateDiff(currentViewState, viewState)
+        currentViewState = viewState
+    }
 
-        with(viewState) {
-            briefText?.let { briefText -> setNotes(briefText) }
-            buildAuthor?.let { author -> setAuthor(author) }
-            buildSource?.let { source -> setSource(source) }
-
-            when (showAds) {
+    private fun calculateAndApplyViewStateDiff(oldViewState: BriefView.BriefViewState,
+                                               newViewState: BriefView.BriefViewState) {
+        if (oldViewState.showAds != newViewState.showAds) {
+            when (newViewState.showAds) {
                 true -> showAdBanner()
                 false -> hideAdBanner()
             }
+        }
+
+        if (oldViewState.briefText != newViewState.briefText) {
+            newViewState.briefText?.let { briefText -> setNotes(briefText) }
+        }
+
+        if (oldViewState.buildAuthor != newViewState.buildAuthor) {
+            newViewState.buildAuthor?.let { author -> setAuthor(author) }
+        }
+
+        if (oldViewState.buildSource != newViewState.buildSource) {
+            newViewState.buildSource?.let { source -> setSource(source) }
         }
     }
 
@@ -319,6 +413,7 @@ class BriefActivity : AppCompatActivity(), BriefView {
         outState.putString(KEY_BUILD_NAME, mBuildName)
         outState.putSerializable(KEY_FACTION_ENUM, mFaction)
         outState.putSerializable(KEY_EXPANSION_ENUM, mExpansion)
+        outState.putSerializable(KEY_VIEW_STATE, currentViewState)
     }
 
     /**
@@ -339,78 +434,6 @@ class BriefActivity : AppCompatActivity(), BriefView {
                 MapBuilder.createEvent(
                         "brief_view", mExpansion.toString() + "_" + mFaction.toString(), mBuildName, null)
                         .build())
-    }
-
-    companion object {
-
-        private val sRaceBgMap: HashMap<Faction, Int>
-        private val sColumns: ArrayList<String>
-
-        init {
-            sRaceBgMap = HashMap<Faction, Int>()
-            sRaceBgMap.put(Faction.TERRAN, R.drawable.terran_icon_blur_drawable)
-            sRaceBgMap.put(Faction.PROTOSS, R.drawable.protoss_icon_blur_drawable)
-            sRaceBgMap.put(Faction.ZERG, R.drawable.zerg_icon_blur_drawable)
-
-            // Columns from the build order table containing info we want to display
-            sColumns = ArrayList<String>()
-            sColumns.add(DbAdapter.KEY_SOURCE)
-            sColumns.add(DbAdapter.KEY_DESCRIPTION)
-            sColumns.add(DbAdapter.KEY_AUTHOR)
-        }
-
-        @DrawableRes
-        fun getBackgroundDrawable(race: Faction): Int {
-            return sRaceBgMap[race]!!
-        }
-
-        /**
-         * Starts a new BriefActivity for the given build details.
-         *
-         *
-         * Only the buildId is strictly needed, having other build fields passed in is a speed
-         * optimization - saves the new BriefActivity from having to refetch these itself using the
-         * build ID.
-
-         * @param callingActivity
-         * *
-         * @param buildId
-         * *
-         * @param faction
-         * *
-         * @param expansion
-         * *
-         * @param buildName
-         */
-        fun open(callingActivity: Activity,
-                 buildId: Long,
-                 faction: Faction,
-                 expansion: Expansion,
-                 buildName: String,
-                 sharedBuildNameTextView: TextView) {
-            val i = Intent(callingActivity, BriefActivity::class.java)
-            i.putExtra(KEY_BUILD_ID, buildId)    // pass build order record ID
-
-            // speed optimization - pass these so brief activity doesn't need to
-            // requery them from the database and can display them instantly
-            i.putExtra(KEY_FACTION_ENUM, faction)
-            i.putExtra(KEY_EXPANSION_ENUM, expansion)
-            i.putExtra(KEY_BUILD_NAME, buildName)
-
-            if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
-                // create the transition animation - the views in the layouts
-                // of both activities are defined with android:transitionName="buildName"
-                val options = ActivityOptions
-                        .makeSceneTransitionAnimation(callingActivity,
-                                sharedBuildNameTextView, "buildName")
-
-                // start the new activity
-                callingActivity.startActivity(i, options.toBundle())
-            } else {
-                callingActivity.startActivity(i)
-            }
-        }
     }
 
 }
