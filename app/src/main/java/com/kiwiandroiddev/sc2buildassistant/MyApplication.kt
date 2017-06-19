@@ -13,6 +13,7 @@ import com.kiwiandroiddev.sc2buildassistant.di.ApplicationComponent
 import com.kiwiandroiddev.sc2buildassistant.di.ApplicationModule
 import com.kiwiandroiddev.sc2buildassistant.di.DaggerApplicationComponent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefActivity
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefViewModel
 import com.kiwiandroiddev.sc2buildassistant.feature.navigation.RegisteredActivityNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsFragment
@@ -111,6 +112,9 @@ class MyApplication : Application(), ClearDatabaseAgent {
             graph.inject(target)
 
     fun inject(target: BriefActivity) =
+            graph.inject(target)
+
+    fun inject(target: BriefViewModel) =
             graph.inject(target)
 
     override fun clear(): Completable =

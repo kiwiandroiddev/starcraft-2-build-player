@@ -2,6 +2,9 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.view
 
 import android.app.Activity
 import android.app.ActivityOptions
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -25,7 +28,6 @@ import com.google.analytics.tracking.android.EasyTracker
 import com.google.analytics.tracking.android.MapBuilder
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdView
-import com.kiwiandroiddev.sc2buildassistant.MyApplication
 import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*
 import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener
@@ -33,19 +35,17 @@ import com.kiwiandroiddev.sc2buildassistant.ads.AdLoader
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-class BriefActivity : AppCompatActivity(), BriefView {
+class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     companion object {
 
@@ -119,8 +119,6 @@ class BriefActivity : AppCompatActivity(), BriefView {
         }
     }
 
-    @Inject lateinit var presenter: BriefPresenter
-
     private var mBuildId: Long = 0
     private lateinit var mFaction: Faction
     private lateinit var mExpansion: Expansion
@@ -144,12 +142,19 @@ class BriefActivity : AppCompatActivity(), BriefView {
         initSystemUiVisibility()
 
         super.onCreate(savedInstanceState)
-        (application as MyApplication).inject(this)
 
         setContentView(R.layout.activity_brief)
         ButterKnife.bind(this)
 
+        val briefViewModel = ViewModelProviders.of(this).get(BriefViewModel::class.java)
+        briefViewModel.getViewState().observe(this, android.arch.lifecycle.Observer { viewState ->
+            viewState?.let { render(it) }
+        })
+
         initIntentParameterFields(savedInstanceState)
+
+        briefViewModel.setBuildId(mBuildId)
+
         restoreViewStateFieldIfExists(savedInstanceState)
         initToolbar()
         displayBasicInfo()
@@ -158,10 +163,15 @@ class BriefActivity : AppCompatActivity(), BriefView {
         ensureBriefContentIsNotHiddenBySystemBars()
     }
 
+    val lifecycleRegistry = LifecycleRegistry(this)
+
+    override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
+
     private fun restoreViewStateFieldIfExists(savedInstanceState: Bundle?) {
         savedInstanceState?.apply {
             getSerializable(KEY_VIEW_STATE)?.let { viewState ->
                 currentViewState = viewState as BriefView.BriefViewState
+                forceRenderViewState(currentViewState)
             }
         }
     }
@@ -287,14 +297,13 @@ class BriefActivity : AppCompatActivity(), BriefView {
         EasyTracker.getInstance(this).activityStart(this)
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.attachView(this, mBuildId)
-    }
-
-    override fun render(viewState: BriefView.BriefViewState) {
+    fun render(viewState: BriefView.BriefViewState) {
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState
+    }
+
+    fun forceRenderViewState(viewState: BriefView.BriefViewState) {
+        calculateAndApplyViewStateDiff(oldViewState = DEFAULT_INITIAL_VIEW_STATE, newViewState = viewState)
     }
 
     private fun calculateAndApplyViewStateDiff(oldViewState: BriefView.BriefViewState,
@@ -357,11 +366,6 @@ class BriefActivity : AppCompatActivity(), BriefView {
         mAdFrame.visibility = View.GONE
     }
 
-    override fun onPause() {
-        super.onPause()
-        presenter.detachView()
-    }
-
     public override fun onStop() {
         super.onStop()
         EasyTracker.getInstance(this).activityStop(this)
@@ -380,11 +384,11 @@ class BriefActivity : AppCompatActivity(), BriefView {
                     true
                 }
                 R.id.menu_edit_build -> {
-                    presenter.onEditBuildSelected()
+//                    presenter.onEditBuildSelected()
                     true
                 }
                 R.id.menu_settings -> {
-                    presenter.onSettingsSelected()
+//                    presenter.onSettingsSelected()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -404,7 +408,7 @@ class BriefActivity : AppCompatActivity(), BriefView {
 
     @OnClick(R.id.activity_brief_play_action_button)
     fun playBuild() {
-        presenter.onPlayBuildSelected()
+//        presenter.onPlayBuildSelected()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

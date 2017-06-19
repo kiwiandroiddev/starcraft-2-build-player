@@ -83,6 +83,10 @@ dependencies {
             'com.karumi:dexter:2.2.2'
     )
 
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
+
     kapt 'com.jakewharton:butterknife-compiler:8.6.0'
 
     provided "org.glassfish:javax.annotation:$java_annotation_version"
