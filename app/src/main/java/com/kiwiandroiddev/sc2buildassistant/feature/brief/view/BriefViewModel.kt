@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.kiwiandroiddev.sc2buildassistant.MyApplication
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
+import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView {
 
     companion object {
+
         val DEFAULT_VIEW_STATE = BriefView.BriefViewState(
                 showAds = false,
                 showLoadError = false,
@@ -44,6 +46,10 @@ class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView {
     }
 
     fun getViewState(): LiveData<BriefView.BriefViewState> = viewState
+
+    override fun getViewEvents(): Observable<BriefView.BriefViewEvent> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun render(viewState: BriefView.BriefViewState) {
         this.viewState.value = viewState

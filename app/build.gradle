@@ -78,6 +78,7 @@ dependencies {
             'com.google.code.gson:gson:2.4',
             "io.reactivex.rxjava2:rxjava:$rxjava_version",
             "io.reactivex.rxjava2:rxandroid:$rxandroid_version",
+            'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             'com.jakewharton:butterknife:8.6.0',
             'com.jakewharton.timber:timber:3.0.2',
             'com.karumi:dexter:2.2.2'

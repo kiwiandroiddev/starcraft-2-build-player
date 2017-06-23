@@ -39,34 +39,66 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
 
     private sealed class Result {
         data class ShowAdsResult(val showAds: Boolean) : Result()
+
         sealed class LoadBuildResult : Result() {
             data class Success(val build: Build) : LoadBuildResult()
             data class LoadFailure(val cause: Throwable) : LoadBuildResult()
         }
+
+        class SuccessfulNavigationResult : Result()
     }
 
     private fun setupViewStateStream(view: BriefView, buildId: Long) {
-        val allResults: Observable<Result> = Observable.merge(loadBuildResults(buildId), showAdResults())
-//                .doOnNext { log("allResults onNext = $it") }
+        val allResults: Observable<Result> = Observable.merge(
+                loadBuildResults(buildId),
+                showAdResults(),
+                getNavigationResults(view.getViewEvents())
+        )
 
-        val viewStateObservable = allResults.scan(INITIAL_VIEW_STATE) { lastViewState, result ->
-            when (result) {
-                is Result.ShowAdsResult ->
-                    lastViewState.copy(showAds = result.showAds)
-
-                is BriefPresenter.Result.LoadBuildResult.Success ->
-                    updatedViewStateWithBuildInfo(lastViewState, result.build)
-
-                is BriefPresenter.Result.LoadBuildResult.LoadFailure ->
-                    lastViewState.copy(showLoadError = true)
-            }
-        }
-
-        disposable = viewStateObservable
-//                .doOnNext { log("onNext = $it") }
+        disposable = allResults
+                .compose(this::reduceToViewState)
                 .observeOn(postExecutionScheduler)
                 .subscribe(view::render)
     }
+
+    private fun getNavigationResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
+            viewEvents.ofType(BriefView.BriefViewEvent.PlaySelected::class.java)
+                    .flatMap { navigateToPlayer(buildId!!) }
+
+    private fun navigateToPlayer(buildId: Long): Observable<Result.SuccessfulNavigationResult> =
+            Observable.fromCallable {
+                navigator.onPlayBuild(buildId)
+                Result.SuccessfulNavigationResult()
+            }
+
+    private fun reduceToViewState(results: Observable<Result>): Observable<BriefViewState> =
+            results.scan(INITIAL_VIEW_STATE) { lastViewState, result ->
+                when (result) {
+                    is Result.ShowAdsResult ->
+                        lastViewState.copy(showAds = result.showAds)
+
+                    is Result.LoadBuildResult.Success ->
+                        updatedViewStateWithBuildInfo(lastViewState, result.build)
+
+                    is Result.LoadBuildResult.LoadFailure ->
+                        lastViewState.copy(showLoadError = true)
+
+                    is BriefPresenter.Result.SuccessfulNavigationResult -> lastViewState    // do nothing to view state
+                }
+            }
+
+    private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
+            getBuildUseCase.getBuild(buildId).toObservable()
+                    .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
+                    .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
+
+    private fun showAdResults(): Observable<Result.ShowAdsResult> =
+            getSettingsUseCase.showAds()
+                    .map { showAds -> Result.ShowAdsResult(showAds) }
+                    .onErrorReturn { error ->
+                        error.printStackTrace()
+                        Result.ShowAdsResult(showAds = false)
+                    }
 
     private fun updatedViewStateWithBuildInfo(oldViewState: BriefViewState, build: Build): BriefViewState =
             with(build) {
@@ -77,34 +109,9 @@ class BriefPresenter(val getBuildUseCase: GetBuildUseCase,
                 )
             }
 
-    private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
-            getBuildUseCase.getBuild(buildId).toObservable()
-                    .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
-                    .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
-//                .doOnNext { log("buildResult onNext = $it") }
-
-    private fun showAdResults(): Observable<Result.ShowAdsResult> =
-            getSettingsUseCase.showAds()
-                    .map { showAds -> Result.ShowAdsResult(showAds) }
-                    .onErrorReturn { error ->
-                        error.printStackTrace()
-                        Result.ShowAdsResult(showAds = false)
-                    }
-//                .doOnNext { log("showAdResult onNext = $it") }
-
-    private fun log(msg: String) {
-        System.out.println(msg)
-    }
-
     fun detachView() {
         view = null
         disposable?.dispose()
-    }
-
-    fun onPlayBuildSelected() {
-        ensureViewAttached()
-
-        navigator.onPlayBuild(buildId!!)
     }
 
     fun onEditBuildSelected() {

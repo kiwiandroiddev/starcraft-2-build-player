@@ -1,7 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
+import com.jakewharton.rxrelay2.PublishRelay
+import com.jakewharton.rxrelay2.Relay
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
@@ -25,6 +28,8 @@ class BriefPresenterTest {
     @Mock lateinit var mockGetBuildUseCase: GetBuildUseCase
     @Mock lateinit var mockGetSettingsUseCase: GetSettingsUseCase
 
+    lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
+
     lateinit var presenter: BriefPresenter
 
     @Before
@@ -44,38 +49,14 @@ class BriefPresenterTest {
     private fun setUpDefaultMockBehaviour() {
         `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
                 .thenReturn(Single.just(TEST_BUILD))
-        `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
-    }
 
-    @Test(expected = IllegalStateException::class)
-    fun onPlayBuildSelected_noViewAttached_shouldThrowIllegalStateException() {
-        presenter.onPlayBuildSelected()
-    }
+        `when`(mockGetSettingsUseCase.showAds())
+                .thenReturn(Observable.just(true))
 
-    @Test
-    fun onPlayBuildSelected_viewAttached_shouldNavigateToPlayerForBuildId() {
-        presenter.attachView(view = mockView, buildId = 1)
+        mockViewEventStream =PublishRelay.create<BriefView.BriefViewEvent>()
 
-        presenter.onPlayBuildSelected()
-
-        verify(mockNavigator).onPlayBuild(buildId = 1)
-    }
-
-    @Test
-    fun onPlayBuildSelected_viewAttachedWithDifferentBuildId_shouldNavigateToPlayerForBuildId() {
-        presenter.attachView(view = mockView, buildId = 2)
-
-        presenter.onPlayBuildSelected()
-
-        verify(mockNavigator).onPlayBuild(buildId = 2)
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun detachView_afterAttachThenPerformAction_shouldThrowIllegalStateException() {
-        presenter.attachView(view = mockView, buildId = 1)
-
-        presenter.detachView()
-        presenter.onPlayBuildSelected()
+        `when`(mockView.getViewEvents())
+                .thenReturn(mockViewEventStream)
     }
 
     @Test(expected = IllegalStateException::class)
@@ -222,6 +203,24 @@ class BriefPresenterTest {
                         buildAuthor = TEST_BUILD.author
                 )
         )
+    }
+
+    @Test
+    fun onAttach_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
+        presenter.attachView(mockView, 1L)
+
+        mockViewEventStream.accept(PlaySelected())
+
+        verify(mockNavigator).onPlayBuild(1L)
+    }
+
+    @Test
+    fun onAttach_differentBuildId_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
+        presenter.attachView(mockView, 2L)
+
+        mockViewEventStream.accept(PlaySelected())
+
+        verify(mockNavigator).onPlayBuild(2L)
     }
 
 }

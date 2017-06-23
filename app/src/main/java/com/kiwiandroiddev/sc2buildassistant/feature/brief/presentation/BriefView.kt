@@ -1,11 +1,15 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
+import io.reactivex.Observable
 import java.io.Serializable
 
 /**
  * Created by Matt Clarke on 28/04/17.
  */
 interface BriefView {
+
+    fun getViewEvents(): Observable<BriefViewEvent>
+
     fun render(viewState: BriefViewState)
 
     data class BriefViewState(val showAds: Boolean,
@@ -13,4 +17,10 @@ interface BriefView {
                               val briefText: String?,
                               val buildSource: String?,
                               val buildAuthor: String?) : Serializable
+
+    sealed class BriefViewEvent {
+        class PlaySelected : BriefViewEvent()
+    }
+
 }
+
