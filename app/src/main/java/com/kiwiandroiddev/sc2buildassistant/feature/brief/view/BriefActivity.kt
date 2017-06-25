@@ -147,13 +147,13 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
         ButterKnife.bind(this)
 
         val briefViewModel = ViewModelProviders.of(this).get(BriefViewModel::class.java)
-        briefViewModel.getViewState().observe(this, android.arch.lifecycle.Observer { viewState ->
-            viewState?.let { render(it) }
-        })
+//        briefViewModel.getViewState().observe(this, android.arch.lifecycle.Observer { viewState ->
+//            viewState?.let { render(it) }
+//        })
 
         initIntentParameterFields(savedInstanceState)
 
-        briefViewModel.setBuildId(mBuildId)
+//        briefViewModel.setBuildId(mBuildId)
 
         restoreViewStateFieldIfExists(savedInstanceState)
         initToolbar()
