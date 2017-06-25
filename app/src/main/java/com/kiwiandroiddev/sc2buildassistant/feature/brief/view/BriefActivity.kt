@@ -28,6 +28,7 @@ import com.google.analytics.tracking.android.EasyTracker
 import com.google.analytics.tracking.android.MapBuilder
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdView
+import com.jakewharton.rxbinding2.view.RxView
 import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*
 import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener
@@ -36,6 +37,7 @@ import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Expansion
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
@@ -296,9 +298,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     override fun getBuildId(): Long = mBuildId
 
-    override fun getViewEvents(): Observable<BriefView.BriefViewEvent> {
-        return Observable.never()       // TODO stub
-    }
+    override fun getViewEvents(): Observable<BriefViewEvent> =
+            RxView.clicks(mPlayButton).map { BriefViewEvent.PlaySelected() }
 
     override fun render(viewState: BriefView.BriefViewState) {
         calculateAndApplyViewStateDiff(currentViewState, viewState)
