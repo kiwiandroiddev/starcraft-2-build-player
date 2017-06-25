@@ -46,8 +46,10 @@ class BriefPresenterImplTest {
         setUpDefaultMockBehaviour()
     }
 
+    private val DEFAULT_BUILD_ID = 1L
+
     private fun setUpDefaultMockBehaviour() {
-        `when`(mockView.getBuildId()).thenReturn(1)
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
 
         `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
                 .thenReturn(Single.just(TEST_BUILD))
@@ -59,36 +61,6 @@ class BriefPresenterImplTest {
 
         `when`(mockView.getViewEvents())
                 .thenReturn(mockViewEventStream)
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun onEditBuildSelected_noViewAttached_shouldThrowIllegalStateException() {
-        presenter.onEditBuildSelected()
-    }
-
-    @Test
-    fun onEditBuildSelected_viewAttached_shouldNavigateToEditorForBuildId() {
-        `when`(mockView.getBuildId()).thenReturn(1)
-        presenter.attachView(view = mockView)
-
-        presenter.onEditBuildSelected()
-
-        verify(mockNavigator).onEditBuild(buildId = 1)
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun onSettingsSelected_noViewAttached_shouldThrowIllegalStateException() {
-        presenter.onSettingsSelected()
-    }
-
-    @Test
-    fun onSettingsSelected_viewAttached_shouldNavigateToOpenSettings() {
-        `when`(mockView.getBuildId()).thenReturn(2)
-        presenter.attachView(mockView)
-
-        presenter.onSettingsSelected()
-
-        verify(mockNavigator).onOpenSettings()
     }
 
     @Test
@@ -173,7 +145,7 @@ class BriefPresenterImplTest {
 
     @Test
     fun onAttach_noBuildForId_showsBuildLoadErrorInView() {
-        `when`(mockGetBuildUseCase.getBuild(1))
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
                 .thenReturn(Single.error(IOException("couldn't load build")))
 
         presenter.attachView(mockView)
@@ -183,7 +155,7 @@ class BriefPresenterImplTest {
 
     @Test
     fun onAttach_haveBuildForId_doesNotShowBuildLoadErrorInView() {
-        `when`(mockGetBuildUseCase.getBuild(1))
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
                 .thenReturn(Single.just(TEST_BUILD))
 
         presenter.attachView(mockView)
@@ -210,16 +182,16 @@ class BriefPresenterImplTest {
     }
 
     @Test
-    fun onAttach_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
+    fun onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
         presenter.attachView(mockView)
 
         mockViewEventStream.accept(PlaySelected())
 
-        verify(mockNavigator).onPlayBuild(1L)
+        verify(mockNavigator).onPlayBuild(DEFAULT_BUILD_ID)
     }
 
     @Test
-    fun onAttach_differentBuildId_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
+    fun onPlaySelectedViewEventEmitted_differentBuildId_shouldNavigateToPlayer() {
         `when`(mockView.getBuildId()).thenReturn(2L)
         presenter.attachView(mockView)
 
@@ -228,4 +200,21 @@ class BriefPresenterImplTest {
         verify(mockNavigator).onPlayBuild(2L)
     }
 
+    @Test
+    fun onEditBuildEventEmitted_shouldNavigateToEditor() {
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefView.BriefViewEvent.EditSelected())
+
+        verify(mockNavigator).onEditBuild(DEFAULT_BUILD_ID)
+    }
+
+    @Test
+    fun onSettingsEventEmitted_shouldNavigateToSettings() {
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefView.BriefViewEvent.SettingsSelected())
+
+        verify(mockNavigator).onOpenSettings()
+    }
 }

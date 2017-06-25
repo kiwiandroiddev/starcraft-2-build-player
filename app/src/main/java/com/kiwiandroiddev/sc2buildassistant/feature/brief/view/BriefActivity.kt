@@ -28,7 +28,7 @@ import com.google.analytics.tracking.android.EasyTracker
 import com.google.analytics.tracking.android.MapBuilder
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdView
-import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxrelay2.PublishRelay
 import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.activity.IntentKeys.*
 import com.kiwiandroiddev.sc2buildassistant.activity.OnScrollDirectionChangedListener
@@ -139,7 +139,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     @BindView(R.id.brief_content_layout) lateinit var mBriefContentLayout: ViewGroup
     @BindView(R.id.buildName) lateinit var mBuildNameText: TextView
 
-    lateinit var briefViewModel: BriefViewModel
+    private lateinit var briefViewModel: BriefViewModel
+    private val viewEventPublishRelay = PublishRelay.create<BriefViewEvent>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSystemUiVisibility()
@@ -296,10 +297,14 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         EasyTracker.getInstance(this).activityStart(this)
     }
 
+    @OnClick(R.id.activity_brief_play_action_button)
+    fun onPlayBuildSelected() {
+        viewEventPublishRelay.accept(BriefViewEvent.PlaySelected())
+    }
+
     override fun getBuildId(): Long = mBuildId
 
-    override fun getViewEvents(): Observable<BriefViewEvent> =
-            RxView.clicks(mPlayButton).map { BriefViewEvent.PlaySelected() }
+    override fun getViewEvents(): Observable<BriefViewEvent> = viewEventPublishRelay
 
     override fun render(viewState: BriefView.BriefViewState) {
         calculateAndApplyViewStateDiff(currentViewState, viewState)
@@ -388,11 +393,11 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
                     true
                 }
                 R.id.menu_edit_build -> {
-//                    briefCachingProxy.onEditBuildSelected()
+                    viewEventPublishRelay.accept(BriefViewEvent.EditSelected())
                     true
                 }
                 R.id.menu_settings -> {
-//                    briefCachingProxy.onSettingsSelected()
+                    viewEventPublishRelay.accept(BriefViewEvent.SettingsSelected())
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -408,11 +413,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         } else {
             finish()
         }
-    }
-
-    @OnClick(R.id.activity_brief_play_action_button)
-    fun playBuild() {
-//        briefCachingProxy.onPlayBuildSelected()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

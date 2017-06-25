@@ -60,12 +60,29 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
     }
 
     private fun getNavigationResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
-            viewEvents.ofType(BriefView.BriefViewEvent.PlaySelected::class.java)
-                    .flatMap { navigateToPlayer(view?.getBuildId()!!) }     // TODO fixme
+            viewEvents.flatMap { viewEvent ->
+                when(viewEvent) {
+                    is BriefView.BriefViewEvent.PlaySelected -> navigateToPlayer(view?.getBuildId()!!)
+                    is BriefView.BriefViewEvent.EditSelected -> navigateToEditor(view?.getBuildId()!!)
+                    is BriefView.BriefViewEvent.SettingsSelected -> navigateToSettings()
+                }
+            }
 
     private fun navigateToPlayer(buildId: Long): Observable<Result.SuccessfulNavigationResult> =
             Observable.fromCallable {
                 navigator.onPlayBuild(buildId)
+                Result.SuccessfulNavigationResult()
+            }
+
+    private fun navigateToEditor(buildId: Long): Observable<Result.SuccessfulNavigationResult> =
+            Observable.fromCallable {
+                navigator.onEditBuild(buildId)
+                Result.SuccessfulNavigationResult()
+            }
+
+    private fun navigateToSettings(): Observable<Result.SuccessfulNavigationResult> =
+            Observable.fromCallable {
+                navigator.onOpenSettings()
                 Result.SuccessfulNavigationResult()
             }
 
@@ -110,18 +127,6 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
     override fun detachView() {
         view = null
         disposable?.dispose()
-    }
-
-    fun onEditBuildSelected() {
-        ensureViewAttached()
-
-        navigator.onEditBuild(view?.getBuildId()!!)     // TODO fix
-    }
-
-    fun onSettingsSelected() {
-        ensureViewAttached()
-
-        navigator.onOpenSettings()
     }
 
     private fun ensureViewAttached() {

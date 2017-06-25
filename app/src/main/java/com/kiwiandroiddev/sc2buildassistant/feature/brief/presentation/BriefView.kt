@@ -22,6 +22,8 @@ interface BriefView {
 
     sealed class BriefViewEvent {
         class PlaySelected : BriefViewEvent()
+        class EditSelected : BriefViewEvent()
+        class SettingsSelected : BriefViewEvent()
     }
 
 }
