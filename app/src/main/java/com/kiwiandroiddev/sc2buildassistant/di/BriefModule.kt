@@ -7,6 +7,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.B
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetBuildUseCaseImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,8 +24,8 @@ class BriefModule {
     @Singleton
     fun provideBriefPresenter(getBuildUseCase: GetBuildUseCase,
                               getSettingsUseCase: GetSettingsUseCase,
-                              navigator: BriefNavigator) =
-            BriefPresenter(getBuildUseCase, getSettingsUseCase, navigator, AndroidSchedulers.mainThread())
+                              navigator: BriefNavigator): BriefPresenter =
+            BriefPresenterImpl(getBuildUseCase, getSettingsUseCase, navigator, AndroidSchedulers.mainThread())
 
     @Provides
     @Singleton

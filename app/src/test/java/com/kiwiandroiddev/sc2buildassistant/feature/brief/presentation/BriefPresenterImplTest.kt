@@ -21,7 +21,7 @@ import java.io.IOException
 /**
  * Created by Matt Clarke on 28/04/17.
  */
-class BriefPresenterTest {
+class BriefPresenterImplTest {
 
     @Mock lateinit var mockView: BriefView
     @Mock lateinit var mockNavigator: BriefNavigator
@@ -30,13 +30,13 @@ class BriefPresenterTest {
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
 
-    lateinit var presenter: BriefPresenter
+    lateinit var presenter: BriefPresenterImpl
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = BriefPresenter(
+        presenter = BriefPresenterImpl(
                 getBuildUseCase = mockGetBuildUseCase,
                 getSettingsUseCase = mockGetSettingsUseCase,
                 navigator = mockNavigator,
@@ -47,13 +47,15 @@ class BriefPresenterTest {
     }
 
     private fun setUpDefaultMockBehaviour() {
+        `when`(mockView.getBuildId()).thenReturn(1)
+
         `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
                 .thenReturn(Single.just(TEST_BUILD))
 
         `when`(mockGetSettingsUseCase.showAds())
                 .thenReturn(Observable.just(true))
 
-        mockViewEventStream =PublishRelay.create<BriefView.BriefViewEvent>()
+        mockViewEventStream = PublishRelay.create<BriefView.BriefViewEvent>()
 
         `when`(mockView.getViewEvents())
                 .thenReturn(mockViewEventStream)
@@ -66,7 +68,8 @@ class BriefPresenterTest {
 
     @Test
     fun onEditBuildSelected_viewAttached_shouldNavigateToEditorForBuildId() {
-        presenter.attachView(view = mockView, buildId = 1)
+        `when`(mockView.getBuildId()).thenReturn(1)
+        presenter.attachView(view = mockView)
 
         presenter.onEditBuildSelected()
 
@@ -80,7 +83,8 @@ class BriefPresenterTest {
 
     @Test
     fun onSettingsSelected_viewAttached_shouldNavigateToOpenSettings() {
-        presenter.attachView(mockView, 2)
+        `when`(mockView.getBuildId()).thenReturn(2)
+        presenter.attachView(mockView)
 
         presenter.onSettingsSelected()
 
@@ -91,7 +95,7 @@ class BriefPresenterTest {
     fun onAttach_showAdSettingOn_tellsViewToShowAds() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView).render(argThat { showAds })
     }
@@ -100,7 +104,7 @@ class BriefPresenterTest {
     fun onAttach_showAdSettingOff_tellsViewNotToShowAds() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(false))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(argThat { !showAds })
         verify(mockView, never()).render(argThat { showAds })
@@ -111,7 +115,7 @@ class BriefPresenterTest {
         `when`(mockGetSettingsUseCase.showAds())
                 .thenReturn(Observable.error(IOException("couldn't read ad setting from disk")))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(argThat { !showAds })
         verify(mockView, never()).render(argThat { showAds })
@@ -121,7 +125,7 @@ class BriefPresenterTest {
     fun onAttach_showAdSettingNotEmittedRightAway_rendersWithNoAdsInitially() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.never())
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(argThat { !showAds })
         verify(mockView, never()).render(argThat { showAds })
@@ -131,7 +135,7 @@ class BriefPresenterTest {
     fun onAttach_newShowAdSettingEmittedLater_viewRendersWithNewState() {
         val showAdsSettingSubject = BehaviorSubject.create<Boolean>()
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(showAdsSettingSubject)
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
         verify(mockView, atLeastOnce()).render(argThat { !showAds })
         verify(mockView, never()).render(argThat { showAds })
 
@@ -148,7 +152,7 @@ class BriefPresenterTest {
     fun onDetach_newShowAdSettingEmitted_doesntCrash() {
         val showAdsSettingSubject = BehaviorSubject.create<Boolean>()
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(showAdsSettingSubject)
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         presenter.detachView()
         showAdsSettingSubject.onNext(true)
@@ -158,10 +162,10 @@ class BriefPresenterTest {
     fun onDetach_onReattachAndNewShowAdSettingEmitted_onlyOneRenderHappens() {
         val showAdsSettingSubject = BehaviorSubject.create<Boolean>()
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(showAdsSettingSubject)
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         presenter.detachView()
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
         showAdsSettingSubject.onNext(true)
 
         verify(mockView, times(1)).render(argThat { showAds })
@@ -172,7 +176,7 @@ class BriefPresenterTest {
         `when`(mockGetBuildUseCase.getBuild(1))
                 .thenReturn(Single.error(IOException("couldn't load build")))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(argThat { showLoadError })
     }
@@ -182,7 +186,7 @@ class BriefPresenterTest {
         `when`(mockGetBuildUseCase.getBuild(1))
                 .thenReturn(Single.just(TEST_BUILD))
 
-        presenter.attachView(mockView, 1)
+        presenter.attachView(mockView)
 
         verify(mockView, never()).render(argThat { showLoadError })
     }
@@ -192,7 +196,7 @@ class BriefPresenterTest {
         `when`(mockGetBuildUseCase.getBuild(1L))
                 .thenReturn(Single.just(TEST_BUILD))
 
-        presenter.attachView(mockView, 1L)
+        presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(
                 BriefView.BriefViewState(
@@ -207,7 +211,7 @@ class BriefPresenterTest {
 
     @Test
     fun onAttach_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
-        presenter.attachView(mockView, 1L)
+        presenter.attachView(mockView)
 
         mockViewEventStream.accept(PlaySelected())
 
@@ -216,7 +220,8 @@ class BriefPresenterTest {
 
     @Test
     fun onAttach_differentBuildId_onPlaySelectedViewEventEmitted_shouldNavigateToPlayer() {
-        presenter.attachView(mockView, 2L)
+        `when`(mockView.getBuildId()).thenReturn(2L)
+        presenter.attachView(mockView)
 
         mockViewEventStream.accept(PlaySelected())
 

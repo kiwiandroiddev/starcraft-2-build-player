@@ -8,6 +8,8 @@ import java.io.Serializable
  */
 interface BriefView {
 
+    fun getBuildId(): Long
+
     fun getViewEvents(): Observable<BriefViewEvent>
 
     fun render(viewState: BriefViewState)

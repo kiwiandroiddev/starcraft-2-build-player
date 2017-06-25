@@ -13,7 +13,10 @@ import javax.inject.Inject
 /**
  * Created by Matt Clarke on 20/06/17.
  */
-class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView {
+class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView, BriefPresenter {
+    override fun getBuildId(): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     companion object {
 
@@ -28,6 +31,8 @@ class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView {
 
     @Inject lateinit var presenter: BriefPresenter
 
+    private var attachedView: BriefView? = null
+
     private var buildId: Long? = null
     private var viewState =
             MutableLiveData<BriefView.BriefViewState>().apply { setValue(DEFAULT_VIEW_STATE) }
@@ -38,11 +43,19 @@ class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView {
 
     fun setBuildId(buildId: Long) {
         if (this.buildId == null) {
-            presenter.attachView(this, buildId)
+            presenter.attachView(this)
             this.buildId = buildId
         } else if (this.buildId != buildId) {
             throw IllegalArgumentException("Programming error: setBuildId called again for same ViewModel with different buildID")
         }
+    }
+
+    override fun attachView(view: BriefView) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun detachView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun getViewState(): LiveData<BriefView.BriefViewState> = viewState
