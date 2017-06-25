@@ -39,13 +39,14 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
+import io.reactivex.Observable
 import java.util.*
 
 /**
  * Screen for showing an explanation of the build order, including references etc.
  * From here users can play the build order by pressing the Play action item.
  */
-class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
+class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     companion object {
 
@@ -59,17 +60,15 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
         private val KEY_VIEW_STATE = "com.kiwiandroiddev.sc2buildassistant.feature.brief.view.VIEW_STATE"
 
-        private val sRaceBgMap: HashMap<Faction, Int>
-        private val sColumns: ArrayList<String>
+        private val sRaceBgMap = HashMap<Faction, Int>()
+        private val sColumns = ArrayList<String>()
 
         init {
-            sRaceBgMap = HashMap<Faction, Int>()
             sRaceBgMap.put(Faction.TERRAN, R.drawable.terran_icon_blur_drawable)
             sRaceBgMap.put(Faction.PROTOSS, R.drawable.protoss_icon_blur_drawable)
             sRaceBgMap.put(Faction.ZERG, R.drawable.zerg_icon_blur_drawable)
 
             // Columns from the build order table containing info we want to display
-            sColumns = ArrayList<String>()
             sColumns.add(DbAdapter.KEY_SOURCE)
             sColumns.add(DbAdapter.KEY_DESCRIPTION)
             sColumns.add(DbAdapter.KEY_AUTHOR)
@@ -138,6 +137,8 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
     @BindView(R.id.brief_content_layout) lateinit var mBriefContentLayout: ViewGroup
     @BindView(R.id.buildName) lateinit var mBuildNameText: TextView
 
+    lateinit var briefViewModel: BriefViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         initSystemUiVisibility()
 
@@ -146,21 +147,17 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
         setContentView(R.layout.activity_brief)
         ButterKnife.bind(this)
 
-        val briefViewModel = ViewModelProviders.of(this).get(BriefViewModel::class.java)
-//        briefViewModel.getViewState().observe(this, android.arch.lifecycle.Observer { viewState ->
-//            viewState?.let { render(it) }
-//        })
-
         initIntentParameterFields(savedInstanceState)
-
-//        briefViewModel.setBuildId(mBuildId)
-
         restoreViewStateFieldIfExists(savedInstanceState)
         initToolbar()
         displayBasicInfo()
         trackBriefView()
         initScrollView()
         ensureBriefContentIsNotHiddenBySystemBars()
+
+        briefViewModel = ViewModelProviders.of(this).get(BriefViewModel::class.java)
+        briefViewModel.setBuildId(mBuildId)
+        briefViewModel.attachView(this)
     }
 
     val lifecycleRegistry = LifecycleRegistry(this)
@@ -297,7 +294,13 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
         EasyTracker.getInstance(this).activityStart(this)
     }
 
-    fun render(viewState: BriefView.BriefViewState) {
+    override fun getBuildId(): Long = mBuildId
+
+    override fun getViewEvents(): Observable<BriefView.BriefViewEvent> {
+        return Observable.never()       // TODO stub
+    }
+
+    override fun render(viewState: BriefView.BriefViewState) {
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState
     }
@@ -384,11 +387,11 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
                     true
                 }
                 R.id.menu_edit_build -> {
-//                    presenter.onEditBuildSelected()
+//                    briefCachingProxy.onEditBuildSelected()
                     true
                 }
                 R.id.menu_settings -> {
-//                    presenter.onSettingsSelected()
+//                    briefCachingProxy.onSettingsSelected()
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
@@ -408,7 +411,7 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     @OnClick(R.id.activity_brief_play_action_button)
     fun playBuild() {
-//        presenter.onPlayBuildSelected()
+//        briefCachingProxy.onPlayBuildSelected()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -440,4 +443,8 @@ class BriefActivity : AppCompatActivity(), LifecycleRegistryOwner {
                         .build())
     }
 
+    override fun onDestroy() {
+        briefViewModel.detachView()
+        super.onDestroy()
+    }
 }

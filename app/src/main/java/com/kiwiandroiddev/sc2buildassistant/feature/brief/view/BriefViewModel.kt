@@ -3,58 +3,44 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.view
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import com.kiwiandroiddev.sc2buildassistant.MyApplication
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefCachingProxy
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
-import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
  * Created by Matt Clarke on 20/06/17.
  */
-class BriefViewModel(app: Application) : AndroidViewModel(app), BriefView, BriefPresenter {
+class BriefViewModel(app: Application) : AndroidViewModel(app), BriefPresenter {
 
-    companion object {
+    @Inject lateinit var _backingPresenter: BriefPresenter
 
-        val DEFAULT_VIEW_STATE = BriefView.BriefViewState(
-                showAds = false,
-                showLoadError = false,
-                briefText = null,
-                buildSource = null,
-                buildAuthor = null
-        )
-
-    }
-
-    @Inject lateinit var presenter: BriefPresenter
-
-    private var attachedView: BriefView? = null
+    private var briefCachingProxy: BriefCachingProxy? = null
 
     init {
         (app as MyApplication).inject(this)
     }
 
-    override fun attachView(view: BriefView) {
-        attachedView = view
+    fun setBuildId(buildId: Long) {
+        if (briefCachingProxy == null) {
+            briefCachingProxy = BriefCachingProxy(buildId).apply {
+                _backingPresenter.attachView(this)
+            }
+        } else if (buildId != briefCachingProxy!!.getBuildId()) {
+            throw IllegalStateException("BriefCachingProxy already initialised with different build ID")
+        }
     }
 
-    override fun getBuildId(): Long {
-        return attachedView?.getBuildId() ?: throw IllegalStateException()
+    override fun attachView(view: BriefView) {
+        briefCachingProxy?.attachView(view)
     }
 
     override fun detachView() {
-        attachedView = null
-    }
-
-    override fun getViewEvents(): Observable<BriefView.BriefViewEvent> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun render(viewState: BriefView.BriefViewState) {
-
+        briefCachingProxy?.detachView()
     }
 
     override fun onCleared() {
-        presenter.detachView()
+        _backingPresenter.detachView()
     }
 
 }

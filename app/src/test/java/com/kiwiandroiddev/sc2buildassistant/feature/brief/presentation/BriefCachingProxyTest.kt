@@ -19,7 +19,6 @@ import org.mockito.MockitoAnnotations
  */
 class BriefCachingProxyTest {
 
-    @Mock lateinit var mockBackingPresenter: BriefPresenter
     @Mock lateinit var mockView: BriefView
 
     lateinit var briefCachingProxy: BriefCachingProxy
@@ -28,22 +27,23 @@ class BriefCachingProxyTest {
     val TEST_VIEW_STATE = BriefView.BriefViewState(showAds = false, showLoadError = false,
             briefText = null, buildSource = null, buildAuthor = null)
 
+    val TEST_BUILD_ID = 1L
+
+    lateinit var viewEventPublishSubject: PublishSubject<BriefView.BriefViewEvent>
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        briefCachingProxy = BriefCachingProxy(mockBackingPresenter)
+        briefCachingProxy = BriefCachingProxy(TEST_BUILD_ID)
+
+        viewEventPublishSubject = PublishSubject.create<BriefView.BriefViewEvent>()
 
         setupMockBehaviors()
     }
 
     private fun setupMockBehaviors() {
         `when`(mockView.getViewEvents()).thenReturn(Observable.never())
-    }
-
-    @Test
-    fun onConstruction_attachesSelfToBackingPresenter() {
-        verify(mockBackingPresenter).attachView(briefCachingProxy)
     }
 
     @Test
@@ -135,7 +135,6 @@ class BriefCachingProxyTest {
 
     @Test
     fun getViewEvents_attachedViewEmitsEvent_forwardsViewEvent() {
-        val viewEventPublishSubject = PublishSubject.create<BriefView.BriefViewEvent>()
         `when`(mockView.getViewEvents()).thenReturn(viewEventPublishSubject)
         briefCachingProxy.attachView(mockView)
         val testObserver = briefCachingProxy.getViewEvents().subscribeTestObserver()
@@ -149,9 +148,6 @@ class BriefCachingProxyTest {
     @Test
     fun getViewEvents_viewAttachesAfterSubscriptionAndEmitsAnEvent_forwardsViewEvent() {
         val testObserver = briefCachingProxy.getViewEvents().subscribeTestObserver()
-        testObserver.assertNoValues().assertNotTerminated()
-
-        val viewEventPublishSubject = PublishSubject.create<BriefView.BriefViewEvent>()
         `when`(mockView.getViewEvents()).thenReturn(viewEventPublishSubject)
         briefCachingProxy.attachView(mockView)
 
@@ -165,7 +161,6 @@ class BriefCachingProxyTest {
         val testObserver = briefCachingProxy.getViewEvents().subscribeTestObserver()
         testObserver.assertNoValues().assertNotTerminated()
 
-        val viewEventPublishSubject = PublishSubject.create<BriefView.BriefViewEvent>()
         `when`(mockView.getViewEvents()).thenReturn(viewEventPublishSubject)
         briefCachingProxy.attachView(mockView)
         briefCachingProxy.detachView()
