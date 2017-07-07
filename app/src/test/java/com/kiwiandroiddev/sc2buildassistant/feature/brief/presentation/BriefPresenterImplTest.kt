@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.argThat
@@ -30,7 +31,7 @@ class BriefPresenterImplTest {
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
 
-    lateinit var presenter: BriefPresenterImpl
+    lateinit var presenter: BriefPresenter
 
     @Before
     fun setUp() {
@@ -165,13 +166,13 @@ class BriefPresenterImplTest {
 
     @Test
     fun onAttach_haveBuildForId_rendersBuildBriefInView() {
-        `when`(mockGetBuildUseCase.getBuild(1L))
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
                 .thenReturn(Single.just(TEST_BUILD))
 
         presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(
-                BriefView.BriefViewState(
+                BriefViewState(
                         showAds = true,
                         showLoadError = false,
                         briefText = TEST_BUILD.notes,
@@ -204,7 +205,7 @@ class BriefPresenterImplTest {
     fun onEditBuildEventEmitted_shouldNavigateToEditor() {
         presenter.attachView(mockView)
 
-        mockViewEventStream.accept(BriefView.BriefViewEvent.EditSelected())
+        mockViewEventStream.accept(BriefViewEvent.EditSelected())
 
         verify(mockNavigator).onEditBuild(DEFAULT_BUILD_ID)
     }
@@ -213,8 +214,16 @@ class BriefPresenterImplTest {
     fun onSettingsEventEmitted_shouldNavigateToSettings() {
         presenter.attachView(mockView)
 
-        mockViewEventStream.accept(BriefView.BriefViewEvent.SettingsSelected())
+        mockViewEventStream.accept(BriefViewEvent.SettingsSelected())
 
         verify(mockNavigator).onOpenSettings()
+    }
+
+    @Test
+    fun onAttach_buildLanguageMatchesUserLanguage_translatePromptNotShown() {
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
+                .thenReturn(Single.just(TEST_BUILD))
+
+        presenter.attachView(mockView)
     }
 }

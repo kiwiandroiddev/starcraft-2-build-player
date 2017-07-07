@@ -190,26 +190,7 @@ public class Build implements Serializable {
 	public Date getModified() {
 		return mModified;
 	}
-	
-	// TODO: take into account null fields
-	public long longHashCode() {
-        long hash = 1;
-        hash = hash * 5 + mName.hashCode();
-        hash = hash * 31 + mNotes.hashCode();
-        hash = hash * 11 + mSource.hashCode();
-        hash = hash * 5 + mSource.hashCode();
-        hash = hash * 17 + mAuthor.hashCode();
-        hash = hash * 3 + mFaction.ordinal();
-        hash = hash * 19 + mExpansion.ordinal();
-        hash = hash * 13 + (mVsFaction == null ? 0 : mVsFaction.ordinal());
-        if (mItems != null) {
-        	for (BuildItem item : mItems) {
-        		hash = hash * 3 + item.longHashCode();
-        	}
-        }
-        return hash;
-	}
-	
+
 	// Mutators
 	
 	public void setExpansion(Expansion expansion) {
