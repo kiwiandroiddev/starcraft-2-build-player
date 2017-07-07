@@ -18,6 +18,9 @@ class BriefCachingProxy(private val buildId: Long) : BriefPresenter, BriefView {
     private var viewEventDisposable: Disposable? = null
 
     override fun attachView(view: BriefView) {
+        if (view.getBuildId() != buildId)
+            throw IllegalStateException("Mismatched view and caching proxy (build IDs different)")
+
         viewStateDisposable = viewStateBehaviorRelay.subscribe { viewState -> view.render(viewState) }
         viewEventDisposable = view.getViewEvents().subscribe(viewEventPublishRelay)
     }

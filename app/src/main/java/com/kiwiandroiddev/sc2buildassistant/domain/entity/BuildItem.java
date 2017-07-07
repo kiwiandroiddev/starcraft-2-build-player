@@ -52,10 +52,10 @@ public class BuildItem implements Serializable {
         BuildItem rhs = (BuildItem) obj;
         return mTime == rhs.getTime() &&
         		mCount == rhs.getCount() &&
-        		Build.objectsEquivalent(mUnit, rhs.getGameItemID()) &&
-        		Build.objectsEquivalent(mTarget, rhs.getTarget()) &&
-        		Build.objectsEquivalent(mText, rhs.getText()) &&
-        		Build.objectsEquivalent(mVoice, rhs.getVoice());
+        		Build.Companion.objectsEquivalent(mUnit, rhs.getGameItemID()) &&
+        		Build.Companion.objectsEquivalent(mTarget, rhs.getTarget()) &&
+        		Build.Companion.objectsEquivalent(mText, rhs.getText()) &&
+        		Build.Companion.objectsEquivalent(mVoice, rhs.getVoice());
     }
 	
 	public String toString() {

@@ -2,12 +2,10 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.subscribeTestObserver
 import com.nhaarman.mockito_kotlin.never
-import com.nhaarman.mockito_kotlin.reset
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -27,7 +25,7 @@ class BriefCachingProxyTest {
     val TEST_VIEW_STATE = BriefView.BriefViewState(showAds = false, showLoadError = false,
             briefText = null, buildSource = null, buildAuthor = null)
 
-    val TEST_BUILD_ID = 1L
+    val DEFAULT_BUILD_ID = 1L
 
     lateinit var viewEventPublishSubject: PublishSubject<BriefView.BriefViewEvent>
 
@@ -35,14 +33,15 @@ class BriefCachingProxyTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        briefCachingProxy = BriefCachingProxy(TEST_BUILD_ID)
+        briefCachingProxy = BriefCachingProxy(DEFAULT_BUILD_ID)
 
         viewEventPublishSubject = PublishSubject.create<BriefView.BriefViewEvent>()
 
-        setupMockBehaviors()
+        setupDefaultMockBehaviors()
     }
 
-    private fun setupMockBehaviors() {
+    private fun setupDefaultMockBehaviors() {
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
         `when`(mockView.getViewEvents()).thenReturn(Observable.never())
     }
 
@@ -86,42 +85,9 @@ class BriefCachingProxyTest {
     }
 
     @Test(expected = IllegalStateException::class)
-    fun getBuildId_noViewHasEverAttached_throwIllegalStateException() {
-        briefCachingProxy.getBuildId()
-    }
-
-    @Test
-    fun getBuildId_viewAttached_returnsBuildIdFromAttachedView() {
-        `when`(mockView.getBuildId()).thenReturn(5L)
-        briefCachingProxy.attachView(mockView)
-
-        val actualBuildId = briefCachingProxy.getBuildId()
-
-        assertThat(actualBuildId).isEqualTo(5L)
-        verify(mockView).getBuildId()
-    }
-
-    @Test
-    fun getBuildId_viewPreviouslyAttachedThenDetached_returnsPreviouslyAttachedViewsBuildId_andDoesntCallView() {
-        `when`(mockView.getBuildId()).thenReturn(10L)
-        briefCachingProxy.attachView(mockView)
-        briefCachingProxy.detachView()
-        reset(mockView)
-
-        val actualBuildId = briefCachingProxy.getBuildId()
-
-        assertThat(actualBuildId).isEqualTo(10L)
-        verify(mockView, never()).getBuildId()
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun attachView_viewPreviouslyAttachedWithDifferentBuildIdThenDetached_throwsIllegalStateException() {
-        `when`(mockView.getBuildId()).thenReturn(1L)
-        briefCachingProxy.attachView(mockView)
-        briefCachingProxy.detachView()
-        reset(mockView)
+    fun attachView_viewsBuildIdDoesNotMatchProxysBuildId_throwsIllegalStateException() {
+        briefCachingProxy = BriefCachingProxy(1L)
         `when`(mockView.getBuildId()).thenReturn(2L)
-        `when`(mockView.getViewEvents()).thenReturn(Observable.never())
 
         briefCachingProxy.attachView(mockView)
     }
