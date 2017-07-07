@@ -171,18 +171,6 @@ public class Build implements Serializable {
 		return mExpansion;
 	}
 
-	/*
-	 * return duration of this build order in seconds
-	 * (i.e. returns the timestamp of last unit or building in build order)
-	 */
-	public long getDuration() {
-		if (mItems.size() == 0) {
-			return 0;	// silently fail
-		}
-		// assumes build items are already sorted from first->last build time!
-		return mItems.get(mItems.size()-1).getTime();
-	}
-	
 	public Date getCreated() {
 		return mCreated;
 	}
