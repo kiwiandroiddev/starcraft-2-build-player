@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.annotation.DrawableRes
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
@@ -144,6 +145,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private lateinit var briefViewModel: BriefViewModel
     private val viewEventPublishRelay = PublishRelay.create<BriefViewEvent>()
+    private var translateSnackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSystemUiVisibility()
@@ -344,13 +346,26 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             newViewState.buildSource?.let { source -> setSource(source) }
         }
 
-        // TODO temporary
         if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
             when(newViewState.showTranslateOption) {
-                true -> Toast.makeText(this, "Translation available!", Toast.LENGTH_LONG).show()
-                false -> Toast.makeText(this, "Translation not available", Toast.LENGTH_LONG).show()
+                true -> showTranslationAvailableOption()
+                false -> hideTranslationAvailableOption()
             }
         }
+    }
+
+    private fun showTranslationAvailableOption() {
+        translateSnackbar = Snackbar.make(mRootView, getString(R.string.translate_brief_prompt), Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.translate_button, { view ->
+                    // do nothing yet
+                    Toast.makeText(this, "Stub!", Toast.LENGTH_LONG).show()
+                })
+        translateSnackbar?.show()
+    }
+
+    private fun hideTranslationAvailableOption() {
+        translateSnackbar?.dismiss()
+        translateSnackbar = null
     }
 
     private fun setAuthor(author: String?) {

@@ -382,5 +382,7 @@
 	<string name="pref_worker_alerts_enabled_summary">Enable SCV, Probe and Drone alerts</string>
 
 	<string name="transition_build_name" translatable="false">transition_build_name</string>
+    <string name="translate_button">Translate</string>
+    <string name="translate_brief_prompt">Translate this to your language?</string>
 
 </resources>

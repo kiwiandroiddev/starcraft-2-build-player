@@ -333,5 +333,13 @@ class BriefPresenterImplTest {
         verify(mockView, never()).render(argThat { showLoadError })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
+
+    // TODO
+    // test that sending a "translate this" view event shows a loading spinner, then error popup
+    // if it can't translate
+    // test that it replaces brief text with translation if it works
+    // test that it shows a generic error and reports exception if it's called when no translation
+    // actually available for brief (programming error)
+
 }
 
