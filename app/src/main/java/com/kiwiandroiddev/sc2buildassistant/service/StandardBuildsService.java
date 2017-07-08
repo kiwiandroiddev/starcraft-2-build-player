@@ -29,7 +29,10 @@ import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedp
  * Created by matt on 17/07/15.
  */
 public final class StandardBuildsService {
-	private static final int BUILD_FILES_VERSION = 50;	// tracks changes to build JSON files in assets/
+
+	// 51 - add languageCode to standard builds
+	private static final int BUILD_FILES_VERSION = 51;	// tracks changes to build JSON files in assets/
+
 	private static final String ASSETS_BUILDS_DIR = "builds";
 
 	private StandardBuildsService() {}

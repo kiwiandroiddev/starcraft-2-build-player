@@ -10,6 +10,6 @@ import io.reactivex.Single
 class GetCurrentSystemLanguageAgent(val context: Context) : GetCurrentLanguageAgent {
 
     override fun getLanguageCode(): Single<String> =
-            Single.just(context.resources.configuration.locale.country)
+            Single.just(context.resources.configuration.locale.language)
 
 }

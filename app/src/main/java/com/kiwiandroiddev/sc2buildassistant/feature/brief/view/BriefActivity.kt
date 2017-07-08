@@ -310,10 +310,10 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     override fun getViewEvents(): Observable<BriefViewEvent> = viewEventPublishRelay
 
     override fun render(viewState: BriefView.BriefViewState) {
-//        val conciseViewState = viewState.copy(
-//                briefText = viewState.briefText?.let { it.substring(0, 10) + "..." } ?: "null"
-//        )
-//        Timber.d("render = $conciseViewState")
+        val conciseViewState = viewState.copy(
+                briefText = viewState.briefText?.let { it.substring(0, 10) + "..." } ?: "null"
+        )
+        Timber.d("render = $conciseViewState")
 
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState

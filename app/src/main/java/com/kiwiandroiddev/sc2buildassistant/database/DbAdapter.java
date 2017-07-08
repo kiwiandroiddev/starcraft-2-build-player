@@ -64,7 +64,8 @@ public class DbAdapter {
 
     // v2.1.5 -> db 48
     // v2.5.0 -> db 49
-    private static final int DB_VERSION = 49;
+    // v2.7.0 -> db 50
+    private static final int DB_VERSION = 50;
 
     private static final String TAG = "DbAdapter";
 
@@ -126,6 +127,7 @@ public class DbAdapter {
     public static final String KEY_AUTHOR = "author";
     public static final String KEY_CREATED = "created";
     public static final String KEY_MODIFIED = "modified";
+    public static final String KEY_ISO_LANGUAGE_CODE = "iso_language_code";
 
     // item_type column names
     public static final String KEY_ITEM_TYPE_ID = "item_type_id";
@@ -229,6 +231,7 @@ public class DbAdapter {
 
             PATCHES = new HashMap<>();
             PATCHES.put(48, new PatchFrom48To49());
+            PATCHES.put(49, new PatchFrom49To50());
         }
 
         @Override
@@ -255,6 +258,7 @@ public class DbAdapter {
                     + KEY_AUTHOR + " text, "
                     + KEY_CREATED + " text, "    // ISO 8601 string (YYYY-MM-DD HH:MM:SS)
                     + KEY_MODIFIED + " text, "    // ISO 8601 string (YYYY-MM-DD HH:MM:SS)
+                    + KEY_ISO_LANGUAGE_CODE + " text, "
                     + "foreign key(" + KEY_EXPANSION_ID + ") references " + TABLE_EXPANSION + " (" + KEY_EXPANSION_ID + ") on delete cascade, "
                     + "foreign key(" + KEY_FACTION_ID + ") references " + TABLE_FACTION + " (" + KEY_FACTION_ID + ") on delete cascade, "
                     + "foreign key(" + KEY_VS_FACTION_ID + ") references " + TABLE_FACTION + " (" + KEY_FACTION_ID + ") on delete cascade);\n";
@@ -320,6 +324,19 @@ public class DbAdapter {
 
             private void addLotvExpansionAndNewItems(SQLiteDatabase db) {
                 addStaticData(db);
+            }
+
+        }
+
+        private class PatchFrom49To50 implements Patch {
+
+            @Override
+            public void upgrade(SQLiteDatabase db) {
+                addIsoLanguageCodeColumnToBuildTable(db);
+            }
+
+            private void addIsoLanguageCodeColumnToBuildTable(SQLiteDatabase db) {
+                db.execSQL("alter table  " + TABLE_BUILD_ORDER + " ADD COLUMN " + KEY_ISO_LANGUAGE_CODE + " text");
             }
 
         }
@@ -525,20 +542,6 @@ public class DbAdapter {
         return result;
     }
 
-    public void addBuilds(ArrayList<Build> builds) {
-        mDb.beginTransaction();
-        try {
-            for (Build build : builds) {
-                addBuild(build);
-            }
-            mDb.setTransactionSuccessful();
-        } catch (RuntimeException e) {
-            throw e;
-        } finally {
-            mDb.endTransaction();
-        }
-    }
-
     /**
      * Adds builds to the database. Existing builds with the same name
      * as any of the incoming builds will be overwritten.
@@ -611,6 +614,7 @@ public class DbAdapter {
         values.put(KEY_SOURCE, build.getSource());
         values.put(KEY_AUTHOR, build.getAuthor());
         values.put(KEY_DESCRIPTION, build.getNotes());
+        values.put(KEY_ISO_LANGUAGE_CODE, build.getIsoLanguageCode());
         if (build.getVsFaction() != null)
             values.put(KEY_VS_FACTION_ID, getFactionID(build.getVsFaction()));
         if (build.getCreated() != null)
@@ -714,7 +718,9 @@ public class DbAdapter {
 
         try {
             result = mDb.query(TABLE_BUILD_ORDER,
-                    new String[]{KEY_NAME, KEY_FACTION_ID, KEY_EXPANSION_ID, KEY_VS_FACTION_ID, KEY_SOURCE, KEY_DESCRIPTION, KEY_AUTHOR, KEY_CREATED, KEY_MODIFIED},
+                    new String[]{KEY_NAME, KEY_FACTION_ID, KEY_EXPANSION_ID, KEY_VS_FACTION_ID,
+                            KEY_SOURCE, KEY_DESCRIPTION, KEY_AUTHOR, KEY_CREATED, KEY_MODIFIED,
+                            KEY_ISO_LANGUAGE_CODE},
                     KEY_BUILD_ORDER_ID + " = " + row_id, null, null, null, null);
             if (result.moveToFirst()) {
                 final String name = result.getString(0);
@@ -726,9 +732,11 @@ public class DbAdapter {
                 final String author = result.getString(6);
                 final String createdString = result.getString(7);
                 final String modifiedString = result.getString(8);
+                final String isoLanguageCode = result.getString(9);
 
                 newBuild = new Build(name, faction, vsFaction, expansion, source, notes, fetchBuildItems(row_id));
                 newBuild.setAuthor(author);
+                newBuild.setIsoLanguageCode(isoLanguageCode);
 
                 if (createdString != null) {
                     try {
