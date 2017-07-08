@@ -1,8 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
@@ -18,6 +20,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                          val getSettingsUseCase: GetSettingsUseCase,
                          val getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
                          val checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
+                         val getTranslationUseCase: GetTranslationUseCase,
                          val navigator: BriefNavigator,
                          val errorReporter: ErrorReporter,
                          val postExecutionScheduler: Scheduler) : BriefPresenter {
@@ -27,6 +30,8 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 showAds = false,
                 showLoadError = false,
                 showTranslateOption = false,
+                showTranslationError = false,
+                translationLoading = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null
@@ -53,13 +58,19 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         }
 
         class SuccessfulNavigationResult : Result()
+
+        sealed class TranslationResult : Result() {
+            class Loading : TranslationResult()
+            data class Success(val translatedBrief: String) : TranslationResult()
+            data class Failure(val cause: Throwable) : TranslationResult()
+        }
     }
 
     private fun setupViewStateStream(view: BriefView, buildId: Long) {
         val allResults: Observable<Result> = Observable.merge(
                 loadBuildResults(buildId),
                 showAdResults(),
-                getNavigationResults(view.getViewEvents())
+                getViewEventResults(view.getViewEvents())
         )
 
         disposable = allResults
@@ -69,12 +80,13 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 .subscribe(view::render)
     }
 
-    private fun getNavigationResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
+    private fun getViewEventResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
             viewEvents.flatMap { viewEvent ->
                 when (viewEvent) {
                     is BriefView.BriefViewEvent.PlaySelected -> navigateToPlayer(view?.getBuildId()!!)
                     is BriefView.BriefViewEvent.EditSelected -> navigateToEditor(view?.getBuildId()!!)
                     is BriefView.BriefViewEvent.SettingsSelected -> navigateToSettings()
+                    is BriefView.BriefViewEvent.TranslateSelected -> getTranslateBuildResults()
                 }
             }
 
@@ -112,6 +124,15 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                         lastViewState.copy(showTranslateOption = result.showTranslateOption)
 
                     is Result.SuccessfulNavigationResult -> lastViewState    // do nothing to view state
+
+                    is Result.TranslationResult.Loading ->
+                        lastViewState.copy(translationLoading = true)
+
+                    is Result.TranslationResult.Success ->
+                        lastViewState.copy(briefText = result.translatedBrief, translationLoading = false)
+
+                    is Result.TranslationResult.Failure ->
+                        lastViewState.copy(showTranslationError = true, translationLoading = false)
                 }
             }
 
@@ -127,26 +148,57 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                             is Result.LoadBuildResult.Success ->
                                 Observable.merge(
                                         Observable.just(loadBuildResult as Result),
-                                        showTranslateOptionResults(loadBuildResult.build)
+                                        showTranslateOptionResult(loadBuildResult.build).toObservable()
                                 )
                         }
                     }
 
-    private fun showTranslateOptionResults(build: Build): Observable<Result> =
-            getCurrentLanguageUseCase.getLanguageCode().toObservable()
+    private fun showTranslateOptionResult(build: Build): Single<Result> =
+            isTranslationAvailableForBuild(build)
+                    .map { available -> Result.ShowTranslateOptionResult(available) as Result }
+
+    private fun isTranslationAvailableForBuild(build: Build): Single<Boolean> =
+            getCurrentLanguageUseCase.getLanguageCode()
                     .flatMap { currentLanguage ->
                         if (build.isoLanguageCode == null || currentLanguage == build.isoLanguageCode) {
-                            Observable.just<Result>(Result.ShowTranslateOptionResult(showTranslateOption = false))
+                            Single.just(false)
                         } else {
                             checkTranslationPossibleUseCase.canTranslateFromLanguage(
-                                    fromLanguageCode = build.isoLanguageCode!!, toLanguageCode = currentLanguage)
-                                    .map { canTranslateBuild ->
-                                        Result.ShowTranslateOptionResult(canTranslateBuild) as Result
-                                    }
-                                    .toObservable()
-                                    .onErrorResumeNext { _: Throwable -> Observable.empty<Result>() }
+                                    fromLanguageCode = build.isoLanguageCode!!,
+                                    toLanguageCode = currentLanguage)
+                                    .onErrorReturn { _ -> false }
                         }
-                    }.doOnError { error -> errorReporter.trackNonFatalError(error) }
+                    }.doOnError { getCurrentLanguageError -> errorReporter.trackNonFatalError(getCurrentLanguageError) }
+
+    private fun getTranslateBuildResults(): Observable<Result> {
+        return getBuild().toObservable().flatMap { build ->
+            isTranslationAvailableForBuild(build).toObservable()
+                    .flatMap { translationAvailable ->
+                        when (translationAvailable) {
+                            false -> {
+                                val error = IllegalStateException("Translate selected when translation not available or needed")
+                                errorReporter.trackNonFatalError(error)
+                                Observable.just(Result.TranslationResult.Failure(error))
+                            }
+                            true -> {
+                                getTranslationUseCase.getTranslation(
+                                        fromLanguageCode = build.isoLanguageCode!!,       // already know this won't be null from earlier but still
+                                        toLanguageCode = "de",     // TODO: don't allow translation if no brief
+                                        sourceText = build.notes!!)
+                                        .toObservable()
+                                        .map { translatedBrief ->
+                                            Result.TranslationResult.Success(translatedBrief) as Result.TranslationResult
+                                        }
+                                        .onErrorReturn { error -> Result.TranslationResult.Failure(error) }
+                                        .startWith(Result.TranslationResult.Loading())
+                            }
+                        }
+                    }
+        }.map { it as Result }
+    }
+
+    private fun getBuild(): Single<Build> =
+            getBuildUseCase.getBuild(view?.getBuildId()!!)      // TODO stub
 
     private fun showAdResults(): Observable<Result.ShowAdsResult> =
             getSettingsUseCase.showAds()

@@ -59,6 +59,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
                 showAds = false,
                 showLoadError = false,
                 showTranslateOption = false,
+                showTranslationError = false,
+                translationLoading = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null

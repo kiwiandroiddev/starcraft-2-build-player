@@ -14,7 +14,8 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetCurrent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import dagger.Module
@@ -34,6 +35,7 @@ class BriefModule {
                               getSettingsUseCase: GetSettingsUseCase,
                               getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
                               checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
+                              getTranslationUseCase: GetTranslationUseCase,
                               errorReporter: ErrorReporter,
                               navigator: BriefNavigator): BriefPresenter =
             BriefPresenterImpl(
@@ -41,6 +43,7 @@ class BriefModule {
                     getSettingsUseCase,
                     getCurrentLanguageUseCase,
                     checkTranslationPossibleUseCase,
+                    getTranslationUseCase,
                     navigator,
                     errorReporter,
                     AndroidSchedulers.mainThread()
@@ -63,6 +66,15 @@ class BriefModule {
                 override fun canTranslateFromLanguage(fromLanguageCode: String, toLanguageCode: String): Single<Boolean> =
                         Single.just(true)   // TODO stub
             }
+
+    @Provides
+    @Singleton
+    fun provideGetTranslationUseCase(): GetTranslationUseCase =
+        object : GetTranslationUseCase {
+            override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> {
+                return Single.error(NotImplementedError())
+            }
+        }
 
     @Provides
     @Singleton

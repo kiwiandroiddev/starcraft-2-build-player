@@ -17,6 +17,8 @@ interface BriefView {
     data class BriefViewState(val showAds: Boolean,
                               val showLoadError: Boolean,
                               val showTranslateOption: Boolean,
+                              val showTranslationError: Boolean,
+                              val translationLoading: Boolean,
                               val briefText: String?,
                               val buildSource: String?,
                               val buildAuthor: String?) : Serializable
@@ -25,6 +27,7 @@ interface BriefView {
         class PlaySelected : BriefViewEvent()
         class EditSelected : BriefViewEvent()
         class SettingsSelected : BriefViewEvent()
+        class TranslateSelected : BriefViewEvent()
     }
 
 }

@@ -3,8 +3,10 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
@@ -15,6 +17,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.SingleSubject
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -33,6 +36,7 @@ class BriefPresenterImplTest {
     @Mock lateinit var mockGetSettingsUseCase: GetSettingsUseCase
     @Mock lateinit var mockGetCurrentLanguageUseCase: GetCurrentLanguageUseCase
     @Mock lateinit var mockCheckTranslationPossibleUseCase: CheckTranslationPossibleUseCase
+    @Mock lateinit var mockGetTranslationUseCase: GetTranslationUseCase
     @Mock lateinit var mockErrorReporter: ErrorReporter
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
@@ -48,6 +52,7 @@ class BriefPresenterImplTest {
                 getSettingsUseCase = mockGetSettingsUseCase,
                 getCurrentLanguageUseCase = mockGetCurrentLanguageUseCase,
                 checkTranslationPossibleUseCase = mockCheckTranslationPossibleUseCase,
+                getTranslationUseCase = mockGetTranslationUseCase,
                 navigator = mockNavigator,
                 errorReporter = mockErrorReporter,
                 postExecutionScheduler = Schedulers.trampoline()
@@ -94,6 +99,16 @@ class BriefPresenterImplTest {
                 ))
     }
 
+    private fun givenABuildWithLanguageAndBriefText(languageCode: String?, brief: String) {
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
+                .thenReturn(Single.just(
+                        TEST_BUILD.copy(
+                                isoLanguageCode = languageCode,
+                                notes = brief
+                        )
+                ))
+    }
+
     private fun givenTranslatingIsPossible(from: String, to: String, isPossible: Boolean) {
         reset(mockCheckTranslationPossibleUseCase)
         `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(fromLanguageCode = from, toLanguageCode = to))
@@ -108,6 +123,17 @@ class BriefPresenterImplTest {
     private fun givenGetCurrentLanguageThrowsError(currentLanguageAccessError: RuntimeException) {
         `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
                 .thenReturn(Single.error(currentLanguageAccessError))
+    }
+
+    private fun givenGetTranslationAlwaysThrowsAnError(translationError: RuntimeException) {
+        `when`(mockGetTranslationUseCase.getTranslation(fromLanguageCode = any(),
+                toLanguageCode = any(), sourceText = any()))
+                .thenReturn(Single.error(translationError))
+    }
+
+    private fun givenGetTranslationWillNeverComplete() {
+        `when`(mockGetTranslationUseCase.getTranslation(fromLanguageCode = any(),
+                toLanguageCode = any(), sourceText = any())).thenReturn(Single.never())
     }
 
     @Test
@@ -218,10 +244,10 @@ class BriefPresenterImplTest {
         presenter.attachView(mockView)
 
         verify(mockView, atLeastOnce()).render(argThat {
-                    briefText == TEST_BUILD.notes &&
-                            buildSource == TEST_BUILD.source &&
-                            buildAuthor == TEST_BUILD.author
-                }
+            briefText == TEST_BUILD.notes &&
+                    buildSource == TEST_BUILD.source &&
+                    buildAuthor == TEST_BUILD.author
+        }
         )
     }
 
@@ -334,12 +360,114 @@ class BriefPresenterImplTest {
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
+    @Test
+    fun onTranslateViewEventEmitted_translationUseCaseThrowsError_shouldShowErrorInView() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("ru")
+        givenTranslatingIsPossible(from = "ru", to = "en", isPossible = true)
+        givenGetTranslationAlwaysThrowsAnError(RuntimeException("can't access network translation service"))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_buildAndUserLanguageMatch_showsTranslateErrorAndReports() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("en")
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockErrorReporter).trackNonFatalError(argThat {
+            (this is IllegalStateException && message == "Translate selected when translation not available or needed")
+        })
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationNotPossible_showsTranslateErrorAndReports() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("ru")
+        givenTranslatingIsPossible(from = "ru", to = "en", isPossible = false)
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockErrorReporter).trackNonFatalError(argThat {
+            (this is IllegalStateException && message == "Translate selected when translation not available or needed")
+        })
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationUseCaseWontComplete_shouldShowTranslationLoadingInView() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("ru")
+        givenTranslatingIsPossible(from = "ru", to = "en", isPossible = true)
+        givenGetTranslationWillNeverComplete()
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
+        verify(mockView, never()).render(argThat { showTranslationError })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationUseCaseWillEventuallyFail_shouldHideTranslationLoadingAfterItFails() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("ru")
+        givenTranslatingIsPossible(from = "ru", to = "en", isPossible = true)
+        val translationResultSubject = SingleSubject.create<String>()
+        `when`(mockGetTranslationUseCase.getTranslation(fromLanguageCode = any(),
+                toLanguageCode = any(), sourceText = any())).thenReturn(translationResultSubject)
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
+        verify(mockView, never()).render(argThat { showTranslationError })
+
+        reset(mockView)
+        translationResultSubject.onError(RuntimeException("Couldn't access translation service"))
+
+        verify(mockView).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { translationLoading })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationUseCaseWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = "Send starting SCVs to enemy base"))
+                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
+        verify(mockView, never()).render(argThat { showTranslationError })
+        verify(mockView, atLeastOnce()).render(argThat {
+            briefText == "Senden Sie SCVs an die feindliche Basis" &&
+                    !translationLoading && !showTranslationError
+        })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
     // TODO
-    // test that sending a "translate this" view event shows a loading spinner, then error popup
-    // if it can't translate
-    // test that it replaces brief text with translation if it works
-    // test that it shows a generic error and reports exception if it's called when no translation
-    // actually available for brief (programming error)
+    // test build will null notes
+    // test with different language combo to show partial impl
+    // refactor presenter to improve readability
 
 }
 
