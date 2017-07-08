@@ -55,6 +55,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         val DEFAULT_INITIAL_VIEW_STATE = BriefView.BriefViewState(
                 showAds = false,
                 showLoadError = false,
+                showTranslateOption = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null

@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
@@ -28,6 +29,7 @@ class BriefPresenterImplTest {
     @Mock lateinit var mockNavigator: BriefNavigator
     @Mock lateinit var mockGetBuildUseCase: GetBuildUseCase
     @Mock lateinit var mockGetSettingsUseCase: GetSettingsUseCase
+    @Mock lateinit var mockGetCurrentLanguageUseCase: GetCurrentLanguageUseCase
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
 
@@ -171,14 +173,11 @@ class BriefPresenterImplTest {
 
         presenter.attachView(mockView)
 
-        verify(mockView, atLeastOnce()).render(
-                BriefViewState(
-                        showAds = true,
-                        showLoadError = false,
-                        briefText = TEST_BUILD.notes,
-                        buildSource = TEST_BUILD.source,
-                        buildAuthor = TEST_BUILD.author
-                )
+        verify(mockView, atLeastOnce()).render(argThat {
+                    briefText == TEST_BUILD.notes &&
+                            buildSource == TEST_BUILD.source &&
+                            buildAuthor == TEST_BUILD.author
+                }
         )
     }
 
@@ -222,8 +221,14 @@ class BriefPresenterImplTest {
     @Test
     fun onAttach_buildLanguageMatchesUserLanguage_translatePromptNotShown() {
         `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
-                .thenReturn(Single.just(TEST_BUILD))
+                .thenReturn(Single.just(
+                        TEST_BUILD.copy(isoLanguageCode = "en")
+                ))
+        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
+                .thenReturn(Single.just("en"))
 
         presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
     }
 }

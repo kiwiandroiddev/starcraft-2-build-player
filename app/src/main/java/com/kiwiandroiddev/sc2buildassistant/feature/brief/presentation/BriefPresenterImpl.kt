@@ -20,6 +20,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         private val INITIAL_VIEW_STATE = BriefViewState(
                 showAds = false,
                 showLoadError = false,
+                showTranslateOption = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null

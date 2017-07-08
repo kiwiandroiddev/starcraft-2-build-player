@@ -22,8 +22,14 @@ class BriefCachingProxyTest {
     lateinit var briefCachingProxy: BriefCachingProxy
 
     val TEST_EVENT = BriefView.BriefViewEvent.PlaySelected()
-    val TEST_VIEW_STATE = BriefView.BriefViewState(showAds = false, showLoadError = false,
-            briefText = null, buildSource = null, buildAuthor = null)
+    val TEST_VIEW_STATE = BriefView.BriefViewState(
+            showAds = false,
+            showLoadError = false,
+            showTranslateOption = false,
+            briefText = null,
+            buildSource = null,
+            buildAuthor = null
+    )
 
     val DEFAULT_BUILD_ID = 1L
 
