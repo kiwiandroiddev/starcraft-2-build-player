@@ -549,7 +549,6 @@ public class DbAdapter {
     public void addOrReplaceBuilds(ArrayList<Build> builds, ProgressListener client) {
         mDb.beginTransaction();
         try {
-
             int i = 0;
             final int size = builds.size();
             for (Build build : builds) {

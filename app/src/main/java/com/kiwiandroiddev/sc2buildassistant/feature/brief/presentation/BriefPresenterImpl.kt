@@ -63,7 +63,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         )
 
         disposable = allResults
-                .doOnNext { System.out.println("result = $it") }
+//                .doOnNext { System.out.println("result = $it") }
                 .compose(this::reduceToViewState)
                 .observeOn(postExecutionScheduler)
                 .subscribe(view::render)

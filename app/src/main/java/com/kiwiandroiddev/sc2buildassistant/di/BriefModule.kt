@@ -1,11 +1,16 @@
 package com.kiwiandroiddev.sc2buildassistant.di
 
+import android.content.Context
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
+import com.kiwiandroiddev.sc2buildassistant.di.qualifiers.ApplicationContext
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.GetCurrentSystemLanguageAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.SqliteBuildRepository
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.BuildRepository
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.GetCurrentLanguageAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetBuildUseCaseImpl
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetCurrentLanguageUseCaseImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
@@ -25,7 +30,6 @@ import javax.inject.Singleton
 class BriefModule {
 
     @Provides
-    @Singleton
     fun provideBriefPresenter(getBuildUseCase: GetBuildUseCase,
                               getSettingsUseCase: GetSettingsUseCase,
                               getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
@@ -49,11 +53,8 @@ class BriefModule {
 
     @Provides
     @Singleton
-    fun provideGetCurrentLanguageUseCase(): GetCurrentLanguageUseCase =
-            object : GetCurrentLanguageUseCase {
-                override fun getLanguageCode(): Single<String> =
-                        Single.just("en")   // TODO stub
-            }
+    fun provideGetCurrentLanguageUseCase(getCurrentLanguageAgent: GetCurrentLanguageAgent): GetCurrentLanguageUseCase =
+            GetCurrentLanguageUseCaseImpl(getCurrentLanguageAgent)
 
     @Provides
     @Singleton
@@ -67,6 +68,11 @@ class BriefModule {
     @Singleton
     fun provideBuildRepository(dbAdapter: DbAdapter): BuildRepository =
             SqliteBuildRepository(dbAdapter)
+
+    @Provides
+    @Singleton
+    fun provideGetCurrentLanguageAgent(@ApplicationContext context: Context): GetCurrentLanguageAgent =
+            GetCurrentSystemLanguageAgent(context)
 
 }
 

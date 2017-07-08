@@ -100,6 +100,16 @@ class BriefPresenterImplTest {
                 .thenReturn(Single.just(isPossible))
     }
 
+    private fun givenCheckingIfTranslationPossibleThrowsError(translateError: RuntimeException) {
+        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(any(), any()))
+                .thenReturn(Single.error(translateError))
+    }
+
+    private fun givenGetCurrentLanguageThrowsError(currentLanguageAccessError: RuntimeException) {
+        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
+                .thenReturn(Single.error(currentLanguageAccessError))
+    }
+
     @Test
     fun onAttach_showAdSettingOn_tellsViewToShowAds() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
@@ -289,8 +299,7 @@ class BriefPresenterImplTest {
         // something's very wrong if we can't even get the device language: report this
         givenABuildWithLanguage("en")
         val currentLanguageAccessError = RuntimeException("could't get user language")
-        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
-                .thenReturn(Single.error(currentLanguageAccessError))
+        givenGetCurrentLanguageThrowsError(currentLanguageAccessError)
 
         presenter.attachView(mockView)
 
@@ -303,8 +312,7 @@ class BriefPresenterImplTest {
     fun onAttach_checkTranslationPossibleUseCaseThrowsError_translateOptionNotShownAndErrorNotReported() {
         givenABuildWithLanguage("en")
         givenUsersCurrentLanguage("fr")
-        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(any(), any()))
-                .thenReturn(Single.error(RuntimeException("network down")))
+        givenCheckingIfTranslationPossibleThrowsError(RuntimeException("network down"))
 
         presenter.attachView(mockView)
 

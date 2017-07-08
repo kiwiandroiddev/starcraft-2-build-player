@@ -21,6 +21,7 @@ import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -42,6 +43,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferen
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -308,6 +310,11 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     override fun getViewEvents(): Observable<BriefViewEvent> = viewEventPublishRelay
 
     override fun render(viewState: BriefView.BriefViewState) {
+//        val conciseViewState = viewState.copy(
+//                briefText = viewState.briefText?.let { it.substring(0, 10) + "..." } ?: "null"
+//        )
+//        Timber.d("render = $conciseViewState")
+
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState
     }
@@ -335,6 +342,14 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
         if (oldViewState.buildSource != newViewState.buildSource) {
             newViewState.buildSource?.let { source -> setSource(source) }
+        }
+
+        // TODO temporary
+        if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
+            when(newViewState.showTranslateOption) {
+                true -> Toast.makeText(this, "Translation available!", Toast.LENGTH_LONG).show()
+                false -> Toast.makeText(this, "Translation not available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.domain.entity
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.ArrayList
 import java.util.Date
@@ -11,17 +12,18 @@ import java.util.regex.Pattern
  * Encapsulates all information about a particular build order
  * including its name, the race it's for, and the units with timestamps
  */
-data class Build @JvmOverloads constructor(var name: String? = null,
-                 var faction: Faction? = null,
-                 var vsFaction: Faction? = null,
-                 var expansion: Expansion = Expansion.WOL,
-                 var source: String? = null,
-                 var notes: String? = null,
-                 var items: ArrayList<BuildItem>? = null,
-                 var created: Date? = null,
-                 var modified: Date? = null,
-                 var author: String? = null,
-                 var isoLanguageCode: String? = null) : Serializable {
+data class Build @JvmOverloads constructor(
+        @SerializedName("mName") var name: String? = null,
+        @SerializedName("mFaction") var faction: Faction? = null,
+        @SerializedName("mVsFaction") var vsFaction: Faction? = null,
+        @SerializedName("mExpansion") var expansion: Expansion = Expansion.WOL,
+        @SerializedName("mSource") var source: String? = null,
+        @SerializedName("mNotes") var notes: String? = null,
+        @SerializedName("mItems") var items: ArrayList<BuildItem>? = null,
+        @SerializedName("mCreated") var created: Date? = null,
+        @SerializedName("mModified") var modified: Date? = null,
+        @SerializedName("mAuthor") var author: String? = null,
+        @SerializedName("mIsoLanguageCode") var isoLanguageCode: String? = null) : Serializable {
 
     /**
      * Assuming the source string is an html link (<a> tag), returns the plain text component
