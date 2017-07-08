@@ -11,93 +11,24 @@ import java.util.regex.Pattern
  * Encapsulates all information about a particular build order
  * including its name, the race it's for, and the units with timestamps
  */
-class Build : Serializable {
+class Build(var name: String? = null,
+            var faction: Faction? = null,
+            var vsFaction: Faction? = null,
+            var expansion: Expansion = Expansion.WOL,
+            var source: String? = null,
+            var notes: String? = null,
+            var items: ArrayList<BuildItem>? = null) : Serializable {
 
     var created: Date? = null        // time this build was first created
     var modified: Date? = null        // time this build was last modified
-    // accessors
-    var name: String? = null
-    var notes: String? = null
-    /* returns author or original forum post, etc. Can contain HTML (e.g. hyperlinks) */
-    var source: String? = null        // original forum post, web page, etc. Can contain HTML (e.g. hyperlinks)
-    /* return the transcriber's name (can be null) */
-    var author: String? = null        // author, person who transcribed the build
-    var items: ArrayList<BuildItem>? = null    // buildings/units in this build order. Important: assumed to be ordered from first->last!
-    var faction: Faction? = null
-    var vsFaction: Faction? = null
-    // Mutators
 
-    var expansion: Expansion? = null
-
-    constructor() : super() {
-        expansion = Expansion.WOL
-    }
-
-    constructor(name: String, race: Faction) : super() {
-        this.name = name
-        faction = race
-        items = null
-        expansion = Expansion.WOL
-    }
-
-    constructor(name: String, race: Faction, items: ArrayList<BuildItem>) : super() {
-        this.name = name
-        faction = race
-        this.items = items
-        expansion = Expansion.WOL
-    }
-
-    constructor(name: String, race: Faction, vsRace: Faction,
-                expansion: Expansion, source: String, notes: String, items: ArrayList<BuildItem>) : super() {
-        this.name = name
-        faction = race
-        vsFaction = vsRace
-        this.items = items
-        this.source = source
-        this.notes = notes
-        this.expansion = expansion
-    }
-
-    override fun equals(obj: Any?): Boolean {
-        if (obj === this) {
-            return true
-        }
-        if (obj == null || obj.javaClass != this.javaClass) {
-            return false
-        }
-
-        val rhs = obj as Build?
-        val result = faction == rhs!!.faction &&
-                vsFaction == rhs.vsFaction &&
-                expansion == rhs.expansion &&
-                objectsEquivalent(name, rhs.name) &&
-                objectsEquivalent(source, rhs.source) &&
-                objectsEquivalent(author, rhs.author) &&
-                objectsEquivalent(notes, rhs.notes) &&
-                objectsEquivalent(items, rhs.items)
-        return result
-    }
-
-    override fun toString(): String {
-        return "Build{" +
-                "mCreated=" + created +
-                ", mModified=" + modified +
-                ", mName='" + name + '\'' +
-                ", mNotes='" + notes + '\'' +
-                ", mSource='" + source + '\'' +
-                ", mAuthor='" + author + '\'' +
-                ", mItems=" + items +
-                ", mFaction=" + faction +
-                ", mVsFaction=" + vsFaction +
-                ", mExpansion=" + expansion +
-                '}'
-    }
+    /* the transcriber's name (can be null) */
+    var author: String? = null
 
     /**
      * Assuming the source string is an html link (<a> tag), returns the plain text component
      * If it's not an <a> tag, return the full source string
-     * @return
-    </a></a> */
+     */
     val sourceTitle: String?
         get() {
             if (source == null)
@@ -115,8 +46,7 @@ class Build : Serializable {
     /**
      * Assuming the source string is an html link (<a> tag), returns the URL component
      * If it's not an <a> tag, return the full source string
-     * @return
-    </a></a> */
+     */
     val sourceURL: String?
         get() {
             if (source == null)
@@ -152,6 +82,45 @@ class Build : Serializable {
      */
     val isWellOrdered: Boolean
         get() = isWellOrdered(items)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as Build
+
+        if (name != other.name) return false
+        if (faction != other.faction) return false
+        if (vsFaction != other.vsFaction) return false
+        if (expansion != other.expansion) return false
+        if (source != other.source) return false
+        if (notes != other.notes) return false
+        if (items != other.items) return false
+        if (created != other.created) return false
+        if (modified != other.modified) return false
+        if (author != other.author) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name?.hashCode() ?: 0
+        result = 31 * result + (faction?.hashCode() ?: 0)
+        result = 31 * result + (vsFaction?.hashCode() ?: 0)
+        result = 31 * result + expansion.hashCode()
+        result = 31 * result + (source?.hashCode() ?: 0)
+        result = 31 * result + (notes?.hashCode() ?: 0)
+        result = 31 * result + (items?.hashCode() ?: 0)
+        result = 31 * result + (created?.hashCode() ?: 0)
+        result = 31 * result + (modified?.hashCode() ?: 0)
+        result = 31 * result + (author?.hashCode() ?: 0)
+        return result
+    }
+
+
+    override fun toString(): String {
+        return "Build(name=$name, faction=$faction, vsFaction=$vsFaction, expansion=$expansion, source=$source, notes=$notes, items=$items, created=$created, modified=$modified, author=$author)"
+    }
 
     companion object {
 
