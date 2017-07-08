@@ -2,10 +2,13 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
+import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
 /**
@@ -13,7 +16,10 @@ import io.reactivex.disposables.Disposable
  */
 class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                          val getSettingsUseCase: GetSettingsUseCase,
+                         val getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
+                         val checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
                          val navigator: BriefNavigator,
+                         val errorReporter: ErrorReporter,
                          val postExecutionScheduler: Scheduler) : BriefPresenter {
 
     companion object {
@@ -39,6 +45,8 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
     private sealed class Result {
         data class ShowAdsResult(val showAds: Boolean) : Result()
 
+        data class ShowTranslateOptionResult(val showTranslateOption: Boolean) : Result()
+
         sealed class LoadBuildResult : Result() {
             data class Success(val build: Build) : LoadBuildResult()
             data class LoadFailure(val cause: Throwable) : LoadBuildResult()
@@ -55,6 +63,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         )
 
         disposable = allResults
+                .doOnNext { System.out.println("result = $it") }
                 .compose(this::reduceToViewState)
                 .observeOn(postExecutionScheduler)
                 .subscribe(view::render)
@@ -62,7 +71,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
 
     private fun getNavigationResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
             viewEvents.flatMap { viewEvent ->
-                when(viewEvent) {
+                when (viewEvent) {
                     is BriefView.BriefViewEvent.PlaySelected -> navigateToPlayer(view?.getBuildId()!!)
                     is BriefView.BriefViewEvent.EditSelected -> navigateToEditor(view?.getBuildId()!!)
                     is BriefView.BriefViewEvent.SettingsSelected -> navigateToSettings()
@@ -99,14 +108,45 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                     is Result.LoadBuildResult.LoadFailure ->
                         lastViewState.copy(showLoadError = true)
 
-                    is BriefPresenterImpl.Result.SuccessfulNavigationResult -> lastViewState    // do nothing to view state
+                    is Result.ShowTranslateOptionResult ->
+                        lastViewState.copy(showTranslateOption = result.showTranslateOption)
+
+                    is Result.SuccessfulNavigationResult -> lastViewState    // do nothing to view state
                 }
             }
 
-    private fun loadBuildResults(buildId: Long): Observable<Result.LoadBuildResult> =
+    private fun loadBuildResults(buildId: Long): Observable<Result> =
             getBuildUseCase.getBuild(buildId).toObservable()
-                    .map { build -> Result.LoadBuildResult.Success(build) as Result.LoadBuildResult }
+                    .map { build ->
+                        Result.LoadBuildResult.Success(build) as Result.LoadBuildResult
+                    }
                     .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
+                    .flatMap { loadBuildResult ->
+                        when (loadBuildResult) {
+                            is Result.LoadBuildResult.LoadFailure -> Observable.just(loadBuildResult)
+                            is Result.LoadBuildResult.Success ->
+                                Observable.merge(
+                                        Observable.just(loadBuildResult as Result),
+                                        showTranslateOptionResults(loadBuildResult.build)
+                                )
+                        }
+                    }
+
+    private fun showTranslateOptionResults(build: Build): Observable<Result> =
+            getCurrentLanguageUseCase.getLanguageCode().toObservable()
+                    .flatMap { currentLanguage ->
+                        if (build.isoLanguageCode == null || currentLanguage == build.isoLanguageCode) {
+                            Observable.just<Result>(Result.ShowTranslateOptionResult(showTranslateOption = false))
+                        } else {
+                            checkTranslationPossibleUseCase.canTranslateFromLanguage(
+                                    fromLanguageCode = build.isoLanguageCode!!, toLanguageCode = currentLanguage)
+                                    .map { canTranslateBuild ->
+                                        Result.ShowTranslateOptionResult(canTranslateBuild) as Result
+                                    }
+                                    .toObservable()
+                                    .onErrorResumeNext { _: Throwable -> Observable.empty<Result>() }
+                        }
+                    }.doOnError { error -> errorReporter.trackNonFatalError(error) }
 
     private fun showAdResults(): Observable<Result.ShowAdsResult> =
             getSettingsUseCase.showAds()
@@ -128,10 +168,6 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
     override fun detachView() {
         view = null
         disposable?.dispose()
-    }
-
-    private fun ensureViewAttached() {
-        if (view == null) throw IllegalStateException("no view attached")
     }
 
 }

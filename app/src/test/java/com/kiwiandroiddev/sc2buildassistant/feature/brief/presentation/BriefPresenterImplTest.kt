@@ -7,7 +7,9 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
+import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -30,6 +32,8 @@ class BriefPresenterImplTest {
     @Mock lateinit var mockGetBuildUseCase: GetBuildUseCase
     @Mock lateinit var mockGetSettingsUseCase: GetSettingsUseCase
     @Mock lateinit var mockGetCurrentLanguageUseCase: GetCurrentLanguageUseCase
+    @Mock lateinit var mockCheckTranslationPossibleUseCase: CheckTranslationPossibleUseCase
+    @Mock lateinit var mockErrorReporter: ErrorReporter
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
 
@@ -42,7 +46,10 @@ class BriefPresenterImplTest {
         presenter = BriefPresenterImpl(
                 getBuildUseCase = mockGetBuildUseCase,
                 getSettingsUseCase = mockGetSettingsUseCase,
+                getCurrentLanguageUseCase = mockGetCurrentLanguageUseCase,
+                checkTranslationPossibleUseCase = mockCheckTranslationPossibleUseCase,
                 navigator = mockNavigator,
+                errorReporter = mockErrorReporter,
                 postExecutionScheduler = Schedulers.trampoline()
         )
 
@@ -54,7 +61,7 @@ class BriefPresenterImplTest {
     private fun setUpDefaultMockBehaviour() {
         `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
 
-        `when`(mockGetBuildUseCase.getBuild(com.nhaarman.mockito_kotlin.any()))
+        `when`(mockGetBuildUseCase.getBuild(any()))
                 .thenReturn(Single.just(TEST_BUILD))
 
         `when`(mockGetSettingsUseCase.showAds())
@@ -64,6 +71,33 @@ class BriefPresenterImplTest {
 
         `when`(mockView.getViewEvents())
                 .thenReturn(mockViewEventStream)
+
+        givenUsersCurrentLanguage("en")
+
+        givenTranslatingBetweenAnyLanguageIsPossible()
+    }
+
+    private fun givenTranslatingBetweenAnyLanguageIsPossible() {
+        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(any(), any()))
+                .thenReturn(Single.just(true))
+    }
+
+    private fun givenUsersCurrentLanguage(languageCode: String) {
+        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
+                .thenReturn(Single.just(languageCode))
+    }
+
+    private fun givenABuildWithLanguage(languageCode: String?) {
+        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
+                .thenReturn(Single.just(
+                        TEST_BUILD.copy(isoLanguageCode = languageCode)
+                ))
+    }
+
+    private fun givenTranslatingIsPossible(from: String, to: String, isPossible: Boolean) {
+        reset(mockCheckTranslationPossibleUseCase)
+        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(fromLanguageCode = from, toLanguageCode = to))
+                .thenReturn(Single.just(isPossible))
     }
 
     @Test
@@ -219,16 +253,77 @@ class BriefPresenterImplTest {
     }
 
     @Test
-    fun onAttach_buildLanguageMatchesUserLanguage_translatePromptNotShown() {
-        `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
-                .thenReturn(Single.just(
-                        TEST_BUILD.copy(isoLanguageCode = "en")
-                ))
-        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
-                .thenReturn(Single.just("en"))
+    fun onAttach_buildLanguageMatchesUserLanguage_translateOptionNotShown() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("en")
 
         presenter.attachView(mockView)
 
         verify(mockView, never()).render(argThat { showTranslateOption })
     }
+
+    @Test
+    fun onAttach_buildLanguageDifferentToUserLanguageAndTranslationNotPossible_translateOptionNotShown() {
+        givenUsersCurrentLanguage("ru")
+        givenABuildWithLanguage("en")
+        givenTranslatingIsPossible(from = "en", to = "ru", isPossible = false)
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+    }
+
+    @Test
+    fun onAttach_buildLanguageDifferentToUserLanguageAndTranslationPossible_translateOptionShown() {
+        givenUsersCurrentLanguage("ru")
+        givenABuildWithLanguage("en")
+        givenTranslatingIsPossible(from = "en", to = "ru", isPossible = true)
+
+        presenter.attachView(mockView)
+
+        verify(mockView, atLeastOnce()).render(argThat { showTranslateOption })
+    }
+
+    @Test
+    fun onAttach_userLanguageUseCaseThrowsError_translateOptionNotShownAndErrorReported() {
+        // something's very wrong if we can't even get the device language: report this
+        givenABuildWithLanguage("en")
+        val currentLanguageAccessError = RuntimeException("could't get user language")
+        `when`(mockGetCurrentLanguageUseCase.getLanguageCode())
+                .thenReturn(Single.error(currentLanguageAccessError))
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showLoadError })
+        verify(mockErrorReporter).trackNonFatalError(currentLanguageAccessError)
+    }
+
+    @Test
+    fun onAttach_checkTranslationPossibleUseCaseThrowsError_translateOptionNotShownAndErrorNotReported() {
+        givenABuildWithLanguage("en")
+        givenUsersCurrentLanguage("fr")
+        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(any(), any()))
+                .thenReturn(Single.error(RuntimeException("network down")))
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showLoadError })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onAttach_buildLanguageIsNull_translateOptionNotShown() {
+        givenABuildWithLanguage(null)
+        givenUsersCurrentLanguage("en")
+        givenTranslatingBetweenAnyLanguageIsPossible()
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showLoadError })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
 }
+
