@@ -38,15 +38,6 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         )
     }
 
-    private var view: BriefView? = null
-    private var disposable: Disposable? = null
-
-    override fun attachView(view: BriefView) {
-        this.view = view
-
-        setupViewStateStream(view, view.getBuildId())
-    }
-
     private sealed class Result {
         data class ShowAdsResult(val showAds: Boolean) : Result()
 
@@ -66,6 +57,15 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         }
     }
 
+    private var view: BriefView? = null
+    private var disposable: Disposable? = null
+
+    override fun attachView(view: BriefView) {
+        this.view = view
+
+        setupViewStateStream(view, view.getBuildId())
+    }
+
     private fun setupViewStateStream(view: BriefView, buildId: Long) {
         val allResults: Observable<Result> = Observable.merge(
                 loadBuildResults(buildId),
@@ -74,7 +74,6 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
         )
 
         disposable = allResults
-//                .doOnNext { System.out.println("result = $it") }
                 .compose(this::reduceToViewState)
                 .observeOn(postExecutionScheduler)
                 .subscribe(view::render)
@@ -158,44 +157,71 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                     .map { available -> Result.ShowTranslateOptionResult(available) as Result }
 
     private fun isTranslationAvailableForBuild(build: Build): Single<Boolean> =
-            getCurrentLanguageUseCase.getLanguageCode()
-                    .flatMap { currentLanguage ->
-                        if (build.isoLanguageCode == null || currentLanguage == build.isoLanguageCode) {
-                            Single.just(false)
-                        } else {
-                            checkTranslationPossibleUseCase.canTranslateFromLanguage(
-                                    fromLanguageCode = build.isoLanguageCode!!,
-                                    toLanguageCode = currentLanguage)
-                                    .onErrorReturn { _ -> false }
-                        }
-                    }.doOnError { getCurrentLanguageError -> errorReporter.trackNonFatalError(getCurrentLanguageError) }
-
-    private fun getTranslateBuildResults(): Observable<Result> {
-        return getBuild().toObservable().flatMap { build ->
-            isTranslationAvailableForBuild(build).toObservable()
-                    .flatMap { translationAvailable ->
-                        when (translationAvailable) {
-                            false -> {
-                                val error = IllegalStateException("Translate selected when translation not available or needed")
-                                errorReporter.trackNonFatalError(error)
-                                Observable.just(Result.TranslationResult.Failure(error))
-                            }
-                            true -> {
-                                getTranslationUseCase.getTranslation(
-                                        fromLanguageCode = build.isoLanguageCode!!,       // already know this won't be null from earlier but still
-                                        toLanguageCode = "de",     // TODO: don't allow translation if no brief
-                                        sourceText = build.notes!!)
-                                        .toObservable()
-                                        .map { translatedBrief ->
-                                            Result.TranslationResult.Success(translatedBrief) as Result.TranslationResult
-                                        }
-                                        .onErrorReturn { error -> Result.TranslationResult.Failure(error) }
-                                        .startWith(Result.TranslationResult.Loading())
-                            }
+            build.hasLanguageCodeAndNotes()
+                    .flatMap { haveBuildNotesAndLanguage ->
+                        when (haveBuildNotesAndLanguage) {
+                            true -> canTranslateBuildToCurrentLanguage(build)
+                            false -> Single.just(false)
                         }
                     }
-        }.map { it as Result }
-    }
+
+    private fun Build.hasLanguageCodeAndNotes() =
+            Single.fromCallable { notes != null && isoLanguageCode != null }
+
+    private fun canTranslateBuildToCurrentLanguage(build: Build): Single<Boolean> =
+            getCurrentLanguage().flatMap { currentLanguage ->
+                if (currentLanguage != build.isoLanguageCode) {
+                    translationPossibleBetweenLanguages(
+                            from = build.isoLanguageCode!!,
+                            to = currentLanguage
+                    )
+                } else {
+                    Single.just(false)
+                }
+            }
+
+    private fun getCurrentLanguage(): Single<String> =
+            getCurrentLanguageUseCase.getLanguageCode().doOnError { getCurrentLanguageError ->
+                errorReporter.trackNonFatalError(getCurrentLanguageError)
+            }
+
+    private fun translationPossibleBetweenLanguages(from: String, to: String): Single<Boolean> =
+            checkTranslationPossibleUseCase.canTranslateFromLanguage(
+                    fromLanguageCode = from,
+                    toLanguageCode = to)
+                    .onErrorReturn { _ -> false }
+
+    private fun getTranslateBuildResults(): Observable<Result> =
+            getBuild().toObservable().flatMap { build ->
+                isTranslationAvailableForBuild(build).toObservable()
+                        .flatMap { translationAvailable ->
+                            when {
+                                translationAvailable -> {
+                                    getTranslateBuildToCurrentLanguageResults(build)
+                                }
+                                else -> {
+                                    val error = IllegalStateException("Translate selected when translation not available or needed")
+                                    errorReporter.trackNonFatalError(error)
+                                    Observable.just(Result.TranslationResult.Failure(error))
+                                }
+                            }
+                        }
+            }.map { it as Result }
+
+    private fun getTranslateBuildToCurrentLanguageResults(build: Build): Observable<Result.TranslationResult> =
+            getCurrentLanguage().toObservable()
+                    .flatMap { currentLanguageCode ->
+                        getTranslationUseCase.getTranslation(
+                                fromLanguageCode = build.isoLanguageCode!!, // already know this won't be null from earlier but still
+                                toLanguageCode = currentLanguageCode,
+                                sourceText = build.notes!!)
+                                .toObservable()
+                                .map { translatedBrief ->
+                                    Result.TranslationResult.Success(translatedBrief) as Result.TranslationResult
+                                }
+                                .onErrorReturn { error -> Result.TranslationResult.Failure(error) }
+                                .startWith(Result.TranslationResult.Loading())
+                    }
 
     private fun getBuild(): Single<Build> =
             getBuildUseCase.getBuild(view?.getBuildId()!!)      // TODO stub

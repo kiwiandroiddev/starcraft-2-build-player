@@ -99,7 +99,7 @@ class BriefPresenterImplTest {
                 ))
     }
 
-    private fun givenABuildWithLanguageAndBriefText(languageCode: String?, brief: String) {
+    private fun givenABuildWithLanguageAndBriefText(languageCode: String?, brief: String?) {
         `when`(mockGetBuildUseCase.getBuild(DEFAULT_BUILD_ID))
                 .thenReturn(Single.just(
                         TEST_BUILD.copy(
@@ -361,6 +361,19 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onAttach_buildNotesIsNull_translateOptionNotShown() {
+        givenABuildWithLanguageAndBriefText(languageCode = "en", brief = null)
+        givenUsersCurrentLanguage("de")
+        givenTranslatingBetweenAnyLanguageIsPossible()
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showLoadError })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
     fun onTranslateViewEventEmitted_translationUseCaseThrowsError_shouldShowErrorInView() {
         givenUsersCurrentLanguage("en")
         givenABuildWithLanguage("ru")
@@ -442,7 +455,7 @@ class BriefPresenterImplTest {
     }
 
     @Test
-    fun onTranslateViewEventEmitted_translationUseCaseWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
+    fun onTranslateViewEventEmitted_translationFromEnToDeWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
         givenUsersCurrentLanguage("de")
         givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
         givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
@@ -464,9 +477,30 @@ class BriefPresenterImplTest {
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
+    @Test
+    fun onTranslateViewEventEmitted_translationFromFrToEnWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguageAndBriefText("fr", "Envoyer des SCV de départ à la base ennemie")
+        givenTranslatingIsPossible(from = "fr", to = "en", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "fr",
+                toLanguageCode = "en",
+                sourceText = "Envoyer des SCV de départ à la base ennemie"))
+                .thenReturn(Single.just("Send starting SCVs to enemy base"))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
+        verify(mockView, never()).render(argThat { showTranslationError })
+        verify(mockView, atLeastOnce()).render(argThat {
+            briefText == "Send starting SCVs to enemy base" &&
+                    !translationLoading && !showTranslationError
+        })
+        verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
     // TODO
-    // test build will null notes
-    // test with different language combo to show partial impl
     // refactor presenter to improve readability
 
 }
