@@ -1,4 +1,4 @@
-package com.kiwiandroiddev.sc2buildassistant.feature.brief.domain
+package com.kiwiandroiddev.sc2buildassistant.feature.translate.domain
 
 import io.reactivex.Single
 

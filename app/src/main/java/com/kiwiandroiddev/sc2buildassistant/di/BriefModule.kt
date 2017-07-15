@@ -14,10 +14,12 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetCurrent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.GetTranslationUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -69,12 +71,8 @@ class BriefModule {
 
     @Provides
     @Singleton
-    fun provideGetTranslationUseCase(): GetTranslationUseCase =
-        object : GetTranslationUseCase {
-            override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> {
-                return Single.just("Translated build brief here!")
-            }
-        }
+    fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
+        GetTranslationUseCaseImpl(translationAgent)
 
     @Provides
     @Singleton

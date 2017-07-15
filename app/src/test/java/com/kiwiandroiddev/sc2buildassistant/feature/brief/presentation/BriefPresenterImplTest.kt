@@ -3,10 +3,10 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter

@@ -1,10 +1,10 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetTranslationUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
@@ -140,7 +140,10 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                     .map { build ->
                         Result.LoadBuildResult.Success(build) as Result.LoadBuildResult
                     }
-                    .onErrorReturn { error -> Result.LoadBuildResult.LoadFailure(error) }
+                    .onErrorReturn { error ->
+                        error.printStackTrace()
+                        Result.LoadBuildResult.LoadFailure(error)
+                    }
                     .flatMap { loadBuildResult ->
                         when (loadBuildResult) {
                             is Result.LoadBuildResult.LoadFailure -> Observable.just(loadBuildResult)
@@ -219,7 +222,10 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                                 .map { translatedBrief ->
                                     Result.TranslationResult.Success(translatedBrief) as Result.TranslationResult
                                 }
-                                .onErrorReturn { error -> Result.TranslationResult.Failure(error) }
+                                .onErrorReturn { error ->
+                                    error.printStackTrace()
+                                    Result.TranslationResult.Failure(error)
+                                }
                                 .startWith(Result.TranslationResult.Loading())
                     }
 

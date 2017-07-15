@@ -14,7 +14,8 @@ import javax.inject.Singleton
         NavigationModule::class,
         ErrorReporterModule::class,
         SettingsModule::class,
-        BriefModule::class))
+        BriefModule::class,
+        TranslationModule::class))
 interface ApplicationComponent {
     fun inject(target: MyApplication)
     fun inject(target: SettingsFragment)
