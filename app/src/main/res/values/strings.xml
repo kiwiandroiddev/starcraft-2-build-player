@@ -384,5 +384,6 @@
 	<string name="transition_build_name" translatable="false">transition_build_name</string>
     <string name="translate_button">Translate</string>
     <string name="translate_brief_prompt">Translate this to your language?</string>
+    <string name="brief_translation_error_message">Oops, something went wrong translating</string>
 
 </resources>

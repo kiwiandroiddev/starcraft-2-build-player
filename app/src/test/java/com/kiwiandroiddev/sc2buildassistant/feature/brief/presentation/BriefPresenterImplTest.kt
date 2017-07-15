@@ -500,11 +500,26 @@ class BriefPresenterImplTest {
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
-    // TODO
-    // test behaviour when translation use case returns nothing or throws an error
-    // show translate error message in activity
-    // refactor presenter to improve readability
-    // add revert translation support
+    @Test
+    fun onTranslateViewEvent_translateUseCaseThrowsError_shouldShowTranslationErrorInViewAndHideLoading() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguageAndBriefText("fr", "Envoyer des SCV de départ à la base ennemie")
+        givenTranslatingIsPossible(from = "fr", to = "en", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "fr",
+                toLanguageCode = "en",
+                sourceText = "Envoyer des SCV de départ à la base ennemie"))
+                .thenReturn(Single.error(RuntimeException("network error!")))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
+        verify(mockView).render(argThat { showTranslationError })
+    }
+
+    // TODO refactor presenter to improve readability
+    // TODO add revert translation support
 
 }
 

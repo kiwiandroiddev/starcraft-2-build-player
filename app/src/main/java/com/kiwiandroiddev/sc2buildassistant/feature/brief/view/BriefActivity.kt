@@ -359,6 +359,10 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         if (!oldViewState.translationLoading && newViewState.translationLoading) {
             Toast.makeText(this, "Loading translation...", Toast.LENGTH_SHORT).show()
         }
+
+        if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
+            Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showTranslationAvailableOption() {
