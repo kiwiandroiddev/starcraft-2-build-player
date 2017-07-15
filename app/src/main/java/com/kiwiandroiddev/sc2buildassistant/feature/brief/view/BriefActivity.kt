@@ -21,6 +21,7 @@ import android.text.method.LinkMovementMethod
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -137,7 +138,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     @BindView(R.id.brief_source) lateinit var mSourceText: TextView
     @BindView(R.id.brief_source_layout) lateinit var mSourceLayout: View
     @BindView(R.id.brief_root) lateinit var mRootView: View
-    @BindView(R.id.brief_buildNotes) lateinit var mNotesView: TextView
+    @BindView(R.id.brief_build_notes_text_switcher) lateinit var mNotesTextSwitcher: TextSwitcher
     @BindView(R.id.brief_author_layout) lateinit var mAuthorLayout: View
     @BindView(R.id.brief_author) lateinit var mAuthorText: TextView
     @BindView(R.id.activity_brief_play_action_button) lateinit var mPlayButton: FloatingActionButton
@@ -161,6 +162,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         initIntentParameterFields(savedInstanceState)
         restoreViewStateFieldIfExists(savedInstanceState)
         initToolbar()
+        initNotesTextSwitcher()
         displayBasicInfo()
         trackBriefView()
         initScrollView()
@@ -169,6 +171,14 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         briefViewModel = ViewModelProviders.of(this).get(BriefViewModel::class.java)
         briefViewModel.setBuildId(mBuildId)
         briefViewModel.attachView(this)
+    }
+
+    private fun initNotesTextSwitcher() {
+        mNotesTextSwitcher.setFactory {
+            TextView(this@BriefActivity).apply { movementMethod = LinkMovementMethod.getInstance() }
+        }
+        mNotesTextSwitcher.inAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+        mNotesTextSwitcher.outAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
     }
 
     val lifecycleRegistry = LifecycleRegistry(this)
@@ -337,10 +347,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
 
         setAuthor(newViewState.buildAuthor)
-
-        if (oldViewState.buildSource != newViewState.buildSource) {
-            newViewState.buildSource?.let { source -> setSource(source) }
-        }
+        setSource(newViewState.buildSource)
 
         if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
             when(newViewState.showTranslateOption) {
@@ -373,7 +380,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun setAuthor(author: String?) {
-        if (author != null) {
+        if (!author.isNullOrBlank()) {
             mAuthorLayout.visible = true
             mAuthorText.text = author
         } else {
@@ -381,21 +388,18 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
     }
 
-    private fun setNotes(notes: String?) {
-        notes?.let { notes ->
-            mNotesView.text = Html.fromHtml(notes)
-            mNotesView.movementMethod = LinkMovementMethod.getInstance()
-        }
-    }
-
     private fun setSource(source: String?) {
-        if (source != null) {
+        if (!source.isNullOrBlank()) {
             mSourceLayout.visible = true
             mSourceText.text = Html.fromHtml(source)
             mSourceText.movementMethod = LinkMovementMethod.getInstance()
         } else {
             mSourceLayout.visible = false
         }
+    }
+
+    private fun setNotes(notes: String?) {
+        mNotesTextSwitcher.setText(Html.fromHtml(notes))
     }
 
     private fun showAdBanner() {

@@ -20,7 +20,6 @@
             android:id="@+id/brief_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <!-- toolbar spacer -->
@@ -86,12 +85,11 @@
                         tools:text="Artanis" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/brief_buildNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <TextSwitcher
+                    android:id="@+id/brief_build_notes_text_switcher"
                     android:layout_marginTop="4dp"
-                    tools:text="General Overview\n\nThis build opens with fast zerglings for scouting, etc." />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
