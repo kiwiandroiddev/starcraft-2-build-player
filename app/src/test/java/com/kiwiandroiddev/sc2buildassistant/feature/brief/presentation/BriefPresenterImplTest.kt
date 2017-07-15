@@ -501,7 +501,10 @@ class BriefPresenterImplTest {
     }
 
     // TODO
+    // test behaviour when translation use case returns nothing or throws an error
+    // show translate error message in activity
     // refactor presenter to improve readability
+    // add revert translation support
 
 }
 

@@ -72,7 +72,7 @@ class BriefModule {
     fun provideGetTranslationUseCase(): GetTranslationUseCase =
         object : GetTranslationUseCase {
             override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> {
-                return Single.error(NotImplementedError())
+                return Single.just("Translated build brief here!")
             }
         }
 

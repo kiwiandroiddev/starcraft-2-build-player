@@ -354,13 +354,17 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
                 false -> hideTranslationAvailableOption()
             }
         }
+
+        // TODO temporary UI
+        if (!oldViewState.translationLoading && newViewState.translationLoading) {
+            Toast.makeText(this, "Loading translation...", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showTranslationAvailableOption() {
         translateSnackbar = Snackbar.make(mRootView, getString(R.string.translate_brief_prompt), Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.translate_button, { view ->
-                    // do nothing yet
-                    Toast.makeText(this, "Stub!", Toast.LENGTH_LONG).show()
+                .setAction(R.string.translate_button, { _ ->
+                    viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
                 })
         translateSnackbar?.show()
     }
