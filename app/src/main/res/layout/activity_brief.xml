@@ -20,6 +20,7 @@
             android:id="@+id/brief_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <!-- toolbar spacer -->
@@ -36,6 +37,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/brief_source_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -50,7 +52,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/brief_buildSubTitle"
+                        android:id="@+id/brief_source"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"

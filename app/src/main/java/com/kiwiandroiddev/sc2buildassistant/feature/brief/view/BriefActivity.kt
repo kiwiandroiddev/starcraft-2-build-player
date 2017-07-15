@@ -42,9 +42,9 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
+import com.kiwiandroiddev.sc2buildassistant.util.visible
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
-import timber.log.Timber
 import java.util.*
 
 /**
@@ -134,7 +134,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     private var currentViewState = DEFAULT_INITIAL_VIEW_STATE
 
     @BindView(R.id.toolbar) lateinit var mToolbar: Toolbar
-    @BindView(R.id.brief_buildSubTitle) lateinit var mSubtitleView: TextView
+    @BindView(R.id.brief_source) lateinit var mSourceText: TextView
+    @BindView(R.id.brief_source_layout) lateinit var mSourceLayout: View
     @BindView(R.id.brief_root) lateinit var mRootView: View
     @BindView(R.id.brief_buildNotes) lateinit var mNotesView: TextView
     @BindView(R.id.brief_author_layout) lateinit var mAuthorLayout: View
@@ -242,7 +243,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_out_to_top)
         animation.setAnimationListener(object : NoOpAnimationListener() {
             override fun onAnimationEnd(animation: Animation) {
-                mToolbar.visibility = View.GONE
+                mToolbar.visible = false
             }
         })
         mToolbar.startAnimation(animation)
@@ -252,7 +253,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_and_fade_in_from_top)
         animation.setAnimationListener(object : NoOpAnimationListener() {
             override fun onAnimationStart(animation: Animation) {
-                mToolbar.visibility = View.VISIBLE
+                mToolbar.visible = true
             }
         })
         mToolbar.startAnimation(animation)
@@ -314,11 +315,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     override fun getViewEvents(): Observable<BriefViewEvent> = viewEventPublishRelay
 
     override fun render(viewState: BriefView.BriefViewState) {
-        val conciseViewState = viewState.copy(
-                briefText = viewState.briefText?.let { it.substring(0, 10) + "..." } ?: "null"
-        )
-        Timber.d("render = $conciseViewState")
-
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState
     }
@@ -340,9 +336,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             newViewState.briefText?.let { briefText -> setNotes(briefText) }
         }
 
-        if (oldViewState.buildAuthor != newViewState.buildAuthor) {
-            newViewState.buildAuthor?.let { author -> setAuthor(author) }
-        }
+        setAuthor(newViewState.buildAuthor)
 
         if (oldViewState.buildSource != newViewState.buildSource) {
             newViewState.buildSource?.let { source -> setSource(source) }
@@ -357,7 +351,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
         // TODO temporary UI
         if (!oldViewState.translationLoading && newViewState.translationLoading) {
-            Toast.makeText(this, "Loading translation...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.brief_translation_loading), Toast.LENGTH_SHORT).show()
         }
 
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
@@ -380,10 +374,10 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private fun setAuthor(author: String?) {
         if (author != null) {
-            mAuthorLayout.visibility = View.VISIBLE
+            mAuthorLayout.visible = true
             mAuthorText.text = author
         } else {
-            mAuthorLayout.visibility = View.GONE
+            mAuthorLayout.visible = false
         }
     }
 
@@ -395,14 +389,17 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun setSource(source: String?) {
-        source?.let { source ->
-            mSubtitleView.text = Html.fromHtml(source)
-            mSubtitleView.movementMethod = LinkMovementMethod.getInstance()
+        if (source != null) {
+            mSourceLayout.visible = true
+            mSourceText.text = Html.fromHtml(source)
+            mSourceText.movementMethod = LinkMovementMethod.getInstance()
+        } else {
+            mSourceLayout.visible = false
         }
     }
 
     private fun showAdBanner() {
-        mAdFrame.visibility = View.VISIBLE
+        mAdFrame.visible = true
 
         if (mAdFrame.childCount == 0) {
             val adView = AdView(this)
@@ -413,7 +410,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun hideAdBanner() {
-        mAdFrame.visibility = View.GONE
+        mAdFrame.visible = false
     }
 
     public override fun onStop() {
