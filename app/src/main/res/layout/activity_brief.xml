@@ -105,7 +105,8 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/activity_brief_chrome_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -141,6 +142,6 @@
             android:layout_margin="16dp"
             app:srcCompat="@drawable/ic_media_play_48dp" />
 
-    </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.design.widget.CoordinatorLayout>

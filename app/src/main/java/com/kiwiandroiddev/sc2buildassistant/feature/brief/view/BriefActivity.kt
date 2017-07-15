@@ -138,6 +138,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     @BindView(R.id.brief_source) lateinit var mSourceText: TextView
     @BindView(R.id.brief_source_layout) lateinit var mSourceLayout: View
     @BindView(R.id.brief_root) lateinit var mRootView: View
+    @BindView(R.id.activity_brief_chrome_layer) lateinit var mChromeLayer: View
     @BindView(R.id.brief_build_notes_text_switcher) lateinit var mNotesTextSwitcher: TextSwitcher
     @BindView(R.id.brief_author_layout) lateinit var mAuthorLayout: View
     @BindView(R.id.brief_author) lateinit var mAuthorText: TextView
@@ -367,10 +368,14 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun showTranslationAvailableOption() {
-        translateSnackbar = Snackbar.make(mRootView, getString(R.string.translate_brief_prompt), Snackbar.LENGTH_INDEFINITE)
+        translateSnackbar = Snackbar.make(mChromeLayer, getString(R.string.translate_brief_prompt), Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.translate_button, { _ ->
                     viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
                 })
+        val snackbarLayout = translateSnackbar?.view
+        val textView = snackbarLayout?.findViewById(android.support.design.R.id.snackbar_text) as TextView?
+        textView?.compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen.snackbar_icon_padding)
+        textView?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_translate_24dp, 0, 0, 0)
         translateSnackbar?.show()
     }
 
