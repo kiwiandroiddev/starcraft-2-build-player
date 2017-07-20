@@ -42,9 +42,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Faction
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
-import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
-import com.kiwiandroiddev.sc2buildassistant.util.views
-import com.kiwiandroiddev.sc2buildassistant.util.visible
+import com.kiwiandroiddev.sc2buildassistant.util.*
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_brief.*
@@ -355,8 +353,11 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             }
         }
 
-        if (!oldViewState.translationLoading && newViewState.translationLoading) {
-            showTranslationLoading()
+        if (oldViewState.translationLoading != newViewState.translationLoading) {
+            when (newViewState.translationLoading) {
+                true -> showTranslationLoading()
+                false -> hideTranslationLoading()
+            }
         }
 
         if (oldViewState.showRevertTranslationOption != newViewState.showRevertTranslationOption) {
@@ -370,7 +371,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
 
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
-            Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_LONG).show()
 
             if (newViewState.showTranslateOption) {
                 showTranslationAvailableOption()
@@ -386,8 +387,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         brief_translation_bar.visible = true
         brief_translation_bar_text.text = getString(R.string.brief_revert_translation_prompt)
 
-        brief_translation_bar_loading_spinner.visible = false
-
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.brief_revert_translation_button_text)
         brief_translation_bar_button.setOnClickListener {
@@ -399,8 +398,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         brief_translation_bar.visible = true
         brief_translation_bar_text.text = getString(R.string.brief_translation_prompt)
 
-        brief_translation_bar_loading_spinner.visible = false
-
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.translate_button)
         brief_translation_bar_button.setOnClickListener {
@@ -410,8 +407,30 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private fun showTranslationLoading() {
         brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
-        brief_translation_bar_button.visibility = View.INVISIBLE
-        brief_translation_bar_loading_spinner.visible = true
+
+        fadeOutTranslateButton()
+        fadeInTranslationSpinner()
+    }
+
+    private fun hideTranslationLoading() {
+        fadeInTranslateButton()
+        fadeOutTranslationSpinner()
+    }
+
+    private fun fadeInTranslateButton() {
+        brief_translation_bar_button.startFadeInAnimation()
+    }
+
+    private fun fadeOutTranslationSpinner() {
+        brief_translation_bar_loading_spinner.startFadeOutAnimation()
+    }
+
+    private fun fadeOutTranslateButton() {
+        brief_translation_bar_button.startFadeOutAnimation()
+    }
+
+    private fun fadeInTranslationSpinner() {
+        brief_translation_bar_loading_spinner.startFadeInAnimation()
     }
 
     private fun setAuthor(author: String?) {

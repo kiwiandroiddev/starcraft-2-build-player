@@ -52,19 +52,26 @@
                     android:gravity="center_vertical"
                     android:text="@string/brief_translation_prompt" />
 
-                <ProgressBar
-                    android:id="@+id/brief_translation_bar_loading_spinner"
-                    style="?android:attr/progressBarStyleSmall"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/brief_translation_bar_button"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/translate_button"
-                    android:textColor="?attr/colorAccent" />
+                    <Button
+                        android:id="@+id/brief_translation_bar_button"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/translate_button"
+                        android:textColor="?attr/colorAccent" />
+
+                    <ProgressBar
+                        android:id="@+id/brief_translation_bar_loading_spinner"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp" />
+
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -131,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp">
+
                     <TextView
                         android:id="@+id/brief_build_notes_text_switch_child_1"
                         android:layout_width="wrap_content"
