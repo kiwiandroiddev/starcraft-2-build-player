@@ -46,6 +46,7 @@ import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
 import com.kiwiandroiddev.sc2buildassistant.util.visible
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.activity_brief.*
 import java.util.*
 
 /**
@@ -351,37 +352,37 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         setSource(newViewState.buildSource)
 
         if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
-            when(newViewState.showTranslateOption) {
+            when (newViewState.showTranslateOption) {
                 true -> showTranslationAvailableOption()
                 false -> hideTranslationAvailableOption()
             }
         }
 
-        // TODO temporary UI
         if (!oldViewState.translationLoading && newViewState.translationLoading) {
-            Toast.makeText(this, getString(R.string.brief_translation_loading), Toast.LENGTH_SHORT).show()
+            showTranslationLoading()
         }
 
+        // TODO temporary UI
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
             Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun showTranslationLoading() {
+        brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
+        brief_translation_bar_button.visibility = View.INVISIBLE
+    }
+
     private fun showTranslationAvailableOption() {
-        translateSnackbar = Snackbar.make(mChromeLayer, getString(R.string.translate_brief_prompt), Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.translate_button, { _ ->
-                    viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
-                })
-        val snackbarLayout = translateSnackbar?.view
-        val textView = snackbarLayout?.findViewById(android.support.design.R.id.snackbar_text) as TextView?
-        textView?.compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen.snackbar_icon_padding)
-        textView?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_translate_24dp, 0, 0, 0)
-        translateSnackbar?.show()
+        brief_translation_bar.visible = true
+        brief_translation_bar_text.text = getString(R.string.translate_brief_prompt)
+        brief_translation_bar_button.setOnClickListener {
+            viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
+        }
     }
 
     private fun hideTranslationAvailableOption() {
-        translateSnackbar?.dismiss()
-        translateSnackbar = null
+        brief_translation_bar.visible = false
     }
 
     private fun setAuthor(author: String?) {
