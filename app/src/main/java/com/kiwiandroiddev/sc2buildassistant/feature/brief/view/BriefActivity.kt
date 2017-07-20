@@ -177,8 +177,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private fun initNotesTextSwitcher() {
         mNotesTextSwitcher.makeLinksClickableInAllChildTextViews()
-        mNotesTextSwitcher.inAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
-        mNotesTextSwitcher.outAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
     }
 
     private fun ViewGroup.makeLinksClickableInAllChildTextViews() {
