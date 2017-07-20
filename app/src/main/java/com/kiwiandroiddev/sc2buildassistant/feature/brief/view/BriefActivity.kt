@@ -63,6 +63,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
                 showTranslateOption = false,
                 showTranslationError = false,
                 translationLoading = false,
+                showRevertTranslationOption = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null
@@ -362,20 +363,40 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             showTranslationLoading()
         }
 
+        if (oldViewState.showRevertTranslationOption != newViewState.showRevertTranslationOption) {
+            when (newViewState.showRevertTranslationOption) {
+                true -> showRevertTranslationOption()
+                false -> hideRevertTranslationOption()
+            }
+        }
+
         // TODO temporary UI
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
             Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun showTranslationLoading() {
-        brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
-        brief_translation_bar_button.visibility = View.INVISIBLE
+    private fun showRevertTranslationOption() {
+        brief_translation_bar.visible = true
+        brief_translation_bar_text.text = getString(R.string.brief_revert_translation_prompt)
+
+        brief_translation_bar_button.visible = true
+        brief_translation_bar_button.text = getString(R.string.brief_revert_translation_button_text)
+        brief_translation_bar_button.setOnClickListener {
+//            viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
+        }
+    }
+
+    private fun hideRevertTranslationOption() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun showTranslationAvailableOption() {
         brief_translation_bar.visible = true
-        brief_translation_bar_text.text = getString(R.string.translate_brief_prompt)
+        brief_translation_bar_text.text = getString(R.string.brief_translation_prompt)
+
+        brief_translation_bar_button.visible = true
+        brief_translation_bar_button.text = getString(R.string.translate_button)
         brief_translation_bar_button.setOnClickListener {
             viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
         }
@@ -383,6 +404,11 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private fun hideTranslationAvailableOption() {
         brief_translation_bar.visible = false
+    }
+
+    private fun showTranslationLoading() {
+        brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
+        brief_translation_bar_button.visibility = View.INVISIBLE
     }
 
     private fun setAuthor(author: String?) {

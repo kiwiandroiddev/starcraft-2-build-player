@@ -19,6 +19,7 @@ interface BriefView {
                               val showTranslateOption: Boolean,
                               val showTranslationError: Boolean,
                               val translationLoading: Boolean,
+                              val showRevertTranslationOption: Boolean,
                               val briefText: String?,
                               val buildSource: String?,
                               val buildAuthor: String?) : Serializable

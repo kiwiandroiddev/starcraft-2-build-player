@@ -383,8 +383,10 @@
 
 	<string name="transition_build_name" translatable="false">transition_build_name</string>
     <string name="translate_button">Translate</string>
-    <string name="translate_brief_prompt">Translate this build order to your language?</string>
+    <string name="brief_translation_prompt">Translate this build order to your language?</string>
+    <string name="brief_revert_translation_prompt">Translated from %s</string>
     <string name="brief_translation_error_message">Oops, something went wrong translating</string>
-    <string name="brief_translation_loading">Loading translation...</string>
+    <string name="brief_translation_loading">Loading translation…</string>
+	<string name="brief_revert_translation_button_text">Revert</string>
 
 </resources>

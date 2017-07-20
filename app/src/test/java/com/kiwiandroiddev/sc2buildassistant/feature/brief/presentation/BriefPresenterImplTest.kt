@@ -374,6 +374,15 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onAttach_revertTranslationOption_neverShown() {
+        // builds always start off untranslated (at this stage)
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
+        verify(mockView, atLeastOnce()).render(argThat { !showRevertTranslationOption })
+    }
+
+    @Test
     fun onTranslateViewEventEmitted_translationUseCaseThrowsError_shouldShowErrorInView() {
         givenUsersCurrentLanguage("en")
         givenABuildWithLanguage("ru")
@@ -384,6 +393,7 @@ class BriefPresenterImplTest {
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
 
         verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
@@ -396,6 +406,7 @@ class BriefPresenterImplTest {
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
 
         verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter).trackNonFatalError(argThat {
             (this is IllegalStateException && message == "Translate selected when translation not available or needed")
         })
@@ -411,6 +422,7 @@ class BriefPresenterImplTest {
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
 
         verify(mockView, atLeastOnce()).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter).trackNonFatalError(argThat {
             (this is IllegalStateException && message == "Translate selected when translation not available or needed")
         })
@@ -428,6 +440,7 @@ class BriefPresenterImplTest {
 
         verify(mockView, atLeastOnce()).render(argThat { translationLoading })
         verify(mockView, never()).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
@@ -445,12 +458,14 @@ class BriefPresenterImplTest {
 
         verify(mockView, atLeastOnce()).render(argThat { translationLoading })
         verify(mockView, never()).render(argThat { showTranslationError })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
 
         reset(mockView)
         translationResultSubject.onError(RuntimeException("Couldn't access translation service"))
 
         verify(mockView).render(argThat { showTranslationError })
         verify(mockView, never()).render(argThat { translationLoading })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
@@ -475,6 +490,23 @@ class BriefPresenterImplTest {
                     !translationLoading && !showTranslationError
         })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationFromEnToDeWillSucceed_shouldShowRevertTranslationAndHideTranslateOption() {
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = "Send starting SCVs to enemy base"))
+                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { !showTranslateOption && showRevertTranslationOption })
     }
 
     @Test
@@ -520,6 +552,8 @@ class BriefPresenterImplTest {
 
     // TODO refactor presenter to improve readability
     // TODO add revert translation support
+
+
 
 }
 

@@ -32,6 +32,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 showTranslateOption = false,
                 showTranslationError = false,
                 translationLoading = false,
+                showRevertTranslationOption = false,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null
@@ -128,7 +129,11 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                         lastViewState.copy(translationLoading = true)
 
                     is Result.TranslationResult.Success ->
-                        lastViewState.copy(briefText = result.translatedBrief, translationLoading = false)
+                        lastViewState.copy(
+                                briefText = result.translatedBrief,
+                                translationLoading = false,
+                                showTranslateOption = false,
+                                showRevertTranslationOption = true)
 
                     is Result.TranslationResult.Failure ->
                         lastViewState.copy(showTranslationError = true, translationLoading = false)
