@@ -136,6 +136,17 @@ class BriefPresenterImplTest {
                 toLanguageCode = any(), sourceText = any())).thenReturn(Single.never())
     }
 
+    private fun givenTranslationOptionAvailableForBuildAndWillSucceed(withResult: String = "Senden Sie SCVs an die feindliche Basis") {
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = "Send starting SCVs to enemy base"))
+                .thenReturn(Single.just(withResult))
+    }
+
     @Test
     fun onAttach_showAdSettingOn_tellsViewToShowAds() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
@@ -471,14 +482,8 @@ class BriefPresenterImplTest {
 
     @Test
     fun onTranslateViewEventEmitted_translationFromEnToDeWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
-        givenUsersCurrentLanguage("de")
-        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
-        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
-        `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "en",
-                toLanguageCode = "de",
-                sourceText = "Send starting SCVs to enemy base"))
-                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        val GERMAN_TRANSLATION = "Senden Sie SCVs an die feindliche Basis"
+        givenTranslationOptionAvailableForBuildAndWillSucceed(withResult = GERMAN_TRANSLATION)
         presenter.attachView(mockView)
 
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
@@ -486,22 +491,14 @@ class BriefPresenterImplTest {
         verify(mockView, atLeastOnce()).render(argThat { translationLoading })
         verify(mockView, never()).render(argThat { showTranslationError })
         verify(mockView, atLeastOnce()).render(argThat {
-            briefText == "Senden Sie SCVs an die feindliche Basis" &&
-                    !translationLoading && !showTranslationError
+            briefText == GERMAN_TRANSLATION && !translationLoading && !showTranslationError
         })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
     }
 
     @Test
     fun onTranslateViewEventEmitted_translationFromEnToDeWillSucceed_shouldShowRevertTranslationAndHideTranslateOption() {
-        givenUsersCurrentLanguage("de")
-        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
-        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
-        `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "en",
-                toLanguageCode = "de",
-                sourceText = "Send starting SCVs to enemy base"))
-                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
         presenter.attachView(mockView)
 
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
@@ -556,14 +553,7 @@ class BriefPresenterImplTest {
 
     @Test
     fun onRevertTranslationViewEvent_translationStillPossible_hideRevertTranslationOptionAndShowsTranslateOption() {
-        givenUsersCurrentLanguage("de")
-        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
-        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
-        `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "en",
-                toLanguageCode = "de",
-                sourceText = "Send starting SCVs to enemy base"))
-                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
         presenter.attachView(mockView)
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
         reset(mockView)
@@ -577,14 +567,7 @@ class BriefPresenterImplTest {
 
     @Test
     fun onRevertTranslationViewEvent_translationNoLongerPossible_hideBothRevertTranslationOptionAndTranslateOption() {
-        givenUsersCurrentLanguage("de")
-        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
-        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
-        `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "en",
-                toLanguageCode = "de",
-                sourceText = "Send starting SCVs to enemy base"))
-                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
         presenter.attachView(mockView)
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
         givenTranslatingIsPossible(from = "en", to = "de", isPossible = false)
