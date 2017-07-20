@@ -29,6 +29,7 @@ interface BriefView {
         class EditSelected : BriefViewEvent()
         class SettingsSelected : BriefViewEvent()
         class TranslateSelected : BriefViewEvent()
+        class RevertTranslationSelected : BriefViewEvent()
     }
 
 }

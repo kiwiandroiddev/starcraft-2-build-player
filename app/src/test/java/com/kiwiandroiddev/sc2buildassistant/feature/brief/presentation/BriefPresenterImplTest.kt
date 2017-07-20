@@ -551,9 +551,72 @@ class BriefPresenterImplTest {
     }
 
     // TODO refactor presenter to improve readability
-    // TODO add revert translation support
+    // TODO refactor tests for readability
+    // TODO convert failed non-nullable calls (!!) to errors in presenter
 
+    @Test
+    fun onRevertTranslationViewEvent_translationStillPossible_hideRevertTranslationOptionAndShowsTranslateOption() {
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = "Send starting SCVs to enemy base"))
+                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        presenter.attachView(mockView)
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+        reset(mockView)
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
 
+        mockViewEventStream.accept(BriefViewEvent.RevertTranslationSelected())
 
+        verify(mockView, atLeastOnce()).render(argThat { !showRevertTranslationOption && showTranslateOption })
+        verify(mockView, never()).render(argThat { showTranslationError })
+    }
+
+    @Test
+    fun onRevertTranslationViewEvent_translationNoLongerPossible_hideBothRevertTranslationOptionAndTranslateOption() {
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = "Send starting SCVs to enemy base"))
+                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        presenter.attachView(mockView)
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = false)
+        reset(mockView)
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
+
+        mockViewEventStream.accept(BriefViewEvent.RevertTranslationSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { !showRevertTranslationOption && !showTranslateOption })
+        verify(mockView, never()).render(argThat { showTranslationError })
+    }
+
+    @Test
+    fun onRevertTranslationViewEvent_untranslatedBuildNotesShownInView() {
+        val ORIGINAL_BRIEF_TEXT = "Send starting SCVs to enemy base"
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguageAndBriefText("en", ORIGINAL_BRIEF_TEXT)
+        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        `when`(mockGetTranslationUseCase.getTranslation(
+                fromLanguageCode = "en",
+                toLanguageCode = "de",
+                sourceText = ORIGINAL_BRIEF_TEXT))
+                .thenReturn(Single.just("Senden Sie SCVs an die feindliche Basis"))
+        presenter.attachView(mockView)
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+        reset(mockView)
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
+        givenABuildWithLanguageAndBriefText("en", ORIGINAL_BRIEF_TEXT)
+
+        mockViewEventStream.accept(BriefViewEvent.RevertTranslationSelected())
+
+        verify(mockView, atLeastOnce()).render(argThat { briefText == ORIGINAL_BRIEF_TEXT })
+    }
 }
 

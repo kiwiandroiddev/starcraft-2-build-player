@@ -43,6 +43,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR
 import com.kiwiandroiddev.sc2buildassistant.util.NoOpAnimationListener
+import com.kiwiandroiddev.sc2buildassistant.util.views
 import com.kiwiandroiddev.sc2buildassistant.util.visible
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
@@ -114,14 +115,12 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             i.putExtra(KEY_BUILD_NAME, buildName)
 
             if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
                 // create the transition animation - the views in the layouts
                 // of both activities are defined with android:transitionName="buildName"
                 val options = ActivityOptions
                         .makeSceneTransitionAnimation(callingActivity,
                                 sharedBuildNameTextView, "buildName")
 
-                // start the new activity
                 callingActivity.startActivity(i, options.toBundle())
             } else {
                 callingActivity.startActivity(i)
@@ -152,7 +151,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
     private lateinit var briefViewModel: BriefViewModel
     private val viewEventPublishRelay = PublishRelay.create<BriefViewEvent>()
-    private var translateSnackbar: Snackbar? = null
+    val lifecycleRegistry = LifecycleRegistry(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSystemUiVisibility()
@@ -177,14 +176,14 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun initNotesTextSwitcher() {
-        mNotesTextSwitcher.setFactory {
-            TextView(this@BriefActivity).apply { movementMethod = LinkMovementMethod.getInstance() }
-        }
+        mNotesTextSwitcher.makeLinksClickableInAllChildTextViews()
         mNotesTextSwitcher.inAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
         mNotesTextSwitcher.outAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_out)
     }
 
-    val lifecycleRegistry = LifecycleRegistry(this)
+    private fun ViewGroup.makeLinksClickableInAllChildTextViews() {
+        views.forEach { (it as TextView?)?.apply { movementMethod = LinkMovementMethod.getInstance() } }
+    }
 
     override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
 
@@ -353,9 +352,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         setSource(newViewState.buildSource)
 
         if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
-            when (newViewState.showTranslateOption) {
-                true -> showTranslationAvailableOption()
-                false -> hideTranslationAvailableOption()
+            if (newViewState.showTranslateOption) {
+                showTranslationAvailableOption()
             }
         }
 
@@ -364,36 +362,46 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
 
         if (oldViewState.showRevertTranslationOption != newViewState.showRevertTranslationOption) {
-            when (newViewState.showRevertTranslationOption) {
-                true -> showRevertTranslationOption()
-                false -> hideRevertTranslationOption()
+            if (newViewState.showRevertTranslationOption) {
+                showRevertTranslationOption()
             }
         }
 
-        // TODO temporary UI
+        if (!newViewState.showTranslateOption && !newViewState.showRevertTranslationOption) {
+            hideTranslationBar()
+        }
+
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
             Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_SHORT).show()
+
+            if (newViewState.showTranslateOption) {
+                showTranslationAvailableOption()
+            }
         }
+    }
+
+    private fun hideTranslationBar() {
+        brief_translation_bar.visible = false
     }
 
     private fun showRevertTranslationOption() {
         brief_translation_bar.visible = true
         brief_translation_bar_text.text = getString(R.string.brief_revert_translation_prompt)
 
+        brief_translation_bar_loading_spinner.visible = false
+
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.brief_revert_translation_button_text)
         brief_translation_bar_button.setOnClickListener {
-//            viewEventPublishRelay.accept(BriefViewEvent.TranslateSelected())
+            viewEventPublishRelay.accept(BriefViewEvent.RevertTranslationSelected())
         }
-    }
-
-    private fun hideRevertTranslationOption() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun showTranslationAvailableOption() {
         brief_translation_bar.visible = true
         brief_translation_bar_text.text = getString(R.string.brief_translation_prompt)
+
+        brief_translation_bar_loading_spinner.visible = false
 
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.translate_button)
@@ -402,13 +410,10 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
     }
 
-    private fun hideTranslationAvailableOption() {
-        brief_translation_bar.visible = false
-    }
-
     private fun showTranslationLoading() {
         brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
         brief_translation_bar_button.visibility = View.INVISIBLE
+        brief_translation_bar_loading_spinner.visible = true
     }
 
     private fun setAuthor(author: String?) {
