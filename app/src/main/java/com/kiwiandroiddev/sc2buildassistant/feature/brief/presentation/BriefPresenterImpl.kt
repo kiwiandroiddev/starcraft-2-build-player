@@ -4,15 +4,18 @@ import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslateBuildByDefaultUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl.Result.*
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
+import com.kiwiandroiddev.sc2buildassistant.util.whenTrue
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by Matt Clarke on 28/04/17.
@@ -21,6 +24,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                          val getSettingsUseCase: GetSettingsUseCase,
                          val getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
                          val checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
+                         val shouldTranslateBuildByDefaultUseCase: ShouldTranslateBuildByDefaultUseCase,
                          val getTranslationUseCase: GetTranslationUseCase,
                          val navigator: BriefNavigator,
                          val errorReporter: ErrorReporter,
@@ -73,16 +77,41 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
 
     private fun setupViewStateStream(view: BriefView, buildId: Long) {
         val allResults: Observable<Result> = Observable.merge(
-                loadBuildResults(buildId),
+                loadBuildFollowedByTranslationOption(buildId),
                 showAdResults(),
                 getViewEventResults(view.getViewEvents())
         )
 
         disposable = allResults
                 .compose(this::reduceToViewState)
+                .subscribeOn(Schedulers.io())
                 .observeOn(postExecutionScheduler)
                 .subscribe(view::render)
     }
+
+    private fun loadBuildFollowedByTranslationOption(buildId: Long): Observable<Result> =
+            loadBuildResult(buildId).flatMapObservable { loadResult ->
+                when (loadResult) {
+                    is LoadBuildResult.Success -> Observable.concat(
+                            Observable.just(loadResult),
+                            getTranslatedBuildNowIfNeeded(buildId, loadResult.build)
+                                    .switchIfEmpty(
+                                            getShowTranslateOptionResult(loadResult.build).toObservable()
+                                    )
+                    )
+                    else -> Observable.just(loadResult)
+                }
+            }
+
+    private fun getTranslatedBuildNowIfNeeded(buildId: Long, build: Build): Observable<Result> =
+            isTranslationAvailableForBuild(build).toObservable()
+                    .whenTrue()
+                    .flatMap { shouldTranslateByDefault(buildId) }
+                    .whenTrue()
+                    .flatMap { getTranslateBuildResults() }
+
+    private fun shouldTranslateByDefault(buildId: Long) =
+            shouldTranslateBuildByDefaultUseCase.shouldTranslateByDefault(buildId).toObservable()
 
     private fun getViewEventResults(viewEvents: Observable<BriefView.BriefViewEvent>): Observable<Result> =
             viewEvents.flatMap { viewEvent ->
@@ -163,27 +192,17 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 }
             }
 
-    private fun loadBuildResults(buildId: Long): Observable<Result> =
-            getBuildUseCase.getBuild(buildId).toObservable()
+    private fun loadBuildResult(buildId: Long): Single<LoadBuildResult> =
+            getBuildUseCase.getBuild(buildId)
                     .map { build ->
-                        LoadBuildResult.Success(build) as Result.LoadBuildResult
+                        LoadBuildResult.Success(build) as LoadBuildResult
                     }
                     .onErrorReturn { error ->
                         error.printStackTrace()
                         LoadBuildResult.LoadFailure(error)
                     }
-                    .flatMap { loadBuildResult ->
-                        when (loadBuildResult) {
-                            is Result.LoadBuildResult.LoadFailure -> Observable.just(loadBuildResult)
-                            is Result.LoadBuildResult.Success ->
-                                Observable.merge(
-                                        Observable.just(loadBuildResult as Result),
-                                        showTranslateOptionResult(loadBuildResult.build).toObservable()
-                                )
-                        }
-                    }
 
-    private fun showTranslateOptionResult(build: Build): Single<Result> =
+    private fun getShowTranslateOptionResult(build: Build): Single<Result> =
             isTranslationAvailableForBuild(build)
                     .map { available -> ShowTranslateOptionResult(available) as Result }
 

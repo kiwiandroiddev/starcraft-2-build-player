@@ -7,6 +7,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.GetCurrentSystemL
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.SqliteBuildRepository
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslateBuildByDefaultUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.BuildRepository
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.GetCurrentLanguageAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetBuildUseCaseImpl
@@ -37,6 +38,7 @@ class BriefModule {
                               getSettingsUseCase: GetSettingsUseCase,
                               getCurrentLanguageUseCase: GetCurrentLanguageUseCase,
                               checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
+                              shouldTranslateBuildByDefaultUseCase: ShouldTranslateBuildByDefaultUseCase,
                               getTranslationUseCase: GetTranslationUseCase,
                               errorReporter: ErrorReporter,
                               navigator: BriefNavigator): BriefPresenter =
@@ -45,6 +47,7 @@ class BriefModule {
                     getSettingsUseCase,
                     getCurrentLanguageUseCase,
                     checkTranslationPossibleUseCase,
+                    shouldTranslateBuildByDefaultUseCase,
                     getTranslationUseCase,
                     navigator,
                     errorReporter,
@@ -71,8 +74,16 @@ class BriefModule {
 
     @Provides
     @Singleton
+    fun provideShouldTranslateBuildByDefaultUseCase(): ShouldTranslateBuildByDefaultUseCase =
+            object : ShouldTranslateBuildByDefaultUseCase {
+                override fun shouldTranslateByDefault(buildId: Long): Single<Boolean> =
+                        Single.just(true)      // TODO stub
+            }
+
+    @Provides
+    @Singleton
     fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
-        GetTranslationUseCaseImpl(translationAgent)
+            GetTranslationUseCaseImpl(translationAgent)
 
     @Provides
     @Singleton

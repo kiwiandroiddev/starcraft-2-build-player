@@ -6,6 +6,7 @@ import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLanguageUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslateBuildByDefaultUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
@@ -37,6 +38,7 @@ class BriefPresenterImplTest {
     @Mock lateinit var mockGetCurrentLanguageUseCase: GetCurrentLanguageUseCase
     @Mock lateinit var mockCheckTranslationPossibleUseCase: CheckTranslationPossibleUseCase
     @Mock lateinit var mockGetTranslationUseCase: GetTranslationUseCase
+    @Mock lateinit var mockShouldTranslateBuildByDefaultUseCase: ShouldTranslateBuildByDefaultUseCase
     @Mock lateinit var mockErrorReporter: ErrorReporter
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
@@ -52,6 +54,7 @@ class BriefPresenterImplTest {
                 getSettingsUseCase = mockGetSettingsUseCase,
                 getCurrentLanguageUseCase = mockGetCurrentLanguageUseCase,
                 checkTranslationPossibleUseCase = mockCheckTranslationPossibleUseCase,
+                shouldTranslateBuildByDefaultUseCase = mockShouldTranslateBuildByDefaultUseCase,
                 getTranslationUseCase = mockGetTranslationUseCase,
                 navigator = mockNavigator,
                 errorReporter = mockErrorReporter,
@@ -80,6 +83,8 @@ class BriefPresenterImplTest {
         givenUsersCurrentLanguage("en")
 
         givenTranslatingBetweenAnyLanguageIsPossible()
+
+        givenTranslateByDefaultOptionForBuildIs(false)
     }
 
     private fun givenTranslatingBetweenAnyLanguageIsPossible() {
@@ -111,7 +116,7 @@ class BriefPresenterImplTest {
 
     private fun givenTranslatingIsPossible(from: String, to: String, isPossible: Boolean) {
         reset(mockCheckTranslationPossibleUseCase)
-        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(fromLanguageCode = from, toLanguageCode = to))
+        `when`(mockCheckTranslationPossibleUseCase.canTranslateFromLanguage(from, to))
                 .thenReturn(Single.just(isPossible))
     }
 
@@ -136,7 +141,8 @@ class BriefPresenterImplTest {
                 toLanguageCode = any(), sourceText = any())).thenReturn(Single.never())
     }
 
-    private fun givenTranslationOptionAvailableForBuildAndWillSucceed(withResult: String = "Senden Sie SCVs an die feindliche Basis") {
+    private fun givenTranslationOptionAvailableForBuildAndWillSucceed(
+            withResult: String = "Senden Sie SCVs an die feindliche Basis") {
         givenUsersCurrentLanguage("de")
         givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
         givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
@@ -145,6 +151,21 @@ class BriefPresenterImplTest {
                 toLanguageCode = "de",
                 sourceText = "Send starting SCVs to enemy base"))
                 .thenReturn(Single.just(withResult))
+    }
+
+    private fun givenABuildInADifferentLanguage() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguageAndBriefText("fr", "Envoyer des SCV de départ à la base ennemie")
+    }
+
+    private fun givenTranslateByDefaultOptionForBuildIs(translateByDefault: Boolean) {
+        `when`(mockShouldTranslateBuildByDefaultUseCase.shouldTranslateByDefault(DEFAULT_BUILD_ID))
+                .thenReturn(Single.just(translateByDefault))
+    }
+
+    private fun givenABuildInUsersNativeLanguage() {
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("en")
     }
 
     @Test
@@ -508,13 +529,12 @@ class BriefPresenterImplTest {
 
     @Test
     fun onTranslateViewEventEmitted_translationFromFrToEnWillSucceed_shouldShowTranslatedBriefAndHideLoading() {
-        givenUsersCurrentLanguage("en")
-        givenABuildWithLanguageAndBriefText("fr", "Envoyer des SCV de départ à la base ennemie")
-        givenTranslatingIsPossible(from = "fr", to = "en", isPossible = true)
+        givenABuildInADifferentLanguage()
+        givenTranslatingBetweenAnyLanguageIsPossible()
         `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "fr",
-                toLanguageCode = "en",
-                sourceText = "Envoyer des SCV de départ à la base ennemie"))
+                fromLanguageCode = any(),
+                toLanguageCode = any(),
+                sourceText = any()))
                 .thenReturn(Single.just("Send starting SCVs to enemy base"))
         presenter.attachView(mockView)
 
@@ -531,13 +551,12 @@ class BriefPresenterImplTest {
 
     @Test
     fun onTranslateViewEvent_translateUseCaseThrowsError_shouldShowTranslationErrorInViewAndHideLoading() {
-        givenUsersCurrentLanguage("en")
-        givenABuildWithLanguageAndBriefText("fr", "Envoyer des SCV de départ à la base ennemie")
-        givenTranslatingIsPossible(from = "fr", to = "en", isPossible = true)
+        givenABuildInADifferentLanguage()
+        givenTranslatingBetweenAnyLanguageIsPossible()
         `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "fr",
-                toLanguageCode = "en",
-                sourceText = "Envoyer des SCV de départ à la base ennemie"))
+                fromLanguageCode = any(),
+                toLanguageCode = any(),
+                sourceText = any()))
                 .thenReturn(Single.error(RuntimeException("network error!")))
         presenter.attachView(mockView)
 
@@ -601,5 +620,48 @@ class BriefPresenterImplTest {
 
         verify(mockView, atLeastOnce()).render(argThat { briefText == ORIGINAL_BRIEF_TEXT })
     }
+
+    @Test
+    fun onAttachView_buildInDifferentLanguageAndNoTranslationPreferenceForBuild_briefNotTranslatedByDefault() {
+        givenABuildInADifferentLanguage()
+        givenTranslateByDefaultOptionForBuildIs(false)
+        givenTranslatingBetweenAnyLanguageIsPossible()
+
+        presenter.attachView(mockView)
+
+        verify(mockView, atLeastOnce()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
+        verify(mockGetTranslationUseCase, never()).getTranslation(any(), any(), any())
+    }
+
+    @Test
+    fun onAttachView_buildInUsersLanguageAndHaveTranslateByDefaultPreferenceForBuild_briefNotTranslated() {
+        givenABuildInUsersNativeLanguage()
+        givenTranslateByDefaultOptionForBuildIs(true)
+        givenTranslatingBetweenAnyLanguageIsPossible()
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, never()).render(argThat { showRevertTranslationOption })
+        verify(mockGetTranslationUseCase, never()).getTranslation(any(), any(), any())
+    }
+
+    @Test
+    fun onAttachView_buildInDifferentLanguageAndHaveTranslateByDefaultPreferenceForBuild_briefTranslatedByDefault() {
+        givenABuildInADifferentLanguage()
+        givenTranslateByDefaultOptionForBuildIs(true)
+        givenTranslationOptionAvailableForBuildAndWillSucceed(withResult = "Train 5 zerglings")
+
+        presenter.attachView(mockView)
+
+        verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, atLeastOnce()).render(argThat { showRevertTranslationOption })
+        verify(mockGetTranslationUseCase).getTranslation(any(), any(), any())
+        verify(mockView, atLeastOnce()).render(argThat { briefText == "Train 5 zerglings" })
+    }
+
+    // TODO show loading banner initially incase cache is empty
+
 }
 
