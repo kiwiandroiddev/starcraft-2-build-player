@@ -16,7 +16,9 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argThat
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.SingleSubject
 import org.junit.Before
@@ -48,6 +50,9 @@ class BriefPresenterImplTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        
+        // Force background operations onto the main thread to make tests run synchronously
+        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
 
         presenter = BriefPresenterImpl(
                 getBuildUseCase = mockGetBuildUseCase,
@@ -656,6 +661,7 @@ class BriefPresenterImplTest {
         presenter.attachView(mockView)
 
         verify(mockView, never()).render(argThat { showTranslateOption })
+        verify(mockView, atLeastOnce()).render(argThat { translationLoading })
         verify(mockView, atLeastOnce()).render(argThat { showRevertTranslationOption })
         verify(mockGetTranslationUseCase).getTranslation(any(), any(), any())
         verify(mockView, atLeastOnce()).render(argThat { briefText == "Train 5 zerglings" })
