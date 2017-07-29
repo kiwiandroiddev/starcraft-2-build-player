@@ -29,6 +29,7 @@ class BriefCachingProxyTest {
             showTranslationError = false,
             translationLoading = false,
             showRevertTranslationOption = false,
+            translationStatusMessage = null,
             briefText = null,
             buildSource = null,
             buildAuthor = null

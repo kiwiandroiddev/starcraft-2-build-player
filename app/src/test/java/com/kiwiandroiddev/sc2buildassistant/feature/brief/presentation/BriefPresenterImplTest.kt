@@ -2,6 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
 import com.jakewharton.rxrelay2.PublishRelay
 import com.jakewharton.rxrelay2.Relay
+import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.domain.TEST_BUILD
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
@@ -10,6 +11,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslate
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.*
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewEvent.PlaySelected
+import com.kiwiandroiddev.sc2buildassistant.feature.common.presentation.StringResolver
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.any
@@ -19,11 +21,8 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.CompletableSubject
 import io.reactivex.subjects.SingleSubject
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -46,6 +45,7 @@ class BriefPresenterImplTest {
     @Mock lateinit var mockGetTranslationUseCase: GetTranslationUseCase
     @Mock lateinit var mockShouldTranslateBuildByDefaultUseCase: ShouldTranslateBuildByDefaultUseCase
     @Mock lateinit var mockErrorReporter: ErrorReporter
+    @Mock lateinit var mockStringResolver: StringResolver
 
     lateinit var mockViewEventStream: Relay<BriefView.BriefViewEvent>
 
@@ -67,6 +67,7 @@ class BriefPresenterImplTest {
                 getTranslationUseCase = mockGetTranslationUseCase,
                 navigator = mockNavigator,
                 errorReporter = mockErrorReporter,
+                stringResolver = mockStringResolver,
                 postExecutionScheduler = Schedulers.trampoline()
         )
 
@@ -165,13 +166,15 @@ class BriefPresenterImplTest {
     }
 
     private fun givenTranslationOptionAvailableForBuildAndWillSucceed(
+            userLanguage: String = "de",
+            buildLanguage: String = "en",
             withResult: String = "Senden Sie SCVs an die feindliche Basis") {
-        givenUsersCurrentLanguage("de")
-        givenABuildWithLanguageAndBriefText("en", "Send starting SCVs to enemy base")
-        givenTranslatingIsPossible(from = "en", to = "de", isPossible = true)
+        givenUsersCurrentLanguage(userLanguage)
+        givenABuildWithLanguageAndBriefText(buildLanguage, "Send starting SCVs to enemy base")
+        givenTranslatingIsPossible(from = buildLanguage, to = userLanguage, isPossible = true)
         `when`(mockGetTranslationUseCase.getTranslation(
-                fromLanguageCode = "en",
-                toLanguageCode = "de",
+                fromLanguageCode = buildLanguage,
+                toLanguageCode = userLanguage,
                 sourceText = "Send starting SCVs to enemy base"))
                 .thenReturn(Single.just(withResult))
     }
@@ -189,6 +192,15 @@ class BriefPresenterImplTest {
     private fun givenABuildInUsersNativeLanguage() {
         givenUsersCurrentLanguage("en")
         givenABuildWithLanguage("en")
+    }
+
+    private fun givenSuccessfulTranslationStatusFormat(formatString: String) {
+        `when`(mockStringResolver.getString(
+                eq(R.string.brief_translation_success_status_message), anyString()))
+                .thenAnswer { invocation ->
+                    val sourceLanguageDisplay = invocation.arguments[1]
+                    String.format(formatString, sourceLanguageDisplay)
+                }
     }
 
     @Test
@@ -302,8 +314,7 @@ class BriefPresenterImplTest {
             briefText == TEST_BUILD.notes &&
                     buildSource == TEST_BUILD.source &&
                     buildAuthor == TEST_BUILD.author
-        }
-        )
+        })
     }
 
     @Test
@@ -576,6 +587,58 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onTranslateViewEventEmitted_translationFromGermanWillSucceed_shouldShowOriginalLanguageInStatusMessage() {
+        givenSuccessfulTranslationStatusFormat("Translated from %s")
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("de")
+        givenTranslationOptionAvailableForBuildAndWillSucceed(
+                userLanguage = "en",
+                buildLanguage = "de"
+        )
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce())
+                .render(argThat { translationStatusMessage == "Translated from German" })
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationFromSpanishWillSucceed_shouldShowOriginalLanguageInStatusMessage() {
+        givenSuccessfulTranslationStatusFormat("Translated from %s")
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("es")
+        givenTranslationOptionAvailableForBuildAndWillSucceed(
+                userLanguage = "en",
+                buildLanguage = "es"
+        )
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockView, atLeastOnce())
+                .render(argThat { translationStatusMessage == "Translated from Spanish" })
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationFromEnToDeWillSucceed_shouldShowOriginalLanguageInLocalisedStatusMessage() {
+        givenSuccessfulTranslationStatusFormat("Übersetzt aus dem %s")
+        givenUsersCurrentLanguage("de")
+        givenABuildWithLanguage("en")
+        givenTranslationOptionAvailableForBuildAndWillSucceed(
+                userLanguage = "de",
+                buildLanguage = "en"
+        )
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockStringResolver).getString(R.string.brief_translation_success_status_message, "Englisch")
+        verify(mockView, atLeastOnce())
+                .render(argThat { translationStatusMessage == "Übersetzt aus dem Englisch" })
+    }
+
+    @Test
     fun onTranslateViewEventEmitted_translationWillSucceed_shouldSaveTranslationPreference() {
         var wasSubscribedTo = false
         val spyCompletable = Completable.fromAction { wasSubscribedTo = true }
@@ -764,8 +827,6 @@ class BriefPresenterImplTest {
         verify(mockGetTranslationUseCase).getTranslation(any(), any(), any())
         verify(mockView, atLeastOnce()).render(argThat { briefText == "Train 5 zerglings" })
     }
-
-    // TODO show original language in translation banner
 
 }
 

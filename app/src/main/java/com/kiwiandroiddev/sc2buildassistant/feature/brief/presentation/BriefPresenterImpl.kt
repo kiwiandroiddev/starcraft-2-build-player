@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation
 
+import com.kiwiandroiddev.sc2buildassistant.R
 import com.kiwiandroiddev.sc2buildassistant.domain.entity.Build
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
@@ -8,6 +9,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslate
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl.Result.*
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefView.BriefViewState
+import com.kiwiandroiddev.sc2buildassistant.feature.common.presentation.StringResolver
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.util.whenTrue
@@ -16,6 +18,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 /**
  * Created by Matt Clarke on 28/04/17.
@@ -28,6 +31,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                          val getTranslationUseCase: GetTranslationUseCase,
                          val navigator: BriefNavigator,
                          val errorReporter: ErrorReporter,
+                         val stringResolver: StringResolver,
                          val postExecutionScheduler: Scheduler) : BriefPresenter {
 
     companion object {
@@ -38,6 +42,7 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 showTranslationError = false,
                 translationLoading = false,
                 showRevertTranslationOption = false,
+                translationStatusMessage = null,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null
@@ -61,7 +66,10 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
 
         sealed class TranslationResult : Result() {
             class Loading : TranslationResult()
-            data class Success(val translatedBrief: String) : TranslationResult()
+            data class Success(val translatedBrief: String,
+                               val fromLanguageCode: String,
+                               val toLanguageCode: String) : TranslationResult()
+
             data class Failure(val cause: Throwable) : TranslationResult()
         }
     }
@@ -184,7 +192,11 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                                 briefText = result.translatedBrief,
                                 translationLoading = false,
                                 showTranslateOption = false,
-                                showRevertTranslationOption = true)
+                                showRevertTranslationOption = true,
+                                translationStatusMessage = successfulTranslationStatus(
+                                        result.fromLanguageCode,
+                                        result.toLanguageCode
+                                ))
 
                     is Result.TranslationResult.Failure ->
                         lastViewState.copy(showTranslationError = true, translationLoading = false)
@@ -196,6 +208,14 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                     )
                 }
             }
+
+    private fun successfulTranslationStatus(fromLanguageCode: String, toLanguageCode: String): String {
+        val localisedOriginalLanguageName = Locale(fromLanguageCode).getDisplayLanguage(Locale(toLanguageCode))
+        return stringResolver.getString(
+                R.string.brief_translation_success_status_message,
+                localisedOriginalLanguageName
+        )
+    }
 
     private fun loadBuildResult(buildId: Long): Single<LoadBuildResult> =
             getBuildUseCase.getBuild(buildId)
@@ -278,7 +298,11 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                                 sourceText = build.notes!!)
                                 .toObservable()
                                 .map { translatedBrief ->
-                                    TranslationResult.Success(translatedBrief) as Result.TranslationResult
+                                    TranslationResult.Success(
+                                            translatedBrief = translatedBrief,
+                                            fromLanguageCode = build.isoLanguageCode!!,
+                                            toLanguageCode = currentLanguageCode
+                                    ) as Result.TranslationResult
                                 }
                                 .onErrorReturn { error ->
                                     error.printStackTrace()

@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.annotation.DrawableRes
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
@@ -64,6 +63,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
                 showTranslationError = false,
                 translationLoading = false,
                 showRevertTranslationOption = false,
+                translationStatusMessage = null,
                 briefText = null,
                 buildSource = null,
                 buildAuthor = null
@@ -365,7 +365,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
         if (oldViewState.showRevertTranslationOption != newViewState.showRevertTranslationOption) {
             if (newViewState.showRevertTranslationOption) {
-                showRevertTranslationOption()
+                showRevertTranslationOption(newViewState.translationStatusMessage)
             }
         }
 
@@ -388,9 +388,9 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         brief_translation_bar.visible = false
     }
 
-    private fun showRevertTranslationOption() {
+    private fun showRevertTranslationOption(translationStatusMessage: String?) {
         brief_translation_bar.visible = true
-        brief_translation_bar_text.text = getString(R.string.brief_revert_translation_prompt)
+        brief_translation_bar_text.text = translationStatusMessage ?: ""
 
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.brief_revert_translation_button_text)

@@ -15,12 +15,13 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetCurrent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
+import com.kiwiandroiddev.sc2buildassistant.feature.common.androidview.AndroidStringResolver
+import com.kiwiandroiddev.sc2buildassistant.feature.common.presentation.StringResolver
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
-import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.GetTranslationUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Completable
@@ -43,6 +44,7 @@ class BriefModule {
                               checkTranslationPossibleUseCase: CheckTranslationPossibleUseCase,
                               shouldTranslateBuildByDefaultUseCase: ShouldTranslateBuildByDefaultUseCase,
                               getTranslationUseCase: GetTranslationUseCase,
+                              stringResolver: StringResolver,
                               errorReporter: ErrorReporter,
                               navigator: BriefNavigator): BriefPresenter =
             BriefPresenterImpl(
@@ -54,6 +56,7 @@ class BriefModule {
                     getTranslationUseCase,
                     navigator,
                     errorReporter,
+                    stringResolver,
                     AndroidSchedulers.mainThread()
             )
 
@@ -104,6 +107,11 @@ class BriefModule {
                 override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
                         Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
             }
+
+    @Provides
+    @Singleton
+    fun provideStringResolver(@ApplicationContext context: Context): StringResolver =
+            AndroidStringResolver(context)
 
     @Provides
     @Singleton
