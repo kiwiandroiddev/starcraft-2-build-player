@@ -46,6 +46,7 @@ import com.kiwiandroiddev.sc2buildassistant.util.*
 import com.kiwiandroiddev.sc2buildassistant.view.WindowInsetsCapturingView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_brief.*
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -323,6 +324,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     override fun getViewEvents(): Observable<BriefViewEvent> = viewEventPublishRelay
 
     override fun render(viewState: BriefView.BriefViewState) {
+        Timber.d("viewState = ${viewState.copy(briefText = viewState.briefText?.substring(0, 10))}")
+
         calculateAndApplyViewStateDiff(currentViewState, viewState)
         currentViewState = viewState
     }
@@ -380,8 +383,6 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             }
         }
     }
-
-    fun noneAreTrue(vararg flags: Boolean) = !(flags.toSet().any())
 
     private fun hideTranslationBar() {
         brief_translation_bar.visible = false

@@ -23,8 +23,11 @@ import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterfa
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.GetTranslationUseCaseImpl
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -76,14 +79,31 @@ class BriefModule {
     @Singleton
     fun provideShouldTranslateBuildByDefaultUseCase(): ShouldTranslateBuildByDefaultUseCase =
             object : ShouldTranslateBuildByDefaultUseCase {
-                override fun shouldTranslateByDefault(buildId: Long): Single<Boolean> =
-                        Single.just(true)      // TODO stub
+
+                private val preferenceMap: MutableMap<Long, Boolean> = HashMap()
+
+                override fun setTranslateByDefaultPreference(buildId: Long): Completable {
+                    return Completable.fromAction { preferenceMap[buildId] = true }
+                }
+
+                override fun clearTranslateByDefaultPreference(buildId: Long): Completable {
+                    return Completable.fromAction { preferenceMap[buildId] = false }
+                }
+
+                override fun shouldTranslateByDefault(buildId: Long): Single<Boolean> {
+                    val translateNow = preferenceMap[buildId] ?: false
+                    return Single.just(translateNow)
+                }
             }
 
     @Provides
     @Singleton
     fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
-            GetTranslationUseCaseImpl(translationAgent)
+//            GetTranslationUseCaseImpl(translationAgent)
+            object : GetTranslationUseCase {
+                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
+                        Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
+            }
 
     @Provides
     @Singleton

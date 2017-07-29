@@ -14,13 +14,17 @@ import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argThat
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.CompletableSubject
 import io.reactivex.subjects.SingleSubject
+import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -50,7 +54,7 @@ class BriefPresenterImplTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        
+
         // Force background operations onto the main thread to make tests run synchronously
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
 
@@ -90,6 +94,20 @@ class BriefPresenterImplTest {
         givenTranslatingBetweenAnyLanguageIsPossible()
 
         givenTranslateByDefaultOptionForBuildIs(false)
+
+        givenSetTranslateByDefaultPreferenceWillComplete()
+
+        givenClearTranslateByDefaultPreferenceWillComplete()
+    }
+
+    private fun givenSetTranslateByDefaultPreferenceWillComplete() {
+        `when`(mockShouldTranslateBuildByDefaultUseCase.setTranslateByDefaultPreference(any()))
+                .thenReturn(Completable.complete())
+    }
+
+    private fun givenClearTranslateByDefaultPreferenceWillComplete() {
+        `when`(mockShouldTranslateBuildByDefaultUseCase.clearTranslateByDefaultPreference(any()))
+                .thenReturn(Completable.complete())
     }
 
     private fun givenTranslatingBetweenAnyLanguageIsPossible() {
@@ -435,9 +453,20 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onTranslateViewEventEmitted_translationUseCaseThrowsError_translationPreferenceNotSaved() {
+        givenABuildInADifferentLanguage()
+        givenTranslatingBetweenAnyLanguageIsPossible()
+        givenGetTranslationAlwaysThrowsAnError(RuntimeException("can't access network translation service"))
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockShouldTranslateBuildByDefaultUseCase, never()).setTranslateByDefaultPreference(any())
+    }
+
+    @Test
     fun onTranslateViewEventEmitted_buildAndUserLanguageMatch_showsTranslateErrorAndReports() {
-        givenUsersCurrentLanguage("en")
-        givenABuildWithLanguage("en")
+        givenABuildInUsersNativeLanguage()
         presenter.attachView(mockView)
 
         mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
@@ -447,6 +476,17 @@ class BriefPresenterImplTest {
         verify(mockErrorReporter).trackNonFatalError(argThat {
             (this is IllegalStateException && message == "Translate selected when translation not available or needed")
         })
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_buildAndUserLanguageMatch_translationPreferenceNotSaved() {
+        givenABuildInUsersNativeLanguage()
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockShouldTranslateBuildByDefaultUseCase, never())
+                .setTranslateByDefaultPreference(any())
     }
 
     @Test
@@ -479,6 +519,19 @@ class BriefPresenterImplTest {
         verify(mockView, never()).render(argThat { showTranslationError })
         verify(mockView, never()).render(argThat { showRevertTranslationOption })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationUseCaseWontComplete_translationPreferenceNotSaved() {
+        givenABuildInADifferentLanguage()
+        givenTranslatingBetweenAnyLanguageIsPossible()
+        givenGetTranslationWillNeverComplete()
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockShouldTranslateBuildByDefaultUseCase, never())
+                .setTranslateByDefaultPreference(any())
     }
 
     @Test
@@ -520,6 +573,32 @@ class BriefPresenterImplTest {
             briefText == GERMAN_TRANSLATION && !translationLoading && !showTranslationError
         })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationWillSucceed_shouldSaveTranslationPreference() {
+        var wasSubscribedTo = false
+        val spyCompletable = Completable.fromAction { wasSubscribedTo = true }
+        `when`(mockShouldTranslateBuildByDefaultUseCase.setTranslateByDefaultPreference(any()))
+                .thenReturn(spyCompletable)
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+
+        verify(mockShouldTranslateBuildByDefaultUseCase)
+                .setTranslateByDefaultPreference(DEFAULT_BUILD_ID)
+        assertThat(wasSubscribedTo).isTrue()
+    }
+
+    @Test
+    fun onTranslateViewEventEmitted_translationWillSucceedButSaveTranslationPreferenceWillFail_noExceptionIsThrown() {
+        `when`(mockShouldTranslateBuildByDefaultUseCase.setTranslateByDefaultPreference(any()))
+                .thenReturn(Completable.error(RuntimeException("Disk space full!")))
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
+        presenter.attachView(mockView)
+
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
     }
 
     @Test
@@ -605,6 +684,25 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onRevertTranslationViewEvent_translateByDefaultPreferenceIsCleared() {
+        var wasSubscribedTo = false
+        val spyCompletable = Completable.fromAction { wasSubscribedTo = true }
+        `when`(mockShouldTranslateBuildByDefaultUseCase.clearTranslateByDefaultPreference(any()))
+                .thenReturn(spyCompletable)
+        givenTranslationOptionAvailableForBuildAndWillSucceed()
+        presenter.attachView(mockView)
+        mockViewEventStream.accept(BriefViewEvent.TranslateSelected())
+        reset(mockView)
+        `when`(mockView.getBuildId()).thenReturn(DEFAULT_BUILD_ID)
+
+        mockViewEventStream.accept(BriefViewEvent.RevertTranslationSelected())
+
+        verify(mockShouldTranslateBuildByDefaultUseCase)
+                .clearTranslateByDefaultPreference(DEFAULT_BUILD_ID)
+        assertThat(wasSubscribedTo).isTrue()
+    }
+
+    @Test
     fun onRevertTranslationViewEvent_untranslatedBuildNotesShownInView() {
         val ORIGINAL_BRIEF_TEXT = "Send starting SCVs to enemy base"
         givenUsersCurrentLanguage("de")
@@ -667,7 +765,7 @@ class BriefPresenterImplTest {
         verify(mockView, atLeastOnce()).render(argThat { briefText == "Train 5 zerglings" })
     }
 
-    // TODO show loading banner initially incase cache is empty
+    // TODO show original language in translation banner
 
 }
 

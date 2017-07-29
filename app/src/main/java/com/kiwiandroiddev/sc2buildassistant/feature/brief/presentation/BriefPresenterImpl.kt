@@ -142,17 +142,22 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                 SuccessfulNavigationResult()
             }
 
-    private fun getRevertTranslationResult(): Observable<Result> {
-        return getBuild().toObservable().flatMap { build ->
-            isTranslationAvailableForBuild(build).toObservable()
-                    .flatMap { translationAvailable ->
-                        Observable.just(RevertTranslationResult(
-                                untranslatedBrief = build.notes,
-                                reshowTranslateOption = translationAvailable
-                        ))
-                    }
-        }
-    }
+    private fun getRevertTranslationResult(): Observable<Result> =
+            getBuild().toObservable().flatMap { build ->
+                isTranslationAvailableForBuild(build).toObservable()
+                        .flatMap { translationAvailable ->
+                            Observable.just(RevertTranslationResult(
+                                    untranslatedBrief = build.notes,
+                                    reshowTranslateOption = translationAvailable
+                            ))
+                        }
+                        .doOnNext {
+                            shouldTranslateBuildByDefaultUseCase
+                                    .clearTranslateByDefaultPreference(view!!.getBuildId())
+                                    .subscribe()
+                        }
+            }
+
 
     private fun reduceToViewState(results: Observable<Result>): Observable<BriefViewState> =
             results.scan(INITIAL_VIEW_STATE) { lastViewState, result ->
@@ -256,6 +261,12 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                                 }
                             }
                         }
+            }.doOnNext { translationResult ->
+                if (translationResult is TranslationResult.Success) {
+                    shouldTranslateBuildByDefaultUseCase
+                            .setTranslateByDefaultPreference(view!!.getBuildId())
+                            .subscribe()
+                }
             }.map { it as Result }
 
     private fun getTranslateBuildToCurrentLanguageResults(build: Build): Observable<Result.TranslationResult> =
