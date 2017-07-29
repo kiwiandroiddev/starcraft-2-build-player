@@ -366,8 +366,10 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             }
         }
 
-        if (!newViewState.showTranslateOption && !newViewState.showRevertTranslationOption) {
-            hideTranslationBar()
+        with(newViewState) {
+            if (noneAreTrue(showTranslateOption, showRevertTranslationOption, translationLoading)) {
+                hideTranslationBar()
+            }
         }
 
         if (!oldViewState.showTranslationError && newViewState.showTranslationError) {
@@ -378,6 +380,8 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             }
         }
     }
+
+    fun noneAreTrue(vararg flags: Boolean) = !(flags.toSet().any())
 
     private fun hideTranslationBar() {
         brief_translation_bar.visible = false
@@ -406,6 +410,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
     }
 
     private fun showTranslationLoading() {
+        brief_translation_bar.visible = true
         brief_translation_bar_text.text = getString(R.string.brief_translation_loading)
 
         fadeOutTranslateButton()
