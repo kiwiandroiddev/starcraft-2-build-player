@@ -52,10 +52,12 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
     private sealed class Result {
         data class ShowAdsResult(val showAds: Boolean) : Result()
 
-        data class ShowTranslateOptionResult(val showTranslateOption: Boolean) : Result()
+        data class ShowTranslateOptionResult(val showTranslateOption: Boolean,
+                                             val currentLanguageCode: String) : Result()
 
         data class RevertTranslationResult(val untranslatedBrief: String?,
-                                           val reshowTranslateOption: Boolean) : Result()
+                                           val reshowTranslateOption: Boolean,
+                                           val currentLanguageCode: String) : Result()
 
         sealed class LoadBuildResult : Result() {
             data class Success(val build: Build) : LoadBuildResult()
@@ -154,10 +156,13 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
             getBuild().toObservable().flatMap { build ->
                 isTranslationAvailableForBuild(build).toObservable()
                         .flatMap { translationAvailable ->
-                            Observable.just(RevertTranslationResult(
-                                    untranslatedBrief = build.notes,
-                                    reshowTranslateOption = translationAvailable
-                            ))
+                            getCurrentLanguage().map { currentLanguageCode ->
+                                RevertTranslationResult(
+                                        untranslatedBrief = build.notes,
+                                        reshowTranslateOption = translationAvailable,
+                                        currentLanguageCode = currentLanguageCode
+                                )
+                            }.toObservable()
                         }
                         .doOnNext {
                             shouldTranslateBuildByDefaultUseCase
@@ -180,7 +185,12 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                         lastViewState.copy(showLoadError = true)
 
                     is Result.ShowTranslateOptionResult ->
-                        lastViewState.copy(showTranslateOption = result.showTranslateOption)
+                        lastViewState.copy(
+                                showTranslateOption = result.showTranslateOption,
+                                translationStatusMessage = translationPromptMessage(
+                                        result.currentLanguageCode
+                                )
+                        )
 
                     is Result.SuccessfulNavigationResult -> lastViewState    // do nothing to view state
 
@@ -193,23 +203,35 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
                                 translationLoading = false,
                                 showTranslateOption = false,
                                 showRevertTranslationOption = true,
-                                translationStatusMessage = successfulTranslationStatus(
+                                translationStatusMessage = successfulTranslationMessage(
                                         result.fromLanguageCode,
                                         result.toLanguageCode
                                 ))
 
                     is Result.TranslationResult.Failure ->
-                        lastViewState.copy(showTranslationError = true, translationLoading = false)
+                        lastViewState.copy(
+                                showTranslationError = true,
+                                translationLoading = false
+                        )
 
                     is Result.RevertTranslationResult -> lastViewState.copy(
                             briefText = result.untranslatedBrief,
                             showRevertTranslationOption = false,
-                            showTranslateOption = result.reshowTranslateOption
+                            showTranslateOption = result.reshowTranslateOption,
+                            translationStatusMessage = translationPromptMessage(result.currentLanguageCode)
                     )
                 }
             }
 
-    private fun successfulTranslationStatus(fromLanguageCode: String, toLanguageCode: String): String {
+    private fun translationPromptMessage(currentLanguageCode: String): String {
+        val localisedCurrentLanguage = Locale(currentLanguageCode).getDisplayLanguage(Locale(currentLanguageCode))
+        return stringResolver.getString(
+                R.string.brief_translation_prompt_status_message,
+                localisedCurrentLanguage
+        )
+    }
+
+    private fun successfulTranslationMessage(fromLanguageCode: String, toLanguageCode: String): String {
         val localisedOriginalLanguageName = Locale(fromLanguageCode).getDisplayLanguage(Locale(toLanguageCode))
         return stringResolver.getString(
                 R.string.brief_translation_success_status_message,
@@ -229,7 +251,11 @@ class BriefPresenterImpl(val getBuildUseCase: GetBuildUseCase,
 
     private fun getShowTranslateOptionResult(build: Build): Single<Result> =
             isTranslationAvailableForBuild(build)
-                    .map { available -> ShowTranslateOptionResult(available) as Result }
+                    .flatMap { available ->
+                        getCurrentLanguage().map { currentLanguageCode ->
+                            ShowTranslateOptionResult(available, currentLanguageCode) as Result
+                        }
+                    }
 
     private fun isTranslationAvailableForBuild(build: Build): Single<Boolean> =
             build.hasLanguageCodeAndNotes()

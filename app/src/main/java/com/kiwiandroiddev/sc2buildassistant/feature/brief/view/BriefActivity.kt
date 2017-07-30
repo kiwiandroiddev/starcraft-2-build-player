@@ -295,9 +295,11 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         adView.alpha = 0.0f
         adView.adListener = object : AdListener() {
             override fun onAdLoaded() {
+                val fadeDurationMs = resources.getInteger(android.R.integer.config_longAnimTime).toLong()
                 adView.animate()
                         .alpha(1.0f)
-                        .setInterpolator(FastOutSlowInInterpolator()).duration = resources.getInteger(android.R.integer.config_longAnimTime).toLong()
+                        .setInterpolator(FastOutSlowInInterpolator())
+                        .duration = fadeDurationMs
             }
         }
     }
@@ -352,7 +354,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
 
         if (oldViewState.showTranslateOption != newViewState.showTranslateOption) {
             if (newViewState.showTranslateOption) {
-                showTranslationAvailableOption()
+                showTranslationAvailableOption(newViewState.translationStatusMessage)
             }
         }
 
@@ -379,7 +381,7 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
             Toast.makeText(this, getString(R.string.brief_translation_error_message), Toast.LENGTH_LONG).show()
 
             if (newViewState.showTranslateOption) {
-                showTranslationAvailableOption()
+                showTranslationAvailableOption(newViewState.translationStatusMessage)
             }
         }
     }
@@ -399,9 +401,9 @@ class BriefActivity : AppCompatActivity(), BriefView, LifecycleRegistryOwner {
         }
     }
 
-    private fun showTranslationAvailableOption() {
+    private fun showTranslationAvailableOption(promptMessage: String?) {
         brief_translation_bar.visible = true
-        brief_translation_bar_text.text = getString(R.string.brief_translation_prompt)
+        brief_translation_bar_text.text = promptMessage ?: ""
 
         brief_translation_bar_button.visible = true
         brief_translation_bar_button.text = getString(R.string.translate_button)

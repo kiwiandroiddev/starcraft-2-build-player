@@ -203,6 +203,15 @@ class BriefPresenterImplTest {
                 }
     }
 
+    private fun givenTranslatePromptFormat(formatString: String) {
+        `when`(mockStringResolver.getString(
+                eq(R.string.brief_translation_prompt_status_message), anyString()))
+                .thenAnswer { invocation ->
+                    val sourceLanguageDisplay = invocation.arguments[1]
+                    String.format(formatString, sourceLanguageDisplay)
+                }
+    }
+
     @Test
     fun onAttach_showAdSettingOn_tellsViewToShowAds() {
         `when`(mockGetSettingsUseCase.showAds()).thenReturn(Observable.just(true))
@@ -387,6 +396,32 @@ class BriefPresenterImplTest {
     }
 
     @Test
+    fun onAttach_currentLanguageIsEnglishAndTranslationPossible_translateToYourLanguageStatusMessageShown() {
+        givenTranslatePromptFormat("Translate this build order to %s?")
+        givenUsersCurrentLanguage("en")
+        givenABuildWithLanguage("ru")
+        givenTranslatingIsPossible(from = "ru", to = "en", isPossible = true)
+
+        presenter.attachView(mockView)
+
+        verify(mockView, atLeastOnce())
+                .render(argThat { translationStatusMessage == "Translate this build order to English?" })
+    }
+
+    @Test
+    fun onAttach_currentLanguageIsRussianAndTranslationPossible_translateToYourLanguageStatusMessageShown() {
+        givenTranslatePromptFormat("Перевести этот сборщик на %s?")
+        givenUsersCurrentLanguage("ru")
+        givenABuildWithLanguage("de")
+        givenTranslatingIsPossible(from = "de", to = "ru", isPossible = true)
+
+        presenter.attachView(mockView)
+
+        verify(mockView, atLeastOnce())
+                .render(argThat { translationStatusMessage == "Перевести этот сборщик на русский?" })
+    }
+
+    @Test
     fun onAttach_userLanguageUseCaseThrowsError_translateOptionNotShownAndErrorReported() {
         // something's very wrong if we can't even get the device language: report this
         givenABuildWithLanguage("en")
@@ -437,15 +472,6 @@ class BriefPresenterImplTest {
         verify(mockView, never()).render(argThat { showTranslateOption })
         verify(mockView, never()).render(argThat { showLoadError })
         verify(mockErrorReporter, never()).trackNonFatalError(any())
-    }
-
-    @Test
-    fun onAttach_revertTranslationOption_neverShown() {
-        // builds always start off untranslated (at this stage)
-        presenter.attachView(mockView)
-
-        verify(mockView, never()).render(argThat { showRevertTranslationOption })
-        verify(mockView, atLeastOnce()).render(argThat { !showRevertTranslationOption })
     }
 
     @Test
@@ -713,10 +739,6 @@ class BriefPresenterImplTest {
         verify(mockView).render(argThat { showTranslationError })
     }
 
-    // TODO refactor presenter to improve readability
-    // TODO refactor tests for readability
-    // TODO convert failed non-nullable calls (!!) to errors in presenter
-
     @Test
     fun onRevertTranslationViewEvent_translationStillPossible_hideRevertTranslationOptionAndShowsTranslateOption() {
         givenTranslationOptionAvailableForBuildAndWillSucceed()
@@ -766,7 +788,8 @@ class BriefPresenterImplTest {
     }
 
     @Test
-    fun onRevertTranslationViewEvent_untranslatedBuildNotesShownInView() {
+    fun onRevertTranslationViewEvent_revertsBackToUntranslatedBuildAndOriginalTranslationPrompt() {
+        givenTranslatePromptFormat("Translate build order to %s?")
         val ORIGINAL_BRIEF_TEXT = "Send starting SCVs to enemy base"
         givenUsersCurrentLanguage("de")
         givenABuildWithLanguageAndBriefText("en", ORIGINAL_BRIEF_TEXT)
@@ -784,7 +807,11 @@ class BriefPresenterImplTest {
 
         mockViewEventStream.accept(BriefViewEvent.RevertTranslationSelected())
 
-        verify(mockView, atLeastOnce()).render(argThat { briefText == ORIGINAL_BRIEF_TEXT })
+        verify(mockView, atLeastOnce())
+                .render(argThat {
+                    briefText == ORIGINAL_BRIEF_TEXT
+                            && translationStatusMessage == "Translate build order to Deutsch?"
+                })
     }
 
     @Test
@@ -827,6 +854,10 @@ class BriefPresenterImplTest {
         verify(mockGetTranslationUseCase).getTranslation(any(), any(), any())
         verify(mockView, atLeastOnce()).render(argThat { briefText == "Train 5 zerglings" })
     }
+
+    // TODO refactor presenter to improve readability
+    // TODO refactor tests for readability
+    // TODO convert failed non-nullable calls (!!) to errors in presenter
 
 }
 

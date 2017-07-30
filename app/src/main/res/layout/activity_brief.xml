@@ -50,7 +50,7 @@
                     android:drawablePadding="8dp"
                     android:drawableStart="@drawable/ic_translate_24dp"
                     android:gravity="center_vertical"
-                    android:text="@string/brief_translation_prompt" />
+                    tools:text="Translate this build to English?" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
