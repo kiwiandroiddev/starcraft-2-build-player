@@ -1,8 +1,12 @@
 package com.kiwiandroiddev.sc2buildassistant.di
 
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.NetworkSupportedLanguagesAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.NetworkTranslationAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.TranslationApi
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.SupportedLanguagesAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.CheckTranslationPossibleUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -22,6 +26,13 @@ class TranslationModule {
     companion object {
         const val TRANSLATION_API_BASE_URL = "https://sc2-cloud-translate.herokuapp.com/"
     }
+
+    @Provides
+    @Singleton
+    fun provideCheckTranslationPossibleUseCase(
+            supportedLanguagesAgent: SupportedLanguagesAgent
+    ): CheckTranslationPossibleUseCase =
+            CheckTranslationPossibleUseCaseImpl(supportedLanguagesAgent)
 
     @Provides
     @Singleton
@@ -48,5 +59,10 @@ class TranslationModule {
     @Singleton
     fun provideNetworkTranslationAgent(translationApi: TranslationApi): TranslationAgent =
             NetworkTranslationAgent(translationApi)
+
+    @Provides
+    @Singleton
+    fun provideNetworkSupportedLanguagesAgent(translationApi: TranslationApi): SupportedLanguagesAgent =
+            NetworkSupportedLanguagesAgent(translationApi)
 
 }

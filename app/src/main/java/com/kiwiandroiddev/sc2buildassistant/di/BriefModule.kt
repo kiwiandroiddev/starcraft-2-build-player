@@ -22,6 +22,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslat
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.GetTranslationUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Completable
@@ -72,14 +73,6 @@ class BriefModule {
 
     @Provides
     @Singleton
-    fun provideCheckTranslationPossibleUseCase(): CheckTranslationPossibleUseCase =
-            object : CheckTranslationPossibleUseCase {
-                override fun canTranslateFromLanguage(fromLanguageCode: String, toLanguageCode: String): Single<Boolean> =
-                        Single.just(true)   // TODO stub
-            }
-
-    @Provides
-    @Singleton
     fun provideShouldTranslateBuildByDefaultUseCase(): ShouldTranslateBuildByDefaultUseCase =
             object : ShouldTranslateBuildByDefaultUseCase {
 
@@ -102,11 +95,11 @@ class BriefModule {
     @Provides
     @Singleton
     fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
-//            GetTranslationUseCaseImpl(translationAgent)
-            object : GetTranslationUseCase {
-                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
-                        Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
-            }
+            GetTranslationUseCaseImpl(translationAgent)
+//            object : GetTranslationUseCase {
+//                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
+//                        Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
+//            }
 
     @Provides
     @Singleton
