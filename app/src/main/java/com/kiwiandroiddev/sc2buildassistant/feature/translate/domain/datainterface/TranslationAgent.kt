@@ -1,5 +1,6 @@
 package com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface
 
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.LanguageCode
 import io.reactivex.Single
 
 /**
@@ -7,8 +8,8 @@ import io.reactivex.Single
  */
 interface TranslationAgent {
 
-    fun getTranslation(fromLanguageCode: String,
-                       toLanguageCode: String,
+    fun getTranslation(fromLanguageCode: LanguageCode,
+                       toLanguageCode: LanguageCode,
                        sourceText: String): Single<String>
 
 }

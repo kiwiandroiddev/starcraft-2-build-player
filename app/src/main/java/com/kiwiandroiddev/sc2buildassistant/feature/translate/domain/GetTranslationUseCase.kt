@@ -4,6 +4,10 @@ import io.reactivex.Single
 
 interface GetTranslationUseCase {
 
-    fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String>
+    fun getTranslation(
+            fromLanguageCode: LanguageCode,
+            toLanguageCode: LanguageCode,
+            sourceText: String
+    ): Single<String>
 
 }
