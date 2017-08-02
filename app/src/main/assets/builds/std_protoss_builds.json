@@ -23,7 +23,8 @@
 	    { "mTime": 259, "mUnit": "gateway", "mCount": 3 },
 	    { "mTime": 271, "mUnit": "stalker", "mCount": 1 }
 	],
-	"mNotes": "<html><h1>Introduction</h1><p>The <b>4 Warpgate Rush</b> is a very common aggressive opening in PvP and to a lesser extent in PvZ and PvT. Four Warpgates can provide a constant stream of units that breaks up the opponent's ramp and allow you to warp units into the opponent's main base. It is a semi all-in as - even though the performing player can transition out of it - constant unit production out of 4 Warpgates allows little-to-no resources for teching or expanding.</p>
+	"mIsoLanguageCode": "en",
+    "mNotes": "<html><h1>Introduction</h1><p>The <b>4 Warpgate Rush</b> is a very common aggressive opening in PvP and to a lesser extent in PvZ and PvT. Four Warpgates can provide a constant stream of units that breaks up the opponent's ramp and allow you to warp units into the opponent's main base. It is a semi all-in as - even though the performing player can transition out of it - constant unit production out of 4 Warpgates allows little-to-no resources for teching or expanding.</p>
 <p>Although recent changes to the metagame (especially in PvP: see References) have all but rendered this strategy obsolete, it can still be a successful strategy against lower-level opponents whose timings are not exact enough to defend. Equally, this is still the dominant PvP strategy on maps where Force Fields cannot be used to deflect or delay the rush (eg. Tal'Darim Altar).</p>
 <h1>Overview</h1>
 <p>A substantial amount of damage has to be done when using this build else the opponent will likely have a large economic or technological advantage. The build also relies on the use of a proxy Pylon to quickly and continually reinforce the initial push, so if you are unable to get a proxy Pylon in place then it is likely that your rush will fail. </p>
@@ -131,7 +132,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 365, "mUnit": "nexus" },
 	    { "mTime": 366, "mUnit": "pylon" }
 	],
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+"mNotes": "
 <h1>Overview</h1>
 
 <p>Possibly the safest opening available in the PvT match-up. The idea behind this opening is to quickly get out an Observer before laying down a Nexus at your natural expansion. The Observer can then be used to scout what the opponent is doing, allowing you to react accordingly.</p>
@@ -217,7 +219,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 345, "mUnit": "pylon" },
 	    { "mTime": 385, "mUnit": "robotics_facility" }
 	],             
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+    "mNotes": "
 <h1>Overview</h1>
 
 <p>This build is the safest 1 Gateway Fast Expand and can thus be performed on any map. Specifically, this build shines on maps where aggressive strategies such as the 1/1/1 and 2 Rax Reactor/Tech-Lab push are often used by Terran players, meaning that it is best used on smaller maps or maps with only 2 spawn locations. On maps where gasless expansions are commonly used by Terran players, it may be wise to consider a more economic 1 Gate Fast Expand.</p>
@@ -326,7 +329,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 252, "mUnit": "photon_cannon", "mCount": 1 },
 	    { "mTime": 272, "mUnit": "cybernetics_core", "mCount": 1 }
 	],
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+    "mNotes": "
 <h1>Overview</h1>
 <p>This build is intended for PvZ. It is an opening designed to set the Protoss up on solid economic footing, similar to the Forge Fast Expansion (vs. Zerg), it does not include nor require a particular follow-up, but allows a transition into any PvZ style.
 </p>
@@ -405,7 +409,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 247, "mUnit": "chrono_boost", "mTarget": "nexus" },
 	    { "mTime": 255, "mUnit": "note", "mText": "Save chrono boosts for warp gate research" }
 	],
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+    "mNotes": "
 <h1>Overview</h1>
 <p>This build is intended for PvZ. It is an opening designed to set the Protoss up on solid economic footing, similar to the Forge Fast Expansion (vs. Zerg), it does not include nor require a particular follow-up, but allows a transition into any PvZ style.
 </p>
@@ -497,7 +502,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 339, "mUnit": "blink" },
 	    { "mTime": 359, "mUnit": "robotics_facility" }
 	],
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+    "mNotes": "
 <h1>Overview</h1>
 
 <p>This build is intended to safely take a Protoss player into the mid-game in PvP. If executed correctly, it can defend against a 4 Warpgate Rush, Observers will be out quickly enough to defend against Dark Templar, and Blink Stalker All-Ins can be held with the aid of the ramp. Additionally, Blink Stalkers and Observers can be used to pressure the opponent's base (Observers will be used to provide high-ground vision, thus allowing Blink Stalkers to Blink in-and-out of the opponent's base).</p>
@@ -635,7 +641,8 @@ The execution of this build greatly varies between the races.
 	    { "mTime": 360, "mUnit": "note", "mText": "Put one probe on each gas" },
 	    { "mTime": 360, "mUnit": "note", "mText": "Use chrono boosts on warp gate research" }
 	],
-	"mNotes": "
+	"mIsoLanguageCode": "en",
+    "mNotes": "
 <h1>Overview</h1>
 <p>This build aims to expand off 2 Gateways whilst pressuring your opponent in a manner that will force them to play passively. This will allow you to get up your Natural Expansion uncontested, giving you a massive lead heading into the mid-game phase. You also have the option to transition into a defensive 4 Gateway opening should you scout that the opponent is going for a 4 Gate Rush. As you will have more units when their attack hits you will be able to crush their all-in and again head into the mid-game with an economic lead.
 </p> 

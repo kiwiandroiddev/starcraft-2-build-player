@@ -29,7 +29,8 @@
 	    { "mTime": 382, "mUnit": "supply_depot" },
 	    { "mTime": 405, "mUnit": "supply_depot" }
 	],
-	"mNotes": "<html>
+	"mIsoLanguageCode": "en",
+    "mNotes": "<html>
 <h2>General Overview</h2>
 <p>This 1rax FE gives you a good economy, scouting intel with two reapers, and the ability to harass your opponent quite a bit once your widow mines and medivac pop.</p>
 <h2>Build Order</h2>
@@ -108,7 +109,8 @@
 	    { "mTime": 419, "mUnit": "marine" },
 	    { "mTime": 427, "mUnit": "hellion", "mCount": 2 }
 	],
-	"mNotes": "<html>
+	"mIsoLanguageCode": "en",
+    "mNotes": "<html>
 <h2>General Overview</h2>
 <p>This Reaper FE gives you reapers to harass your opponent very early, and then sets up your economy for the midgame while going for a reaper/hellion timing to take advantage of an opponent still trying to macro out of the initial damage.</p>
 <h2>Build Order</h2>
@@ -173,7 +175,8 @@
 	    { "mTime": 254, "mUnit": "supply_depot" },
 	    { "mTime": 298, "mUnit": "reaper" }
 	],
-	"mNotes": "<html>
+	"mIsoLanguageCode": "en",
+    "mNotes": "<html>
 <h2>General Overview</h2>
 
 <p>This all-in gets the fastest possible reaper with which to do damage vs your opponent.  It then follows up with another barracks so that you can make enough reapers to overwhelm your opponent and outright win the game.</p>
@@ -273,7 +276,8 @@
 	    { "mTime": 416, "mUnit": "marine", "mCount": 2 },
 	    { "mTime": 424, "mUnit": "supply_depot" }
 	],
-	"mNotes": "<html>
+	"mIsoLanguageCode": "en",
+    "mNotes": "<html>
 <h2>General Overview</h2>
 
 <p>This Reactored Rax FE gives you enough marines to stay safe vs early toss pressure, while kickstarting your midgame economy, and then transitioning into a fast marine/widow mine drop to bring the pressure back on your opponent.</p>
@@ -342,6 +346,7 @@
 {"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":57,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":116,"mCount":1},{"mUnit":"marine","mTime":164,"mCount":1},{"mUnit":"orbital_command","mTime":173,"mCount":1},{"mUnit":"supply_depot","mTime":177,"mCount":1},{"mUnit":"marine","mTime":186,"mCount":1},{"mUnit":"factory","mTime":203,"mCount":1},{"mUnit":"mule","mTime":210,"mCount":1},{"mUnit":"refinery","mTime":225,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":229,"mCount":1},{"mUnit":"supply_depot","mTime":250,"mCount":1},{"mUnit":"armory","mTime":271,"mCount":1},{"mText":"Swap Factory and Barracks","mUnit":"note","mTime":281,"mCount":1},{"mUnit":"hellion","mTime":289,"mCount":2},{"mUnit":"mule","mTime":299,"mCount":1},{"mUnit":"starport","mTime":304,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":310,"mCount":1},{"mUnit":"supply_depot","mTime":317,"mCount":1},{"mUnit":"hellbat","mTime":342,"mCount":2},{"mUnit":"supply_depot","mTime":352,"mCount":1},{"mUnit":"supply_depot","mTime":361,"mCount":1},{"mText":"Swap Starport and Barracks","mUnit":"note","mTime":365,"mCount":1},{"mUnit":"medivac","mTime":375,"mCount":2},{"mUnit":"hellion","mTime":381,"mCount":2},{"mUnit":"hellbat","mTime":383,"mCount":2},{"mUnit":"mule","mTime":389,"mCount":1},{"mUnit":"hellbat","mTime":418,"mCount":2},{"mText":"Load Hellbats into Medivacs","mUnit":"note","mTime":418,"mCount":1}],"mName":"4 Hellbat Drop","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-4-hellbat-drop/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"TERRAN",
 "mCreated":"2013-04-23 00:00:00",
 "mModified":"2013-04-23 00:00:00",
+"mIsoLanguageCode": "en",
 "mNotes": "<html>
 <h2>General Overview</h2>
 
@@ -403,6 +408,7 @@ Double drop 4 Hellbats when your first Medivacs finish (@7:00ish)<br />
 480,"mCount":1},{"mUnit":"marine","mTime":484,"mCount":3},{"mUnit":"refinery","mTime":492,"mCount":1},{"mUnit":"combat_shield","mTime":513,"mCount":1},{"mUnit":"barracks","mTime":521,"mCount":1},{"mText":"Swap Starport with Factory","mUnit":"note","mTime":523,"mCount":1},{"mUnit":"medivac","mTime":529,"mCount":2},{"mUnit":"marine","mTime":531,"mCount":3},{"mUnit":"marauder","mTime":533,"mCount":1},{"mUnit":"supply_depot","mTime":537,"mCount":2},{"mUnit":"mule","mTime":540,"mCount":1},{"mUnit":"supply_depot","mTime":550,"mCount":1},{"mUnit":"marauder","mTime":557,"mCount":1},{"mUnit":"marine","mTime":558,"mCount":2},{"mUnit":"medivac","mTime":564,"mCount":2},{"mUnit":"barracks","mTime":569,"mCount":1},{"mUnit":"barracks","mTime":573,"mCount":1},{"mUnit":"mule","mTime":585,"mCount":1},{"mUnit":"mule","mTime":585,"mCount":1},{"mUnit":"marine","mTime":589,"mCount":2},{"mUnit":"supply_depot","mTime":596,"mCount":1},{"mTarget":"barracks","mUnit":"tech_lab","mTime":599,"mCount":1},{"mUnit":"medivac","mTime":603,"mCount":2},{"mUnit":"infantry_armor_level1","mTime":612,"mCount":1},{"mUnit":"marine","mTime":624,"mCount":1},{"mUnit":"marauder","mTime":625,"mCount":2},{"mUnit":"concussion_shells","mTime":627,"mCount":1},{"mUnit":"mule","mTime":631,"mCount":1},{"mUnit":"mule","mTime":631,"mCount":1}],"mName":"Bomber\u0027s Reaper FE","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvp/tvp-bombers-reaper-fe/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"PROTOSS",
 "mCreated":"2013-04-23 00:00:00",
 "mModified":"2013-04-23 00:00:00",
+"mIsoLanguageCode": "en",
 "mNotes": "<html>
 <h2>General Overview</h2>
 
@@ -480,6 +486,7 @@ Double drop 4 Hellbats when your first Medivacs finish (@7:00ish)<br />
 {"mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":56,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":140,"mCount":1},{"mUnit":"marine","mTime":163,"mCount":1},{"mUnit":"orbital_command","mTime":172,"mCount":1},{"mUnit":"supply_depot","mTime":176,"mCount":1},{"mUnit":"marine","mTime":184,"mCount":1},{"mUnit":"mule","mTime":209,"mCount":1},{"mUnit":"marine","mTime":212,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":220,"mCount":1},{"mUnit":"command_center","mTime":237,"mCount":1},{"mUnit":"factory","mTime":253,"mCount":1},{"mUnit":"marine","mTime":278,"mCount":2},{"mUnit":"supply_depot","mTime":281,"mCount":1},{"mUnit":"marine","mTime":299,"mCount":2},{"mUnit":"mule","mTime":302,"mCount":1},{"mUnit":"starport","mTime":316,"mCount":1},{"mUnit":"orbital_command","mTime":339,"mCount":1},{"mText":"Swap Factory and Barracks","mUnit":"note","mTime":340,"mCount":1},{"mUnit":"hellion","mTime":349,"mCount":2},{"mUnit":"supply_depot","mTime":354,"mCount":1},{"mUnit":"medivac","mTime":367,"mCount":1},{"mUnit":"supply_depot","mTime":374,"mCount":1},{"mUnit":"mule","mTime":376,"mCount":1},{"mUnit":"mule","mTime":377,"mCount":1},{"mUnit":"hellion","mTime":380,"mCount":2},{"mUnit":"hellion","mTime":387,"mCount":1},{"mUnit":"mule","mTime":396,"mCount":1},{"mUnit":"supply_depot","mTime":404,"mCount":1}],"mName":"Innovation\u0027s Marine Hellion Expand","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-terran/hots-tvt/innovations-marinehellion-expand/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"TERRAN",
 "mCreated":"2013-04-23 00:00:00",
 "mModified":"2013-04-23 00:00:00",
+"mIsoLanguageCode": "en",
 "mNotes": "<html>
 <h2>General Overview</h2>
 <p>This build uses standard Hellions to secure a natural expansion and simultaneously apply pressure to a Terran opponent.</p>
@@ -533,6 +540,7 @@ Double drop 4 Hellbats when your first Medivacs finish (@7:00ish)<br />
 "medivac","mTime":370,"mCount":1},{"mUnit":"marine","mTime":379,"mCount":2},{"mUnit":"supply_depot","mTime":390,"mCount":1},{"mUnit":"marine","mTime":412,"mCount":2},{"mUnit":"thor","mTime":427,"mCount":1},{"mUnit":"marine","mTime":450,"mCount":2},{"mUnit":"marine","mTime":474,"mCount":2},{"mUnit":"thor","mTime":490,"mCount":1}],"mName":"Proxy Thor Drop","mSource":"<a href=\"http://www.gosubuilds.com/hots-terran/hots-tvt/tvt-proxy-thor-drop/\">GosuBuilds</a>","mVsFaction":"TERRAN",
 "mCreated":"2013-05-09 00:00:00",
 "mModified":"2013-05-09 00:00:00",
+"mIsoLanguageCode": "en",
 "mNotes":"<html>
 <h2>General Overview</h2>
 <p>This build rushes for Thors and Medivacs as fast as possible and then goes for a hilarious all-in with Thor Drops.  There is no transition with this build – you pull all your SCVs and crush your opponent as soon as possible.</p>
@@ -585,7 +593,8 @@ Double drop 4 Hellbats when your first Medivacs finish (@7:00ish)<br />
 </html>"},
 {"mCreated":"2013-06-28 22:46:55","mExpansion":"HOTS","mFaction":"TERRAN","mItems":[{"mUnit":"supply_depot","mTime":56,"mCount":1},{"mUnit":"barracks","mTime":98,"mCount":1},{"mUnit":"refinery","mTime":115,"mCount":1},{"mUnit":"marine","mTime":164,"mCount":1},{"mUnit":"orbital_command","mTime":174,"mCount":1},{"mUnit":"supply_depot","mTime":178,"mCount":1},{"mUnit":"marine","mTime":182,"mCount":1},{"mUnit":"factory","mTime":202,"mCount":1},{"mUnit":"mule","mTime":211,"mCount":1},{"mTarget":"barracks","mUnit":"reactor","mTime":214,"mCount":1},{"mUnit":"refinery","mTime":238,"mCount":1},{"mUnit":"supply_depot","mTime":248,"mCount":1},{"mUnit":"starport","mTime":279,"mCount":1},{"mText":"Swap Factory with Barracks","mUnit":"note","mTime":286,"mCount":1},{"mUnit":"hellion","mTime":291,"mCount":2},{"mUnit":"supply_depot","mTime":298,"mCount":1},{"mUnit":"mule","mTime":300,"mCount":1},{"mUnit":"hellion","mTime":322,"mCount":2},{"mUnit":"medivac","mTime":333,"mCount":1},{"mTarget":"barracks","mUnit":"tech_lab",
 "mTime":339,"mCount":1},{"mUnit":"supply_depot","mTime":353,"mCount":1},{"mUnit":"supply_depot","mTime":364,"mCount":1},{"mText":"Swap Factory with Barracks","mUnit":"note","mTime":366,"mCount":1},{"mUnit":"siege_tank","mTime":376,"mCount":1},{"mUnit":"marine","mTime":380,"mCount":2},{"mUnit":"supply_depot","mTime":389,"mCount":1},{"mUnit":"mule","mTime":392,"mCount":1},{"mTarget":"starport","mUnit":"tech_lab","mTime":395,"mCount":1},{"mUnit":"marine","mTime":399,"mCount":2},{"mUnit":"raven","mTime":421,"mCount":1},{"mUnit":"marine","mTime":424,"mCount":2},{"mUnit":"siege_tank","mTime":434,"mCount":1},{"mUnit":"supply_depot","mTime":439,"mCount":1},{"mUnit":"marine","mTime":451,"mCount":2},{"mUnit":"siege_tank","mTime":463,"mCount":1},{"mUnit":"marine","mTime":475,"mCount":2},{"mUnit":"mule","mTime":480,"mCount":1},{"mUnit":"supply_depot","mTime":483,"mCount":1},{"mUnit":"marine","mTime":493,"mCount":2},{"mUnit":"banshee","mTime":504,"mCount":1},{"mUnit":"marine","mTime":505,"mCount":2}],
-"mModified":"2013-06-28 22:46:55","mName":"MKP\u0027s 1/1/1 All-in","mNotes":"\u003ch2\u003eGeneral Overview\u003c/h2\u003e\n\n\u003cp\u003eThis is a highly aggressive, two gas, 1 base build which focuses on early harass to damage your opponent while simultaneously building up strength for a follow-up all-in.  While this build does have the potential to fall back into a macro game, transitioning into the midgame is difficult if early damage is not inflicted on the opponent.\u003c/p\u003e\n\u003ch2\u003eBuild Order\u003c/h2\u003e\n\n\u003cp\u003e    10 – Supply Depot\u003cbr /\u003e\n    12 – Barracks\u003cbr /\u003e\n    13 – Refinery\u003cbr /\u003e\n    16 – Marine (up to 2)\u003cbr /\u003e\n    16 – Orbital Command\u003cbr /\u003e\n    17 – Supply Depot\u003cbr /\u003e\n    @100 Gas, start Factory\u003cbr /\u003e\n    @75 Mins, start 2nd Refinery\u003cbr /\u003e\n    @50 Gas, start Reactor on Barracks\u003cbr /\u003e\n    @100 Gas, start Starport\u003cbr /\u003e\n    @100% Reactor, swap off Factory onto Barracks’ Reactor for 
+"mModified":"2013-06-28 22:46:55","mName":"MKP\u0027s 1/1/1 All-in","mIsoLanguageCode": "en",
+"mNotes":"\u003ch2\u003eGeneral Overview\u003c/h2\u003e\n\n\u003cp\u003eThis is a highly aggressive, two gas, 1 base build which focuses on early harass to damage your opponent while simultaneously building up strength for a follow-up all-in.  While this build does have the potential to fall back into a macro game, transitioning into the midgame is difficult if early damage is not inflicted on the opponent.\u003c/p\u003e\n\u003ch2\u003eBuild Order\u003c/h2\u003e\n\n\u003cp\u003e    10 – Supply Depot\u003cbr /\u003e\n    12 – Barracks\u003cbr /\u003e\n    13 – Refinery\u003cbr /\u003e\n    16 – Marine (up to 2)\u003cbr /\u003e\n    16 – Orbital Command\u003cbr /\u003e\n    17 – Supply Depot\u003cbr /\u003e\n    @100 Gas, start Factory\u003cbr /\u003e\n    @75 Mins, start 2nd Refinery\u003cbr /\u003e\n    @50 Gas, start Reactor on Barracks\u003cbr /\u003e\n    @100 Gas, start Starport\u003cbr /\u003e\n    @100% Reactor, swap off Factory onto Barracks’ Reactor for
 double Hellion production\u003cbr /\u003e\n    @100% Starport, start Medivac and Tech lab on Barracks\u003cbr /\u003e\n    @100% Medivac, drop your opponent’s main with all 4 Hellions, and swap Factory’s and Barracks’ add-ons\u003cbr /\u003e\n    \u003cb\u003eBenchmark:\u003c/b\u003e When your Medivac finishes (@6:15ish), you should have 25 SCVs, 2 Marines, 4 Hellions, and 1 Medivac\u003cbr /\u003e\n    @100% swap, Start constant Marine and Siege Tank production, and start a Tech lab on Starport (stop making SCVs at this point)\u003cbr /\u003e\n    @100% Tech lab on Starport, start Raven\u003cbr /\u003e\n    \u003cb\u003eBenchmark:\u003c/b\u003e When your 2nd Tank finishes (@8:00ish), push out with 2 SCVs, 2 Siege Tanks, 1 Raven, 1 Medivac, and around 12 Marines\u003cbr /\u003e\u003c/p\u003e\n\n\u003ch2\u003eScouting\u003c/h2\u003e\n\n\u003cp\u003eThis build gives you a few opportunities for scouting. Your first bit of information comes from getting your scouting SCV into his base between 12 and 16 food. If 
 you manage to scout, check for how many gas geysers your opponent has.  If your opponent does not have gas, they will most likely be doing a non-aggressive (fast expand) build.  This presents one of the better scenarios for your early game hellion drop to work–especially if he does not anticipate the hellion drop.  If your opponent has one gas geyser, it likely means that your opponent will be going for reapers, have a marine/hellion defense, or have a marine/widow mine defense.  With your hellions, prepare to micro and keep him on his toes.  If your opponent attempts to hellion expand, he will pull ahead economically assuming his defense prevents your hellions from inflicting any damage.  You probably will not see a second gas unless you scan later (around 5:30).  However, you need all the resources you can get for this all-in, so it would be more prudent to use all of your Orbital Command energy on mules.\u003c/p\u003e\n\n\u003cp\u003eOnce you have your first hellions out, you should have full map control 
 by scouting the front and clearing any Xel’Naga Towers on the map.  Running in to spot your opponent’s natural is also a smart move, but be sure to pull back if there are any units defending.  Your hellions are there to increase the effectiveness of your later all-in, not to end the game early on.\u003c/p\u003e\n\n\u003cp\u003eLastly, when you hellion drop in his main, you should finally be able to see everything your opponent has gone for.  If your opponent has gone for cloaked banshees, it will not be a problem because he will need it to defend his workers.  Later, once you have a raven, banshees will no longer be an issue.  If your opponent has gone for hellions of his own, be careful when out on the map, and always favor retreating if your hellions are in danger.  If your opponent has gone for widow mines, be sure to avoid obvious spots where he could have placed them.\u003c/p\u003e\n\u003ch2\u003eIdeal Game\u003c/h2\u003e\n\n\u003cp\u003eYour hellion drop should inflict some kind of damage to your 
