@@ -9,38 +9,21 @@ import io.reactivex.Single
  */
 class InMemoryCache<T> : Cache<T> {
 
-    private val keys: MutableList<String> = ArrayList()
     private val objectMap: MutableMap<String, T> = HashMap<String, T>()
 
-    override fun put(key: String, value: T, ttlMs: Int): Completable {
-        objectMap[key] = value
-        keys += key
-        return Completable.complete()
-    }
+    override fun put(key: String, value: T): Completable =
+            Completable.fromAction { objectMap[key] = value }
 
-    override fun get(key: String): Single<T> {
-        if (key !in objectMap.keys) {
-            return Single.error(Cache.NoValueForKey())
-        }
-        return Single.just(objectMap[key])
-    }
+    override fun get(key: String): Single<T> =
+            Single.fromCallable { objectMap[key] ?: throw Cache.NoValueForKey() }
 
-    override fun clear(): Completable {
-        objectMap.clear()
-        return Completable.complete()
-    }
+    override fun clear(): Completable =
+            Completable.fromAction { objectMap.clear() }
 
-    override fun remove(key: String): Completable {
-        if (key in objectMap.keys) {
-            objectMap.remove(key)
-            return Completable.complete()
-        } else {
-            return Completable.error(Cache.NoValueForKey())
-        }
-    }
+    override fun remove(key: String): Completable =
+            Completable.fromAction { objectMap.remove(key) ?: throw Cache.NoValueForKey() }
 
-    override fun keys(): Observable<String> {
-        return Observable.fromIterable(objectMap.keys)
-    }
+    override fun keys(): Observable<String> =
+            Observable.fromIterable(objectMap.keys)
 
 }

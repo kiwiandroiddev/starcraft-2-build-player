@@ -9,16 +9,12 @@ import io.reactivex.Single
  */
 interface Cache<T> {
 
-    fun put(key: String, value: T, ttlMs: Int = TTL_INFINITE): Completable
+    fun put(key: String, value: T): Completable
     fun get(key: String): Single<T>
     fun clear(): Completable
     fun remove(key: String): Completable
     fun keys(): Observable<String>
 
     class NoValueForKey : RuntimeException()
-
-    companion object {
-        const val TTL_INFINITE = -1
-    }
 
 }

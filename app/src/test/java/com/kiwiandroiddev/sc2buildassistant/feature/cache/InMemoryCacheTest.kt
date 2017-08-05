@@ -168,12 +168,5 @@ class InMemoryCacheSpec : Spek({
             }
         }
 
-        context("cache had one item added then removed") {
-            cache.put(TEST_KEY_1, TEST_VALUE_1)
-                    .andThen(cache.remove(TEST_KEY_1))
-                    .subscribe()
-
-
-        }
     }
 })
