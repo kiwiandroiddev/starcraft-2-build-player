@@ -94,15 +94,6 @@ class BriefModule {
 
     @Provides
     @Singleton
-    fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
-            GetTranslationUseCaseImpl(translationAgent)
-//            object : GetTranslationUseCase {
-//                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
-//                        Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
-//            }
-
-    @Provides
-    @Singleton
     fun provideStringResolver(@ApplicationContext context: Context): StringResolver =
             AndroidStringResolver(context)
 
