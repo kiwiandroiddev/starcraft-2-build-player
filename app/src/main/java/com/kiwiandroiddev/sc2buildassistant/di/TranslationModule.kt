@@ -1,6 +1,9 @@
 package com.kiwiandroiddev.sc2buildassistant.di
 
-import com.kiwiandroiddev.sc2buildassistant.feature.cache.InMemoryCache
+import android.content.Context
+import com.kiwiandroiddev.sc2buildassistant.di.qualifiers.ApplicationContext
+import com.kiwiandroiddev.sc2buildassistant.feature.cache.Cache
+import com.kiwiandroiddev.sc2buildassistant.feature.cache.SharedPreferencesCache
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.cache.CachedSupportedLanguagesAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.cache.CachedTranslationAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.NetworkSupportedLanguagesAgent
@@ -8,6 +11,7 @@ import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.Netwo
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.TranslationApi
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.LanguageCode
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.SupportedLanguagesAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.CheckTranslationPossibleUseCaseImpl
@@ -34,6 +38,16 @@ class TranslationModule {
     @Retention(AnnotationRetention.RUNTIME)
     annotation class Network
 
+    @Qualifier
+    @MustBeDocumented
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class TranslationsCache
+
+    @Qualifier
+    @MustBeDocumented
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class SupportedLanguagesCache
+
     companion object {
         const val TRANSLATION_API_BASE_URL = "https://sc2-cloud-translate.herokuapp.com/"
     }
@@ -48,10 +62,6 @@ class TranslationModule {
     @Singleton
     fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
             GetTranslationUseCaseImpl(translationAgent)
-//            object : GetTranslationUseCase {
-//                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
-//                        Observable.interval(5, TimeUnit.SECONDS).map { "Translated text here" }.firstOrError()
-//            }
 
     @Provides
     @Singleton
@@ -76,18 +86,37 @@ class TranslationModule {
 
     @Provides
     @Singleton
+    fun provideCachedTranslationAgent(
+            @Network networkTranslationAgent: TranslationAgent,
+            @TranslationsCache translationsCache: Cache<String>
+    ): TranslationAgent = CachedTranslationAgent(networkTranslationAgent, translationsCache)
+
+    @Provides
+    @Singleton
     @Network
     fun provideNetworkTranslationAgent(translationApi: TranslationApi): TranslationAgent =
             NetworkTranslationAgent(translationApi)
 
     @Provides
     @Singleton
-    fun provideCachedTranslationAgent(
-            @Network networkTranslationAgent: TranslationAgent
-    ): TranslationAgent = CachedTranslationAgent(
-            networkTranslationAgent,
-            InMemoryCache()     // TODO stub
-    )
+    @TranslationsCache
+    fun provideTranslationsCache(@ApplicationContext context: Context): Cache<String> =
+            SharedPreferencesCache(
+                    context = context,
+                    name = "com.kiwiandroiddev.sc2buildassistant.translations",
+                    classOfT = String::class.java
+            )
+
+    @Provides
+    @Singleton
+    fun provideCachedSupportedLanguagesAgent(
+            @Network networkSupportedLanguagesAgent: SupportedLanguagesAgent,
+            @SupportedLanguagesCache supportedLanguagesCache: Cache<Array<LanguageCode>>
+    ): SupportedLanguagesAgent =
+            CachedSupportedLanguagesAgent(
+                    networkSupportedLanguagesAgent,
+                    supportedLanguagesCache
+            )
 
     @Provides
     @Singleton
@@ -97,12 +126,12 @@ class TranslationModule {
 
     @Provides
     @Singleton
-    fun provideCachedSupportedLanguagesAgent(
-            @Network networkSupportedLanguagesAgent: SupportedLanguagesAgent
-    ): SupportedLanguagesAgent =
-            CachedSupportedLanguagesAgent(
-                    networkSupportedLanguagesAgent,
-                    InMemoryCache()     // TODO stub
+    @SupportedLanguagesCache
+    fun provideSupportedLanguagesCache(@ApplicationContext context: Context): Cache<Array<LanguageCode>> =
+            SharedPreferencesCache(
+                    context = context,
+                    name = "com.kiwiandroiddev.sc2buildassistant.supportedTranslationLanguages",
+                    classOfT = Array<LanguageCode>::class.java
             )
 
 }

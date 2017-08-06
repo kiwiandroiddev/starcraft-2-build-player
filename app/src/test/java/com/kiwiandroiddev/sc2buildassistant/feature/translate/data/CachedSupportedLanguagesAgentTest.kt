@@ -24,7 +24,7 @@ import java.io.IOException
 class CachedSupportedLanguagesAgentTest {
 
     @Mock lateinit var mockSupportedLanguagesAgent: SupportedLanguagesAgent
-    @Mock lateinit var mockCache: Cache<List<LanguageCode>>
+    @Mock lateinit var mockCache: Cache<Array<LanguageCode>>
 
     lateinit var cachedSupportedLanguagesAgent: SupportedLanguagesAgent
 
@@ -49,10 +49,10 @@ class CachedSupportedLanguagesAgentTest {
 
     @Test
     fun supportedLanguages_cacheMiss_getsFromBackingAgentAndPutsInCache() {
-        val TEST_LANGUAGE_CODES = listOf("en", "de", "zh")
+        val TEST_LANGUAGE_CODES = arrayOf("en", "de", "zh")
         var cacheUpdated = false
         `when`(mockSupportedLanguagesAgent.supportedLanguages())
-                .thenReturn(Observable.fromIterable(TEST_LANGUAGE_CODES))
+                .thenReturn(Observable.fromIterable(TEST_LANGUAGE_CODES.toList()))
         `when`(mockCache.get(EXPECTED_CACHE_KEY))
                 .thenReturn(Single.error(Cache.NoValueForKey()))
         `when`(mockCache.put(com.nhaarman.mockito_kotlin.any(), com.nhaarman.mockito_kotlin.any()))
@@ -72,7 +72,7 @@ class CachedSupportedLanguagesAgentTest {
     @Test
     fun supportedLanguages_cacheHit_doesntHitBackingAgent() {
         `when`(mockCache.get(EXPECTED_CACHE_KEY))
-                .thenReturn(Single.just(listOf("en", "de", "zh")))
+                .thenReturn(Single.just(arrayOf("en", "de", "zh")))
 
         cachedSupportedLanguagesAgent.supportedLanguages()
                 .subscribeTestObserver()
@@ -85,9 +85,9 @@ class CachedSupportedLanguagesAgentTest {
 
     @Test
     fun supportedLanguages_cacheMissAndCachePutWillFail_recoversByJustReturningCodesFromBackingAgent() {
-        val TEST_LANGUAGE_CODES = listOf("en", "de", "zh")
+        val TEST_LANGUAGE_CODES = arrayOf("en", "de", "zh")
         `when`(mockSupportedLanguagesAgent.supportedLanguages())
-                .thenReturn(Observable.fromIterable(TEST_LANGUAGE_CODES))
+                .thenReturn(Observable.fromIterable(TEST_LANGUAGE_CODES.toList()))
         `when`(mockCache.get(EXPECTED_CACHE_KEY))
                 .thenReturn(Single.error(Cache.NoValueForKey()))
         `when`(mockCache.put(com.nhaarman.mockito_kotlin.any(), com.nhaarman.mockito_kotlin.any()))
