@@ -4,7 +4,6 @@ import com.kiwiandroiddev.sc2buildassistant.feature.cache.Cache
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.LanguageCode
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.SupportedLanguagesAgent
 import io.reactivex.Observable
-import io.reactivex.Single
 
 /**
  * Created by matthome on 6/08/17.
@@ -22,7 +21,9 @@ class CachedSupportedLanguagesAgent(val supportedLanguagesAgent: SupportedLangua
                         supportedLanguagesAgent.supportedLanguages()
                                 .toList()
                                 .flatMap { codes ->
-                                    cache.put(CACHE_KEY, codes).toSingle { codes }
+                                    cache.put(CACHE_KEY, codes)
+                                            .toSingle { codes }
+                                            .onErrorReturn { codes }
                                 }
                                 .flatMapObservable { codes -> Observable.fromIterable(codes) }
                     else

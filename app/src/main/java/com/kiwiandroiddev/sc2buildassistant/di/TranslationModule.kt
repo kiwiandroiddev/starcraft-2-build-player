@@ -2,6 +2,7 @@ package com.kiwiandroiddev.sc2buildassistant.di
 
 import com.kiwiandroiddev.sc2buildassistant.feature.cache.InMemoryCache
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.cache.CachedSupportedLanguagesAgent
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.cache.CachedTranslationAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.NetworkSupportedLanguagesAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.NetworkTranslationAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.translate.data.network.TranslationApi
@@ -45,7 +46,7 @@ class TranslationModule {
 
     @Provides
     @Singleton
-    fun provideGetTranslationUseCase(@Network translationAgent: TranslationAgent): GetTranslationUseCase =
+    fun provideGetTranslationUseCase(translationAgent: TranslationAgent): GetTranslationUseCase =
             GetTranslationUseCaseImpl(translationAgent)
 //            object : GetTranslationUseCase {
 //                override fun getTranslation(fromLanguageCode: String, toLanguageCode: String, sourceText: String): Single<String> =
@@ -78,6 +79,15 @@ class TranslationModule {
     @Network
     fun provideNetworkTranslationAgent(translationApi: TranslationApi): TranslationAgent =
             NetworkTranslationAgent(translationApi)
+
+    @Provides
+    @Singleton
+    fun provideCachedTranslationAgent(
+            @Network networkTranslationAgent: TranslationAgent
+    ): TranslationAgent = CachedTranslationAgent(
+            networkTranslationAgent,
+            InMemoryCache()     // TODO stub
+    )
 
     @Provides
     @Singleton

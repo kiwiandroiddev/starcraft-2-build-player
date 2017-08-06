@@ -9,13 +9,12 @@ import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
-import org.junit.Test
-
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.never
 import org.mockito.MockitoAnnotations
 import java.io.IOException
 
@@ -59,7 +58,10 @@ class CachedSupportedLanguagesAgentTest {
         `when`(mockCache.put(com.nhaarman.mockito_kotlin.any(), com.nhaarman.mockito_kotlin.any()))
                 .thenReturn(Completable.fromAction { cacheUpdated = true })
 
-        cachedSupportedLanguagesAgent.supportedLanguages().subscribeTestObserver()
+        cachedSupportedLanguagesAgent.supportedLanguages()
+                .subscribeTestObserver()
+                .assertNoErrors()
+                .assertComplete()
 
         verify(mockCache).get(EXPECTED_CACHE_KEY)
         verify(mockSupportedLanguagesAgent).supportedLanguages()
@@ -72,7 +74,10 @@ class CachedSupportedLanguagesAgentTest {
         `when`(mockCache.get(EXPECTED_CACHE_KEY))
                 .thenReturn(Single.just(listOf("en", "de", "zh")))
 
-        cachedSupportedLanguagesAgent.supportedLanguages().subscribeTestObserver()
+        cachedSupportedLanguagesAgent.supportedLanguages()
+                .subscribeTestObserver()
+                .assertNoErrors()
+                .assertComplete()
 
         verify(mockCache).get(EXPECTED_CACHE_KEY)
         verify(mockSupportedLanguagesAgent, never()).supportedLanguages()
@@ -88,7 +93,10 @@ class CachedSupportedLanguagesAgentTest {
         `when`(mockCache.put(com.nhaarman.mockito_kotlin.any(), com.nhaarman.mockito_kotlin.any()))
                 .thenReturn(Completable.error(IOException("disk full")))
 
-        cachedSupportedLanguagesAgent.supportedLanguages().subscribeTestObserver()
+        cachedSupportedLanguagesAgent.supportedLanguages()
+                .subscribeTestObserver()
+                .assertNoErrors()
+                .assertComplete()
 
         verify(mockCache).get(EXPECTED_CACHE_KEY)
         verify(mockSupportedLanguagesAgent).supportedLanguages()
