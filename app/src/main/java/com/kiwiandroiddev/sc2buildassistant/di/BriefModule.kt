@@ -3,6 +3,7 @@ package com.kiwiandroiddev.sc2buildassistant.di
 import android.content.Context
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
 import com.kiwiandroiddev.sc2buildassistant.di.qualifiers.ApplicationContext
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.CachedTranslateByDefaultPreferenceAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.GetCurrentSystemLanguageAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.data.SqliteBuildRepository
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetBuildUseCase
@@ -10,26 +11,25 @@ import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.GetCurrentLangu
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.ShouldTranslateBuildByDefaultUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.BuildRepository
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.GetCurrentLanguageAgent
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.datainterface.TranslateByDefaultPreferenceAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetBuildUseCaseImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.GetCurrentLanguageUseCaseImpl
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.domain.impl.ShouldTranslateBuildByDefaultUseCaseImpl
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenter
 import com.kiwiandroiddev.sc2buildassistant.feature.brief.presentation.BriefPresenterImpl
+import com.kiwiandroiddev.sc2buildassistant.feature.cache.Cache
+import com.kiwiandroiddev.sc2buildassistant.feature.cache.SharedPreferencesCache
 import com.kiwiandroiddev.sc2buildassistant.feature.common.androidview.AndroidStringResolver
 import com.kiwiandroiddev.sc2buildassistant.feature.common.presentation.StringResolver
-import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import com.kiwiandroiddev.sc2buildassistant.feature.errorreporter.ErrorReporter
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.GetSettingsUseCase
-import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.datainterface.TranslationAgent
-import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.impl.GetTranslationUseCaseImpl
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.CheckTranslationPossibleUseCase
+import com.kiwiandroiddev.sc2buildassistant.feature.translate.domain.GetTranslationUseCase
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 /**
@@ -37,6 +37,11 @@ import javax.inject.Singleton
  */
 @Module
 class BriefModule {
+
+    @Qualifier
+    @MustBeDocumented
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class TranslatePreferenceCache
 
     @Provides
     fun provideBriefPresenter(getBuildUseCase: GetBuildUseCase,
@@ -73,24 +78,24 @@ class BriefModule {
 
     @Provides
     @Singleton
-    fun provideShouldTranslateBuildByDefaultUseCase(): ShouldTranslateBuildByDefaultUseCase =
-            object : ShouldTranslateBuildByDefaultUseCase {
+    fun provideShouldTranslateBuildByDefaultUseCase(translateByDefaultPreferenceAgent: TranslateByDefaultPreferenceAgent)
+            : ShouldTranslateBuildByDefaultUseCase =
+            ShouldTranslateBuildByDefaultUseCaseImpl(translateByDefaultPreferenceAgent)
 
-                private val preferenceMap: MutableMap<Long, Boolean> = HashMap()
+    @Provides
+    @Singleton
+    fun provideTranslateByDefaultPreferenceAgent(@TranslatePreferenceCache cache: Cache<Boolean>)
+            : TranslateByDefaultPreferenceAgent = CachedTranslateByDefaultPreferenceAgent(cache)
 
-                override fun setTranslateByDefaultPreference(buildId: Long): Completable {
-                    return Completable.fromAction { preferenceMap[buildId] = true }
-                }
-
-                override fun clearTranslateByDefaultPreference(buildId: Long): Completable {
-                    return Completable.fromAction { preferenceMap[buildId] = false }
-                }
-
-                override fun shouldTranslateByDefault(buildId: Long): Single<Boolean> {
-                    val translateNow = preferenceMap[buildId] ?: false
-                    return Single.just(translateNow)
-                }
-            }
+    @Provides
+    @Singleton
+    @TranslatePreferenceCache
+    fun provideTranslatePreferenceCache(@ApplicationContext context: Context): Cache<Boolean> =
+            SharedPreferencesCache<Boolean>(
+                    context = context,
+                    name = "com.kiwiandroiddev.sc2buildassistant.translatePreferenceCache",
+                    classOfT = Boolean::class.java
+            )
 
     @Provides
     @Singleton
