@@ -6,6 +6,7 @@
     "mModified": "2016-04-25 17:58:50",
     "mExpansion": "LOTV",
     "mFaction": "PROTOSS",
+    "mIsoLanguageCode": "en",
     "mNotes": "<html><h2>General Overview</h2>
 
 <p>This opener gets a quick Nexus, while still getting an early Adept. It provides both a strong economy and good scouting opportunities.</p>
@@ -154,6 +155,7 @@ Benchmark: When you start your Adept (@2:00ish), you should have 23 Probes.<br /
     "mExpansion": "LOTV",
     "mFaction": "PROTOSS",
     "mSource": "<a href=\"http://imbabuilds.com/lotv-protoss/lotv-pvz/pvz-drogos-macro-phoenix-opener/\">ImbaBuilds</a>",
+    "mIsoLanguageCode": "en",
     "mNotes": "<html><h2>General Overview</h2>
 <p>This build opens with an explosive 3 base economy before getting 2 Stargates for Phoenix for map control and scouting. While you are using the scouting Phoenix, you can transition into standard Chargelot/Archon/Immortal play or hit an aggressive 3 base timing.</p>
 <h2>Build Order</h2>

@@ -64,6 +64,13 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_EARLY_WARNING;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_EXPANSION_SELECTION;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_FACTION_SELECTION;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_ADS;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_SHOW_STATUS_BAR;
+import static com.kiwiandroiddev.sc2buildassistant.feature.settings.data.sharedpreferences.SettingKeys.KEY_START_TIME;
+
 /**
  * Main activity and entry point of the app. Shows available build orders for each of the three factions
  * in a view pager. Also performs a number of app initialization functions, such as
@@ -99,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //    	Debug.startMethodTracing("sc2main");
 
         SharedPreferences sharedPrefs = getSharedPreferences();
-        if (!sharedPrefs.getBoolean(SettingsActivity.KEY_SHOW_STATUS_BAR, false)) {
+        if (!sharedPrefs.getBoolean(KEY_SHOW_STATUS_BAR, false)) {
             // hides status bar on Android 4.0+, on Android 2.3.x status bar is already hidden from the app theme...
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -115,14 +122,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // HACK: default values from XML don't work for custom preference widgets (i.e. number picker)
         // so we have to manually set default values
-        if (!sharedPrefs.contains(SettingsActivity.KEY_EARLY_WARNING)) {
+        if (!sharedPrefs.contains(KEY_EARLY_WARNING)) {
             Editor ed = sharedPrefs.edit();
-            ed.putInt(SettingsActivity.KEY_EARLY_WARNING, 5);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
+            ed.putInt(KEY_EARLY_WARNING, 5);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
             ed.commit();
         }
-        if (!sharedPrefs.contains(SettingsActivity.KEY_START_TIME)) {
+        if (!sharedPrefs.contains(KEY_START_TIME)) {
             Editor ed = sharedPrefs.edit();
-            ed.putInt(SettingsActivity.KEY_START_TIME, 15);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
+            ed.putInt(KEY_START_TIME, 15);    // TODO HARD-CODED DEFAULT VALUE - SHOULD BE IN XML!
             ed.commit();
         }
 
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(SettingsActivity.KEY_SHOW_ADS)) {
+        if (key.equals(KEY_SHOW_ADS)) {
             setAdBannerVisibilityBasedOnCurrentPreference();
         }
     }
@@ -158,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private boolean shouldShowAds() {
         SharedPreferences sharedPref = getSharedPreferences();
-        return sharedPref.getBoolean(SettingsActivity.KEY_SHOW_ADS, true);
+        return sharedPref.getBoolean(KEY_SHOW_ADS, true);
     }
 
     private void showAdBanner() {
@@ -455,21 +462,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void saveExpansionSelection(int index) {
-        IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_EXPANSION_SELECTION, index);
+        IOUtils.writeIntToSharedPrefs(this, KEY_EXPANSION_SELECTION, index);
     }
 
     private void saveFactionSelection(int index) {
-        IOUtils.writeIntToSharedPrefs(this, SettingsActivity.KEY_FACTION_SELECTION, index);
+        IOUtils.writeIntToSharedPrefs(this, KEY_FACTION_SELECTION, index);
     }
 
     private int getSavedExpansionSelection() {
         return getSharedPreferences()
-                .getInt(SettingsActivity.KEY_EXPANSION_SELECTION, DEFAULT_EXPANSION_SELECTION.ordinal());
+                .getInt(KEY_EXPANSION_SELECTION, DEFAULT_EXPANSION_SELECTION.ordinal());
     }
 
     private int getSavedFactionSelection() {
         return getSharedPreferences()
-                .getInt(SettingsActivity.KEY_FACTION_SELECTION, DEFAULT_FACTION_SELECTION.ordinal());
+                .getInt(KEY_FACTION_SELECTION, DEFAULT_FACTION_SELECTION.ordinal());
     }
 
 }

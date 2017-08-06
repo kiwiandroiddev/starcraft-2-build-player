@@ -7,7 +7,11 @@ public abstract class OnScrollDirectionChangedListener implements NestedScrollVi
     private int oldYDelta = 0;
 
     @Override
-    public final void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+    public final void onScrollChange(NestedScrollView v,
+                                     int scrollX,
+                                     int scrollY,
+                                     int oldScrollX,
+                                     int oldScrollY) {
         int yDelta = scrollY - oldScrollY;
 
         if (yDelta > 0 && oldYDelta <= 0) {

@@ -380,7 +380,13 @@
 	
     <string name="pref_worker_alerts_enabled_title">Arbeiter Alarme</string>
 	<string name="pref_worker_alerts_enabled_summary">Aktivieren Sie SCV-, Sonden- und Drone-Alarme</string>
+    <string name="translate_button">Übersetzen</string>
+    <string name="brief_revert_translation_prompt">Übersetzt aus %s</string>
+    <string name="brief_translation_error_message">Etwas ist schief gelaufen</string>
+    <string name="brief_translation_loading">Übersetzung wird geladen …</string>
+    <string name="brief_revert_translation_button_text">Zurücksetzen</string>
+    <string name="brief_translation_success_status_message">Übersetzt aus %s</string>
+    <string name="brief_translation_prompt_status_message">Übersetzen Sie diesen Build-Auftrag zu %s?</string>
 
-	
 
 </resources>

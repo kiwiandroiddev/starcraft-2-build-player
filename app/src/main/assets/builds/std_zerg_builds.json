@@ -36,6 +36,7 @@
 	    { "mTime": 519, "mUnit": "nydus_worm" },
 	    { "mTime": 533, "mUnit": "overlord", "mCount": 2 }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>This build aims at putting a Nydus Worm just outside the Natural Expansion of your opponent, and to use Queens and Roaches to kill him or at the very least kill his Natural Expansion along with a large number of SCVs.</p>
@@ -106,6 +107,7 @@
 	    { "mTime": 103, "mUnit": "note", "mText": "Send out all of your drones" },
 	    { "mTime": 127, "mUnit": "note", "mText": "Send zerglings to opponent's base" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>This build is without any doubt the most well-known cheese of Starcraft 2, but executing it at the highest level of play is not as intuitive as it seems. This guide will help you get the most of this build, and will explain the specificity of playing a 6 Pool versus a Terran opponent. A few techniques are pre-requisites for this cheese:</p>
@@ -200,6 +202,7 @@ You have basically four possible scenarios:<br />
 		{ "mTime": 417, "mUnit": "roach", "mCount": 1 },
 		{ "mTime": 422, "mUnit": "overlord", "mCount": 1 }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>
@@ -288,6 +291,7 @@ To have a game-ending push at around eight and a half minutes. Pros: Strong vers
 	    { "mTime": 310, "mUnit": "baneling_nest" },
 	    { "mTime": 310, "mUnit": "overlord" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 
@@ -418,6 +422,7 @@ OR Baneling Nest plus Spine Crawler[3]<br />
 	    { "mTime": 511, "mUnit": "overlord" },
 	    { "mTime": 512, "mUnit": "note", "mText": "Continue reinforcing with Zerglings and Hydralisks" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>This article will discuss a two base Nydus Worm timing attack that uses Hydralisks and Zerglings. The build is designed to strike the opponent before his or her army has a sizable number of units with splash damage abilities (for instance, High Templar with Psionic Storm or Colossus). This attack can be used against openings that skip an early army in favor of fast Teching and early economic growth. Examples include Forge Fast Expand builds that are combined with Stargate openings.</p>
@@ -470,6 +475,7 @@ OR Baneling Nest plus Spine Crawler[3]<br />
 	    { "mTime": 347, "mUnit": "overlord" },
 	    { "mTime": 401, "mUnit": "hatchery" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>The standard response to the Protoss Forge Fast Expand (FFE), and the most common build in the current ZvP metagame is the Pool First, Double Expand (also known as 3 Hatch Lair). This build, popularized by Incredible Miracles Zerg Nestea, revolves around \"countering\" the Protoss Fast Expand --> Gateway pressure with an unusually fast Metabolic Boost, coinciding with the standard double expand after Spawning Pool. This build is an excellent way to catch opponents that rely on Gateway pressure out of a FFE with their pants down, because you are able to get surrounds on Zealot/Stalker pressures, deny fast third bases, and if you're lucky, can even force extra cannons from the Protoss player, who might think you are doing an all in build, since your speed is so much earlier than usual.</p>
