@@ -48,6 +48,11 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
             settingsPresenter.resetDatabaseSelected()
             true
         }
+
+        findPreference(KEY_PROJECT_PAGE).setOnPreferenceClickListener {
+            settingsPresenter.projectPageSelected()
+            true
+        }
     }
 
     /*

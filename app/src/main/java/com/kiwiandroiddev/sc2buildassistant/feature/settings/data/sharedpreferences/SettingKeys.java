@@ -20,4 +20,5 @@ public final class SettingKeys {
     public static final String KEY_RATE_THIS_APP = "pref_rate_this_app";
     public static final String KEY_TRANSLATE = "pref_translate";
     public static final String KEY_RESTORE_DATABASE = "pref_restore_database";
+    public static final String KEY_PROJECT_PAGE = "pref_project_page";
 }

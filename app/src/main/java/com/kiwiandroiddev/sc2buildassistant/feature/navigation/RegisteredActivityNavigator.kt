@@ -19,6 +19,7 @@ class RegisteredActivityNavigator : SettingsNavigator, BriefNavigator {
 
     companion object {
         val TRANSLATE_URL = "http://www.getlocalization.com/sc2buildplayer/"
+        val PROJECT_PAGE_URL = "https://github.com/kiwiandroiddev/starcraft-2-build-player"
     }
 
     var activity: Activity? = null
@@ -59,6 +60,10 @@ class RegisteredActivityNavigator : SettingsNavigator, BriefNavigator {
 
             EasyTrackerUtils.sendEvent(this, "ui_action", "menu_select", "rate_option", null)
         }
+    }
+
+    override fun openProjectPage() {
+        activity?.apply { openUrl(PROJECT_PAGE_URL) }
     }
 
     private fun Activity.openUrl(url: String) {

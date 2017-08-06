@@ -4,4 +4,5 @@ interface SettingsNavigator {
     fun openFullChangelog()
     fun openPlayStoreListing()
     fun openTranslationPage()
+    fun openProjectPage()
 }
