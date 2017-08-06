@@ -65,41 +65,41 @@ kapt {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
-    compile("com.afollestad.material-dialogs:core:${rootProject.ext.materialDialogsVersion}@aar") {
+    compile "com.android.support:support-v4:$supportLibVersion"
+    compile "com.android.support:design:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    compile("com.afollestad.material-dialogs:core:$materialDialogsVersion@aar") {
         transitive = true
     }
     // Contains MaterialSimpleListAdapter
-    compile("com.afollestad.material-dialogs:commons:${rootProject.ext.materialDialogsVersion}@aar") {
+    compile("com.afollestad.material-dialogs:commons:$materialDialogsVersion@aar") {
         transitive = true
     }
     compile files('libs/libGoogleAnalyticsServices.jar')
-    compile "com.google.firebase:firebase-ads:${rootProject.ext.firebaseVersion}"
-    compile "com.google.firebase:firebase-crash:${rootProject.ext.firebaseVersion}"
+    compile "com.google.firebase:firebase-ads:$firebaseVersion"
+    compile "com.google.firebase:firebase-crash:$firebaseVersion"
 
     compile(
             "com.google.dagger:dagger:$dagger2_version",
-            'com.google.code.gson:gson:2.4',
+            "com.google.code.gson:gson:$gson_version",
             "io.reactivex.rxjava2:rxjava:$rxjava_version",
             "io.reactivex.rxjava2:rxandroid:$rxandroid_version",
             'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             'com.jakewharton.rxbinding2:rxbinding:2.0.0',
             'com.jakewharton:butterknife:8.6.0',
             'com.jakewharton.timber:timber:3.0.2',
-            'com.squareup.retrofit2:retrofit:2.3.0',
-            'com.squareup.retrofit2:converter-gson:2.3.0',
-            'com.squareup.retrofit2:converter-scalars:2.3.0',
-            'com.squareup.retrofit2:adapter-rxjava2:2.3.0',
-            'com.squareup.okhttp3:okhttp:3.4.1',
-            'com.squareup.okhttp3:logging-interceptor:3.4.1',
+            "com.squareup.retrofit2:retrofit:$retrofit_version",
+            "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            "com.squareup.retrofit2:converter-scalars:$retrofit_version",
+            "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
+            "com.squareup.okhttp3:okhttp:$okhttp_version",
+            "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
             'com.karumi:dexter:2.2.2'
     )
 
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha3"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
+    compile "android.arch.lifecycle:runtime:$arch_version"
+    compile "android.arch.lifecycle:extensions:$arch_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
 
     kapt 'com.jakewharton:butterknife-compiler:8.6.0'
 
@@ -113,11 +113,11 @@ dependencies {
     )
 
     // Spek
-    testCompile("org.jetbrains.spek:spek-api:1.1.2") {
+    testCompile("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
     testCompile("org.junit.platform:junit-platform-runner:1.0.0-M4")
-    testCompile("org.jetbrains.spek:spek-junit-platform-engine:1.1.2") {
+    testCompile("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M4'
