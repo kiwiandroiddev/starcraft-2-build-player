@@ -387,6 +387,7 @@
     <string name="brief_revert_translation_button_text">돌아가는 것</string>
     <string name="brief_translation_success_status_message">%s에서 번역</string>
     <string name="brief_translation_prompt_status_message">이 빌드 순서를 %s로 변환 하시겠습니까?</string>
+    <string name="pref_project_page_title">Github 프로젝트 페이지</string>
 
 
 </resources>

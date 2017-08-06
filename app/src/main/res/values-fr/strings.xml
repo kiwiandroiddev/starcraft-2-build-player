@@ -387,6 +387,7 @@
 	<string name="brief_revert_translation_button_text">Revenir</string>
 	<string name="brief_translation_success_status_message">Traduit de %s</string>
 	<string name="brief_translation_prompt_status_message">Traduire cette commande de génération sur %s?</string>
+    <string name="pref_project_page_title">La page du projet Github</string>
 
 
 </resources>

@@ -349,5 +349,6 @@
     <string name="brief_revert_translation_button_text">Odwracać</string>
     <string name="brief_translation_success_status_message">Przetłumacz z %s</string>
     <string name="brief_translation_prompt_status_message">Przetłumacz ten porządek kompilacji na %s?</string>
+    <string name="pref_project_page_title">Strona projektu Github</string>
 
 </resources>

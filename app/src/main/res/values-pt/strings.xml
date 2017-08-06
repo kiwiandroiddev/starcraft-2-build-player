@@ -387,6 +387,7 @@
     <string name="brief_revert_translation_button_text">Reverter</string>
     <string name="brief_translation_success_status_message">Traduzido de %s</string>
     <string name="brief_translation_prompt_status_message">Traduzir esta ordem de compilação para %s?</string>
+	<string name="pref_project_page_title">Página do projeto Github</string>
 
 
 </resources>
