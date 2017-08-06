@@ -380,7 +380,13 @@
 	<string name="build_row_vs_race_template">Vs. %s</string>
     <string name="pref_worker_alerts_enabled_title">Alertes de travailleur</string>
 	<string name="pref_worker_alerts_enabled_summary">Activer les alertes SCV, Probe et Drone</string>
+    <string name="translate_button">Traduire</string>
+	<string name="brief_revert_translation_prompt">Traduit de %s</string>
+	<string name="brief_translation_error_message">Quelque chose s\'est mal passé</string>
+	<string name="brief_translation_loading">Chargement de la traduction …</string>
+	<string name="brief_revert_translation_button_text">Revenir</string>
+	<string name="brief_translation_success_status_message">Traduit de %s</string>
+	<string name="brief_translation_prompt_status_message">Traduire cette commande de génération sur %s?</string>
 
-	
 
 </resources>
