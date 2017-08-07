@@ -47,7 +47,7 @@
             android:name=".feature.settings.view.SettingsActivity"
             android:label="@string/menu_settings" />
         <activity
-            android:name=".activity.BriefActivity"
+            android:name=".feature.brief.view.BriefActivity"
             android:theme="@style/StarCraftTheme.NoActionBar" />
         <activity
             android:name=".activity.EditBuildActivity"

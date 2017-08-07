@@ -24,7 +24,8 @@
 	    { "mTime": 238, "mUnit": "chrono_boost", "mTarget": "nexus" },
 	    { "mTime": 247, "mUnit": "stalker", "mCount": 1 }
 	],
-	"mNotes": "<html><h2>General Overview</h2>
+	"mIsoLanguageCode": "en",
+		"mNotes": "<html><h2>General Overview</h2>
 <p>This PvT opener opens with 2 Stalkers and a Mothership Core to take advantage of the weakness of early game marines when they cannot hide inside a bunker.</p>
 <h2>Build Order</h2>
  - 9 Pylon<br />
@@ -103,7 +104,8 @@
 	    { "mTime": 408, "mUnit": "stalker", "mCount": 2 },
 	    { "mTime": 409, "mUnit": "zealot", "mCount": 1 }
 	],
-	"mNotes": "<html><h2>General Overview</h2>
+	"mIsoLanguageCode": "en",
+		"mNotes": "<html><h2>General Overview</h2>
 <p>This micro-intensive build rushes for a proxied Stargate, and then pumps out Oracles to do damage to your opponent's mineral line while simultaneously crushing through your opponent's front with a strong Gateway/Mothership core army.</p>
 <h2>Build Order</h2>
 <p>
@@ -185,7 +187,8 @@
 	    { "mTime": 256, "mUnit": "chrono_boost", "mTarget": "nexus" },
 	    { "mTime": 259, "mUnit": "pylon", "mCount": 1 }
 	],
-	"mNotes": "<html><h2>General Overview</h2>
+	"mIsoLanguageCode": "en",
+		"mNotes": "<html><h2>General Overview</h2>
 <p>This opening allows you to apply early pressure while either expanding or teching up behind your initial push with 2 zealots and a mothership core.</p>
 <h2>Build Order</h2>
 <p>
@@ -246,7 +249,8 @@
 	    { "mTime": 266, "mUnit": "chrono_boost", "mTarget": "gateway" },
 	    { "mTime": 268, "mUnit": "chrono_boost", "mTarget": "gateway" }
 	],
-	"mNotes": "<html><h2>General Overview</h2>
+	"mIsoLanguageCode": "en",
+		"mNotes": "<html><h2>General Overview</h2>
 <p>This PvP opener gives you enough stalkers to deal with early shenanigans from your opponent and then safely transition into the tech of your choice.</p>
 <h2>Build Order</h2>
 <p>
@@ -322,7 +326,8 @@ Benchmark: When you start your 2 Stalkers @4:25, you should have 1 Stalker and 2
 	    { "mTime": 409, "mUnit": "pylon", "mCount": 1, "mText": "Build proxy Pylon" },
 	    { "mTime": 435, "mUnit": "dark_templar", "mCount": 3, "mText": "Warp in 3 Dark Templar at proxy location" }
 	],
-	"mNotes": "<html><h2>General Overview</h2>
+	"mIsoLanguageCode": "en",
+		"mNotes": "<html><h2>General Overview</h2>
 <p>This DT rush gets out very fast DTs either for offense (taking advantage of your opponent's possible lack of detection early on) or defense (applying pressure while you safely take an expansion of your own).</p>
 <h2>Build Order</h2>
 <p>
@@ -370,7 +375,8 @@ Benchmark: When you start your 2 Stalkers @4:25, you should have 1 Stalker and 2
     {"mExpansion":"HOTS","mFaction":"PROTOSS","mItems":[{"mText":"Warp in 1 Pylon at your natural expansion","mUnit":"pylon","mTime":49,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":77,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":95,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":135,"mCount":1},{"mUnit":"nexus","mTime":161,"mCount":1},{"mUnit":"forge","mTime":176,"mCount":1},{"mUnit":"pylon","mTime":186,"mCount":1},{"mUnit":"gateway","mTime":211,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":216,"mCount":1},{"mUnit":"photon_cannon","mTime":230,"mCount":1},{"mUnit":"assimilator","mTime":242,"mCount":1},{"mUnit":"assimilator","mTime":249,"mCount":1},{"mText":"Transfer 7 probes to expansion","mUnit":"note","mTime":257,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":262,"mCount":1},{"mUnit":"cybernetics_core","mTime":285,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":288,"mCount":1}],"mName":"Forge Fast Expand","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-protoss/hots-pvz/pvz-ffe/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"ZERG",
 "mCreated":"2013-04-23 00:00:00",
 "mModified":"2013-04-23 00:00:00",
-"mNotes": "<html>
+"mIsoLanguageCode": "en",
+		"mNotes": "<html>
 <h2>General Overview</h2>
 
 <p>This is a very strong economical build that forces your zerg opponent to either all-in and attempt to break your wall or macro up by taking a fast third.  Once securely on 2 bases, you can transition into any tech/all-in play of your choice.</p>
@@ -426,7 +432,8 @@ Benchmark: When you start your 2 Stalkers @4:25, you should have 1 Stalker and 2
 "forge","mUnit":"chrono_boost","mTime":483,"mCount":1},{"mText":"Warp in a proxy pylon","mUnit":"pylon","mTime":498,"mCount":1},{"mUnit":"gateway","mTime":513,"mCount":4},{"mTarget":"twilight_council","mUnit":"chrono_boost","mTime":524,"mCount":1},{"mTarget":"forge","mUnit":"chrono_boost","mTime":526,"mCount":1},{"mUnit":"dark_templar","mTime":553,"mCount":6},{"mUnit":"pylon","mTime":569,"mCount":1},{"mUnit":"stalker","mTime":574,"mCount":1},{"mUnit":"pylon","mTime":594,"mCount":1},{"mUnit":"stalker","mTime":604,"mCount":9},{"mTarget":"forge","mUnit":"chrono_boost","mTime":614,"mCount":1},{"mTarget":"warp_gate_structure","mUnit":"chrono_boost","mTime":617,"mCount":1},{"mTarget":"warp_gate_structure","mUnit":"chrono_boost","mTime":618,"mCount":1},{"mTarget":"warp_gate_structure","mUnit":"chrono_boost","mTime":618,"mCount":1},{"mUnit":"stalker","mTime":631,"mCount":8}],"mName":"Twilight All-In","mSource":"\u003ca href\u003d\"http://www.gosubuilds.com/hots-protoss/hots-pvz/pvz-twilight-all-in/\"\u003eGosuBuilds\u003c/a\u003e","mVsFaction":"ZERG",
 "mCreated":"2013-04-23 00:00:00",
 "mModified":"2013-04-23 00:00:00",
-"mNotes": "<html>
+"mIsoLanguageCode": "en",
+	"mNotes": "<html>
 <h2>General Overview</h2>
 
 <p>This build gets a super fast two base economy and then utilizes everything the Twilight Council has to offer in order to all-in your opponent.  This two base all-in gets +2 attack, DTs, and mass blink stalkers to crush your opponent before the late game.</p>
@@ -502,7 +509,8 @@ Benchmark: When you start your 2 Stalkers @4:25, you should have 1 Stalker and 2
 "mTime":332,"mCount":1},{"mUnit":"gateway","mTime":347,"mCount":1},{"mUnit":"warp_prism","mTime":366,"mCount":1},{"mTarget":"robotics_facility","mUnit":"chrono_boost","mTime":368,"mCount":1},{"mUnit":"pylon","mTime":392,"mCount":1},{"mUnit":"sentry","mTime":417,"mCount":2},{"mUnit":"sentry","mTime":424,"mCount":1},{"mUnit":"gateway","mTime":437,"mCount":2},{"mUnit":"pylon","mTime":444,"mCount":1},{"mUnit":"pylon","mTime":459,"mCount":1},{"mUnit":"observer","mTime":473,"mCount":1},{"mTarget":"robotics_facility","mUnit":"chrono_boost","mTime":473,"mCount":1}],"mName":"HuK\u0027s 5 Gate Warp Prism Attack","mSource":"<a href=\"http://www.gosubuilds.com/hots-protoss/hots-pvt/pvt-huks-5gate-warp-prism-attack/\">GosuBuilds</a>","mVsFaction":"TERRAN",
 "mCreated":"2013-05-09 00:00:00",
 "mModified":"2013-05-09 00:00:00",
-"mNotes":"<html>
+"mIsoLanguageCode": "en",
+	"mNotes":"<html>
 <h2>General Overview</h2>
 <p>This build opens with 2 Stalkers and a Mothership Core to take map control, and then follows up with a Warp Prism and 5 Gateways to drop the main of your opponent and force field him out of his own base.</p>
 <h2>Build Order</h2>
@@ -558,7 +566,8 @@ Benchmark: When you start your 2 Stalkers @4:25, you should have 1 Stalker and 2
 </html>"},
 {"mCreated":"2013-06-28 22:16:38","mExpansion":"HOTS","mFaction":"PROTOSS","mItems":[{"mUnit":"probe","mTime":1,"mCount":1},{"mUnit":"probe","mTime":17,"mCount":1},{"mUnit":"probe","mTime":30,"mCount":1},{"mUnit":"pylon","mTime":48,"mCount":1},{"mUnit":"probe","mTime":57,"mCount":1},{"mUnit":"probe","mTime":64,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":73,"mCount":1},{"mUnit":"probe","mTime":74,"mCount":1},{"mUnit":"probe","mTime":81,"mCount":1},{"mUnit":"probe","mTime":91,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":93,"mCount":1},{"mUnit":"gateway","mTime":101,"mCount":1},{"mUnit":"probe","mTime":107,"mCount":1},{"mUnit":"probe","mTime":115,"mCount":1},{"mUnit":"assimilator","mTime":123,"mCount":1},{"mUnit":"assimilator","mTime":130,"mCount":1},{"mUnit":"probe","mTime":138,"mCount":1},{"mUnit":"pylon","mTime":147,"mCount":1},{"mUnit":"probe","mTime":154,"mCount":1},{"mUnit":"cybernetics_core","mTime":169,"mCount":1},{"mUnit":"probe","mTime":175,"mCount":1},
 {"mUnit":"gateway","mTime":191,"mCount":1},{"mUnit":"probe","mTime":200,"mCount":1},{"mUnit":"probe","mTime":210,"mCount":1},{"mUnit":"warp_gate","mTime":221,"mCount":1},{"mUnit":"mothership_core","mTime":232,"mCount":1},{"mUnit":"pylon","mTime":241,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":248,"mCount":1},{"mUnit":"stalker","mTime":258,"mCount":1},{"mTarget":"gateway","mUnit":"chrono_boost","mTime":259,"mCount":1},{"mUnit":"probe","mTime":260,"mCount":1},{"mUnit":"stalker","mTime":267,"mCount":1},{"mTarget":"gateway","mUnit":"chrono_boost","mTime":268,"mCount":1},{"mUnit":"probe","mTime":278,"mCount":1},{"mTarget":"gateway","mUnit":"chrono_boost","mTime":285,"mCount":1},{"mUnit":"stalker","mTime":286,"mCount":1},{"mUnit":"stalker","mTime":297,"mCount":1},{"mUnit":"probe","mTime":309,"mCount":1},{"mUnit":"pylon","mTime":314,"mCount":1},{"mUnit":"stargate","mTime":328,"mCount":1},{"mUnit":"probe","mTime":359,"mCount":1},{"mTarget":"nexus","mUnit":"chrono_boost","mTime":363,"mCount":1},
-{"mUnit":"probe","mTime":366,"mCount":1},{"mUnit":"nexus","mTime":378,"mCount":1},{"mUnit":"phoenix","mTime":395,"mCount":1},{"mTarget":"stargate","mUnit":"chrono_boost","mTime":396,"mCount":1},{"mUnit":"probe","mTime":397,"mCount":1},{"mUnit":"pylon","mTime":403,"mCount":1},{"mUnit":"probe","mTime":408,"mCount":1},{"mUnit":"phoenix","mTime":421,"mCount":1},{"mUnit":"phoenix","mTime":422,"mCount":1},{"mUnit":"probe","mTime":429,"mCount":1},{"mTarget":"stargate","mUnit":"chrono_boost","mTime":430,"mCount":1},{"mUnit":"probe","mTime":434,"mCount":1},{"mUnit":"phoenix","mTime":443,"mCount":1}],"mModified":"2013-06-28 22:16:38","mName":"Hwangsin’s Stargate Expand","mNotes":"\u003ch2\u003eGeneral Overview\u003c/h2\u003e\n\n\u003cp\u003eThis build opens with 5 Stalkers to apply pressure to your opponent and scout for what they’re opening.  It then follows up with a Stargate and expand so as to reactively counter your opponent’s tech.\u003c/p\u003e\n\u003ch2\u003eBuild Order\u003c/h2\u003e\n\n\u003cp\u003e\u003cb\u003eNOTE:\u003c/b\u003e This is one of the few builds on GosuBuilds that does not have constant Probe production.  You are so tight on minerals in the early game that you cannot afford constant Probe production.  The supply counts of this build written below are accurate, but spots where the build cuts a Probe for several seconds will NOT be noted, so this build might not make much sense if you are merely reading.  I HIGHLY suggest you to watch the Tutorial Replay below to get a better grasp of this build than mere numbers can give you.\u003c/p\u003e\n\n    \u003cp\u003e9 – Pylon\u003cbr /\u003e\n    13 – Gateway\u003cbr /\u003e\n    15 – Assimilator (x2)\u003cbr /\u003e\n    16 – Pylon\u003cbr /\u003e\n    17 – @100% Gateway, start Cybernetics Core and put 2 Probes in each Assimilator (for a total of 4 in gas)\u003cbr /\u003e\n    18 – 2nd Gateway\u003cbr /\u003e\n    20 – @100% Cybernetics Core, start Warpgate Research and Stalker and put 1 more Probe in each Assimilator (for a total of 6 in gas)\u003cbr /\u003e\n   
+{"mUnit":"probe","mTime":366,"mCount":1},{"mUnit":"nexus","mTime":378,"mCount":1},{"mUnit":"phoenix","mTime":395,"mCount":1},{"mTarget":"stargate","mUnit":"chrono_boost","mTime":396,"mCount":1},{"mUnit":"probe","mTime":397,"mCount":1},{"mUnit":"pylon","mTime":403,"mCount":1},{"mUnit":"probe","mTime":408,"mCount":1},{"mUnit":"phoenix","mTime":421,"mCount":1},{"mUnit":"phoenix","mTime":422,"mCount":1},{"mUnit":"probe","mTime":429,"mCount":1},{"mTarget":"stargate","mUnit":"chrono_boost","mTime":430,"mCount":1},{"mUnit":"probe","mTime":434,"mCount":1},{"mUnit":"phoenix","mTime":443,"mCount":1}],"mModified":"2013-06-28 22:16:38","mName":"Hwangsin’s Stargate Expand","mIsoLanguageCode": "en",
+	"mNotes":"\u003ch2\u003eGeneral Overview\u003c/h2\u003e\n\n\u003cp\u003eThis build opens with 5 Stalkers to apply pressure to your opponent and scout for what they’re opening.  It then follows up with a Stargate and expand so as to reactively counter your opponent’s tech.\u003c/p\u003e\n\u003ch2\u003eBuild Order\u003c/h2\u003e\n\n\u003cp\u003e\u003cb\u003eNOTE:\u003c/b\u003e This is one of the few builds on GosuBuilds that does not have constant Probe production.  You are so tight on minerals in the early game that you cannot afford constant Probe production.  The supply counts of this build written below are accurate, but spots where the build cuts a Probe for several seconds will NOT be noted, so this build might not make much sense if you are merely reading.  I HIGHLY suggest you to watch the Tutorial Replay below to get a better grasp of this build than mere numbers can give you.\u003c/p\u003e\n\n    \u003cp\u003e9 – Pylon\u003cbr /\u003e\n    13 – Gateway\u003cbr /\u003e\n    15 – Assimilator (x2)\u003cbr /\u003e\n    16 – Pylon\u003cbr /\u003e\n    17 – @100% Gateway, start Cybernetics Core and put 2 Probes in each Assimilator (for a total of 4 in gas)\u003cbr /\u003e\n    18 – 2nd Gateway\u003cbr /\u003e\n    20 – @100% Cybernetics Core, start Warpgate Research and Stalker and put 1 more Probe in each Assimilator (for a total of 6 in gas)\u003cbr /\u003e\n
  22 – @100 Gas, start Mothership Core\u003cbr /\u003e\n    24 – Pylon\u003cbr /\u003e\n    24 – @100% 2nd Gateway, start 2 more Stalkers\u003cbr /\u003e\n    @100% 2nd and 3rd Stalkers, start 2 more Stalkers\u003cbr /\u003e\n    @150 Gas, start Stargate\u003cbr /\u003e\n    @400 Mins, start Nexus\u003cbr /\u003e\n    @100% Stargate, start Oracle or Phoenix, depending on scouting info\u003cbr /\u003e\n    \u003cb\u003eBenchmark:\u003c/b\u003e When you Stargate finishes (@6:30ish), you should have 24 Probes, 5 Stalkers, and a Mothership Core\u003c/p\u003e\n\n\u003ch2\u003eScouting\u003c/h2\u003e\n\n\u003cp\u003eBecause of how low on minerals you are, you cannot afford to Probe scout. Thus, all of your scouting comes from your Stalkers.\u003c/p\u003e\n\n\u003cp\u003eBeing active with your initial 3 Stalkers around your natural, third, and watchtower will prevent your opponent from sneaking proxy Pylons past you and warping in near your base.  Also, with your mobile army, you can head directly at your opponent 
 in order to scout what units they have made and even attack them if they are attempting to expand quickly.  Your 5 Stalkers (with high ground vision from your Mothership Core) must scout what your opponent is doing, so that you can react accordingly with your Stargate in the midgame.\u003c/p\u003e\n\n    \u003cp\u003e- If your opponent is expanding quickly, then produce an Oracle from your Stargate and attempt to pressure the front with your Stalkers as your Oracle does damage in the main.\u003cbr /\u003e\n    - If your opponent has multiple Sentries out, then attempt to bust up the ramp with your Stalkers to force him to use Force Fields to defend his ramp.\u003cbr /\u003e\n        -- The most likely scenario is that your opponent is making a Robotics Facility behind their Sentry count.\u003cbr /\u003e\n        -- However, it is also possible that your opponent is making a Stargate instead.\u003cbr /\u003e\n    - If your opponent has a Robotics Facility, then make an Oracle or two and keep them in their 
 base by threatening to kill multiple workers if they leave.\u003cbr /\u003e\n    - If your opponent has a Stargate of their own, make constant Phoenix and position your units very defensively to deal with early Oracles.\u003cbr /\u003e\n    - If your opponent has a Twilight Council, then make one Oracle to stay defensive with in case of DTs.\u003cbr /\u003e\n       -- Afterwards, you can make up to 3-4 Phoenix for map control and harass potential, but quickly transition into Void Ray/Immortal to stay safe against Blink play.\u003cbr /\u003e\u003c/p\u003e\n\n\u003ch2\u003eTransitions\u003c/h2\u003e\n\n\u003cp\u003eThis build transitions into a macro game very easily.  However, the actual unit composition of that macro game very often depends completely on what build your opponent has chosen to open with.  If your opponent stays on one base for too long, then throw down more Gateways, constantly make units, and prepare to defend your natural with Void Rays, Stalkers, (possibly Immortals), and your Planetary 

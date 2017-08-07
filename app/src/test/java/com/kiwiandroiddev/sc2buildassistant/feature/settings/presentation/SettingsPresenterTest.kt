@@ -66,6 +66,13 @@ internal class SettingsPresenterTest {
     }
 
     @Test
+    fun projectPageSelected_opensProjectPageUrl() {
+        presenter.projectPageSelected()
+
+        verify(mockNavigator).openProjectPage()
+    }
+
+    @Test
     fun resetDatabaseSelected_confirmResetDatabaseShownInView() {
         presenter.attachView(mockView)
 

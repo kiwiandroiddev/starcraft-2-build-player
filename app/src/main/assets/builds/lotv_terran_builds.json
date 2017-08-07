@@ -7,6 +7,7 @@
     "mExpansion": "LOTV",
     "mFaction": "TERRAN",
     "mVsFaction": "TERRAN",
+    "mIsoLanguageCode": "en",
     "mNotes": "<html><h2>General Overview</h2>
 
 <p>This fast expansion build uses a lot of scouting in order to stay safe against Reapers and Banshees, getting out enough Marines and the infrastructure needed to defend all sorts of aggression that early-game TvT can have.</p>
@@ -242,6 +243,7 @@ Benchmark: When your Raven pops (@3:50ish), you should have 26 SCVs, 5 Marines, 
     "mExpansion": "LOTV",
     "mFaction": "TERRAN",
     "mVsFaction": "ZERG",
+    "mIsoLanguageCode": "en",
     "mNotes": "<html><h2>General Overview</h2>
 
 <p>This Reaper FE build takes your economy immediately into the midgame while still hitting an early 5 minute Marine Hellbat timing to punish a greedy Zerg.</p>

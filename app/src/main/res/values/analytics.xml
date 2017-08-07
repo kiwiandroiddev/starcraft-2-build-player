@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <!--Replace placeholder ID with your tracking ID-->
-  <string name="ga_trackingId">UA-39895435-1</string>
+  <string name="ga_trackingId" translatable="false">UA-39895435-1</string>
 
   <!--Enable automatic activity tracking-->
   <bool name="ga_autoActivityTracking">true</bool>
@@ -10,14 +10,14 @@
   <bool name="ga_reportUncaughtExceptions">true</bool>
 
   <!-- screen names for reporting -->
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.MainActivity">Main</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity">Brief</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.PlaybackActivity">Playback</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity">Settings</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity">Edit Build</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity">Edit Build Item</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity">Unit Selector</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog">Insert Link Dialog</string>
-  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog">Preview Notes Dialog</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.MainActivity" translatable="false">Main</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.BriefActivity" translatable="false">Brief</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.PlaybackActivity" translatable="false">Playback</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.SettingsActivity" translatable="false">Settings</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildActivity" translatable="false">Edit Build</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.EditBuildItemActivity" translatable="false">Edit Build Item</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.UnitSelectorActivity" translatable="false">Unit Selector</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.InsertLinkDialog" translatable="false">Insert Link Dialog</string>
+  <string name="com.kiwiandroiddev.sc2buildassistant.activity.dialog.PreviewNotesDialog" translatable="false">Preview Notes Dialog</string>
 
 </resources>

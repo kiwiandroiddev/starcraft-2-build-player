@@ -74,6 +74,10 @@
             android:summary="@string/pref_translate_summary"
             android:title="@string/pref_translate_title" />
 
+        <Preference
+            android:key="pref_project_page"
+            android:title="@string/pref_project_page_title" />
+
         <SwitchPreference
             android:defaultValue="true"
             android:key="pref_tracking_enabled"

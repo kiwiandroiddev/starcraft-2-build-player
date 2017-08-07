@@ -380,7 +380,14 @@
 	<string name="build_row_vs_race_template">vs. %s</string>
     <string name="pref_worker_alerts_enabled_title">Alertas do trabalhador</string>
 	<string name="pref_worker_alerts_enabled_summary">Ativar alertas SCV, Probe e Drone</string>
+    <string name="translate_button">Traduzir</string>
+    <string name="brief_revert_translation_prompt">Traduzido de %s</string>
+    <string name="brief_translation_error_message">Algo deu errado</string>
+    <string name="brief_translation_loading">Carregando a tradução …</string>
+    <string name="brief_revert_translation_button_text">Reverter</string>
+    <string name="brief_translation_success_status_message">Traduzido de %s</string>
+    <string name="brief_translation_prompt_status_message">Traduzir esta ordem de compilação para %s?</string>
+	<string name="pref_project_page_title">Página do projeto Github</string>
 
-	
 
 </resources>

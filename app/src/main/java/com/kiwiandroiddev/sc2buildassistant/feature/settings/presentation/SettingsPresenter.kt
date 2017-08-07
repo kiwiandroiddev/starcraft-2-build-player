@@ -33,6 +33,10 @@ class SettingsPresenter(val resetDatabaseUseCase: ResetDatabaseUseCase,
         navigator.openTranslationPage()
     }
 
+    fun projectPageSelected() {
+        navigator.openProjectPage()
+    }
+
     fun resetDatabaseSelected() {
         view!!.showResetDatabaseConfirmation()
     }

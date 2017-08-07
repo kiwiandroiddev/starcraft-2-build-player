@@ -8,9 +8,12 @@ import com.google.analytics.tracking.android.GoogleAnalytics
 import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
 import com.kiwiandroiddev.sc2buildassistant.database.DbAdapter
-import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationComponent
-import com.kiwiandroiddev.sc2buildassistant.feature.di.ApplicationModule
-import com.kiwiandroiddev.sc2buildassistant.feature.di.DaggerApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.di.AndroidModule
+import com.kiwiandroiddev.sc2buildassistant.di.ApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.di.ApplicationModule
+import com.kiwiandroiddev.sc2buildassistant.di.DaggerApplicationComponent
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefActivity
+import com.kiwiandroiddev.sc2buildassistant.feature.brief.view.BriefViewModel
 import com.kiwiandroiddev.sc2buildassistant.feature.navigation.RegisteredActivityNavigator
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.domain.datainterface.ClearDatabaseAgent
 import com.kiwiandroiddev.sc2buildassistant.feature.settings.view.SettingsFragment
@@ -32,6 +35,7 @@ class MyApplication : Application(), ClearDatabaseAgent {
     private lateinit var graph: ApplicationComponent
 
     private var mDb: DbAdapter? = null
+
     override fun onCreate() {
         super.onCreate()
 
@@ -87,6 +91,7 @@ class MyApplication : Application(), ClearDatabaseAgent {
     private fun initDependencyInjection() {
         graph = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(app = this))
+                .androidModule(AndroidModule(this))
                 .build()
         graph.inject(this)
     }
@@ -95,19 +100,26 @@ class MyApplication : Application(), ClearDatabaseAgent {
         Dexter.initialize(this)
     }
 
-    val db: DbAdapter?
-        get() {
+    val db: DbAdapter
+        get() = synchronized(this) {
             if (mDb == null)
                 mDb = DbAdapter(applicationContext)
-            return mDb
+
+            mDb!!
         }
 
     fun inject(target: SettingsFragment) =
             graph.inject(target)
 
+    fun inject(target: BriefActivity) =
+            graph.inject(target)
+
+    fun inject(target: BriefViewModel) =
+            graph.inject(target)
+
     override fun clear(): Completable =
             Completable.fromAction {
-                db!!.clear()
+                db.clear()
                 JsonBuildService.notifyBuildProviderObservers(this)
             }
 

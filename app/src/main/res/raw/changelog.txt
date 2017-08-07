@@ -19,6 +19,11 @@
     </style>
   </head>
   <body>
+$ 2.7.0
+  % Version 2.7.0
+  _ 2017-08-07
+    * Auto-translate option for build orders added - powered by Google Translate
+    * Bug fixes and performance enhancements
 $ 2.6.6
   % Version 2.6.6
   _ 2017-06-4

@@ -337,10 +337,18 @@
 	<string name="gameitem_spore_crawler">Pełzacz zarodnikowy</string>
 	<string name="gameitem_swarm_host">Gospodarz roju</string>
 	
-	<string name="gameitem_ultralisk">Ultralisk </string>
+	<string name="gameitem_ultralisk">Ultralisk</string>
 	<string name="gameitem_ultralisk_cavern">Pieczara Ultralisków</string>
 	<string name="gameitem_ventral_sacs">Worki brzuszne</string>
 	<string name="gameitem_viper">Żmija</string>
-	<string name="gameitem_zergling">Zerling </string>
-	
+	<string name="gameitem_zergling">Zerling</string>
+    <string name="translate_button">Tłumaczyć</string>
+    <string name="brief_revert_translation_prompt">Przetłumacz z %s</string>
+    <string name="brief_translation_error_message">Coś poszło nie tak</string>
+    <string name="brief_translation_loading">Wczytywanie tłumaczenia …</string>
+    <string name="brief_revert_translation_button_text">Odwracać</string>
+    <string name="brief_translation_success_status_message">Przetłumacz z %s</string>
+    <string name="brief_translation_prompt_status_message">Przetłumacz ten porządek kompilacji na %s?</string>
+    <string name="pref_project_page_title">Strona projektu Github</string>
+
 </resources>

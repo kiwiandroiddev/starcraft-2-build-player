@@ -33,6 +33,7 @@
 	    { "mTime": 339, "mUnit": "cloak" },
 	    { "mTime": 344, "mUnit": "marine" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 
@@ -135,6 +136,7 @@ Queens lose to two Banshees so wait for Banshee (2) before attacking.</p>
 	    { "mTime": 477, "mUnit": "supply_depot" },
 	    { "mTime": 516, "mUnit": "medivac", "mCount": 2 }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>General Overview</h1>
 
@@ -240,6 +242,7 @@ Queens lose to two Banshees so wait for Banshee (2) before attacking.</p>
 	    { "mTime": 553, "mUnit": "marine", "mCount": 2 },
 	    { "mTime": 555, "mUnit": "thor" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>General Overview</h1>
 
@@ -306,6 +309,7 @@ Queens lose to two Banshees so wait for Banshee (2) before attacking.</p>
 	    { "mTime": 245, "mUnit": "marine" },
 	    { "mTime": 267, "mUnit": "factory" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>General Overview</h1>
 
@@ -400,6 +404,7 @@ Queens lose to two Banshees so wait for Banshee (2) before attacking.</p>
 	    { "mTime": 669, "mUnit": "tech_lab", "mTarget": "factory", "mCount": 2 },
 	    { "mTime": 675, "mUnit": "command_center" }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 
@@ -639,6 +644,7 @@ One Viking [2]<br />
 	    { "mTime": 263, "mUnit": "barracks", "mCount": 2 },
 	    { "mTime": 280, "mUnit": "refinery", "mCount": 2 }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>Overview</h1>
 <p>With a 1 Rax FE opening Terran's early game map presence is forfeit until either Stimpack finishes or Terran has enough Marines to overwhelm Stalkers at the front of the base; usually four Marines per Stalker. But, Terran is still weak to Warpgate-pressure until Stimpack or Marauders are finished.
@@ -753,6 +759,7 @@ One Viking [2]<br />
 	    { "mTime": 532, "mUnit": "supply_depot" },
 	    { "mTime": 539, "mUnit": "medivac", "mCount": 2 }
 	],
+	"mIsoLanguageCode": "en",
 	"mNotes": "
 <h1>General Overview</h1>
 
