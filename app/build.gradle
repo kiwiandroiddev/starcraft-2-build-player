@@ -10,8 +10,8 @@ repositories {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
         applicationId "com.kiwiandroiddev.sc2buildassistant"
@@ -68,20 +68,20 @@ kapt {
 }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
-    compile "com.android.support:support-v4:$supportLibVersion"
-    compile "com.android.support:design:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile("com.afollestad.material-dialogs:core:$materialDialogsVersion@aar") {
+    compile 'com.android.support:multidex:1.0.2'
+    compile "com.android.support:support-v4:$support_lib_version"
+    compile "com.android.support:design:$support_lib_version"
+    compile "com.android.support:recyclerview-v7:$support_lib_version"
+    compile("com.afollestad.material-dialogs:core:$material_dialogs_version@aar") {
         transitive = true
     }
     // Contains MaterialSimpleListAdapter
-    compile("com.afollestad.material-dialogs:commons:$materialDialogsVersion@aar") {
+    compile("com.afollestad.material-dialogs:commons:$material_dialogs_version@aar") {
         transitive = true
     }
     compile files('libs/libGoogleAnalyticsServices.jar')
-    compile "com.google.firebase:firebase-ads:$firebaseVersion"
-    compile "com.google.firebase:firebase-crash:$firebaseVersion"
+    compile "com.google.firebase:firebase-ads:$firebase_version"
+    compile "com.google.firebase:firebase-crash:$firebase_version"
 
     compile(
             "com.google.dagger:dagger:$dagger2_version",
@@ -90,22 +90,22 @@ dependencies {
             "io.reactivex.rxjava2:rxandroid:$rxandroid_version",
             'com.jakewharton.rxrelay2:rxrelay:2.0.0',
             'com.jakewharton.rxbinding2:rxbinding:2.0.0',
-            'com.jakewharton:butterknife:8.6.0',
-            'com.jakewharton.timber:timber:3.0.2',
+            "com.jakewharton:butterknife:$butterknife_version",
+            "com.jakewharton.timber:timber:$timber_version",
             "com.squareup.retrofit2:retrofit:$retrofit_version",
             "com.squareup.retrofit2:converter-gson:$retrofit_version",
             "com.squareup.retrofit2:converter-scalars:$retrofit_version",
             "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version",
             "com.squareup.okhttp3:okhttp:$okhttp_version",
             "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
-            'com.karumi:dexter:2.2.2'
+            "com.karumi:dexter:$dexter_version"
     )
 
     compile "android.arch.lifecycle:runtime:$arch_version"
     compile "android.arch.lifecycle:extensions:$arch_version"
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
 
-    kapt 'com.jakewharton:butterknife-compiler:8.6.0'
+    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
 
     provided "org.glassfish:javax.annotation:$java_annotation_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
