@@ -39,6 +39,13 @@
                 android:paddingRight="16dp"
                 android:paddingTop="8dp">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:srcCompat="@drawable/ic_translate_24dp" />
+
                 <TextView
                     android:id="@+id/brief_translation_bar_text"
                     android:layout_width="0dp"
@@ -46,9 +53,6 @@
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_translate_24dp"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/ic_translate_24dp"
                     android:gravity="center_vertical"
                     tools:text="Translate this build to English?" />
 

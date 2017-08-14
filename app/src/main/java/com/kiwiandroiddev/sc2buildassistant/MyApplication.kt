@@ -4,6 +4,7 @@ package com.kiwiandroiddev.sc2buildassistant
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.support.multidex.MultiDexApplication
 import com.google.analytics.tracking.android.GoogleAnalytics
 import com.google.analytics.tracking.android.Logger
 import com.karumi.dexter.Dexter
@@ -29,7 +30,7 @@ import javax.inject.Inject
 
  * @author matt
  */
-class MyApplication : Application(), ClearDatabaseAgent {
+class MyApplication : MultiDexApplication(), ClearDatabaseAgent {
     @Inject lateinit var registeredActivityNavigator: RegisteredActivityNavigator
 
     private lateinit var graph: ApplicationComponent

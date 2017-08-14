@@ -20,9 +20,10 @@
   </head>
   <body>
 $ 2.7.0
-  % Version 2.7.0
-  _ 2017-08-07
+  % Version 2.7.1
+  _ 2017-08-14
     * Auto-translate option for build orders added - powered by Google Translate
+    * Fixed crash with older devices when viewing a build order
     * Bug fixes and performance enhancements
 $ 2.6.6
   % Version 2.6.6
